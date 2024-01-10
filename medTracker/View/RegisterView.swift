@@ -87,17 +87,10 @@ struct RegisterView: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
                 .padding()
-                //.frame(width: UIScreen.main.bounds.width * 0.8, height: 50)
                 .frame(maxWidth: .infinity)
                 .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(10)
                 .shadow(radius: 5)
-                /*
-                .padding()
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.white)
-                .background(Color.accentColor)
-                .cornerRadius(10)*/
             }
             .keyboardToolbar()
             .onSubmit(authentication.submit)

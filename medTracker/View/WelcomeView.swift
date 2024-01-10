@@ -34,10 +34,6 @@ struct WelcomeView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 300)
                     }
-                    /*Text("¡Bienvenido a MedTracker!")
-                        .font(.largeTitle)
-                        .bold()
-                        .foregroundColor(Color(red: 28/255, green: 32/255, blue: 19/255))*/
                     NavigationLink {
                         LogInView()
                     } label: {

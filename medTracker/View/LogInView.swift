@@ -55,8 +55,8 @@ struct LogInView: View {
             }
             .alert(isPresented: $showErrorAlert) {
                 Alert(
-                    title: Text("LogIn Error"),
-                    message: Text("Password or email are invalid."),
+                    title: Text("Error al ingresar"),
+                    message: Text("El mail o la contraseña son incorrectos"),
                     dismissButton: .default(Text("OK"), action: {
                         // Reset the registrationErrorMessage to nil when dismissing the alert
                         authentication.signInErrorMessage = nil
