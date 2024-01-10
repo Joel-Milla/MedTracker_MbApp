@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCk2OgRlasuXk2zfOTIjNC2xoBELPvzFt0</string>
+	<string>AIzaSyBmsozDH7d_LfMP6yx4pvVHhCze9uKSUGQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>691109201439</string>
+	<string>109632163727</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>mx.tec.medTracker</string>
 	<key>PROJECT_ID</key>
-	<string>medtracker-ce967</string>
+	<string>medtracker-9131d</string>
 	<key>STORAGE_BUCKET</key>
-	<string>medtracker-ce967.appspot.com</string>
+	<string>medtracker-9131d.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:691109201439:ios:157ff578a782f469deb72a</string>
+	<string>1:109632163727:ios:4e646bb73332a8dd8145fa</string>
 </dict>
 </plist>
