@@ -25,7 +25,7 @@ struct UsageExample: View {
                         SymbolsPicker(selection: $icon, title: "Choose your symbol", autoDismiss: true)
                     }).padding()
                 
-                    
+                
             }
             .navigationTitle("SF Symbols Picker")
         }

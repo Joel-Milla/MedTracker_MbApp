@@ -52,7 +52,7 @@ public struct SymbolsPicker: View {
                             } label: {
                                 SymbolIcon(icon: icon, selection: $selection)
                             }
-
+                            
                         }.padding(.top, 5)
                     }
                 }
@@ -65,7 +65,7 @@ public struct SymbolsPicker: View {
                         } label: {
                             Image(systemName: "xmark.circle")
                         }
-
+                        
                     }
                 }
                 .padding(.vertical, 5)
@@ -86,7 +86,7 @@ public struct SymbolsPicker: View {
         }
         
     }
-
+    
 }
 
 struct symbolsPicker_Previews: PreviewProvider {
