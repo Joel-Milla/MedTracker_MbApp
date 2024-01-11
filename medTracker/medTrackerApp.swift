@@ -34,8 +34,8 @@ struct medTrackerApp: App {
                     .environmentObject(authentication)
                     .onAppear(perform: {
                         if !hasRequestedNotificationPermission {
-                               requestNotificationPermission()
-                               hasRequestedNotificationPermission = true
+                            requestNotificationPermission()
+                            hasRequestedNotificationPermission = true
                         }    
                     })
             }
