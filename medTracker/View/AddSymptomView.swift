@@ -220,8 +220,8 @@ struct AddSymptomView: View {
                     message: {
                         Text(mensajeAlerta)
                     }
-                        .buttonStyle(Button1MedTracker(backgroundColor: colorSymptom))
-                        .padding(.top, 50)
+                    .buttonStyle(Button1MedTracker(backgroundColor: colorSymptom))
+                    .padding(.top, 50)
                         Spacer()
                     }
                 }
@@ -242,7 +242,7 @@ struct AddSymptomView: View {
         }
         .background(Color("mainWhite"))
     }
-        
+    
     
     private func createSymptom() {
         // will wait until the createAction(symptom) finishes
@@ -265,27 +265,27 @@ struct AddSymptomView: View {
     }
     
     func hexString(from color: Color) -> String {
-            // Convert SwiftUI Color to UIColor
-            let uiColor = UIColor(color)
-
-            // Get the RGBA components
-            guard let components = uiColor.cgColor.components else {
-                return ""
-            }
-
-            let red = Float(components[0])
-            let green = Float(components[1])
-            let blue = Float(components[2])
-
-            // Convert the components to HEX
-            let hexString = String(
-                format: "#%02lX%02lX%02lX",
-                lroundf(red * 255),
-                lroundf(green * 255),
-                lroundf(blue * 255)
-            )
-
-            return hexString
+        // Convert SwiftUI Color to UIColor
+        let uiColor = UIColor(color)
+        
+        // Get the RGBA components
+        guard let components = uiColor.cgColor.components else {
+            return ""
+        }
+        
+        let red = Float(components[0])
+        let green = Float(components[1])
+        let blue = Float(components[2])
+        
+        // Convert the components to HEX
+        let hexString = String(
+            format: "#%02lX%02lX%02lX",
+            lroundf(red * 255),
+            lroundf(green * 255),
+            lroundf(blue * 255)
+        )
+        
+        return hexString
     }
 }
 

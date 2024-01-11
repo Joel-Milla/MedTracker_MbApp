@@ -31,11 +31,11 @@ struct RegisterSymptomView: View {
     let createAction: CreateAction
     
     let dateRange: ClosedRange<Date> = {
-            let calendar = Calendar.current
-            let start = calendar.date(byAdding: .month, value: -6, to: Date())!
-            let end = Date()
-            return start...end
-        }()
+        let calendar = Calendar.current
+        let start = calendar.date(byAdding: .month, value: -6, to: Date())!
+        let end = Date()
+        return start...end
+    }()
     
     
     var body: some View {
@@ -92,7 +92,7 @@ struct RegisterSymptomView: View {
                                 .padding()
                             }
                         }
-                            
+                        
                         //Spacer()
                         TextEditor(text: self.$notes) // usar geomtery reader
                             .foregroundColor(self.notes == notes ? .gray : .primary)
@@ -164,15 +164,15 @@ struct RegisterSymptomView: View {
                                 } else {
                                     nuevaNotificacion = true
                                 }
-
+                                
                             } label: {
                                 Image(systemName: notificacionesActivas ? "bell.fill" : "bell.slash")
                             }
                             
                         }
                     }
-
-
+                    
+                    
                 }
             }
             .onAppear {
@@ -185,7 +185,7 @@ struct RegisterSymptomView: View {
         }
         .ignoresSafeArea(.keyboard)
     }
-        
+    
     
     private func createRegister() {
         // will wait until the createAction(symptom) finishes
@@ -303,7 +303,7 @@ extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
-        
+    
 }
 
 extension View {
@@ -319,7 +319,7 @@ struct OvalTextFieldStyle: TextFieldStyle {
         configuration
             .padding(10)
             .background((Color("mainWhite")))
-            
+        
         /*(LinearGradient(gradient: Gradient(colors: [Color.white, Color("blueGreen").opacity(0.6)]), startPoint: .topLeading, endPoint: .bottomTrailing))*/
             .cornerRadius(10)
             .frame(width: 150)

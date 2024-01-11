@@ -60,12 +60,12 @@ struct MainView: View {
                         .foregroundColor(currentTab == tab ? .white : .black)
                         .padding(currentTab == tab ? 15 : 0)
                         .background(
-                           ZStack {
+                            ZStack {
                                 if currentTab == tab {
                                     MaterialEffect(style: .light)
                                         .background(Color("blueGreen"))
                                         .clipShape(Circle())
-                                        //.matchedGeometryEffect(id: "TAB", in: animation)
+                                    //.matchedGeometryEffect(id: "TAB", in: animation)
                                 }
                             }
                         )

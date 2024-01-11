@@ -12,7 +12,7 @@ struct ActivityView: UIViewControllerRepresentable {
     let activityItems: [Any]
     let applicationActivities: [UIActivity]? = nil
     let onComplete: (Bool) -> Void
-
+    
     func makeUIViewController(context: Context) -> UIActivityViewController {
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
         controller.completionWithItemsHandler = { (_, completed, _, _) in
@@ -39,8 +39,8 @@ struct HomeView: View {
     @State private var muestraShare = false
     @State private var isHomeViewActive = true
     @State private var isNavigationViewActive = false
-
-
+    
+    
     //@State private var refreshID = UUID()
     
     
@@ -73,10 +73,10 @@ struct HomeView: View {
                                     NavigationLink{
                                         RegisterSymptomView(symptom: $listaDatos.symptoms[index], registers: registers, symptomList: listaDatos, sliderValue : .constant(0.155) ,createAction: registers.makeCreateAction())
                                     }
-                                    label: {
-                                        Celda(unDato : symptom)
-                                    }
-                                    .padding(10)
+                                label: {
+                                    Celda(unDato : symptom)
+                                }
+                                .padding(10)
                                     //                                .padding(10)
                                     
                                 }
@@ -99,22 +99,22 @@ struct HomeView: View {
                             }
                         }
                     },
-                alignment: .bottomTrailing)
+                    alignment: .bottomTrailing)
                 .navigationTitle("Datos de salud")
                 .overlay(
                     Group{
                         if listaDatos.state == .complete || listaDatos.state == .isLoading {
                             GeometryReader { geometry in
-                                        Image("logoP")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: geometry.size.width * 0.4, height: geometry.size.height * 0.2)
-                                            .position(x: geometry.size.width * 0.24, y: geometry.size.height * -0.1)
-                                    }
+                                Image("logoP")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: geometry.size.width * 0.4, height: geometry.size.height * 0.2)
+                                    .position(x: geometry.size.width * 0.24, y: geometry.size.height * -0.1)
+                            }
                         }
                     },
-                         alignment: .topTrailing)
-                        
+                    alignment: .topTrailing)
+                
                 .toolbar {
                     // Button to traverse to EditSymptomView.
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -150,7 +150,7 @@ struct HomeView: View {
                     })
                 }
             }
-//            }
+            //            }
             
         }
     }
@@ -168,10 +168,10 @@ struct HomeView: View {
                 csvText.append(contentsOf: newLine)
             }
         }
-
+        
         do {
             try csvText.write(to: path, atomically: true, encoding: String.Encoding.utf8)
-
+            
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 if let rootViewController = windowScene.windows.first?.rootViewController {
                     let activityVC = UIActivityViewController(activityItems: [path], applicationActivities: nil)
@@ -193,27 +193,27 @@ struct HomeView: View {
     @ObservedObject var listaDatos = SymptomList()
     return listaDatos.returnActive(id: register.idSymptom)
 }
+
+// Struct to show the respective icon for each symptom.
+struct Celda: View {
+    var unDato : Symptom
     
-    // Struct to show the respective icon for each symptom.
-    struct Celda: View {
-        var unDato : Symptom
-        
-        var body: some View {
-            HStack {
-                Image(systemName: unDato.icon)
-                    .foregroundColor(Color(hex: unDato.color))
-                VStack(alignment: .leading) {
-                    Text(unDato.nombre)
-                        .font(.title2)
-                    
-                }
+    var body: some View {
+        HStack {
+            Image(systemName: unDato.icon)
+                .foregroundColor(Color(hex: unDato.color))
+            VStack(alignment: .leading) {
+                Text(unDato.nombre)
+                    .font(.title2)
+                
             }
         }
     }
-    
-    struct pagInicio_Previews: PreviewProvider {
-        static var previews: some View {
-            HomeView(listaDatos: SymptomList(), registers: RegisterList())
-        }
+}
+
+struct pagInicio_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView(listaDatos: SymptomList(), registers: RegisterList())
     }
+}
 
