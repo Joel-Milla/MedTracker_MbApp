@@ -14,12 +14,13 @@ import Foundation
 class PatientList : ObservableObject {
     @Published var patients = [Patient]()
     @Published var state: State = .isLoading //State of the patients array
-    let repository = Repository() // Variable to call the functions inside the repository
+    let repository: Repository // Variable to call the functions inside the repository
     
     /**********************
      Important initialization methods
      **********************************/
-    init() {
+    init(repository: Repository) {
+        self.repository = repository
         //Fetch patients, so it loads every time
         fetchPatients()
     }

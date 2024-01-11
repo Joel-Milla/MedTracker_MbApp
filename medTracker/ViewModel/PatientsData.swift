@@ -15,12 +15,13 @@ class PatientsData : ObservableObject {
     @Published var symptoms = [Symptom]()
     @Published var registers = [Register]()
     @Published var state: State = .isLoading //State of the symptoms array
-    let repository = Repository() // Variable to call the functions inside the repository
+    let repository: Repository // Variable to call the functions inside the repository
     
     /**********************
      Important initialization methods
      **********************************/
-    init(email: String) {
+    init(email: String, repository: Repository) {
+        self.repository = repository
         // Information to fetch data
         fetchPatientsData(email: email)
         

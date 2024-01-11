@@ -10,8 +10,8 @@ import FirebaseAuth
 
 struct MainDoctorView: View {
     @EnvironmentObject var authentication: AuthViewModel
-    @StateObject var user = UserModel()
-    @StateObject var listaPacientes = PatientList()
+    @StateObject var user: UserModel
+    @StateObject var listaPacientes: PatientList
     
     var body: some View {
         NavigationStack {

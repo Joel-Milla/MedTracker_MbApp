@@ -18,13 +18,14 @@ class UserModel: ObservableObject {
             saveUserData()
         }
     }
-    let repository = Repository() // Variable to call the functions inside the repository
+    let repository: Repository // Variable to call the functions inside the repository
     private let auth = Auth.auth()
     
     /**********************
      Important initialization methods
      **********************************/
-    init() {
+    init(repository: Repository) {
+        self.repository = repository
         if let datosRecuperados = try? Data.init(contentsOf: HelperFunctions.filePath("User.JSON")) {
             if let datosDecodificados = try? JSONDecoder().decode(User.self, from: datosRecuperados) {
                 user = datosDecodificados

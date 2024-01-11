@@ -15,38 +15,30 @@ import FirebaseFirestoreSwift
 
 struct Repository {
     // Variables to make the connection to firebase.
-    private var symptomReference: CollectionReference
-    private var doctorReference: CollectionReference
-    private var registerReference: CollectionReference
     private var userReference = Firestore.firestore().collection("Users")
-    
-    private var email: String
+    private var doctorReference = Firestore.firestore().collection("Doctors")
+    let user: User
+
+    // Variables that hold the reference to the collections inside the user.
+    private var symptomReference: CollectionReference {
+        let userDocument = userReference.document(user.id)
+        return userDocument.collection("symptoms")
+    }
+    private var registerReference: CollectionReference {
+        let userDocument = userReference.document(user.id)
+        return userDocument.collection("registers")
+    }
     
     /**********************
      Important initialization methods
      **********************************/
-    init() {
-        email = Repository.getEmail()
-        // Assuming you want to append the email to the collection name
-        symptomReference = Firestore.firestore().collection("symptoms_\(email)")
-        doctorReference = Firestore.firestore().collection("doctor_\(email)")
-        registerReference = Firestore.firestore().collection("registers_\(email)")
+    init(user: User) {
+        self.user = user
     }
     
     /**********************
      Helper functions
      **********************************/
-    
-    // Function to get the email of the current user.
-    static func getEmail() -> String {
-        if let email = try? Data.init(contentsOf: HelperFunctions.filePath("email.JSON")) {
-            if let email = try? JSONDecoder().decode(String.self, from: email) {
-                return email
-            }
-        }
-        return ""
-    }
-    
     // Function to write a symptom in database.
     func createSymptom(_ symptom: Symptom) async throws {
         let document = symptomReference.document(String(symptom.id))
@@ -83,17 +75,13 @@ struct Repository {
     
     // Function to write a user in database.
     func createUser(_ user: User) async throws {
-        let document = userReference.document(email)
+        let document = userReference.document(user.id)
         try await document.setData(from: user)
     }
     
     // Functin to obtain the user info that exist on database.
     func fetchUser() async throws -> User {
-        guard !email.isEmpty else {
-            throw NSError(domain: "InvalidEmailError", code: 1002, userInfo: [NSLocalizedDescriptionKey: "Email is empty"])
-        }
-        
-        let documentReference = userReference.document(email)
+        let documentReference = userReference.document(user.id)
         let documentSnapshot = try await documentReference.getDocument()
         
         // Try to decode the document data into a User object
@@ -108,11 +96,12 @@ struct Repository {
     
     // Function to write own name as a document in doctors collection
     func writePatient(_ docEmail: String, _ user: User) async throws {
-        let doctorReference = Firestore.firestore().collection("doctor_\(docEmail)")
-        let document = doctorReference.document(email)
+        let doctorData = doctorReference.document(docEmail)
+        let patientReference = doctorData.collection("patients")
+        let document = patientReference.document(user.id)
         try await document.setData([
             "name": user.nombreCompleto,
-            "email": email
+            "email": "test_mail"
         ])
     }
     
@@ -150,9 +139,11 @@ struct Repository {
     }
     
     // Delete an email from the doctor
-    func delete(_ emailDoc: String) async throws {
-        let collection = Firestore.firestore().collection("doctor_\(emailDoc)")
-        let document = collection.document(email)
+    func delete(_ docEmail: String) async throws {
+        let doctorData = doctorReference.document(docEmail)
+        let patientReference = doctorData.collection("patients")
+        let collection = Firestore.firestore().collection("doctor_\(docEmail)")
+        let document = collection.document(user.id)
         try await document.delete()
     }
 }

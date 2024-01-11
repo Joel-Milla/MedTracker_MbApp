@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var symptoms = SymptomList()
-    @StateObject var registers = RegisterList()
+    @StateObject var symptoms: SymptomList
+    @StateObject var registers: RegisterList
     @State private var muestraEditarSintomas = false
-    @StateObject var user = UserModel()
+    @StateObject var user: UserModel
     @State var currentTab: Tab = .Inicio
     
-    init() {
-        UITabBar.appearance().isHidden = true
-    }
+//    init() {
+//        UITabBar.appearance().isHidden = true
+//    }
     
     @Namespace var animation
     var body: some View {
@@ -81,12 +81,6 @@ struct MainView: View {
             })
         }
         .frame(height: 25)
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
     }
 }
 

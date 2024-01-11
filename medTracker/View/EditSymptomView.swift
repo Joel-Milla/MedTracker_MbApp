@@ -69,11 +69,3 @@ struct EditSymptomView: View {
         }
     }
 }
-
-
-
-struct editarLista_Previews: PreviewProvider {
-    static var previews: some View {
-        EditSymptomView(listaDatos: SymptomList())
-    }
-}

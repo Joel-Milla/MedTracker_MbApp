@@ -17,12 +17,13 @@ class RegisterList : ObservableObject {
             HelperFunctions.write(self.registers, inPath: "Registers.JSON")
         }
     }
-    let repository = Repository()
+    let repository: Repository
     
     /**********************
      Important initialization method
      **********************************/
-    init() {
+    init(repository: Repository) {
+        self.repository = repository
         if let datosRecuperados = try? Data.init(contentsOf: HelperFunctions.filePath("Registers.JSON")) {
             if let datosDecodificados = try? JSONDecoder().decode([Register].self, from: datosRecuperados) {
                 registers = datosDecodificados

@@ -20,12 +20,13 @@ class SymptomList : ObservableObject {
         }
     }
     @Published var state: State = .isLoading //State of the symptoms array
-    let repository = Repository() // Variable to call the functions inside the repository
+    let repository: Repository // Variable to call the functions inside the repository
     
     /**********************
      Important initialization methods
      **********************************/
-    init() {
+    init(repository: Repository) {
+        self.repository = repository
         if let datosRecuperados = try? Data.init(contentsOf: HelperFunctions.filePath("Symptoms.JSON")) {
             if let datosDecodificados = try? JSONDecoder().decode([Symptom].self, from: datosRecuperados) {
                 symptoms = datosDecodificados

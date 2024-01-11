@@ -21,11 +21,25 @@ struct medTrackerApp: App {
         WindowGroup {
             if authentication.isAuthenticated {
                 if authentication.userRole == "Paciente" {
-                    MainView()
+                    if let symptomList = authentication.makeSymptomList(),
+                       let registersList = authentication.makeRegisterList(),
+                       let userModel = authentication.makeUserModel() {
+                        MainView(
+                            symptoms: symptomList, registers: registersList, user: userModel
+                        )
                         .environmentObject(authentication)
+                    } else {
+                        Text("Didn't work")
+                    }
                 } else if authentication.userRole == "Doctor" {
-                    MainDoctorView()
+                    if let symptomList = authentication.makeSymptomList(),
+                       let registersList = authentication.makeRegisterList(),
+                       let userModel = authentication.makeUserModel() {
+                        MainDoctorView(user: UserModel, listaPacientes: <#T##PatientList#>)
                         .environmentObject(authentication)
+                    } else {
+                        Text("Didn't work")
+                    }
                 } else {
                     ProgressView()
                 }

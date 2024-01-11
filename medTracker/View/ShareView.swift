@@ -69,11 +69,7 @@ struct ShareView: View {
     return csvInfo
 }
 
-struct share_Previews: PreviewProvider {
-    static var previews: some View {
-        ShareView(listaDatos: SymptomList(), registers: RegisterList())
-    }
-}
+
 struct ShareInfo{
     
 }

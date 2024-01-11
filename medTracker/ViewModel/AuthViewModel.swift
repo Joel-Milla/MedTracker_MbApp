@@ -126,7 +126,27 @@ class AuthViewModel: ObservableObject {
             print("Entro al if antes del json para escribir el role")
         }
     }
+    // returns a closure of a form to sign in
+    func makeSymptomList() -> SymptomList? {
+        guard let user = user else {
+            return nil
+        }
+        return SymptomList(repository: Repository(user: user))
+    }
     
+    func makeRegisterList() -> RegisterList? {
+        guard let user = user else {
+            return nil
+        }
+        return RegisterList(repository: Repository(user: user))
+    }
+    
+    func makeUserModel() -> UserModel? {
+        guard let user = user else {
+            return nil
+        }
+        return UserModel(repository: Repository(user: user))
+    }
     
     // returns a closure of a form to sign in
     func makeSignInViewModel() -> SignInViewModel {
