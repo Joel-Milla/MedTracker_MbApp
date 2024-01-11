@@ -9,16 +9,6 @@
 import Foundation
 import SwiftUI
 
-//struct Button1MedTracker : View{
-//    let btnText : String
-//    var body : some View{
-//        Button(btnText) {
-//            print("Button pressed!")
-//        }
-//        .buttonStyle(Button1Style())
-//    }
-//}
-
 struct Button1MedTracker : ButtonStyle{
     var backgroundColor: Color
 
