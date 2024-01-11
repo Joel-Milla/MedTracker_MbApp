@@ -34,7 +34,7 @@ struct MainDoctorView: View {
                             } label: {
                                 rowPatient(patient: patient)
                             }
-
+                            
                         }
                     }
                 }
@@ -43,9 +43,9 @@ struct MainDoctorView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     NavigationLink {
                         /*Button("Sign Out"){
-                            authentication.signOut()
-                        }
-                        .foregroundColor(Color.red)*/
+                         authentication.signOut()
+                         }
+                         .foregroundColor(Color.red)*/
                         DoctorProfileView(user: user, createAction: user.makeCreateAction())
                     } label: {
                         Image(systemName: "person.crop.circle")

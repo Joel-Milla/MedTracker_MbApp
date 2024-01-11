@@ -213,8 +213,8 @@ struct AnalysisPatientView: View {
             }
         }
     }
-
-
+    
+    
     
     @ViewBuilder
     func ChartCuantitativa(filteredRegisters: [Register]) -> some View {
@@ -259,42 +259,42 @@ struct AnalysisPatientView: View {
         let registers = filteredRegisters.sorted { $0.fecha < $1.fecha }
         
         let yAxisLabels: [ImageYAxisLabel] = [
-                ImageYAxisLabel(id: 10, image: "sadder_face"),
-                ImageYAxisLabel(id: 30, image: "sad_face"),
-                ImageYAxisLabel(id: 50, image: "normal_face"),
-                ImageYAxisLabel(id: 70, image: "va_test"),
-                ImageYAxisLabel(id: 90, image: "happier_face")
-            ]
+            ImageYAxisLabel(id: 10, image: "sadder_face"),
+            ImageYAxisLabel(id: 30, image: "sad_face"),
+            ImageYAxisLabel(id: 50, image: "normal_face"),
+            ImageYAxisLabel(id: 70, image: "va_test"),
+            ImageYAxisLabel(id: 90, image: "happier_face")
+        ]
         
-            Chart {
-                ForEach(registers, id:\.self) { register in
-                    LineMark (
-                        x: .value("Día", register.fecha, unit: .day),
-                        y: .value("CANTIDAD", register.cantidad)
-                    )
-                    .foregroundStyle(Color(hex: symptom.color))
-                    .interpolationMethod(.catmullRom)
-
-                    AreaMark (
-                        x: .value("Día", register.fecha, unit: .day),
-                        yStart: .value("minY", 0),
-                        yEnd: .value("maxY", register.cantidad)
-                    )
-                    .foregroundStyle(Color(hex: symptom.color).opacity(0.1))
-                    .interpolationMethod(.catmullRom)
-                }
+        Chart {
+            ForEach(registers, id:\.self) { register in
+                LineMark (
+                    x: .value("Día", register.fecha, unit: .day),
+                    y: .value("CANTIDAD", register.cantidad)
+                )
+                .foregroundStyle(Color(hex: symptom.color))
+                .interpolationMethod(.catmullRom)
+                
+                AreaMark (
+                    x: .value("Día", register.fecha, unit: .day),
+                    yStart: .value("minY", 0),
+                    yEnd: .value("maxY", register.cantidad)
+                )
+                .foregroundStyle(Color(hex: symptom.color).opacity(0.1))
+                .interpolationMethod(.catmullRom)
             }
-            .chartYScale(domain: 0...100)
-            .chartYAxis {
-                AxisMarks(values: .automatic(desiredCount: 6))
-            }
-            .overlay(
-                customYAxisScale(yAxisLabels: yAxisLabels)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            )
-            .frame(height: 250)
-            .background(Color("mainWhite"))
         }
+        .chartYScale(domain: 0...100)
+        .chartYAxis {
+            AxisMarks(values: .automatic(desiredCount: 6))
+        }
+        .overlay(
+            customYAxisScale(yAxisLabels: yAxisLabels)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        )
+        .frame(height: 250)
+        .background(Color("mainWhite"))
+    }
     
     private func customYAxisScale(yAxisLabels: [ImageYAxisLabel]) -> some View {
         VStack(alignment: .leading, spacing: 0) {
