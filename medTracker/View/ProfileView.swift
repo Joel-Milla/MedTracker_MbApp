@@ -131,12 +131,6 @@ struct ProfileView: View {
                                 .background(Color("mainBlue"))
                                 .cornerRadius(8)
                         }
-                        /*NavigationLink {
-                         AddDoctorView(user: user)
-                         } label: {
-                         Text("Send Data to Doctor")
-                         .foregroundColor(Color.blue)
-                         }*/
                         
                         Button {
                             for (index,_) in symptoms.symptoms.enumerated() {

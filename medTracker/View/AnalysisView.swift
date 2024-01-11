@@ -155,10 +155,6 @@ struct AnalysisItemView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(.leading, 20)
-        /*.overlay {
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(colorSintoma)
-        }*/
         .onAppear() {
             registers = allRegisters
             currentTab = "Semana"
@@ -187,7 +183,6 @@ struct AnalysisItemView: View {
         let spm = operaciones(registers: registers)
         Text("Prom: \(spm[0].stringFormat)  Max: \(spm[1].stringFormat)  Min: \(spm[2].stringFormat)")
             .font(.system(size: 18).bold())
-        //.foregroundColor(Color(hex: symptom.color))
         
         let min = spm[2]*0.8
         let max = spm[1]*1.2
@@ -205,7 +200,6 @@ struct AnalysisItemView: View {
                     x: .value("Día", register.fecha, unit: .day),
                     yStart: .value("minY", min),
                     yEnd: .value("maxY", register.cantidad)
-                    //y: .range(min...register.cantidad)//register.animacion ? register.cantidad : 0)
                 )
                 .foregroundStyle(Color(hex: symptom.color).opacity(0.1))
                 .interpolationMethod(.catmullRom)

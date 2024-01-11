@@ -331,13 +331,3 @@ struct RegistroDatos1_Previews: PreviewProvider {
         RegisterSymptomView(symptom: .constant(Symptom(id: 0, nombre: "Prueba", icon: "star.fill", description: "", cuantitativo: true, unidades: "", activo: true, color: "#007AF", notificacion: "")), registers: RegisterList(), symptomList: SymptomList(), sliderValue: .constant(0.0), createAction: { _ in })
     }
 }
-
-/*
- NOTAS:
- No funciona bien el quitar el teclado
- si no hay nada, que salga una pantalla cuando quieres compartir algo ?
- Fechas: formatearlas y tambien asegurarse de que sea una fecha valida (hueva.com)
- Modos oscuros ?
- Vista de análisis se ve rara: el texto sale muy pegado pero si no hay nada no
- widgets
- */

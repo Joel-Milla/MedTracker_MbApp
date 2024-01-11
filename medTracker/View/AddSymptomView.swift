@@ -144,11 +144,6 @@ struct AddSymptomView: View {
                         //.foregroundColor(notificaciones ? colorSymptom)
                         .padding(.trailing, 20)
                         .font(.system(size: 18))
-                        /*.onChange(of: selectedFrequency) { newFrequency in
-                         if notificaciones {
-                         scheduleNotification(frecuencia: newFrequency, selectedDate: selectedDate, selectedDayOfWeek: selectedDayOfWeek)
-                         }
-                         }*/
                         
                         if selectedFrequency == "Todos los días" {
                             HStack{
@@ -210,11 +205,6 @@ struct AddSymptomView: View {
                                 var notificationIdentifier = ""
                                 if notificaciones {
                                     notificationIdentifier = scheduleNotification(frecuencia: selectedFrequency, selectedDate: selectedDate, selectedDayOfWeek: selectedDayOfWeek, nombreSintoma: nombreSintoma)
-                                    
-                                    // Actualiza el modelo con el identificador de la notificación
-                                    //if let lastIndex = symptoms.symptoms.indices.last {
-                                       //symptoms.symptoms[lastIndex].notificacion = notificationIdentifier
-                                    //}
                                 }
                                 let cuantitativo = selectedIndex == 0 ? true : false
                                 symptoms.symptoms.append(Symptom(id: newID, nombre: nombreSintoma, icon: icon, description: descripcion, cuantitativo: cuantitativo, unidades: "", activo: true, color: colorString, notificacion: notificationIdentifier))
@@ -308,12 +298,6 @@ extension Array where Element == Symptom {
         }
     }
 }
-
-/*extension UIApplication {
-    func endEditing() {
-        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-}*/
 
 struct newSymptom_Previews: PreviewProvider {
     static var previews: some View {

@@ -196,10 +196,6 @@ struct AnalysisPatientView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(.leading, 20)
-        /*.overlay {
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(colorSintoma)
-        }*/
         .onAppear() {
             registers = allRegisters
             currentTab = "Semana"

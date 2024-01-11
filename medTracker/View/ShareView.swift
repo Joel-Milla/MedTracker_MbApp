@@ -7,22 +7,6 @@
 
 import SwiftUI
 
-//struct ActivityView: UIViewControllerRepresentable {
-//    let activityItems: [Any]
-//    let applicationActivities: [UIActivity]? = nil
-//    let onComplete: (Bool) -> Void
-//
-//    func makeUIViewController(context: Context) -> UIActivityViewController {
-//        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
-//        controller.completionWithItemsHandler = { (_, completed, _, _) in
-//            onComplete(completed)
-//        }
-//        return controller
-//    }
-//    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
-//        // No es necesario actualizar el UIActivityViewController.
-//    }
-//}
 @MainActor
 struct ShareView: View {
     @ObservedObject var listaDatos : SymptomList
@@ -84,10 +68,6 @@ struct ShareView: View {
         }
         return csvInfo
     }
-//func getName(register : Register)->String{
-//    @ObservedObject var listaDatos = SymptomList()
-//    return listaDatos.returnName(id: register.idSymptom)
-//}
 
 struct share_Previews: PreviewProvider {
     static var previews: some View {

@@ -140,15 +140,8 @@ struct HomeView: View {
                     //ShareView(listaDatos: listaDatos, registers: registers)
                     EditSymptomView(listaDatos: listaDatos)
                 }
-//                .onChange(of: listaDatos.state) { newState in
-//                    // Update the isHomeViewActive based on the state of listaDatos
-//                    isHomeViewActive = newState != .complete
-//                }
                 .sheet(isPresented: $muestraAgregarSintomas, content: {
                     AddSymptomView(symptoms: listaDatos, createAction: listaDatos.makeCreateAction())
-                    /*.onChange(of: listaDatos.symptoms) { _ in
-                     refreshID = UUID()
-                     }*/
                 })
                 .sheet(isPresented: $isShowingActivityView) {
                     ActivityView(activityItems: activityItems, onComplete: { completed in
