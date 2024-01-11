@@ -21,11 +21,11 @@ struct Repository {
 
     // Variables that hold the reference to the collections inside the user.
     private var symptomReference: CollectionReference {
-        let userDocument = userReference.document(user.id)
+        let userDocument = userReference.document(user.email)
         return userDocument.collection("symptoms")
     }
     private var registerReference: CollectionReference {
-        let userDocument = userReference.document(user.id)
+        let userDocument = userReference.document(user.email)
         return userDocument.collection("registers")
     }
     
@@ -75,13 +75,13 @@ struct Repository {
     
     // Function to write a user in database.
     func createUser(_ user: User) async throws {
-        let document = userReference.document(user.id)
+        let document = userReference.document(user.email)
         try await document.setData(from: user)
     }
     
     // Functin to obtain the user info that exist on database.
     func fetchUser() async throws -> User {
-        let documentReference = userReference.document(user.id)
+        let documentReference = userReference.document(user.email)
         let documentSnapshot = try await documentReference.getDocument()
         
         // Try to decode the document data into a User object
@@ -98,7 +98,7 @@ struct Repository {
     func writePatient(_ docEmail: String, _ user: User) async throws {
         let doctorData = doctorReference.document(docEmail)
         let patientReference = doctorData.collection("patients")
-        let document = patientReference.document(user.id)
+        let document = patientReference.document(user.email)
         try await document.setData([
             "name": user.nombreCompleto,
             "email": "test_mail"
@@ -116,11 +116,12 @@ struct Repository {
     
     // Function to fetch all the symptoms in firebase of a patient.
     func fetchSymptomsPatient(_ email: String) async throws -> [Symptom] {
-        let collection = Firestore.firestore().collection("symptoms_\(email)")
-        let snapshot = try await collection
-            .order(by: "id", descending: false)
+        let userDocument = userReference.document(email)
+        let collectionSymptoms = userDocument.collection("symptoms")
+        let snapshot = try await collectionSymptoms
+            .order(by: "idSymptom", descending: false)
             .getDocuments()
-        // Convert the returning documents into the class Symptom
+        // Convert the returning documents into the class Register
         return snapshot.documents.compactMap { document in
             try! document.data(as: Symptom.self)
         }
@@ -128,8 +129,9 @@ struct Repository {
     
     // Functin to obtain the registers that exist on database of the patient.
     func fetchRegistersPatient(_ email: String) async throws -> [Register] {
-        let collection = Firestore.firestore().collection("registers_\(email)")
-        let snapshot = try await collection
+        let userDocument = userReference.document(email)
+        let collectionRegisters = userDocument.collection("registers")
+        let snapshot = try await collectionRegisters
             .order(by: "idSymptom", descending: false)
             .getDocuments()
         // Convert the returning documents into the class Register
@@ -142,8 +144,7 @@ struct Repository {
     func delete(_ docEmail: String) async throws {
         let doctorData = doctorReference.document(docEmail)
         let patientReference = doctorData.collection("patients")
-        let collection = Firestore.firestore().collection("doctor_\(docEmail)")
-        let document = collection.document(user.id)
+        let document = patientReference.document(user.email)
         try await document.delete()
     }
 }

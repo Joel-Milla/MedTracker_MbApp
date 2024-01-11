@@ -26,13 +26,14 @@ class UserModel: ObservableObject {
      **********************************/
     init(repository: Repository) {
         self.repository = repository
+        self.user = self.repository.user
         if let datosRecuperados = try? Data.init(contentsOf: HelperFunctions.filePath("User.JSON")) {
             if let datosDecodificados = try? JSONDecoder().decode(User.self, from: datosRecuperados) {
                 user = datosDecodificados
                 return
             }
         }
-        //If there is no info in JSON, fetdh
+        //If there is no info in JSON, fetch
         fetchUser()
     }
     
