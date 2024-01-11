@@ -28,7 +28,29 @@ class AuthViewModel: ObservableObject {
         }
     }
     @Published var password = ""
-    @Published var userRole: String = ""
+
+    var userRole: String  {
+        guard let userRol = user?.rol else {
+            print("[AuthViewModel] Error: User role not found")
+            return "Unkown role"
+        }
+        return userRol
+    }
+    var userId: String  {
+        guard let userId = user?.id else {
+            print("[AuthViewModel] Error: Id not found")
+            return "Id Unkown"
+        }
+        return userId
+    }
+    
+    var userEmail: String  {
+        guard let userMail = user?.email else {
+            print("[AuthViewModel] Error: Email not found")
+            return "Unkown email"
+        }
+        return userMail
+    }
     
     /**********************
      Variables related to firebase
@@ -64,8 +86,8 @@ class AuthViewModel: ObservableObject {
             state = .isLoading
             do {
                 try await authService.signIn(email: email, password: password)
-                let role = try await HelperFunctions.fetchUserRole(email: email)
-                userRole = role
+                let role = try await HelperFunctions.fetchUserRole(email: userEmail)
+                self.user?.id = role
             } catch {
                 signInErrorMessage = error.localizedDescription
             }
@@ -82,7 +104,6 @@ class AuthViewModel: ObservableObject {
                 // The next lines of code delete all the information of the current user
                 email = ""
                 password = ""
-                userRole = ""
                 signInErrorMessage = nil
                 registrationErrorMessage = nil
                 let eliminar = ["email.JSON", "Registers.JSON", "Symptoms.JSON", "User.JSON"]
@@ -99,31 +120,8 @@ class AuthViewModel: ObservableObject {
     
     // Fetch users role from firestore
     func fetchUserRole() {
-        var emailJSON = ""
-        if let datosRecuperados = try? Data.init(contentsOf: HelperFunctions.filePath("email.JSON")) {
-            if let datosDecodificados = try? JSONDecoder().decode(String.self, from: datosRecuperados) {
-                print("Entro al json")
-                emailJSON = datosDecodificados
-                Task {
-                    do {
-                        userRole = try await HelperFunctions.fetchUserRole(email: emailJSON)
-                    } catch {
-                        print("No se encontro el user role")
-                    }
-                }
-            }
-        }
-        if let email = authService.auth.currentUser?.email {
-            print("Entro al if para hacer llamada api")
-            Task {
-                do {
-                    userRole = try await HelperFunctions.fetchUserRole(email: email)
-                } catch {
-                    print("No se encontro el user role")
-                }
-            }
-        } else {
-            print("Entro al if antes del json para escribir el role")
+        Task {
+            user?.rol = try await HelperFunctions.fetchUserRole(email: userId)
         }
     }
     // Returns the symptom list object with current user

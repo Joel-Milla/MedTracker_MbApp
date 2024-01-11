@@ -66,11 +66,11 @@ struct RegisterView: View {
                         errorMessage = "Las contraseñas no coinciden"
                     }
                     else {
-                        authentication.role = seleccion
+//                        authentication.role = seleccion
                         authentication.submit() //Submits the request to firebase to create a new user.
-                        authViewModel.email = authentication.email // set the email of the current user.
-                        authViewModel.userRole = seleccion
-                        user.nombreCompleto = authentication.name
+//                        authViewModel.email = authentication.email // set the email of the current user.
+//                        authViewModel.userRole = seleccion
+//                        user.nombreCompleto = authentication.name
                         HelperFunctions.write(user, inPath: "User.JSON")
                         HelperFunctions.write(seleccion, inPath: "role.JSON")
                     }

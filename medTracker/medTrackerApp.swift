@@ -20,7 +20,7 @@ struct medTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             if authentication.isAuthenticated {
-                if authentication.userRole == "Paciente" {
+                if authentication.userRole == "Rol Desconocido" {
                     if let symptomList = authentication.makeSymptomList(),
                        let registersList = authentication.makeRegisterList(),
                        let userModel = authentication.makeUserModel() {
@@ -40,7 +40,7 @@ struct medTrackerApp: App {
                         Text("Didn't work")
                     }
                 } else {
-                    ProgressView()
+                   ProgressView()
                 }
             } else {
                 WelcomeView()

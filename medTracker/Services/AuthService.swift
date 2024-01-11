@@ -59,10 +59,11 @@ class AuthService: ObservableObject {
             //try await db.collection("users").document(result.user.uid).setData([
             try await db.collection("Roles").document(email).setData([
                 "role": role,
-                "id": result.user.uid
+                "id": result.user.uid,
+                "email": email
             ])
         } catch {
-            throw error
+            print("[AuthService] Error while creating the account: \(error)")
         }
         
     }
@@ -92,6 +93,7 @@ private extension User {
     init(from firebaseUser: FirebaseAuth.User, name: String? = nil, role: String? = nil) {
         self.id = firebaseUser.uid
         self.nombreCompleto = firebaseUser.displayName ?? name ?? "Nombre desconocido"
+        self.email = firebaseUser.email ?? "Email desconocido"
         self.rol = role ?? "Rol Desconocido"
         self.telefono = ""
         self.nombreCompleto = ""
