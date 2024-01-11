@@ -15,7 +15,7 @@ public func scheduleNotification(frecuencia: String, selectedDate: Date, selecte
     content.sound = UNNotificationSound.default
     
     var dateComponents = Calendar.current.dateComponents([.hour, .minute], from: selectedDate)
-
+    
     switch frecuencia {
     case "Todos los días":
         break // Utilizamos los valores del DatePicker directamente
@@ -28,10 +28,10 @@ public func scheduleNotification(frecuencia: String, selectedDate: Date, selecte
     default:
         break
     }
-
+    
     let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
     let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-
+    
     UNUserNotificationCenter.current().add(request) { error in
         if let error = error {
             print("Error scheduling notification: \(error.localizedDescription)")

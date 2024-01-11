@@ -72,8 +72,8 @@ struct CustomSlider: View {
                                     }
                             )
                     }
-//                    Text("\(valueFinal,  specifier: "%.2F")")
-//                    Text("\(value,  specifier: "%.2F")")
+                    //                    Text("\(valueFinal,  specifier: "%.2F")")
+                    //                    Text("\(value,  specifier: "%.2F")")
                     Spacer()
                 }
             }
@@ -104,7 +104,7 @@ struct CustomSlider: View {
         return Color(.white)
     }
     func getValue(maxValue: Double)->Double{
-       return(100 * value) / maxValue
+        return(100 * value) / maxValue
     }
     func getImage()->String{
         if(valueFinal < 20){
@@ -129,5 +129,5 @@ struct CustomSlider: View {
         }
         return ""
     }
-
+    
 }

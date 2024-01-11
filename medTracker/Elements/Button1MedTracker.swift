@@ -11,7 +11,7 @@ import SwiftUI
 
 struct Button1MedTracker : ButtonStyle{
     var backgroundColor: Color
-
+    
     init(backgroundColor: Color = Color("blueGreen")) {
         self.backgroundColor = backgroundColor
     }
@@ -25,4 +25,4 @@ struct Button1MedTracker : ButtonStyle{
             .clipShape(Capsule())
             .scaleEffect(configuration.isPressed ? 1.2 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
-}}
+    }}
