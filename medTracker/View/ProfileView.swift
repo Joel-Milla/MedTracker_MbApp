@@ -32,11 +32,11 @@ struct ProfileView: View {
     let createAction2: CreateAction2
     
     let dateRange: ClosedRange<Date> = {
-            let calendar = Calendar.current
-            let start = calendar.date(byAdding: .year, value: -120, to: Date())!
-            let end = Date()
-            return start...end
-        }()
+        let calendar = Calendar.current
+        let start = calendar.date(byAdding: .year, value: -120, to: Date())!
+        let end = Date()
+        return start...end
+    }()
     
     @State var showAddDoctorView = false
     
