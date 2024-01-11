@@ -76,7 +76,7 @@ class UserModel: ObservableObject {
                     user = try await self.repository.fetchUser()
                 }
             } catch {
-                print("[UserModel] Cannot fetch posts: \(error)")
+                print("[UserModel] Cannot fetch user: \(error)")
                 // If user is not found in the repository, try to get the name from Firebase
             }
         }

@@ -18,7 +18,6 @@ class AuthService: ObservableObject {
     @Published var user: User?
     @Published var isAuthenticated = false
     private var name: String?
-    private var role: String?
     
     let auth = Auth.auth()
     private var listener: AuthStateDidChangeListenerHandle?
@@ -30,10 +29,13 @@ class AuthService: ObservableObject {
         listener = auth.addStateDidChangeListener ({ _, firebaseUser in
             self.isAuthenticated = firebaseUser != nil
             if let firebaseUser = firebaseUser {
-                if let name = self.name, let role = self.role {
-                    self.user = User(from: firebaseUser, name: name, role: role)
+                if let name = self.name {
+                    self.user = User(from: firebaseUser, name: name)
                 } else {
                     self.user = User(from: firebaseUser)
+                }
+                Task {
+                    self.user?.rol = try await HelperFunctions.fetchUserRole(email: self.user?.email ?? "")
                 }
             } else {
                 // Handle the scenario where firebaseUser is nil
@@ -49,7 +51,6 @@ class AuthService: ObservableObject {
     // Function to create an account based on a name, email, and password.
     func createAccount(name: String, email: String, password: String, role: String) async throws {
         self.name = name
-        self.role = role
         do {
             let result = try await auth.createUser(withEmail: email, password: password)
             try await result.user.updateProfile(\.displayName, to: name)
@@ -90,11 +91,10 @@ private extension FirebaseAuth.User {
 
 // Convert the user information
 private extension User {
-    init(from firebaseUser: FirebaseAuth.User, name: String? = nil, role: String? = nil) {
+    init(from firebaseUser: FirebaseAuth.User, name: String? = nil) {
         self.id = firebaseUser.uid
-        self.nombreCompleto = firebaseUser.displayName ?? name ?? "Nombre desconocido"
-        self.email = firebaseUser.email ?? "Email desconocido"
-        self.rol = role ?? "Rol Desconocido"
+        self.nombreCompleto = firebaseUser.displayName ?? name ?? "[AuthService] Nombre desconocido"
+        self.email = firebaseUser.email ?? "[AuthService] Email desconocido"
         self.telefono = ""
         self.nombreCompleto = ""
         self.antecedentes = ""
