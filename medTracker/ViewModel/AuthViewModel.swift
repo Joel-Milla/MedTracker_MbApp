@@ -18,6 +18,9 @@ class AuthViewModel: ObservableObject {
     /**********************
      Personal data of the user
      **********************************/
+    @Published var user: User?
+    
+    
     @Published var email = "" {
         didSet {
             let lowercasedEmail = email.lowercased()
@@ -34,10 +37,6 @@ class AuthViewModel: ObservableObject {
     @Published var signInErrorMessage: String?
     @Published var registrationErrorMessage: String?
     @Published var state: State = .idle // Variable to know the state of the request of firebase
-    
-    /**********************
-     Extra variables
-     **********************************/
     @Published var isAuthenticated = false // to know if the user is authenticated or not
     
     /**********************
@@ -46,6 +45,7 @@ class AuthViewModel: ObservableObject {
     init() {
         // To know the current state of the user.
         authService.$isAuthenticated.assign(to: &$isAuthenticated)
+        authService.$user.assign(to: &$user)
         fetchUserRole()
     }
     

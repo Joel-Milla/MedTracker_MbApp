@@ -15,7 +15,9 @@ import FirebaseFirestoreSwift
  **********************************/
 @MainActor
 class AuthService: ObservableObject {
+    @Published var user: User?
     @Published var isAuthenticated = false
+    private var name = ""
     
     let auth = Auth.auth()
     private var listener: AuthStateDidChangeListenerHandle?
@@ -24,9 +26,19 @@ class AuthService: ObservableObject {
      Important initialization methods
      **********************************/
     init() {
-        listener = auth.addStateDidChangeListener { [weak self] _, user in
-            self?.isAuthenticated = user != nil
-        }
+        listener = auth.addStateDidChangeListener ({ _, firebaseUser in
+            self.isAuthenticated = firebaseUser != nil
+            if let firebaseUser = firebaseUser {
+                if !self.name.isEmpty {
+                    self.user = User(from: firebaseUser, name: self.name)
+                } else {
+                    self.user = User(from: firebaseUser)
+                }
+            } else {
+                // Handle the scenario where firebaseUser is nil
+                self.user = nil // or some default initialization
+            }
+        })
     }
     
     /**********************
@@ -35,6 +47,7 @@ class AuthService: ObservableObject {
     
     // Function to create an account based on a name, email, and password.
     func createAccount(name: String, email: String, password: String, role: String) async throws {
+        self.name = name
         do {
             let result = try await auth.createUser(withEmail: email, password: password)
             try await result.user.updateProfile(\.displayName, to: name)
@@ -69,5 +82,20 @@ private extension FirebaseAuth.User {
         var profileChangeRequest = createProfileChangeRequest()
         profileChangeRequest[keyPath: keyPath] = newValue
         try await profileChangeRequest.commitChanges()
+    }
+}
+
+// Convert the user information
+private extension User {
+    init(from firebaseUser: FirebaseAuth.User, name: String? = nil) {
+        self.id = firebaseUser.uid
+        self.nombreCompleto = firebaseUser.displayName ?? name ?? "Unknown"
+        self.telefono = ""
+        self.nombreCompleto = ""
+        self.antecedentes = ""
+        self.sexo = ""
+        self.fechaNacimiento = Date()
+        self.estatura = ""
+        self.arregloDoctor = []
     }
 }
