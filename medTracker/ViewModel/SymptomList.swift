@@ -11,6 +11,7 @@ import SwiftUI
 /**********************
  This class contains all the symptoms of the user.
  **********************************/
+@MainActor
 class SymptomList : ObservableObject {
     @Published var symptoms = [Symptom]() {
         didSet {

@@ -8,14 +8,6 @@
 import SwiftUI
 import FirebaseAuth
 
-/*
- Button {
- authentication.signOut()
- } label: {
- Text("Sign Out")
- .foregroundColor(Color.red)
- }
- */
 struct MainDoctorView: View {
     @EnvironmentObject var authentication: AuthViewModel
     @StateObject var user = UserModel()

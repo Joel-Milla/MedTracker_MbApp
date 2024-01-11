@@ -10,7 +10,7 @@ import Foundation
 /**********************
  This class contains all the data that the user registered about their symptoms.
  **********************************/
-
+@MainActor
 class RegisterList : ObservableObject {
     @Published var registers = [Register]() {
         didSet {

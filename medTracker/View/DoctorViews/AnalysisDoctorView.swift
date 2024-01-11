@@ -257,16 +257,6 @@ struct AnalysisPatientView: View {
         .background(Color("mainWhite"))
         
     }
-        /*.onAppear {
-            for (index,_) in registers.registers.enumerated() {
-                DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.4) {
-                    withAnimation(.interactiveSpring(response: 0.2, dampingFraction: 0.2, blendDuration: 0.2)) {
-                        registers.registers[index].animacion = true
-                    }
-                }
-            }
-        }
-    }*/
     
     @ViewBuilder
     func ChartCualitativa(filteredRegisters: [Register]) -> some View {

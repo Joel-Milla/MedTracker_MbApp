@@ -87,7 +87,7 @@ class AuthViewModel: ObservableObject {
                 registrationErrorMessage = nil
                 let eliminar = ["email.JSON", "Registers.JSON", "Symptoms.JSON", "User.JSON"]
                 for path in eliminar {
-                    HelperFunctions.write("", inPath: path)
+                    HelperFunctions.write("-----", inPath: path)
                 }
                 isAuthenticated = false
                 

@@ -42,7 +42,7 @@ struct DoctorProfileView: View {
                         if isEditing {
                             HStack {
                                 Text("Nombre completo:")
-                                Text("Nombre completo: \(user.user.nombreCompleto)")
+                                Text("\(user.user.nombreCompleto)")
                             }
                             HStack {
                                 Text("Teléfono:")
@@ -96,9 +96,10 @@ struct DoctorProfileView: View {
                         Text("Datos fijos")
                     }
                     
-                    
-                    Button(action: { authentication.signOut() }) {
-                        Text("Sign Out")
+                    Button {
+                        authentication.signOut()
+                    } label: {
+                        Text("Cerrar Sesión")
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding()

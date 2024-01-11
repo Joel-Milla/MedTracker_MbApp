@@ -152,19 +152,17 @@ struct AddDoctorView: View {
                     errorMessage = "El email ya esta agregado."
                     self.progress = .complete
                 } else {
-                    DispatchQueue.main.async {
-                        // modifying data locally
-                        user.user.arregloDoctor.append(email)
-                        user.saveUserData()
-                        
-                        // modify data in database
-                        createUser(user: user.user)
-                        writeDoctor(email: email, user: user.user)
-                        
-                        // reset variables
-                        email = ""
-                        self.progress = .complete
-                    }
+                    // modifying data locally
+                    user.user.arregloDoctor.append(email)
+                    user.saveUserData()
+                    
+                    // modify data in database
+                    createUser(user: user.user)
+                    writeDoctor(email: email, user: user.user)
+                    
+                    // reset variables
+                    email = ""
+                    self.progress = .complete
                 }
             } else {
                 self.progress = .complete

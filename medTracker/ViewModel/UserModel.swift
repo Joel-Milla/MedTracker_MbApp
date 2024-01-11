@@ -11,6 +11,7 @@ import FirebaseAuth
 /**********************
  This class contains all the information about the user.
  **********************************/
+@MainActor
 class UserModel: ObservableObject {
     @Published var user = User() {
         didSet {
@@ -68,13 +69,14 @@ class UserModel: ObservableObject {
     func fetchUser() {
         Task {
             do {
-                user = try await self.repository.fetchUser()
-            } catch {
-                print("[PostsViewModel] Cannot fetch posts: \(error)")
-                // If user is not found in the repository, try to get the name from Firebase
                 if let firebaseUserName = auth.currentUser?.displayName {
                     self.user.nombreCompleto = firebaseUserName
+                } else {
+                    user = try await self.repository.fetchUser()
                 }
+            } catch {
+                print("[UserModel] Cannot fetch posts: \(error)")
+                // If user is not found in the repository, try to get the name from Firebase
             }
         }
     }

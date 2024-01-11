@@ -10,6 +10,7 @@ import Foundation
 /**********************
  This class contains all the patients of a doctor.
  **********************************/
+@MainActor
 class PatientList : ObservableObject {
     @Published var patients = [Patient]()
     @Published var state: State = .isLoading //State of the patients array

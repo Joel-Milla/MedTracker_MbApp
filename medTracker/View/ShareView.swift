@@ -23,7 +23,7 @@ import SwiftUI
 //        // No es necesario actualizar el UIActivityViewController.
 //    }
 //}
-
+@MainActor
 struct ShareView: View {
     @ObservedObject var listaDatos : SymptomList
     @ObservedObject var registers : RegisterList
@@ -75,7 +75,7 @@ struct ShareView: View {
     }
 
 }
-func iterate (registers : RegisterList)->[String]{
+@MainActor func iterate (registers : RegisterList)->[String]{
     var csvInfo = [String]()
     csvInfo.reserveCapacity(registers.registers.count)
     for (register) in registers.registers{

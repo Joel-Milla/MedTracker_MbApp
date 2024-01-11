@@ -191,12 +191,12 @@ struct HomeView: View {
         return path
     }
 }
-func getSymptomName(register : Register)->String{
+@MainActor func getSymptomName(register : Register)->String{
     @ObservedObject var listaDatos = SymptomList()
     return listaDatos.returnName(id: register.idSymptom)
 }
 
-func getSymptomActive(register : Register)->Bool{
+@MainActor func getSymptomActive(register : Register)->Bool{
     @ObservedObject var listaDatos = SymptomList()
     return listaDatos.returnActive(id: register.idSymptom)
 }
