@@ -32,22 +32,14 @@ class AuthViewModel: ObservableObject {
     var userRole: String  {
         guard let userRol = user?.rol else {
             print("[AuthViewModel] Error: User role not found")
-            return "Unkown role"
+            return "Unknown role"
         }
         return userRol
     }
-    var userId: String  {
-        guard let userId = user?.id else {
-            print("[AuthViewModel] Error: Id not found")
-            return "Id Unkown"
-        }
-        return userId
-    }
-    
     var userEmail: String  {
         guard let userMail = user?.email else {
             print("[AuthViewModel] Error: Email not found")
-            return "Unkown email"
+            return "Unknown email"
         }
         return userMail
     }
@@ -121,7 +113,7 @@ class AuthViewModel: ObservableObject {
     // Fetch users role from firestore
     func fetchUserRole() {
         Task {
-            user?.rol = try await HelperFunctions.fetchUserRole(email: userId)
+            user?.rol = try await HelperFunctions.fetchUserRole(email: userEmail)
         }
     }
     // Returns the symptom list object with current user
