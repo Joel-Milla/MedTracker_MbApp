@@ -33,7 +33,7 @@ class PatientList : ObservableObject {
     /**********************
      Helper functions
      **********************************/
-
+    
     // Fetch patients from the database and save them on the patients list.
     func fetchPatients() {
         state = .isLoading
