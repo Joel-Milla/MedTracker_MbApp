@@ -32,10 +32,9 @@ struct medTrackerApp: App {
                         Text("Didn't work")
                     }
                 } else if authentication.userRole == "Doctor" {
-                    if let symptomList = authentication.makeSymptomList(),
-                       let registersList = authentication.makeRegisterList(),
-                       let userModel = authentication.makeUserModel() {
-                        MainDoctorView(user: UserModel, listaPacientes: <#T##PatientList#>)
+                    if let userModel = authentication.makeUserModel(),
+                       let patientList = authentication.makePatientList() {
+                        MainDoctorView(user: userModel, listaPacientes: patientList)
                         .environmentObject(authentication)
                     } else {
                         Text("Didn't work")

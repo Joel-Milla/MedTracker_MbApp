@@ -30,7 +30,7 @@ struct MainDoctorView: View {
                     List {
                         ForEach(listaPacientes.patients , id: \.self) { patient in
                             NavigationLink {
-                                AnalysisDoctorView(patient: patient)
+                                AnalysisDoctorView(patient: patient, repository: user.repository)
                             } label: {
                                 rowPatient(patient: patient)
                             }
@@ -54,11 +54,5 @@ struct MainDoctorView: View {
                 }
             }
         }
-    }
-}
-
-struct MainDoctorView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainDoctorView()
     }
 }

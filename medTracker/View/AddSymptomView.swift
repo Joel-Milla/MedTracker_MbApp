@@ -298,9 +298,3 @@ extension Array where Element == Symptom {
         }
     }
 }
-
-struct newSymptom_Previews: PreviewProvider {
-    static var previews: some View {
-        AddSymptomView(symptoms: SymptomList(), createAction: { _ in })
-    }
-}

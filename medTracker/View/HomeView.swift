@@ -163,8 +163,8 @@ struct HomeView: View {
         let sortedRegs = registers.registers.sorted(by: {$0.idSymptom > $1.idSymptom})
         for register in sortedRegs {
             let fechaStr = formatter.string(from:register.fecha)
-            if(getSymptomActive(register: register)){
-                let newLine = "\(getSymptomName(register: register)),\(fechaStr),\(register.cantidad),\(register.notas)\n"
+            if(getSymptomActive(register: register, listaDatos: listaDatos)){
+                let newLine = "\(getSymptomName(register: register, listaDatos: listaDatos)),\(fechaStr),\(register.cantidad),\(register.notas)\n"
                 csvText.append(contentsOf: newLine)
             }
         }
@@ -184,13 +184,13 @@ struct HomeView: View {
         return path
     }
 }
-@MainActor func getSymptomName(register : Register)->String{
-    @ObservedObject var listaDatos = SymptomList()
+@MainActor func getSymptomName(register : Register, listaDatos: SymptomList)->String{
+    @ObservedObject var listaDatos = SymptomList(repository: listaDatos.repository)
     return listaDatos.returnName(id: register.idSymptom)
 }
 
-@MainActor func getSymptomActive(register : Register)->Bool{
-    @ObservedObject var listaDatos = SymptomList()
+@MainActor func getSymptomActive(register : Register, listaDatos: SymptomList)->Bool{
+    @ObservedObject var listaDatos = SymptomList(repository: listaDatos.repository)
     return listaDatos.returnActive(id: register.idSymptom)
 }
 
@@ -208,12 +208,6 @@ struct Celda: View {
                 
             }
         }
-    }
-}
-
-struct pagInicio_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(listaDatos: SymptomList(), registers: RegisterList())
     }
 }
 

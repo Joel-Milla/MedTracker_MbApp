@@ -14,7 +14,7 @@ import SwiftUI
 struct DoctorProfileView: View {
     @ObservedObject var user: UserModel
     @EnvironmentObject var authentication: AuthViewModel
-    @State private var draftUser: UserModel = UserModel()
+    @State private var draftUser: User = User()
     @State private var isEditing = false
     
     var sexo = ["-", "Masculino", "Femenino", "Prefiero no decir"]
@@ -26,6 +26,13 @@ struct DoctorProfileView: View {
     
     typealias CreateAction = (User) async throws -> Void
     let createAction: CreateAction
+    
+    let dateRange: ClosedRange<Date> = {
+        let calendar = Calendar.current
+        let start = calendar.date(byAdding: .year, value: -120, to: Date())!
+        let end = Date()
+        return start...end
+    }()
     
     var body: some View {
         NavigationStack {
@@ -46,7 +53,7 @@ struct DoctorProfileView: View {
                             }
                             HStack {
                                 Text("Teléfono:")
-                                TextField("+81 2611 1857", text: $draftUser.user.telefono)}
+                                TextField("+81 2611 1857", text: $draftUser.telefono)}
                         } else {
                             Text("Nombre completo: \(user.user.nombreCompleto)")
                             Text("Teléfono: \(user.user.telefono)")
@@ -59,13 +66,13 @@ struct DoctorProfileView: View {
                         if isEditing {
                             HStack {
                                 Text("Estatura:")
-                                TextField("1.80", text: $draftUser.user.estatura)
+                                TextField("1.80", text: $draftUser.estatura)
                                     .keyboardType(.decimalPad)
                             }
                             DatePicker("Fecha de Nacimiento",
-                                       selection: $draftUser.user.fechaNacimiento,
+                                       selection: $draftUser.fechaNacimiento, in: dateRange,
                                        displayedComponents: .date)
-                            
+
                             Picker("Sexo", selection: $selectedSexo) {
                                 ForEach(sexo, id: \.self) { sexo in
                                     Text(sexo).tag(sexo)
@@ -73,10 +80,10 @@ struct DoctorProfileView: View {
                             }
                             .pickerStyle(MenuPickerStyle())
                             .onAppear {
-                                self.selectedSexo = draftUser.user.sexo
+                                self.selectedSexo = draftUser.sexo
                             }
                             .onChange(of: selectedSexo) { newValue in
-                                draftUser.user.sexo = newValue
+                                draftUser.sexo = newValue
                             }
                         } else {
                             Text("Estatura: \(user.user.estatura)")
@@ -89,7 +96,7 @@ struct DoctorProfileView: View {
                             HStack {
                                 Text("Sexo:")
                                 Spacer()
-                                Text(draftUser.user.sexo)
+                                Text(draftUser.sexo)
                             }
                         }
                     } header: {
@@ -114,7 +121,7 @@ struct DoctorProfileView: View {
                         if isEditing {
                             Button("Cancel") {
                                 // Borrar informacion de draft user
-                                draftUser.user = user.user
+                                draftUser = user.user
                                 isEditing = false
                             }
                         }
@@ -123,13 +130,13 @@ struct DoctorProfileView: View {
                         if isEditing {
                             Button("Done") {
                                 // Guardar informacion en user y sandbox
-                                let validationResult = draftUser.user.error()
+                                let validationResult = draftUser.error()
                                 if validationResult.0 {
                                     error = true
                                     errorMessage = validationResult.1
                                 }
                                 else {
-                                    user.user = draftUser.user
+                                    user.user = draftUser
                                     //user.saveUserData()
                                     createUser(user: user.user)
                                     isEditing = false
@@ -169,10 +176,3 @@ struct DoctorProfileView: View {
         }
     }
 }
-
-struct DoctorProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        DoctorProfileView(user: UserModel(), createAction: { _ in })
-    }
-}
-

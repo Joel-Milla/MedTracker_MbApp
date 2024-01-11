@@ -283,9 +283,3 @@ struct AnalysisItemView: View {
         return operacionesList
     }
 }
-
-struct analysis_Previews: PreviewProvider {
-    static var previews: some View {
-        AnalysisView(listSymp: SymptomList(), registers: RegisterList())
-    }
-}

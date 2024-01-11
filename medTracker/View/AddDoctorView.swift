@@ -202,9 +202,3 @@ struct AddDoctorView: View {
         }
     }
 }
-
-struct AddDoctorView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddDoctorView(user: UserModel(), writePatient: { _, _ in }, createAction: { _ in }, deletePatient: { _ in })
-    }
-}

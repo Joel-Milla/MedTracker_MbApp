@@ -17,9 +17,9 @@ struct AnalysisDoctorView: View {
     @State private var isShowingActivityView = false
     @State private var activityItems: [Any] = []
     
-    init(patient: Patient) {
+    init(patient: Patient, repository: Repository) {
         self.patient = patient
-        _patientsData = State(initialValue: PatientsData(email: patient.email))
+        _patientsData = State(initialValue: PatientsData(email: patient.email, repository: repository))
     }
     
     var body: some View {
@@ -330,10 +330,4 @@ struct AnalysisPatientView: View {
 struct ImageYAxisLabel: Identifiable {
     var id: Int
     var image: String
-}
-
-struct AnalysisDoctorView_Previews: PreviewProvider {
-    static var previews: some View {
-        AnalysisDoctorView(patient: Patient(email: "", name: ""))
-    }
 }
