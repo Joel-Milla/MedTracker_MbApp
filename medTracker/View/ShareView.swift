@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 struct ShareView: View {
-    @ObservedObject var listaDatos : SymptomList
+    @ObservedObject var symptoms : SymptomList
     @ObservedObject var registers : RegisterList
     // ... tus propiedades ...
     
@@ -39,7 +39,7 @@ struct ShareView: View {
         var csvText = "Nombre del Dato,Fecha,Cantidad,Notas\n"
         let sortedRegs = registers.registers.sorted(by: {$0.idSymptom > $1.idSymptom})
         for register in sortedRegs {
-            let newLine = "\(getSymptomName(register: register)),\(register.fecha),\(register.cantidad),\(register.notas)\n"
+            let newLine = "\(getSymptomName(register: register, listaDatos: symptoms)),\(register.fecha),\(register.cantidad),\(register.notas)\n"
             csvText.append(contentsOf: newLine)
         }
         
@@ -53,7 +53,7 @@ struct ShareView: View {
                 }
             }
         } catch {
-            print("Error al escribir el archivo CSV: \(error)")
+            print("[ShareView] Error while writing the CSV: \(error)")
         }
         return path
     }
@@ -69,11 +69,7 @@ struct ShareView: View {
     return csvInfo
 }
 
-struct share_Previews: PreviewProvider {
-    static var previews: some View {
-        ShareView(listaDatos: SymptomList(), registers: RegisterList())
-    }
-}
+
 struct ShareInfo{
     
 }

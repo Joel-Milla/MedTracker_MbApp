@@ -14,7 +14,7 @@ struct RegisterSymptomView: View {
     @FocusState private var mostrarTeclado : Bool
     @Binding var symptom : Symptom
     @ObservedObject var registers : RegisterList
-    @ObservedObject var symptomList : SymptomList
+    @ObservedObject var symptoms : SymptomList
     @Binding var sliderValue : Double
     @State var metricsString = ""
     @State private var date = Date.now
@@ -179,7 +179,7 @@ struct RegisterSymptomView: View {
                 notificacionesActivas = symptom.notificacion != ""
             }
             .sheet(isPresented: $nuevaNotificacion) {
-                NuevaSintoma(symptom: $symptom, notificacionesActivas: $notificacionesActivas,createAction2: symptomList.makeCreateAction())
+                NuevaSintoma(symptom: $symptom, notificacionesActivas: $notificacionesActivas,createAction2: symptoms.makeCreateAction())
                     .presentationDetents([.fraction(0.35)])
             }
         }
@@ -193,7 +193,7 @@ struct RegisterSymptomView: View {
             do {
                 try await createAction(registers.registers.last ?? Register(idSymptom: 0, fecha: Date.now, cantidad: 0, notas: "")) //call the function that adds the symptom to the database
             } catch {
-                print("[NewPostForm] Cannot create post: \(error)")
+                print("[RegisterSymptomView] Cannot create register: \(error)")
             }
         }
     }
@@ -292,7 +292,7 @@ struct NuevaSintoma: View {
             do {
                 try await createAction2(symptomModification) //call the function that adds the symptom to the database
             } catch {
-                print("[NewPostForm] Cannot create post: \(error)")
+                print("[RegisterSymptomView] Cannot modify symptom: \(error)")
             }
         }
     }
@@ -323,11 +323,5 @@ struct OvalTextFieldStyle: TextFieldStyle {
         /*(LinearGradient(gradient: Gradient(colors: [Color.white, Color("blueGreen").opacity(0.6)]), startPoint: .topLeading, endPoint: .bottomTrailing))*/
             .cornerRadius(10)
             .frame(width: 150)
-    }
-}
-
-struct RegistroDatos1_Previews: PreviewProvider {
-    static var previews: some View {
-        RegisterSymptomView(symptom: .constant(Symptom(id: 0, nombre: "Prueba", icon: "star.fill", description: "", cuantitativo: true, unidades: "", activo: true, color: "#007AF", notificacion: "")), registers: RegisterList(), symptomList: SymptomList(), sliderValue: .constant(0.0), createAction: { _ in })
     }
 }

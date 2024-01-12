@@ -9,14 +9,13 @@ import SwiftUI
 import FirebaseAuth
 
 struct MainDoctorView: View {
-    @EnvironmentObject var authentication: AuthViewModel
-    @StateObject var user = UserModel()
-    @StateObject var listaPacientes = PatientList()
+    @StateObject var user: UserModel
+    @StateObject var patientsList: PatientList
     
     var body: some View {
         NavigationStack {
             VStack {
-                switch listaPacientes.state {
+                switch patientsList.state {
                 case .isLoading:
                     ProgressView() //Loading animation
                 case .isEmpty:
@@ -28,9 +27,9 @@ struct MainDoctorView: View {
                     )
                 case .complete:
                     List {
-                        ForEach(listaPacientes.patients , id: \.self) { patient in
+                        ForEach(patientsList.patientsList , id: \.self) { patient in
                             NavigationLink {
-                                AnalysisDoctorView(patient: patient)
+                                AnalysisDoctorView(patientsData: PatientsData(patient: patient, repository: user.repository))
                             } label: {
                                 rowPatient(patient: patient)
                             }
@@ -54,11 +53,5 @@ struct MainDoctorView: View {
                 }
             }
         }
-    }
-}
-
-struct MainDoctorView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainDoctorView()
     }
 }

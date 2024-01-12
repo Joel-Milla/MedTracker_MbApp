@@ -12,16 +12,14 @@ import Charts
  This view shows an analysis of the symptoms that are being tracked.
  **********************************/
 struct AnalysisView: View {
-    @State private var refreshID = UUID()
-    @ObservedObject var listSymp: SymptomList
+    @ObservedObject var symptoms: SymptomList
     @ObservedObject var registers: RegisterList
     @State private var muestraNewSymptom = false
-    @State var registrosSintomas : [Register] = []
     
     var body: some View {
         ZStack{
             // If there are no symptoms bein checked, then show this view.
-            if listSymp.symptoms.isEmpty {
+            if symptoms.symptoms.isEmpty {
                 //The action serves as a trigger to show a sheet of the view to add new symptoms.
                 EmptyListView(
                     title: "No hay datos registrados",
@@ -30,7 +28,7 @@ struct AnalysisView: View {
                     action: { muestraNewSymptom = true }
                 )
                 .sheet(isPresented: $muestraNewSymptom) {
-                    AddSymptomView(symptoms: listSymp, createAction: listSymp.makeCreateAction())
+                    AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
                 }
             }
             // If there are symptoms being checked then show this view.
@@ -38,21 +36,16 @@ struct AnalysisView: View {
                 VStack {
                     // Show a tab for each symptom that is active.
                     TabView {
-                        ForEach(listSymp.symptoms.filter { $0.activo == true }, id: \.id) { symptom in
-                            AnalysisItemView(symptom: symptom, registerList: registers, listSymp: listSymp, allRegisters: registers.registers.filter({ $0.idSymptom == symptom.id }))
+                        ForEach(symptoms.symptoms.filter { $0.activo == true }, id: \.id) { symptom in
+                            AnalysisItemView(symptom: symptom, registers: registers, symptoms: symptoms)
                         }
                     }
-                    .id(refreshID)  // Force the TabView to update
                     .tabViewStyle(.page)
                     .indexViewStyle(.page(backgroundDisplayMode: .always))
                     
                     Spacer(minLength: 50)
                 }
                 .background(Color("mainWhite"))
-                .onChange(of: registers.registers) { _ in
-                    // This will be called when registers change
-                    refreshID = UUID()  // Force the TabView to update
-                }
             }
             GeometryReader { geometry in
                 Image("logoP")
@@ -67,12 +60,12 @@ struct AnalysisView: View {
 
 struct AnalysisItemView: View {
     @State var symptom: Symptom
-    let registerList: RegisterList
-    let listSymp : SymptomList
-    @State var allRegisters: [Register]
+    @ObservedObject var registers: RegisterList
+    @ObservedObject var symptoms : SymptomList
+    @State var allRegisters: [Register] = []
     @State private var muestraRegisterSymptomView = false
     @State var currentTab = "Semana"
-    @State var registers : [Register] = []
+    @State var tempRegisters : [Register] = []
     
     var body: some View {
         let colorSintoma = Color(hex: symptom.color)
@@ -103,7 +96,7 @@ struct AnalysisItemView: View {
                     action: { muestraRegisterSymptomView = true }
                 )
                 .sheet(isPresented: $muestraRegisterSymptomView) {
-                    RegisterSymptomView(symptom: $symptom, registers: registerList, symptomList: listSymp, sliderValue: .constant(0.162),createAction: registerList.makeCreateAction())
+                    RegisterSymptomView(symptom: $symptom, registers: registers, symptoms: symptoms, sliderValue: .constant(0.162),createAction: registers.makeCreateAction())
                 }
                 //The else statement runs if there is already data associated with the symptom.
             } else {
@@ -130,9 +123,9 @@ struct AnalysisItemView: View {
                     .padding(.bottom, symptom.cuantitativo ? 0 : 35)
                     
                     if symptom.cuantitativo {
-                        ChartCuantitativa(filteredRegisters: registers)
+                        ChartCuantitativa(filteredRegisters: tempRegisters)
                     } else {
-                        ChartCualitativa(filteredRegisters: registers)
+                        ChartCualitativa(filteredRegisters: tempRegisters)
                     }
                 }
                 .padding(10)
@@ -156,19 +149,20 @@ struct AnalysisItemView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(.leading, 20)
         .onAppear() {
-            registers = allRegisters
+            allRegisters = registers.registers.filter({ $0.idSymptom == symptom.id })
+            tempRegisters = allRegisters
             currentTab = "Semana"
             let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-            registers = allRegisters.filter { $0.fecha > oneWeekAgo }
+            tempRegisters = allRegisters.filter { $0.fecha > oneWeekAgo }
         }
         .onChange(of: currentTab) { newValue in
-            registers = allRegisters
+            tempRegisters = allRegisters
             if newValue == "Semana" {
                 let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-                registers = allRegisters.filter { $0.fecha > oneWeekAgo }
+                tempRegisters = allRegisters.filter { $0.fecha > oneWeekAgo }
             } else if newValue == "Mes" {
                 let oneMonthAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date())!
-                registers = allRegisters.filter { $0.fecha > oneMonthAgo }
+                tempRegisters = allRegisters.filter { $0.fecha > oneMonthAgo }
             }
         }
     }
@@ -281,11 +275,5 @@ struct AnalysisItemView: View {
         operacionesList[0] = operacionesList[0] / Float(registers.count)
         
         return operacionesList
-    }
-}
-
-struct analysis_Previews: PreviewProvider {
-    static var previews: some View {
-        AnalysisView(listSymp: SymptomList(), registers: RegisterList())
     }
 }

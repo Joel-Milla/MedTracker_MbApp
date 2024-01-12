@@ -29,7 +29,7 @@ struct ActivityView: UIViewControllerRepresentable {
  This view shows all the symptoms being tracked and has the option to add a new symptom or add a data related to a symptom.
  **********************************/
 struct HomeView: View {
-    @ObservedObject var listaDatos : SymptomList
+    @ObservedObject var symptoms : SymptomList
     @ObservedObject var registers : RegisterList
     @State private var isShowingActivityView = false
     @State private var activityItems: [Any] = []
@@ -41,15 +41,12 @@ struct HomeView: View {
     @State private var isNavigationViewActive = false
     
     
-    //@State private var refreshID = UUID()
-    
-    
     var body: some View {
         ZStack{
             NavigationStack {
                 VStack {
                     // Show the view based on symptomList state (loading, emptyArray, arrayWithValues).
-                    switch listaDatos.state {
+                    switch symptoms.state {
                     case .isLoading:
                         ProgressView() //Loading animation
                     case .isEmpty:
@@ -63,15 +60,15 @@ struct HomeView: View {
                         )
                         // The sheets sends the user to the view to create a new symptom.
                         .sheet(isPresented: $muestraNewSymptom) {
-                            AddSymptomView(symptoms: listaDatos, createAction: listaDatos.makeCreateAction())
+                            AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
                         }
                     case .complete:
                         List {
-                            ForEach(listaDatos.symptoms.indices, id: \.self) { index in
-                                if listaDatos.symptoms[index].activo {
-                                    let symptom = listaDatos.symptoms[index]
+                            ForEach(symptoms.symptoms.indices, id: \.self) { index in
+                                if symptoms.symptoms[index].activo {
+                                    let symptom = symptoms.symptoms[index]
                                     NavigationLink{
-                                        RegisterSymptomView(symptom: $listaDatos.symptoms[index], registers: registers, symptomList: listaDatos, sliderValue : .constant(0.155) ,createAction: registers.makeCreateAction())
+                                        RegisterSymptomView(symptom: $symptoms.symptoms[index], registers: registers, symptoms: symptoms, sliderValue : .constant(0.155) ,createAction: registers.makeCreateAction())
                                     }
                                 label: {
                                     Celda(unDato : symptom)
@@ -86,7 +83,7 @@ struct HomeView: View {
                 }
                 .overlay(
                     Group {
-                        if isHomeViewActive && (listaDatos.state == .complete) {
+                        if isHomeViewActive && (symptoms.state == .complete) {
                             Button {
                                 muestraAgregarSintomas = true
                             } label: {
@@ -95,7 +92,7 @@ struct HomeView: View {
                             .buttonStyle(Button1MedTracker(backgroundColor: Color("blueGreen")))
                             .offset(x: -14, y: -95)
                             .sheet(isPresented: $muestraAgregarSintomas) {
-                                AddSymptomView(symptoms: listaDatos, createAction: listaDatos.makeCreateAction())
+                                AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
                             }
                         }
                     },
@@ -103,7 +100,7 @@ struct HomeView: View {
                 .navigationTitle("Datos de salud")
                 .overlay(
                     Group{
-                        if listaDatos.state == .complete || listaDatos.state == .isLoading {
+                        if symptoms.state == .complete || symptoms.state == .isLoading {
                             GeometryReader { geometry in
                                 Image("logoP")
                                     .resizable()
@@ -138,10 +135,10 @@ struct HomeView: View {
                 // Present full screen the EditSymptomView.
                 .fullScreenCover(isPresented: $muestraEditarSintomas) {
                     //ShareView(listaDatos: listaDatos, registers: registers)
-                    EditSymptomView(listaDatos: listaDatos)
+                    EditSymptomView(symptoms: symptoms)
                 }
                 .sheet(isPresented: $muestraAgregarSintomas, content: {
-                    AddSymptomView(symptoms: listaDatos, createAction: listaDatos.makeCreateAction())
+                    AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
                 })
                 .sheet(isPresented: $isShowingActivityView) {
                     ActivityView(activityItems: activityItems, onComplete: { completed in
@@ -163,8 +160,8 @@ struct HomeView: View {
         let sortedRegs = registers.registers.sorted(by: {$0.idSymptom > $1.idSymptom})
         for register in sortedRegs {
             let fechaStr = formatter.string(from:register.fecha)
-            if(getSymptomActive(register: register)){
-                let newLine = "\(getSymptomName(register: register)),\(fechaStr),\(register.cantidad),\(register.notas)\n"
+            if(getSymptomActive(register: register, listaDatos: symptoms)){
+                let newLine = "\(getSymptomName(register: register, listaDatos: symptoms)),\(fechaStr),\(register.cantidad),\(register.notas)\n"
                 csvText.append(contentsOf: newLine)
             }
         }
@@ -179,18 +176,18 @@ struct HomeView: View {
                 }
             }
         } catch {
-            print("Error al escribir el archivo CSV: \(error)")
+            print("[HomeView] Error while writing the CSV file: \(error)")
         }
         return path
     }
 }
-@MainActor func getSymptomName(register : Register)->String{
-    @ObservedObject var listaDatos = SymptomList()
+@MainActor func getSymptomName(register : Register, listaDatos: SymptomList)->String{
+    @ObservedObject var listaDatos = SymptomList(repository: listaDatos.repository)
     return listaDatos.returnName(id: register.idSymptom)
 }
 
-@MainActor func getSymptomActive(register : Register)->Bool{
-    @ObservedObject var listaDatos = SymptomList()
+@MainActor func getSymptomActive(register : Register, listaDatos: SymptomList)->Bool{
+    @ObservedObject var listaDatos = SymptomList(repository: listaDatos.repository)
     return listaDatos.returnActive(id: register.idSymptom)
 }
 
@@ -208,12 +205,6 @@ struct Celda: View {
                 
             }
         }
-    }
-}
-
-struct pagInicio_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(listaDatos: SymptomList(), registers: RegisterList())
     }
 }
 

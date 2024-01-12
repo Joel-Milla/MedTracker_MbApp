@@ -8,6 +8,9 @@
 import Foundation
 
 struct User : Codable, Hashable {
+    var id: String = ""
+    var rol: String = ""
+    var email: String = ""
     var telefono : String // Unique identifier
     var nombreCompleto : String
     var antecedentes : String

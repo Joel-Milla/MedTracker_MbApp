@@ -13,7 +13,7 @@ import SwiftUI
 struct ProfileView: View {
     @ObservedObject var user: UserModel
     @EnvironmentObject var authentication: AuthViewModel
-    @State private var draftUser: UserModel = UserModel()
+    @State private var draftUser: User = User()
     @State private var keyboardHeight: CGFloat = 48
     @ObservedObject var symptoms : SymptomList
     @State private var isEditing = false
@@ -56,7 +56,8 @@ struct ProfileView: View {
                             Text("Nombre completo: \(user.user.nombreCompleto)")
                             HStack {
                                 Text("Teléfono:")
-                                TextField("+81 2611 1857", text: $draftUser.user.telefono)}
+                                TextField("+81 2611 1857", text: $draftUser.telefono)
+                            }
                         } else {
                             Text("Nombre completo: \(user.user.nombreCompleto)")
                             Text("Teléfono: \(user.user.telefono)")
@@ -69,11 +70,11 @@ struct ProfileView: View {
                         if isEditing {
                             HStack {
                                 Text("Estatura:")
-                                TextField("1.80", text: $draftUser.user.estatura)
+                                TextField("1.80", text: $draftUser.estatura)
                                     .keyboardType(.decimalPad)
                             }
                             DatePicker("Fecha de Nacimiento",
-                                       selection: $draftUser.user.fechaNacimiento, in: dateRange,
+                                       selection: $draftUser.fechaNacimiento, in: dateRange,
                                        displayedComponents: .date)
                             
                             Picker("Sexo", selection: $selectedSexo) {
@@ -83,10 +84,10 @@ struct ProfileView: View {
                             }
                             .pickerStyle(MenuPickerStyle())
                             .onAppear {
-                                self.selectedSexo = draftUser.user.sexo
+                                self.selectedSexo = draftUser.sexo
                             }
                             .onChange(of: selectedSexo) { newValue in
-                                draftUser.user.sexo = newValue
+                                draftUser.sexo = newValue
                             }
                         } else {
                             Text("Estatura: \(user.user.estatura)")
@@ -99,7 +100,7 @@ struct ProfileView: View {
                             HStack {
                                 Text("Sexo:")
                                 Spacer()
-                                Text(draftUser.user.sexo)
+                                Text(draftUser.sexo)
                             }
                         }
                     } header: {
@@ -109,7 +110,7 @@ struct ProfileView: View {
                     Section {
                         if isEditing {
                             Text("Antecedentes médicos:")
-                            TextEditor(text: $draftUser.user.formattedAntecedentes)
+                            TextEditor(text: $draftUser.formattedAntecedentes)
                         } else {
                             Text("Antecedentes médicos:")
                             ScrollView {
@@ -157,7 +158,7 @@ struct ProfileView: View {
                         if isEditing {
                             Button("Cancel") {
                                 // Borrar informacion de draft user
-                                draftUser.user = user.user
+                                draftUser = user.user
                                 isEditing = false
                             }
                         }
@@ -166,13 +167,13 @@ struct ProfileView: View {
                         if isEditing {
                             Button("Done") {
                                 // Guardar informacion en user y sandbox
-                                let validationResult = draftUser.user.error()
+                                let validationResult = draftUser.error()
                                 if validationResult.0 {
                                     error = true
                                     errorMessage = validationResult.1
                                 }
                                 else {
-                                    user.user = draftUser.user
+                                    user.user = draftUser
                                     //user.saveUserData()
                                     createUser(user: user.user)
                                     isEditing = false
@@ -198,23 +199,6 @@ struct ProfileView: View {
                 AddDoctorView(user: user, writePatient: user.writePatient(), createAction: user.makeCreateAction(), deletePatient: user.makeDeleteAction())
             })
         }
-        // Keyboard modifier
-        .padding(.bottom, keyboardHeight) // Apply the dynamic padding here
-        .onAppear {
-            // Set up keyboard show/hide observers
-            NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: .main) { notification in
-                if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-                    if authentication.userRole != "Doctor" {
-                        keyboardHeight = keyboardFrame.height - 40
-                    }
-                }
-            }
-            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
-                if authentication.userRole != "Doctor" {
-                    keyboardHeight = 48 // No extra padding when keyboard is hidden
-                }
-            }
-        }
         .onDisappear {
             NotificationCenter.default.removeObserver(self)
         }
@@ -229,7 +213,7 @@ struct ProfileView: View {
             do {
                 try await createAction2(symptomModification) //call the function that adds the symptom to the database
             } catch {
-                print("[NewPostForm] Cannot create post: \(error)")
+                print("[ProfileView] Cannot modify symptom: \(error)")
             }
         }
     }
@@ -241,16 +225,10 @@ struct ProfileView: View {
                 try await
                 createAction(user) //call the function that adds the user to the database
             } catch {
-                print("[NewPostForm] Cannot create post: \(error)")
+                print("[ProfileView] Cannot create user: \(error)")
             }
         }
     }
     
     //private func
-}
-
-struct profile_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView(user: UserModel(), symptoms: SymptomList(), createAction: { _ in }, createAction2: { _ in })
-    }
 }

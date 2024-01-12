@@ -12,14 +12,15 @@ import Foundation
  **********************************/
 @MainActor
 class PatientList : ObservableObject {
-    @Published var patients = [Patient]()
+    @Published var patientsList = [Patient]()
     @Published var state: State = .isLoading //State of the patients array
-    let repository = Repository() // Variable to call the functions inside the repository
+    let repository: Repository // Variable to call the functions inside the repository
     
     /**********************
      Important initialization methods
      **********************************/
-    init() {
+    init(repository: Repository) {
+        self.repository = repository
         //Fetch patients, so it loads every time
         fetchPatients()
     }
@@ -39,10 +40,10 @@ class PatientList : ObservableObject {
         state = .isLoading
         Task {
             do {
-                patients = try await self.repository.fetchPatients()
-                state = patients.isEmpty ? .isEmpty : .complete
+                patientsList = try await self.repository.fetchPatients()
+                state = patientsList.isEmpty ? .isEmpty : .complete
             } catch {
-                print("[PostsViewModel] Cannot fetch posts: \(error)")
+                print("[PatientsList] Cannot fetch patients: \(error)")
             }
         }
     }

@@ -38,6 +38,7 @@ struct AddDoctorView: View {
                 Form {
                     Section(header: Text("Agregar Doctor")) {
                         TextField("Email de doctor", text: $email)
+                            .textInputAutocapitalization(.never)
                             .textContentType(.emailAddress)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -154,10 +155,9 @@ struct AddDoctorView: View {
                 } else {
                     // modifying data locally
                     user.user.arregloDoctor.append(email)
-                    user.saveUserData()
+                    user.saveUserData() // save information of array doctor in firebase
                     
                     // modify data in database
-                    createUser(user: user.user)
                     writeDoctor(email: email, user: user.user)
                     
                     // reset variables
@@ -185,7 +185,7 @@ struct AddDoctorView: View {
                 try await
                 createAction(user) //call the function that adds the user to the database
             } catch {
-                print("[NewPostForm] Cannot create post: \(error)")
+                print("[AddDoctorView] Werent able to create the user: \(error)")
             }
         }
     }
@@ -197,14 +197,8 @@ struct AddDoctorView: View {
                 try await
                 writePatient(email, user) //call the function that adds the user to the database
             } catch {
-                print("[NewPostForm] Cannot create post: \(error)")
+                print("[AddDoctorView] Cannot write the doctor: \(error)")
             }
         }
-    }
-}
-
-struct AddDoctorView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddDoctorView(user: UserModel(), writePatient: { _, _ in }, createAction: { _ in }, deletePatient: { _ in })
     }
 }

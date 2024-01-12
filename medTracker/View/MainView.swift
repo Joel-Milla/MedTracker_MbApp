@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var symptoms = SymptomList()
-    @StateObject var registers = RegisterList()
+    @StateObject var symptoms: SymptomList
+    @StateObject var registers: RegisterList
     @State private var muestraEditarSintomas = false
-    @StateObject var user = UserModel()
+    @StateObject var user: UserModel
     @State var currentTab: Tab = .Inicio
     
-    init() {
-        UITabBar.appearance().isHidden = true
-    }
+//    init() {
+//        UITabBar.appearance().isHidden = true
+//    }
     
     @Namespace var animation
     var body: some View {
         TabView (selection: $currentTab) {
-            AnalysisView(listSymp: symptoms, registers: registers)
+            AnalysisView(symptoms: symptoms, registers: registers)
                 .tag(Tab.Analisis)
-            HomeView(listaDatos: symptoms, registers: registers)
+            HomeView(symptoms: symptoms, registers: registers)
                 .tag(Tab.Inicio)
             ProfileView(user: user, symptoms: symptoms, createAction: user.makeCreateAction(), createAction2: symptoms.makeCreateAction())
                 .tag(Tab.Perfil)
@@ -81,12 +81,6 @@ struct MainView: View {
             })
         }
         .frame(height: 25)
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
     }
 }
 

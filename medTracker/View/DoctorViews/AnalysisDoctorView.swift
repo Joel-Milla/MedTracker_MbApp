@@ -12,15 +12,9 @@ import Charts
  This view shows an analysis of the symptoms that are being tracked by the patient.
  **********************************/
 struct AnalysisDoctorView: View {
-    let patient: Patient
     @State var patientsData: PatientsData
     @State private var isShowingActivityView = false
     @State private var activityItems: [Any] = []
-    
-    init(patient: Patient) {
-        self.patient = patient
-        _patientsData = State(initialValue: PatientsData(email: patient.email))
-    }
     
     var body: some View {
         ZStack {
@@ -50,7 +44,7 @@ struct AnalysisDoctorView: View {
                         Spacer(minLength: 10)
                     }
                     .background(Color("mainWhite"))
-                    .navigationTitle(patient.name)
+                    .navigationTitle(patientsData.patient.name)
                     .toolbar {
                         // Button to traverse to EditSymptomView.
                         ToolbarItem(placement: .navigationBarTrailing) {
@@ -96,7 +90,7 @@ struct AnalysisDoctorView: View {
                 }
             }
         } catch {
-            print("Error al escribir el archivo CSV: \(error)")
+            print("[AnalysisDoctorView] Error while creating CSV: \(error)")
         }
         return path
     }
@@ -330,10 +324,4 @@ struct AnalysisPatientView: View {
 struct ImageYAxisLabel: Identifiable {
     var id: Int
     var image: String
-}
-
-struct AnalysisDoctorView_Previews: PreviewProvider {
-    static var previews: some View {
-        AnalysisDoctorView(patient: Patient(email: "", name: ""))
-    }
 }
