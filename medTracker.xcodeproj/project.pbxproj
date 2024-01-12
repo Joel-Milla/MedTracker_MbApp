@@ -278,7 +278,6 @@
 			isa = PBXGroup;
 			children = (
 				FB87FECE2ADDEE9800F6273B /* medTrackerApp.swift */,
-				FB0EC39B2B12D3C800E7309B /* Utilities */,
 				FB1A55552AFD793C00F9A74A /* View */,
 				FB86F06F2AFEC3DD0051C6A6 /* ViewModel */,
 				FB9959A42B0C107A00B0A888 /* HelperFunctions */,
@@ -286,6 +285,7 @@
 				FBEC06352B081497007AC73B /* Repository */,
 				FB1A55572AFD795200F9A74A /* Model */,
 				FB9BBE092AFD7C0F0045AACE /* Elements */,
+				FB0EC39B2B12D3C800E7309B /* Utilities */,
 				1718E8B52B4F3716001691B8 /* Resources */,
 			);
 			path = medTracker;

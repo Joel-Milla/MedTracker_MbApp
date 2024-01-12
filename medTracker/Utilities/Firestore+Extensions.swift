@@ -9,6 +9,14 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+extension Query {
+    func getDocuments<T: Decodable>(as type: T.Type) async throws -> [T] {
+        let snapshot = try await getDocuments()
+        return snapshot.documents.compactMap { document in
+            try! document.data(as: type)
+        }
+    }
+}
 
 // This method is to not show an error for some of the methods above.
 extension DocumentReference {
