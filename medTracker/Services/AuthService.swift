@@ -60,15 +60,20 @@ class AuthService: ObservableObject {
         self.name = name
         self.role = role
         let result = try await auth.createUser(withEmail: email, password: password)
-        try await result.user.updateProfile(\.displayName, to: name)            // Save the role in Firestore
+        try await result.user.updateProfile(\.displayName, to: name) // Save the name of the yser
+        try await save(role, of: result.user.uid, with: email)
+    }
+    
+    // Create the role of the user in the database
+    func save(_ role: String, of id: String, with email: String) async throws {
+        var lowerCaseEmail = email.lowercased()
         let db = Firestore.firestore()
-        //try await db.collection("users").document(result.user.uid).setData([
-        try await db.collection("Roles").document(email).setData([
+        let document = Firestore.firestore().collection("Roles").document(lowerCaseEmail)
+        try await document.setData([
             "role": role,
-            "id": result.user.uid,
+            "id": id,
             "email": email
         ])
-        
     }
     
     // Function that tries to sign in.

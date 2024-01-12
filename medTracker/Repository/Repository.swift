@@ -17,6 +17,7 @@ struct Repository {
     // Variables to make the connection to firebase.
     private var userReference = Firestore.firestore().collection("Users")
     private var doctorReference = Firestore.firestore().collection("Doctors")
+    private var rolesReference = Firestore.firestore().collection("Roles")
     let user: User
 
     // Variables that hold the reference to the collections inside the user.
@@ -144,8 +145,7 @@ struct Repository {
     func delete(_ docEmail: String) async throws {
         let doctorData = doctorReference.document(docEmail)
         let patientReference = doctorData.collection("patients")
-        let document = patientReference.document(user.email)
-        try await document.delete()
+        try await patientReference.document(user.email).delete()
     }
 }
 
