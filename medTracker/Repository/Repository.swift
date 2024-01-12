@@ -145,7 +145,8 @@ struct Repository {
     func delete(_ docEmail: String) async throws {
         let doctorData = doctorReference.document(docEmail)
         let patientReference = doctorData.collection("patients")
-        try await patientReference.document(user.email).delete()
+        let document = patientReference.document(user.email)
+        try await document.delete()
     }
 }
 

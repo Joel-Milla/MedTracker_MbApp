@@ -199,24 +199,6 @@ struct ProfileView: View {
                 AddDoctorView(user: user, writePatient: user.writePatient(), createAction: user.makeCreateAction(), deletePatient: user.makeDeleteAction())
             })
         }
-        // Keyboard modifier
-        .padding(.bottom, keyboardHeight) // Apply the dynamic padding here
-        .onAppear {
-            draftUser = user.user
-            // Set up keyboard show/hide observers
-            NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: .main) { notification in
-                if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-                    if authentication.userRole != "Doctor" {
-                        keyboardHeight = keyboardFrame.height - 40
-                    }
-                }
-            }
-            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
-                if authentication.userRole != "Doctor" {
-                    keyboardHeight = 48 // No extra padding when keyboard is hidden
-                }
-            }
-        }
         .onDisappear {
             NotificationCenter.default.removeObserver(self)
         }
