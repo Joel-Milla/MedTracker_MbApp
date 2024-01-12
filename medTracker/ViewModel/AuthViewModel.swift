@@ -147,17 +147,22 @@ class AuthViewModel: ObservableObject {
     
     // returns a closure of a form to sign in
     func makeSignInViewModel() -> SignInViewModel {
-        return SignInViewModel(action: authService.signIn(email:password:))
+        let singInModel = SignInViewModel(action: authService.signIn(email:password:))
+        singInModel.$error
+            .compactMap { $0 }
+            .map { $0.localizedDescription }
+            .assign(to: &$registrationErrorMessage)
+        return singInModel
     }
     
     // returns a closure of a form to create an account
     func makeCreateAccountViewModel() -> CreateAccountViewModel {
-        let viewModel = CreateAccountViewModel(initialValue: (name: "", email: "", password: "", role: "Paciente"), action: authService.createAccount)
-        viewModel.$error
+        let createAccountModel = CreateAccountViewModel(action: authService.createAccount(name:email:password:role:))
+        createAccountModel.$error
             .compactMap { $0 }
             .map { $0.localizedDescription }
             .assign(to: &$registrationErrorMessage)
-        return viewModel
+        return createAccountModel
     }
 }
 

@@ -43,8 +43,10 @@ class AuthService: ObservableObject {
                     }
                 }
             } else {
-                // Handle the scenario where firebaseUser is nil
+                // Handle the scenario when singin out
                 self.user = nil // or some default initialization
+                self.name = nil
+                self.role = nil
             }
         })
     }
