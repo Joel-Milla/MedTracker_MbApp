@@ -24,14 +24,21 @@ class UserModel: ObservableObject {
     /**********************
      Important initialization methods
      **********************************/
+    private var usersURL: URL {
+        do {
+            let documentsDirectory = try HelperFunctions.filePath("user")
+            return documentsDirectory
+        }
+        catch {
+            fatalError("[UserModel] An error occurred while getting the url of the user: \(error)")
+        }
+    }
+
     init(repository: Repository) {
         self.repository = repository
         self.user = self.repository.user
-        if let datosRecuperados = try? Data.init(contentsOf: HelperFunctions.filePath("User.JSON")) {
-            if let datosDecodificados = try? JSONDecoder().decode(User.self, from: datosRecuperados) {
-                user = datosDecodificados
-                return
-            }
+        if let decodedData = HelperFunctions.loadData(in: usersURL, as: User.self) {
+            self.user = decodedData
         }
         //If there is no info in JSON, fetch
         fetchUser()
@@ -43,7 +50,7 @@ class UserModel: ObservableObject {
     
     // Save the information of the user
     func saveUserData() {
-        HelperFunctions.write(self.user, inPath: "User.JSON")
+        HelperFunctions.write(self.user, inPath: usersURL)
     }
     
     // The functions returns a closure that is used to write information in firebase

@@ -16,24 +16,31 @@ class SymptomList : ObservableObject {
     @Published var symptoms = [Symptom]() {
         didSet {
             updateStateBasedOnSymptoms()
-            HelperFunctions.write(self.symptoms, inPath: "Symptoms.JSON")
+            HelperFunctions.write(self.symptoms, inPath: symptomListURL)
         }
     }
     @Published var state: State = .isLoading //State of the symptoms array
     let repository: Repository // Variable to call the functions inside the repository
-    
+    // URL where the files will be created.
+    private var symptomListURL: URL {
+        do {
+            let documentsDirectory = try HelperFunctions.filePath("symptoms")
+            return documentsDirectory
+        }
+        catch {
+            fatalError("[SymptomList] An error occurred while getting the url of symptoms list: \(error)")
+        }
+    }
+
     /**********************
      Important initialization methods
      **********************************/
     init(repository: Repository) {
         self.repository = repository
-        if let datosRecuperados = try? Data.init(contentsOf: HelperFunctions.filePath("Symptoms.JSON")) {
-            if let datosDecodificados = try? JSONDecoder().decode([Symptom].self, from: datosRecuperados) {
-                symptoms = datosDecodificados
-                return
-            }
+        if let decodedData = HelperFunctions.loadData(in: symptomListURL, as: [Symptom].self) {
+            self.symptoms = decodedData
         }
-        //If there is no info in JSON, fetdh
+        //If there is no info in JSON, fetch
         fetchSymptoms()
         
         // For testing, the next function can be used for dummy data.

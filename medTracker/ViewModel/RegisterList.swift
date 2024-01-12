@@ -14,21 +14,27 @@ import Foundation
 class RegisterList : ObservableObject {
     @Published var registers = [Register]() {
         didSet {
-            HelperFunctions.write(self.registers, inPath: "Registers.JSON")
+            HelperFunctions.write(self.registers, inPath: registersURL)
         }
     }
     let repository: Repository
+    private var registersURL: URL {
+        do {
+            let documentsDirectory = try HelperFunctions.filePath("registers")
+            return documentsDirectory
+        }
+        catch {
+            fatalError("[RegisterList] An error occurred while getting the url of registers list: \(error)")
+        }
+    }
     
     /**********************
      Important initialization method
      **********************************/
     init(repository: Repository) {
         self.repository = repository
-        if let datosRecuperados = try? Data.init(contentsOf: HelperFunctions.filePath("Registers.JSON")) {
-            if let datosDecodificados = try? JSONDecoder().decode([Register].self, from: datosRecuperados) {
-                registers = datosDecodificados
-                return
-            }
+        if let decodedData = HelperFunctions.loadData(in: registersURL, as: [Register].self) {
+            self.registers = decodedData
         }
         
         //If no JSON, fetch info

@@ -61,9 +61,7 @@ class AuthService: ObservableObject {
         self.role = role
         do {
             let result = try await auth.createUser(withEmail: email, password: password)
-            try await result.user.updateProfile(\.displayName, to: name)
-            HelperFunctions.write(email, inPath: "email.JSON")
-            // Save the role in Firestore
+            try await result.user.updateProfile(\.displayName, to: name)            // Save the role in Firestore
             let db = Firestore.firestore()
             //try await db.collection("users").document(result.user.uid).setData([
             try await db.collection("Roles").document(email).setData([

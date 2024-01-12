@@ -9,7 +9,6 @@ struct RegisterView: View {
     @StateObject var authentication: AuthViewModel.CreateAccountViewModel
     @State private var showAlert = false
     @State private var selectedAccountType = ["Paciente", "Doctor"]
-    @State private var seleccion = "Paciente"
     @State private var emptyField = false
     @State var user = User()
     @State var passwordConfirm = ""
@@ -66,13 +65,7 @@ struct RegisterView: View {
                         errorMessage = "Las contraseñas no coinciden"
                     }
                     else {
-//                        authentication.role = seleccion
                         authentication.submit() //Submits the request to firebase to create a new user.
-//                        authViewModel.email = authentication.email // set the email of the current user.
-//                        authViewModel.userRole = seleccion
-//                        user.nombreCompleto = authentication.name
-                        HelperFunctions.write(user, inPath: "User.JSON")
-                        HelperFunctions.write(seleccion, inPath: "role.JSON")
                     }
                 }, label: {
                     // The switch check the status of the request and shows a loading animation if it is waiting a response from firebase.

@@ -19,16 +19,6 @@ class AuthViewModel: ObservableObject {
      Personal data of the user
      **********************************/
     @Published var user: User?
-    
-    
-    @Published var email = "" {
-        didSet {
-            let lowercasedEmail = email.lowercased()
-            HelperFunctions.write(lowercasedEmail, inPath: "email.JSON")
-        }
-    }
-    @Published var password = ""
-
     var userRole: String  {
         guard let userRol = user?.rol else {
             print("[AuthViewModel] Error: User role not found")
@@ -71,22 +61,6 @@ class AuthViewModel: ObservableObject {
     /**********************
      Helper functions
      **********************************/
-    
-    // The function sends a request to firebase to confirm the email and password entered.
-    func signIn() {
-        Task {
-            state = .isLoading
-            do {
-                try await authService.signIn(email: email, password: password)
-                let role = try await HelperFunctions.fetchUserRole(email: userEmail)
-                self.user?.id = role
-            } catch {
-                signInErrorMessage = error.localizedDescription
-            }
-            state = .idle
-        }
-    }
-    
     // Function to sign out and reset all the data
     func signOut() {
         Task {
@@ -94,19 +68,32 @@ class AuthViewModel: ObservableObject {
                 try authService.signOut() // Reset the state of the authService
                 
                 // The next lines of code delete all the information of the current user
-                email = ""
-                password = ""
                 signInErrorMessage = nil
                 registrationErrorMessage = nil
-                let eliminar = ["email.JSON", "Registers.JSON", "Symptoms.JSON", "User.JSON"]
-                for path in eliminar {
-                    HelperFunctions.write("-----", inPath: path)
-                }
+                deleteFiles()
                 isAuthenticated = false
                 
             } catch {
                 signInErrorMessage = error.localizedDescription
             }
+        }
+    }
+    
+    // Function that performs a shallow search on the files created and deletes them
+    private func deleteFiles() {
+        do {
+            let fileManager = FileManager.default
+            let documentsDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let documentsDirectoryPath = documentsDirectory.path
+            
+            let filesURLs = try fileManager.contentsOfDirectory(atPath: documentsDirectoryPath)
+            
+            for file in filesURLs {
+                let fullPath = documentsDirectory.appendingPathComponent(file).path(percentEncoded: true)
+                try fileManager.removeItem(atPath: fullPath)
+            }
+        } catch {
+            fatalError("[AuthViewModel] Error while deleting the files: \(error)")
         }
     }
     
