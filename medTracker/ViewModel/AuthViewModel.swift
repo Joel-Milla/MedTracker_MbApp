@@ -138,7 +138,7 @@ class AuthViewModel: ObservableObject {
         singInModel.$error
             .compactMap { $0 }
             .map { $0.localizedDescription }
-            .assign(to: &$registrationErrorMessage)
+            .assign(to: &$signInErrorMessage)
         return singInModel
     }
     
