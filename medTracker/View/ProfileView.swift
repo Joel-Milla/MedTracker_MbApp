@@ -213,7 +213,7 @@ struct ProfileView: View {
             do {
                 try await createAction2(symptomModification) //call the function that adds the symptom to the database
             } catch {
-                print("[NewPostForm] Cannot create post: \(error)")
+                print("[ProfileView] Cannot modify symptom: \(error)")
             }
         }
     }
@@ -225,7 +225,7 @@ struct ProfileView: View {
                 try await
                 createAction(user) //call the function that adds the user to the database
             } catch {
-                print("[NewPostForm] Cannot create post: \(error)")
+                print("[ProfileView] Cannot create user: \(error)")
             }
         }
     }

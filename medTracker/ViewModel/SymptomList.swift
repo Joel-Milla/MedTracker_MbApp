@@ -72,7 +72,7 @@ class SymptomList : ObservableObject {
                 symptoms = try await self.repository.fetchSymptoms()
                 state = symptoms.isEmpty ? .isEmpty : .complete
             } catch {
-                print("[PostsViewModel] Cannot fetch posts: \(error)")
+                print("[SymptomList] Cannot fetch symptoms: \(error)")
             }
         }
     }

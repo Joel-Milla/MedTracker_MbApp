@@ -176,7 +176,7 @@ struct HomeView: View {
                 }
             }
         } catch {
-            print("Error al escribir el archivo CSV: \(error)")
+            print("[HomeView] Error while writing the CSV file: \(error)")
         }
         return path
     }

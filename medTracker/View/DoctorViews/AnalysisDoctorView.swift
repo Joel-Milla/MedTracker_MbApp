@@ -96,7 +96,7 @@ struct AnalysisDoctorView: View {
                 }
             }
         } catch {
-            print("Error al escribir el archivo CSV: \(error)")
+            print("[AnalysisDoctorView] Error while creating CSV: \(error)")
         }
         return path
     }

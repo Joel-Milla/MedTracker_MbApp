@@ -171,7 +171,7 @@ struct DoctorProfileView: View {
                 try await
                 createAction(user) //call the function that adds the user to the database
             } catch {
-                print("[NewPostForm] Cannot create post: \(error)")
+                print("[DoctorProfileView] Cannot create user: \(error)")
             }
         }
     }

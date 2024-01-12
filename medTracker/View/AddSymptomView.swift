@@ -250,7 +250,7 @@ struct AddSymptomView: View {
             do {
                 try await createAction(symptoms.symptoms.last ?? Symptom(id: 0, nombre: "", icon: "", description: "", cuantitativo: true, unidades: "", activo: true, color: "", notificacion: "")) //call the function that adds the symptom to the database
             } catch {
-                print("[NewPostForm] Cannot create post: \(error)")
+                print("[AddSymptomView] Cannot create symptom: \(error)")
             }
         }
     }

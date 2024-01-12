@@ -61,7 +61,7 @@ class RegisterList : ObservableObject {
             do {
                 registers = try await self.repository.fetchRegisters()
             } catch {
-                print("[PostsViewModel] Cannot fetch posts: \(error)")
+                print("[RegisterList] Cannot fetch registers: \(error)")
             }
         }
     }

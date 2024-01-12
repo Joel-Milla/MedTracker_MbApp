@@ -53,7 +53,7 @@ struct ShareView: View {
                 }
             }
         } catch {
-            print("Error al escribir el archivo CSV: \(error)")
+            print("[ShareView] Error while writing the CSV: \(error)")
         }
         return path
     }
