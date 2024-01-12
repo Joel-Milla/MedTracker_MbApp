@@ -46,15 +46,12 @@ struct Repository {
         try await document.setData(from: symptom)
     }
     
-    // Function to fetch all the symptoms in firebase.
+    // Function to fetch all the symptoms in firebase
     func fetchSymptoms() async throws -> [Symptom] {
-        let snapshot = try await symptomReference
+        let symptoms = try await symptomReference
             .order(by: "id", descending: false)
-            .getDocuments()
-        // Convert the returning documents into the class Symptom
-        return snapshot.documents.compactMap { document in
-            try! document.data(as: Symptom.self)
-        }
+            .getDocuments(as: Symptom.self)
+        return symptoms
     }
     
     // Function to write a register in database.
@@ -63,15 +60,12 @@ struct Repository {
         try await document.setData(from: register)
     }
     
-    // Functin to obtain the registers that exist on database.
+    // Function to obtain the registers of the database
     func fetchRegisters() async throws -> [Register] {
-        let snapshot = try await registerReference
+        let registers = try await registerReference
             .order(by: "idSymptom", descending: false)
-            .getDocuments()
-        // Convert the returning documents into the class Register
-        return snapshot.documents.compactMap { document in
-            try! document.data(as: Register.self)
-        }
+            .getDocuments(as: Register.self)
+        return registers
     }
     
     // Function to write a user in database.
@@ -82,17 +76,9 @@ struct Repository {
     
     // Functin to obtain the user info that exist on database.
     func fetchUser() async throws -> User {
-        let documentReference = userReference.document(user.email)
-        let documentSnapshot = try await documentReference.getDocument()
-        
-        // Try to decode the document data into a User object
-        do {
-            let userData = try documentSnapshot.data(as: User.self)
-            return userData
-        } catch {
-            // Handle the error if decoding fails
-            throw NSError(domain: "DataDecodingError", code: 1001, userInfo: [NSLocalizedDescriptionKey: "[Repository] Failed to decode user data: \(error.localizedDescription)"])
-        }
+        let userDocument = userReference.document(user.email)
+        let user = try await userDocument.getDocument(as: User.self)
+        return user
     }
     
     // Function to write own name as a document in doctors collection
@@ -111,37 +97,26 @@ struct Repository {
         let docDocument = doctorReference.document(user.email)
         let patientsReference = docDocument.collection("patients")
         let patients = try await patientsReference
-            .getDocuments()
-        // Convert the returning documents into the class Patient
-        return patients.documents.compactMap { document in
-            try! document.data(as: Patient.self)
-        }
+            .getDocuments(as: Patient.self)
+        return patients
     }
     
     // Function to fetch all the symptoms in firebase of a patient.
     func fetchSymptomsPatient(_ email: String) async throws -> [Symptom] {
         let userDocument = userReference.document(email)
         let collectionSymptoms = userDocument.collection("symptoms")
-        let snapshot = try await collectionSymptoms
-            .order(by: "id", descending: false)
-            .getDocuments()
-        // Convert the returning documents into the class Register
-        return snapshot.documents.compactMap { document in
-            try! document.data(as: Symptom.self)
-        }
+        let symptoms = try await collectionSymptoms
+            .getDocuments(as: Symptom.self)
+        return symptoms
     }
     
     // Functin to obtain the registers that exist on database of the patient.
     func fetchRegistersPatient(_ email: String) async throws -> [Register] {
         let userDocument = userReference.document(email)
         let collectionRegisters = userDocument.collection("registers")
-        let snapshot = try await collectionRegisters
-            .order(by: "idSymptom", descending: false)
-            .getDocuments()
-        // Convert the returning documents into the class Register
-        return snapshot.documents.compactMap { document in
-            try! document.data(as: Register.self)
-        }
+        let registers = try await collectionRegisters
+            .getDocuments(as: Register.self)
+        return registers
     }
     
     // Delete an email from the doctor
