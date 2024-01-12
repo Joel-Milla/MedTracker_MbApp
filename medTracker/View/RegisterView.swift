@@ -50,7 +50,7 @@ struct RegisterView: View {
                 )
                 
                 // Account Type Picker
-                Picker("Account Type", selection: $seleccion) {
+                Picker("Account Type", selection: $authentication.role) {
                     ForEach(selectedAccountType, id: \.self) { type in
                         Text(type).tag(type)
                     }
