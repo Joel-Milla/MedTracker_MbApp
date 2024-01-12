@@ -56,7 +56,8 @@ struct ProfileView: View {
                             Text("Nombre completo: \(user.user.nombreCompleto)")
                             HStack {
                                 Text("Teléfono:")
-                                TextField("+81 2611 1857", text: $draftUser.telefono)}
+                                TextField("+81 2611 1857", text: $draftUser.telefono)
+                            }
                         } else {
                             Text("Nombre completo: \(user.user.nombreCompleto)")
                             Text("Teléfono: \(user.user.telefono)")
@@ -201,6 +202,7 @@ struct ProfileView: View {
         // Keyboard modifier
         .padding(.bottom, keyboardHeight) // Apply the dynamic padding here
         .onAppear {
+            draftUser = user.user
             // Set up keyboard show/hide observers
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: .main) { notification in
                 if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
