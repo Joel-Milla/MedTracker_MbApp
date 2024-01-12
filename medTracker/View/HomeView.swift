@@ -41,9 +41,6 @@ struct HomeView: View {
     @State private var isNavigationViewActive = false
     
     
-    //@State private var refreshID = UUID()
-    
-    
     var body: some View {
         ZStack{
             NavigationStack {
