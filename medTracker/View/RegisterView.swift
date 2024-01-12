@@ -53,7 +53,7 @@ struct RegisterView: View {
                 Picker("Account Type", selection: $authentication.role) {
                     ForEach(selectedAccountType, id: \.self) { type in
                         Text(type).tag(type)
-                    }
+                    }   
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding()

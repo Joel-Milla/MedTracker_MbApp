@@ -35,7 +35,7 @@ struct WelcomeView: View {
                             .frame(height: 300)
                     }
                     NavigationLink {
-                        LogInView()
+                        LogInView(authentication: authentication.makeSignInViewModel())
                     } label: {
                         Text("Iniciar Sesión")
                             .font(.headline)
