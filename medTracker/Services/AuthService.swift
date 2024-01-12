@@ -66,8 +66,7 @@ class AuthService: ObservableObject {
     
     // Create the role of the user in the database
     func save(_ role: String, of id: String, with email: String) async throws {
-        var lowerCaseEmail = email.lowercased()
-        let db = Firestore.firestore()
+        let lowerCaseEmail = email.lowercased()
         let document = Firestore.firestore().collection("Roles").document(lowerCaseEmail)
         try await document.setData([
             "role": role,

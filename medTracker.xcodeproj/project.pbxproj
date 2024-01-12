@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1700F3BD2B51D713009D0A62 /* Firestore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1700F3BC2B51D713009D0A62 /* Firestore+Extensions.swift */; };
 		1718E8B72B4F3736001691B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */; };
 		1718E8BA2B4F3802001691B8 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8B92B4F3802001691B8 /* FirebaseAnalytics */; };
 		1718E8BC2B4F381A001691B8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8BB2B4F381A001691B8 /* FirebaseAuth */; };
@@ -61,6 +62,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1700F3BC2B51D713009D0A62 /* Firestore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
 		1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F820959F2AF58ACE002F1C28 /* Symptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptom.swift; sourceTree = "<group>"; };
 		F838338D2B0C49F5005F2BB5 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				FB0EC39C2B12D3DC00E7309B /* DismissingButton.swift */,
+				1700F3BC2B51D713009D0A62 /* Firestore+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -166,7 +169,6 @@
 		FB1A55552AFD793C00F9A74A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FB0EC39B2B12D3C800E7309B /* Utilities */,
 				FB7EBC5E2B0BDEF200FBAE8D /* Supporting Views */,
 				FBD940B02AFD74D100C3BD11 /* WelcomeView.swift */,
 				FBD940B22AFD754A00C3BD11 /* RegisterView.swift */,
@@ -276,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				FB87FECE2ADDEE9800F6273B /* medTrackerApp.swift */,
+				FB0EC39B2B12D3C800E7309B /* Utilities */,
 				FB1A55552AFD793C00F9A74A /* View */,
 				FB86F06F2AFEC3DD0051C6A6 /* ViewModel */,
 				FB9959A42B0C107A00B0A888 /* HelperFunctions */,
@@ -434,6 +437,7 @@
 				FB45BFF62B08270E0019C0A1 /* SymbolLoader.swift in Sources */,
 				FBA3D15E2AFF0936000E3E39 /* HexToColor.swift in Sources */,
 				FB0EC3A12B12FF9400E7309B /* PatientList.swift in Sources */,
+				1700F3BD2B51D713009D0A62 /* Firestore+Extensions.swift in Sources */,
 				FB0EC39F2B12FEC600E7309B /* Patient.swift in Sources */,
 				FB87FED12ADDEE9800F6273B /* MainView.swift in Sources */,
 				FB0EC3AB2B13181300E7309B /* AnalysisDoctorView.swift in Sources */,
