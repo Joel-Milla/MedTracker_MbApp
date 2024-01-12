@@ -37,7 +37,7 @@ struct AnalysisView: View {
                     // Show a tab for each symptom that is active.
                     TabView {
                         ForEach(symptoms.symptoms.filter { $0.activo == true }, id: \.id) { symptom in
-                            AnalysisItemView(symptom: symptom, registerList: registers, listSymp: symptoms, allRegisters: registers.registers.filter({ $0.idSymptom == symptom.id }))
+                            AnalysisItemView(symptom: symptom, registers: registers, symptoms: symptoms)
                         }
                     }
                     .tabViewStyle(.page)
@@ -60,12 +60,12 @@ struct AnalysisView: View {
 
 struct AnalysisItemView: View {
     @State var symptom: Symptom
-    let registerList: RegisterList
-    let listSymp : SymptomList
-    @State var allRegisters: [Register]
+    @ObservedObject var registers: RegisterList
+    @ObservedObject var symptoms : SymptomList
+    @State var allRegisters: [Register] = []
     @State private var muestraRegisterSymptomView = false
     @State var currentTab = "Semana"
-    @State var registers : [Register] = []
+    @State var tempRegisters : [Register] = []
     
     var body: some View {
         let colorSintoma = Color(hex: symptom.color)
@@ -96,7 +96,7 @@ struct AnalysisItemView: View {
                     action: { muestraRegisterSymptomView = true }
                 )
                 .sheet(isPresented: $muestraRegisterSymptomView) {
-                    RegisterSymptomView(symptom: $symptom, registers: registerList, symptoms: listSymp, sliderValue: .constant(0.162),createAction: registerList.makeCreateAction())
+                    RegisterSymptomView(symptom: $symptom, registers: registers, symptoms: symptoms, sliderValue: .constant(0.162),createAction: registers.makeCreateAction())
                 }
                 //The else statement runs if there is already data associated with the symptom.
             } else {
@@ -123,9 +123,9 @@ struct AnalysisItemView: View {
                     .padding(.bottom, symptom.cuantitativo ? 0 : 35)
                     
                     if symptom.cuantitativo {
-                        ChartCuantitativa(filteredRegisters: registers)
+                        ChartCuantitativa(filteredRegisters: tempRegisters)
                     } else {
-                        ChartCualitativa(filteredRegisters: registers)
+                        ChartCualitativa(filteredRegisters: tempRegisters)
                     }
                 }
                 .padding(10)
@@ -149,19 +149,20 @@ struct AnalysisItemView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(.leading, 20)
         .onAppear() {
-            registers = allRegisters
+            allRegisters = registers.registers.filter({ $0.idSymptom == symptom.id })
+            tempRegisters = allRegisters
             currentTab = "Semana"
             let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-            registers = allRegisters.filter { $0.fecha > oneWeekAgo }
+            tempRegisters = allRegisters.filter { $0.fecha > oneWeekAgo }
         }
         .onChange(of: currentTab) { newValue in
-            registers = allRegisters
+            tempRegisters = allRegisters
             if newValue == "Semana" {
                 let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-                registers = allRegisters.filter { $0.fecha > oneWeekAgo }
+                tempRegisters = allRegisters.filter { $0.fecha > oneWeekAgo }
             } else if newValue == "Mes" {
                 let oneMonthAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date())!
-                registers = allRegisters.filter { $0.fecha > oneMonthAgo }
+                tempRegisters = allRegisters.filter { $0.fecha > oneMonthAgo }
             }
         }
     }
