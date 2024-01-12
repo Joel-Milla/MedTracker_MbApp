@@ -29,7 +29,7 @@ struct MainDoctorView: View {
                     List {
                         ForEach(patientsList.patientsList , id: \.self) { patient in
                             NavigationLink {
-                                AnalysisDoctorView(patient: patient, repository: user.repository)
+                                AnalysisDoctorView(patientsData: PatientsData(patient: patient, repository: user.repository))
                             } label: {
                                 rowPatient(patient: patient)
                             }

@@ -123,7 +123,7 @@ struct Repository {
         let userDocument = userReference.document(email)
         let collectionSymptoms = userDocument.collection("symptoms")
         let snapshot = try await collectionSymptoms
-            .order(by: "idSymptom", descending: false)
+            .order(by: "id", descending: false)
             .getDocuments()
         // Convert the returning documents into the class Register
         return snapshot.documents.compactMap { document in

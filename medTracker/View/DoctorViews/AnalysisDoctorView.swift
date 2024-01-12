@@ -12,15 +12,9 @@ import Charts
  This view shows an analysis of the symptoms that are being tracked by the patient.
  **********************************/
 struct AnalysisDoctorView: View {
-    let patient: Patient
     @State var patientsData: PatientsData
     @State private var isShowingActivityView = false
     @State private var activityItems: [Any] = []
-    
-    init(patient: Patient, repository: Repository) {
-        self.patient = patient
-        _patientsData = State(initialValue: PatientsData(email: patient.email, repository: repository))
-    }
     
     var body: some View {
         ZStack {
@@ -50,7 +44,7 @@ struct AnalysisDoctorView: View {
                         Spacer(minLength: 10)
                     }
                     .background(Color("mainWhite"))
-                    .navigationTitle(patient.name)
+                    .navigationTitle(patientsData.patient.name)
                     .toolbar {
                         // Button to traverse to EditSymptomView.
                         ToolbarItem(placement: .navigationBarTrailing) {

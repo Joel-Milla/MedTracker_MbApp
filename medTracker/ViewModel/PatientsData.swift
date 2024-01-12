@@ -12,6 +12,7 @@ import SwiftUI
  This class contains all the data of the patients that the doctor selects
  **********************************/
 class PatientsData : ObservableObject {
+    @Published var patient: Patient
     @Published var symptoms = [Symptom]()
     @Published var registers = [Register]()
     @Published var state: State = .isLoading //State of the symptoms array
@@ -20,11 +21,11 @@ class PatientsData : ObservableObject {
     /**********************
      Important initialization methods
      **********************************/
-    init(email: String, repository: Repository) {
+    init(patient: Patient, repository: Repository) {
         self.repository = repository
-        // Information to fetch data
-        fetchPatientsData(email: email)
+        self.patient = patient
         
+        fetchPatientsData()
         // For testing, the next function can be used for dummy data.
         //symptoms = getDefaultSymptoms()
     }
@@ -38,12 +39,12 @@ class PatientsData : ObservableObject {
      Helper functions
      **********************************/
     // Fetch patients data based on an email.
-    func fetchPatientsData(email: String) {
+    func fetchPatientsData() {
         state = .isLoading
         Task {
             do {
-                symptoms = try await self.repository.fetchSymptomsPatient(email)
-                registers = try await self.repository.fetchRegistersPatient(email)
+                symptoms = try await self.repository.fetchSymptomsPatient(patient.email)
+                registers = try await self.repository.fetchRegistersPatient(patient.email)
             } catch {
                 print("[PatientsData] Cannot fetch patients data: \(error)")
             }
