@@ -91,7 +91,7 @@ struct Repository {
             return userData
         } catch {
             // Handle the error if decoding fails
-            throw NSError(domain: "DataDecodingError", code: 1001, userInfo: [NSLocalizedDescriptionKey: "Failed to decode user data: \(error.localizedDescription)"])
+            throw NSError(domain: "DataDecodingError", code: 1001, userInfo: [NSLocalizedDescriptionKey: "[Repository] Failed to decode user data: \(error.localizedDescription)"])
         }
     }
     

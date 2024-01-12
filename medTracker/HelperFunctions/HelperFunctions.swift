@@ -29,7 +29,7 @@ class HelperFunctions {
             try encodedData.write(to: file)
         }
         catch {
-            fatalError("An error occured while saving the recipes: \(error)")
+            fatalError("[HelperFunctions] Error while writing a file in \(file): \(error)")
         }
     }
 
