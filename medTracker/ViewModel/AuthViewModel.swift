@@ -38,8 +38,6 @@ class AuthViewModel: ObservableObject {
      Variables related to firebase
      **********************************/
     private let authService = AuthService()
-    @Published var signInErrorMessage: String?
-    @Published var registrationErrorMessage: String?
     @Published var state: State = .idle // Variable to know the state of the request of firebase
     @Published var isAuthenticated = false // to know if the user is authenticated or not
     
@@ -66,15 +64,12 @@ class AuthViewModel: ObservableObject {
         Task {
             do {
                 try authService.signOut() // Reset the state of the authService
-                
                 // The next lines of code delete all the information of the current user
-                signInErrorMessage = nil
-                registrationErrorMessage = nil
                 deleteFiles()
                 isAuthenticated = false
                 
             } catch {
-                signInErrorMessage = error.localizedDescription
+                print("[AuthViewModel] Error while signin out: \(error)")
             }
         }
     }
@@ -134,22 +129,12 @@ class AuthViewModel: ObservableObject {
     
     // returns a closure of a form to sign in
     func makeSignInViewModel() -> SignInViewModel {
-        let singInModel = SignInViewModel(action: authService.signIn(email:password:))
-        singInModel.$error
-            .compactMap { $0 }
-            .map { $0.localizedDescription }
-            .assign(to: &$signInErrorMessage)
-        return singInModel
+        return SignInViewModel(action: authService.signIn(email:password:))
     }
     
     // returns a closure of a form to create an account
     func makeCreateAccountViewModel() -> CreateAccountViewModel {
-        let createAccountModel = CreateAccountViewModel(action: authService.createAccount(name:email:password:role:))
-        createAccountModel.$error
-            .compactMap { $0 }
-            .map { $0.localizedDescription }
-            .assign(to: &$registrationErrorMessage)
-        return createAccountModel
+        return CreateAccountViewModel(action: authService.createAccount(name:email:password:role:))
     }
 }
 

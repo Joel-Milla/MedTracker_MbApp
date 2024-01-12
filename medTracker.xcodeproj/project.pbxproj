@@ -246,8 +246,8 @@
 				FB0EC3A82B13144A00E7309B /* PatientsData.swift */,
 				FB86F0702AFEC4160051C6A6 /* SymptomList.swift */,
 				FB0EC3A02B12FF9400E7309B /* PatientList.swift */,
-				FB86F0722AFEC42A0051C6A6 /* RegisterList.swift */,
 				FBC7EF732B08263A00EDD70F /* UserModel.swift */,
+				FB86F0722AFEC42A0051C6A6 /* RegisterList.swift */,
 				FB6BBA132B0979B6008EFA9A /* AuthViewModel.swift */,
 				FB6BBA152B0A990C008EFA9A /* FormViewModel.swift */,
 			);

@@ -4,7 +4,6 @@ import SwiftUI
  This view sends the request to firebase to log in and show any errors as alerts.
  **********************************/
 struct LogInView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
     @StateObject var authentication: AuthViewModel.SignInViewModel
     @State private var showErrorAlert = false
     
@@ -51,7 +50,7 @@ struct LogInView: View {
             }
             .keyboardToolbar()
             // The alert and onReceive check when there is a signIn error and show it.
-            .onReceive(authViewModel.$signInErrorMessage) { newValue in
+            .onReceive(authentication.$error) { newValue in
                 showErrorAlert = newValue != nil
             }
             .alert(isPresented: $showErrorAlert) {
@@ -60,7 +59,7 @@ struct LogInView: View {
                     message: Text("El mail o la contraseña son incorrectos"),
                     dismissButton: .default(Text("OK"), action: {
                         // Reset the registrationErrorMessage to nil when dismissing the alert
-                        authViewModel.signInErrorMessage = nil
+                        authentication.error = nil
                     })
                 )
             }

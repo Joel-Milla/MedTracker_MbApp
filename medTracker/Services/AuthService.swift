@@ -59,19 +59,15 @@ class AuthService: ObservableObject {
     func createAccount(name: String, email: String, password: String, role: String) async throws {
         self.name = name
         self.role = role
-        do {
-            let result = try await auth.createUser(withEmail: email, password: password)
-            try await result.user.updateProfile(\.displayName, to: name)            // Save the role in Firestore
-            let db = Firestore.firestore()
-            //try await db.collection("users").document(result.user.uid).setData([
-            try await db.collection("Roles").document(email).setData([
-                "role": role,
-                "id": result.user.uid,
-                "email": email
-            ])
-        } catch {
-            print("[AuthService] Error while creating the account: \(error)")
-        }
+        let result = try await auth.createUser(withEmail: email, password: password)
+        try await result.user.updateProfile(\.displayName, to: name)            // Save the role in Firestore
+        let db = Firestore.firestore()
+        //try await db.collection("users").document(result.user.uid).setData([
+        try await db.collection("Roles").document(email).setData([
+            "role": role,
+            "id": result.user.uid,
+            "email": email
+        ])
         
     }
     

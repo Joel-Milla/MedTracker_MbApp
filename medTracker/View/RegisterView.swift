@@ -5,9 +5,8 @@ import SwiftUI
  **********************************/
 
 struct RegisterView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
     @StateObject var authentication: AuthViewModel.CreateAccountViewModel
-    @State private var showAlert = false
+    @State private var showErrorAlert = false
     @State private var selectedAccountType = ["Paciente", "Doctor"]
     @State private var emptyField = false
     @State var user = User()
@@ -59,9 +58,10 @@ struct RegisterView: View {
                 
                 Button(action: {
                     if authentication.name.isEmpty || authentication.email.isEmpty || authentication.password.isEmpty  {
-                        authViewModel.registrationErrorMessage = "Fill all the values"
+                        showErrorAlert = true
+                        errorMessage = "Llena todos los valores"
                     } else if passwordConfirm != authentication.password {
-                        showAlert = true
+                        showErrorAlert = true
                         errorMessage = "Las contraseñas no coinciden"
                     }
                     else {
@@ -87,21 +87,28 @@ struct RegisterView: View {
             }
             .keyboardToolbar()
             .onSubmit(authentication.submit)
-            // The alert and onReceive check when there is a registrationError and show it.
-            .onReceive(authViewModel.$registrationErrorMessage) { registrationMessage in
+             // The alert and onReceive check when there is a registrationError and show it.
+            .onReceive(authentication.$error) { registrationMessage in
                 if registrationMessage != nil {
-                    showAlert = true
-                    errorMessage = registrationMessage!
+                    showErrorAlert = true
+                    if let message = registrationMessage?.localizedDescription {
+                        if message.contains("email address"){
+                            errorMessage = "El email ingresado no es válido"
+                        } else if message.contains("password must be 6 characters") {
+                            errorMessage = "La contraseña debe tener al menos seis caracteres"
+                        } else {
+                            errorMessage = "Error, no se pudo crear la cuenta."
+                        }
+                    }
                 }
             }
-            .alert(isPresented: $showAlert) {
+            .alert(isPresented: $showErrorAlert) {
                 Alert(
-                    title: Text("Error de Registro"),
+                    title: Text("Error al Crear la Cuenta"),
                     message: Text(errorMessage),
                     dismissButton: .default(Text("OK"), action: {
                         // Reset the registrationErrorMessage to nil when dismissing the alert
-                        authViewModel.registrationErrorMessage = nil
-                        errorMessage = ""
+                        authentication.error = nil
                     })
                 )
             }
