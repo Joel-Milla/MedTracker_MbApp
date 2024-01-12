@@ -13,7 +13,7 @@ import SwiftUI
  **********************************/
 struct DoctorProfileView: View {
     @ObservedObject var user: UserModel
-    @EnvironmentObject var authentication: AuthViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var draftUser: User = User()
     @State private var isEditing = false
     
@@ -104,7 +104,7 @@ struct DoctorProfileView: View {
                     }
                     
                     Button {
-                        authentication.signOut()
+                        authViewModel.signOut()
                     } label: {
                         Text("Cerrar Sesión")
                             .foregroundColor(.white)

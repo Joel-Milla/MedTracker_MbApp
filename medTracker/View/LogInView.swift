@@ -4,18 +4,18 @@ import SwiftUI
  This view sends the request to firebase to log in and show any errors as alerts.
  **********************************/
 struct LogInView: View {
-    @StateObject var authentication: AuthViewModel.SignInViewModel
+    @StateObject var signInModel: AuthViewModel.SignInViewModel
     @State private var showErrorAlert = false
     
     var body: some View {
         NavigationStack {
             Form {
                 Group {
-                    TextField("Email", text: $authentication.email)
+                    TextField("Email", text: $signInModel.email)
                         .textContentType(.emailAddress)
                         .disableAutocorrection(true)
                         .textInputAutocapitalization(.never)
-                    SecureField("Contraseña", text: $authentication.password)
+                    SecureField("Contraseña", text: $signInModel.password)
                         .textContentType(.password)
                 }
                 .padding()
@@ -27,10 +27,10 @@ struct LogInView: View {
                 )
                 
                 Button(action: {
-                    authentication.submit()
+                    signInModel.submit()
                 }, label: {
                     // The switch check the status of the request and shows a loading animation if it is waiting a response from firebase.
-                    switch authentication.state {
+                    switch signInModel.state {
                     case .idle:
                         Text("Iniciar Sesión")
                     case .isLoading:
@@ -50,7 +50,7 @@ struct LogInView: View {
             }
             .keyboardToolbar()
             // The alert and onReceive check when there is a signIn error and show it.
-            .onReceive(authentication.$error) { newValue in
+            .onReceive(signInModel.$error) { newValue in
                 showErrorAlert = newValue != nil
             }
             .alert(isPresented: $showErrorAlert) {
@@ -59,7 +59,7 @@ struct LogInView: View {
                     message: Text("El mail o la contraseña son incorrectos"),
                     dismissButton: .default(Text("OK"), action: {
                         // Reset the registrationErrorMessage to nil when dismissing the alert
-                        authentication.error = nil
+                        signInModel.error = nil
                     })
                 )
             }

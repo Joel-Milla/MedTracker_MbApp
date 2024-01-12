@@ -11,7 +11,7 @@ import SwiftUI
  This view only displays a welcome message and two buttons to log in or register.
  **********************************/
 struct WelcomeView: View {
-    @EnvironmentObject var authentication: AuthViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -35,7 +35,7 @@ struct WelcomeView: View {
                             .frame(height: 300)
                     }
                     NavigationLink {
-                        LogInView(authentication: authentication.makeSignInViewModel())
+                        LogInView(signInModel: authViewModel.makeSignInViewModel())
                     } label: {
                         Text("Iniciar Sesión")
                             .font(.headline)
@@ -49,7 +49,7 @@ struct WelcomeView: View {
                     }
                     
                     NavigationLink {
-                        RegisterView(authentication: authentication.makeCreateAccountViewModel())
+                        RegisterView(createAccountModel: authViewModel.makeCreateAccountViewModel())
                     } label: {
                         Text("Registrarse")
                             .font(.headline)

@@ -5,7 +5,7 @@ import SwiftUI
  **********************************/
 
 struct RegisterView: View {
-    @StateObject var authentication: AuthViewModel.CreateAccountViewModel
+    @StateObject var createAccountModel: AuthViewModel.CreateAccountViewModel
     @State private var showErrorAlert = false
     @State private var selectedAccountType = ["Paciente", "Doctor"]
     @State private var emptyField = false
@@ -17,7 +17,7 @@ struct RegisterView: View {
     var body: some View {
         NavigationStack {
             Form {
-                TextField("Nombre completo", text: $authentication.name)
+                TextField("Nombre completo", text: $createAccountModel.name)
                     .textContentType(.name)
                     .textInputAutocapitalization(.words)
                     .padding()
@@ -29,12 +29,12 @@ struct RegisterView: View {
                     )
                 
                 Group {
-                    TextField("Email", text: $authentication.email)
+                    TextField("Email", text: $createAccountModel.email)
                         .textContentType(.emailAddress)
                         .disableAutocorrection(true)
                         .textInputAutocapitalization(.never)
                     
-                    SecureField("Contraseña", text: $authentication.password)
+                    SecureField("Contraseña", text: $createAccountModel.password)
                         .textContentType(.password)
                     SecureField("Confirmar Contraseña", text: $passwordConfirm)
                         .textContentType(.password)
@@ -48,7 +48,7 @@ struct RegisterView: View {
                 )
                 
                 // Account Type Picker
-                Picker("Account Type", selection: $authentication.role) {
+                Picker("Account Type", selection: $createAccountModel.role) {
                     ForEach(selectedAccountType, id: \.self) { type in
                         Text(type).tag(type)
                     }   
@@ -57,19 +57,19 @@ struct RegisterView: View {
                 .padding()
                 
                 Button(action: {
-                    if authentication.name.isEmpty || authentication.email.isEmpty || authentication.password.isEmpty  {
+                    if createAccountModel.name.isEmpty || createAccountModel.email.isEmpty || createAccountModel.password.isEmpty  {
                         showErrorAlert = true
                         errorMessage = "Llena todos los valores"
-                    } else if passwordConfirm != authentication.password {
+                    } else if passwordConfirm != createAccountModel.password {
                         showErrorAlert = true
                         errorMessage = "Las contraseñas no coinciden"
                     }
                     else {
-                        authentication.submit() //Submits the request to firebase to create a new user.
+                        createAccountModel.submit() //Submits the request to firebase to create a new user.
                     }
                 }, label: {
                     // The switch check the status of the request and shows a loading animation if it is waiting a response from firebase.
-                    switch authentication.state {
+                    switch createAccountModel.state {
                     case .idle:
                         Text("Crear Cuenta")
                     case .isLoading:
@@ -86,9 +86,9 @@ struct RegisterView: View {
                 .shadow(radius: 5)
             }
             .keyboardToolbar()
-            .onSubmit(authentication.submit)
+            .onSubmit(createAccountModel.submit)
              // The alert and onReceive check when there is a registrationError and show it.
-            .onReceive(authentication.$error) { registrationMessage in
+            .onReceive(createAccountModel.$error) { registrationMessage in
                 if registrationMessage != nil {
                     showErrorAlert = true
                     if let message = registrationMessage?.localizedDescription {
@@ -108,7 +108,7 @@ struct RegisterView: View {
                     message: Text(errorMessage),
                     dismissButton: .default(Text("OK"), action: {
                         // Reset the registrationErrorMessage to nil when dismissing the alert
-                        authentication.error = nil
+                        createAccountModel.error = nil
                     })
                 )
             }
@@ -121,7 +121,7 @@ struct RegisterView: View {
 struct registroUsuario_Previews: PreviewProvider {
     static var viewModels = AuthViewModel()
     static var previews: some View {
-        RegisterView(authentication: viewModels.makeCreateAccountViewModel())
+        RegisterView(createAccountModel: viewModels.makeCreateAccountViewModel())
     }
 }
 

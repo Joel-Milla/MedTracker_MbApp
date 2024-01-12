@@ -14,7 +14,7 @@ struct RegisterSymptomView: View {
     @FocusState private var mostrarTeclado : Bool
     @Binding var symptom : Symptom
     @ObservedObject var registers : RegisterList
-    @ObservedObject var symptomList : SymptomList
+    @ObservedObject var symptoms : SymptomList
     @Binding var sliderValue : Double
     @State var metricsString = ""
     @State private var date = Date.now
@@ -179,7 +179,7 @@ struct RegisterSymptomView: View {
                 notificacionesActivas = symptom.notificacion != ""
             }
             .sheet(isPresented: $nuevaNotificacion) {
-                NuevaSintoma(symptom: $symptom, notificacionesActivas: $notificacionesActivas,createAction2: symptomList.makeCreateAction())
+                NuevaSintoma(symptom: $symptom, notificacionesActivas: $notificacionesActivas,createAction2: symptoms.makeCreateAction())
                     .presentationDetents([.fraction(0.35)])
             }
         }

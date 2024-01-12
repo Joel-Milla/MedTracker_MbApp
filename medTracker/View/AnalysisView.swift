@@ -12,16 +12,14 @@ import Charts
  This view shows an analysis of the symptoms that are being tracked.
  **********************************/
 struct AnalysisView: View {
-    @State private var refreshID = UUID()
-    @ObservedObject var listSymp: SymptomList
+    @ObservedObject var symptoms: SymptomList
     @ObservedObject var registers: RegisterList
     @State private var muestraNewSymptom = false
-    @State var registrosSintomas : [Register] = []
     
     var body: some View {
         ZStack{
             // If there are no symptoms bein checked, then show this view.
-            if listSymp.symptoms.isEmpty {
+            if symptoms.symptoms.isEmpty {
                 //The action serves as a trigger to show a sheet of the view to add new symptoms.
                 EmptyListView(
                     title: "No hay datos registrados",
@@ -30,7 +28,7 @@ struct AnalysisView: View {
                     action: { muestraNewSymptom = true }
                 )
                 .sheet(isPresented: $muestraNewSymptom) {
-                    AddSymptomView(symptoms: listSymp, createAction: listSymp.makeCreateAction())
+                    AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
                 }
             }
             // If there are symptoms being checked then show this view.
@@ -38,21 +36,16 @@ struct AnalysisView: View {
                 VStack {
                     // Show a tab for each symptom that is active.
                     TabView {
-                        ForEach(listSymp.symptoms.filter { $0.activo == true }, id: \.id) { symptom in
-                            AnalysisItemView(symptom: symptom, registerList: registers, listSymp: listSymp, allRegisters: registers.registers.filter({ $0.idSymptom == symptom.id }))
+                        ForEach(symptoms.symptoms.filter { $0.activo == true }, id: \.id) { symptom in
+                            AnalysisItemView(symptom: symptom, registerList: registers, listSymp: symptoms, allRegisters: registers.registers.filter({ $0.idSymptom == symptom.id }))
                         }
                     }
-                    .id(refreshID)  // Force the TabView to update
                     .tabViewStyle(.page)
                     .indexViewStyle(.page(backgroundDisplayMode: .always))
                     
                     Spacer(minLength: 50)
                 }
                 .background(Color("mainWhite"))
-                .onChange(of: registers.registers) { _ in
-                    // This will be called when registers change
-                    refreshID = UUID()  // Force the TabView to update
-                }
             }
             GeometryReader { geometry in
                 Image("logoP")
@@ -103,7 +96,7 @@ struct AnalysisItemView: View {
                     action: { muestraRegisterSymptomView = true }
                 )
                 .sheet(isPresented: $muestraRegisterSymptomView) {
-                    RegisterSymptomView(symptom: $symptom, registers: registerList, symptomList: listSymp, sliderValue: .constant(0.162),createAction: registerList.makeCreateAction())
+                    RegisterSymptomView(symptom: $symptom, registers: registerList, symptoms: listSymp, sliderValue: .constant(0.162),createAction: registerList.makeCreateAction())
                 }
                 //The else statement runs if there is already data associated with the symptom.
             } else {

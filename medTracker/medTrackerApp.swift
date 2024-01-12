@@ -15,27 +15,27 @@ struct medTrackerApp: App {
     init() {
         FirebaseApp.configure()
     }
-    @StateObject var authentication = AuthViewModel()
+    @StateObject var authViewModel = AuthViewModel()
     
     var body: some Scene {
         WindowGroup {
-            if let userRole = authentication.user?.rol {
+            if let userRole = authViewModel.user?.rol {
                 if userRole == "Paciente" {
-                    if let symptomList = authentication.makeSymptomList(),
-                       let registersList = authentication.makeRegisterList(),
-                       let userModel = authentication.makeUserModel() {
+                    if let symptomList = authViewModel.makeSymptomList(),
+                       let registersList = authViewModel.makeRegisterList(),
+                       let userModel = authViewModel.makeUserModel() {
                         MainView(
                             symptoms: symptomList, registers: registersList, user: userModel
                         )
-                        .environmentObject(authentication)
+                        .environmentObject(authViewModel)
                     } else {
                         Text("Didn't work")
                     }
                 } else if userRole == "Doctor" {
-                    if let userModel = authentication.makeUserModel(),
-                       let patientList = authentication.makePatientList() {
-                        MainDoctorView(user: userModel, listaPacientes: patientList)
-                        .environmentObject(authentication)
+                    if let userModel = authViewModel.makeUserModel(),
+                       let patientList = authViewModel.makePatientList() {
+                        MainDoctorView(user: userModel, patientsList: patientList)
+                        .environmentObject(authViewModel)
                     } else {
                         Text("Didn't work")
                     }
@@ -44,7 +44,7 @@ struct medTrackerApp: App {
                 }
             } else {
                 WelcomeView()
-                    .environmentObject(authentication)
+                    .environmentObject(authViewModel)
                     .onAppear(perform: {
                         if !hasRequestedNotificationPermission {
                             requestNotificationPermission()
