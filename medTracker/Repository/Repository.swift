@@ -16,7 +16,7 @@ import FirebaseFirestoreSwift
 struct Repository {
     // Variables to make the connection to firebase.
     private var userReference = Firestore.firestore().collection("Users")
-    private var doctorReference = Firestore.firestore().collection("Doctors")
+    private var doctorReference = Firestore.firestore().collection("Doctors-Patients")
     private var rolesReference = Firestore.firestore().collection("Roles")
     let user: User
 
@@ -97,20 +97,23 @@ struct Repository {
     
     // Function to write own name as a document in doctors collection
     func writePatient(_ docEmail: String, _ user: User) async throws {
-        let doctorData = doctorReference.document(docEmail)
-        let patientReference = doctorData.collection("patients")
-        let document = patientReference.document(user.email)
+        let docDocument = doctorReference.document(docEmail)
+        let patientsReference = docDocument.collection("patients")
+        let document = patientsReference.document(user.email)
         try await document.setData([
             "name": user.nombreCompleto,
-            "email": "test_mail"
+            "email": user.email
         ])
     }
     
     // Function to fetch all the patients of a doctor.
     func fetchPatients() async throws -> [Patient] {
-        let snapshot = try await doctorReference.getDocuments()
+        let docDocument = doctorReference.document(user.email)
+        let patientsReference = docDocument.collection("patients")
+        let patients = try await patientsReference
+            .getDocuments()
         // Convert the returning documents into the class Patient
-        return snapshot.documents.compactMap { document in
+        return patients.documents.compactMap { document in
             try! document.data(as: Patient.self)
         }
     }

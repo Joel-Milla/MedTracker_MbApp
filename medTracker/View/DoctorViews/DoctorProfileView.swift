@@ -158,6 +158,9 @@ struct DoctorProfileView: View {
                     )
                 }
             }
+            .onAppear(perform: {
+                draftUser = user.user
+            })
             .navigationBarBackButtonHidden(isEditing)
         }
         
