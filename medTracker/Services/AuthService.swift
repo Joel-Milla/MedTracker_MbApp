@@ -17,7 +17,9 @@ import FirebaseFirestoreSwift
 class AuthService: ObservableObject {
     @Published var user: User?
     @Published var isAuthenticated = false
+    // The next two variables are used to keep the model update when creating an account, because the update firebaseDisplayName or the role from firebase are written way after the functions are ran. So the variables keep updated everything when creating an account. When using log in are not necessary because are already created.
     private var name: String?
+    private var role: String?
     
     let auth = Auth.auth()
     private var listener: AuthStateDidChangeListenerHandle?
@@ -29,13 +31,16 @@ class AuthService: ObservableObject {
         listener = auth.addStateDidChangeListener ({ _, firebaseUser in
             self.isAuthenticated = firebaseUser != nil
             if let firebaseUser = firebaseUser {
-                if let name = self.name {
-                    self.user = User(from: firebaseUser, name: name)
+                if let name = self.name, let role = self.role {
+                    // This will run when the user creates an account
+                    self.user = User(from: firebaseUser, name: name, role: role)
                 } else {
+                    // This will run when a user signs in
                     self.user = User(from: firebaseUser)
-                }
-                Task {
-                    self.user?.rol = try await HelperFunctions.fetchUserRole(email: self.user?.email ?? "")
+                    // The task fetches the role of the user that just logged in and assings it.
+                    Task {
+                        self.user?.rol = try await HelperFunctions.fetchUserRole(email: self.user?.email ?? "")
+                    }
                 }
             } else {
                 // Handle the scenario where firebaseUser is nil
@@ -51,6 +56,7 @@ class AuthService: ObservableObject {
     // Function to create an account based on a name, email, and password.
     func createAccount(name: String, email: String, password: String, role: String) async throws {
         self.name = name
+        self.role = role
         do {
             let result = try await auth.createUser(withEmail: email, password: password)
             try await result.user.updateProfile(\.displayName, to: name)
@@ -91,12 +97,12 @@ private extension FirebaseAuth.User {
 
 // Convert the user information
 private extension User {
-    init(from firebaseUser: FirebaseAuth.User, name: String? = nil) {
+    init(from firebaseUser: FirebaseAuth.User, name: String? = nil, role: String? = nil) {
         self.id = firebaseUser.uid
         self.nombreCompleto = firebaseUser.displayName ?? name ?? "[AuthService] Nombre desconocido"
+        self.rol = role ?? "[AuthService] Rol desconocido"
         self.email = firebaseUser.email ?? "[AuthService] Email desconocido"
         self.telefono = ""
-        self.nombreCompleto = ""
         self.antecedentes = ""
         self.sexo = ""
         self.fechaNacimiento = Date()

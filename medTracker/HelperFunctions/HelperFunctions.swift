@@ -33,8 +33,7 @@ class HelperFunctions {
         let db = Firestore.firestore()
         
         let document = try await db.collection("Roles").document(email).getDocument()
-        let role = document.data()?["role"] as? String ?? "Unknown"
-        print(role)
+        let role = document.data()?["role"] as? String ?? "[HelperFunctions] Rol desconocido"
         return role
     }
 }
