@@ -14,6 +14,7 @@ struct EditSymptomView: View {
     @State var muestraAddSymptomView = false
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var symptoms: SymptomList
+    @State private var showConfirmationDialog = false
     
     var body: some View {
         NavigationView {
@@ -40,6 +41,19 @@ struct EditSymptomView: View {
                                         .padding(5)
                                 }
                             }
+                            .swipeActions {
+                                Button {
+                                    showConfirmationDialog = true
+                                } label: {
+                                    Image(systemName: "trash")
+                                }
+                                .tint(.red)
+                            }
+                        }
+                    }
+                    .confirmationDialog("¿Estas seguro de querer borrar el dato de salud?", isPresented: $showConfirmationDialog, titleVisibility: .visible) {
+                        Button(role: .destructive, action: {}) {
+                            Text("Borrar")
                         }
                     }
                     .font(.title3)
