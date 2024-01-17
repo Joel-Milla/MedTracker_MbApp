@@ -66,6 +66,18 @@ class RegisterList : ObservableObject {
         }
     }
     
+    // Delete registers that have a certain symptom
+    // Fetch registers data from the database and save them on the registers list.
+    func deleteRegister(indexSymptom: Int) {
+        for register in registers {
+            if register.idSymptom == indexSymptom {
+                Task {
+                    try await self.repository.deleteRegister(register)
+                }
+            }
+        }
+    }
+    
     // Dummy data for testing purposes.
     private func getDefaultRegisters() -> [Register] {
         return [

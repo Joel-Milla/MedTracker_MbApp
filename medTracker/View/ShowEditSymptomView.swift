@@ -32,6 +32,7 @@ struct ShowEditSymptomView: View {
         .confirmationDialog("¿Seguro de querer borrar el dato de salud?", isPresented: $showConfirmationDialog, titleVisibility: .visible) {
             Button(role: .destructive, action: {
                 symptoms.deleteSymptom(symptom: symptoms.symptoms[index])
+                registers.deleteRegister(indexSymptom: index)
             }) {
                 Text("Borrar")
             }
