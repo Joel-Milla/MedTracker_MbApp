@@ -42,13 +42,13 @@ struct Repository {
      **********************************/
     // Function to write a symptom in database.
     func createSymptom(_ symptom: Symptom) async throws {
-        let document = symptomReference.document(String(symptom.id))
+        let document = symptomReference.document(symptom.id.uuidString)
         try await document.setData(from: symptom)
     }
     
     // Function to write a symptom in database.
     func deleteSymptom(_ symptom: Symptom) async throws {
-        let document = symptomReference.document(String(symptom.id))
+        let document = symptomReference.document(symptom.id.uuidString)
         try await document.delete()
     }
     
