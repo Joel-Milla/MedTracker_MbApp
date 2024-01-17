@@ -67,8 +67,7 @@ class RegisterList : ObservableObject {
     }
     
     // Delete registers that have a certain symptom
-    // Fetch registers data from the database and save them on the registers list.
-    func deleteRegister(indexSymptom: Int) {
+    func deleteRegister(indexSymptom: String) {
         for register in registers {
             if register.idSymptom == indexSymptom {
                 Task {
@@ -76,24 +75,27 @@ class RegisterList : ObservableObject {
                 }
             }
         }
+        registers.removeAll {
+            $0.idSymptom == indexSymptom
+        }
     }
     
     // Dummy data for testing purposes.
     private func getDefaultRegisters() -> [Register] {
         return [
-            Register(idSymptom: 1, fecha: Date.now, cantidad: 80, notas: "Esto es una nota."),
-            Register(idSymptom: 1, fecha: Date.now.addingTimeInterval(86400), cantidad: 80.5, notas: "Esto es una nota."),
-            Register(idSymptom: 1, fecha: Date.now.addingTimeInterval(86400*2), cantidad: 80.2, notas: "Esto es una nota."),
-            Register(idSymptom: 1, fecha: Date.now.addingTimeInterval(86400*3), cantidad: 20, notas: "Esto es una nota."),
+            Register(idSymptom: "as", fecha: Date.now, cantidad: 80, notas: "Esto es una nota."),
+            Register(idSymptom: "as", fecha: Date.now.addingTimeInterval(86400), cantidad: 80.5, notas: "Esto es una nota."),
+            Register(idSymptom: "as", fecha: Date.now.addingTimeInterval(86400*2), cantidad: 80.2, notas: "Esto es una nota."),
+            Register(idSymptom: "as", fecha: Date.now.addingTimeInterval(86400*3), cantidad: 20, notas: "Esto es una nota."),
             
-            Register(idSymptom: 2, fecha: Date.now, cantidad: 80, notas: "Esto es una nota."),
+            Register(idSymptom: "asg", fecha: Date.now, cantidad: 80, notas: "Esto es una nota."),
             
-            Register(idSymptom: 3, fecha: Date.now, cantidad: 80, notas: "Esto es una nota."),
-            Register(idSymptom: 3, fecha: Date.now.addingTimeInterval(86400), cantidad: 70, notas: "Esto es una nota."),
-            Register(idSymptom: 3, fecha: Date.now.addingTimeInterval(86400*2), cantidad: 30, notas: "Esto es una nota."),
-            Register(idSymptom: 3, fecha: Date.now.addingTimeInterval(86400*3), cantidad: 40, notas: "Esto es una nota."),
+            Register(idSymptom: "asf", fecha: Date.now, cantidad: 80, notas: "Esto es una nota."),
+            Register(idSymptom: "asf", fecha: Date.now.addingTimeInterval(86400), cantidad: 70, notas: "Esto es una nota."),
+            Register(idSymptom: "asf", fecha: Date.now.addingTimeInterval(86400*2), cantidad: 30, notas: "Esto es una nota."),
+            Register(idSymptom: "asf", fecha: Date.now.addingTimeInterval(86400*3), cantidad: 40, notas: "Esto es una nota."),
             
-            Register(idSymptom: 4, fecha: Date.now, cantidad: 80, notas: "Esto es una nota.")
+            Register(idSymptom: "asfsd", fecha: Date.now, cantidad: 80, notas: "Esto es una nota.")
         ]
     }
 }
