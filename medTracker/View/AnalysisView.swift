@@ -149,7 +149,7 @@ struct AnalysisItemView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(.leading, 20)
         .onAppear() {
-            allRegisters = registers.registers.filter({ $0.idSymptom == symptom.id })
+            allRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString })
             tempRegisters = allRegisters
             currentTab = "Semana"
             let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!

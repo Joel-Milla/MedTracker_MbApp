@@ -35,7 +35,7 @@ struct AnalysisDoctorView: View {
                         // Show a tab for each symptom that is active.
                         TabView {
                             ForEach(patientsData.symptoms.filter { $0.activo == true }, id: \.id) { symptom in
-                                AnalysisPatientView(symptom: symptom, allRegisters: patientsData.registers.filter({ $0.idSymptom == symptom.id }))
+                                AnalysisPatientView(symptom: symptom, allRegisters: patientsData.registers.filter({ $0.idSymptom == symptom.id.uuidString }))
                             }
                         }
                         .tabViewStyle(.page)
@@ -96,14 +96,14 @@ struct AnalysisDoctorView: View {
     }
     
     func getSymptomIsActive(register: Register) -> Bool {
-        if let symptom = patientsData.symptoms.first(where: { $0.id == register.idSymptom }) {
+        if let symptom = patientsData.symptoms.first(where: { $0.id.uuidString == register.idSymptom }) {
             return symptom.activo
         }
         return false
     }
     
     func getSymptomOfName(register: Register) -> String {
-        if let symptom = patientsData.symptoms.first(where: { $0.id == register.idSymptom }) {
+        if let symptom = patientsData.symptoms.first(where: { $0.id.uuidString == register.idSymptom }) {
             return symptom.nombre
         }
         return "Unknown Symptom"

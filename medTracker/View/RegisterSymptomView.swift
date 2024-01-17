@@ -126,7 +126,7 @@ struct RegisterSymptomView: View {
                             
                             if symptom.cuantitativo {
                                 if let cantidad = Float(metricsString) {
-                                    registers.registers.append(Register(idSymptom: symptom.id, fecha: date, cantidad: cantidad, notas: notes))
+                                    registers.registers.append(Register(idSymptom: symptom.id.uuidString, fecha: date, cantidad: cantidad, notas: notes))
                                     createRegister()
                                     dismiss()
                                 }
@@ -134,7 +134,7 @@ struct RegisterSymptomView: View {
                                     isPresented = true
                                 }
                             } else {
-                                registers.registers.append(Register(idSymptom: symptom.id, fecha: date, cantidad: Float(metric), notas: notes))
+                                registers.registers.append(Register(idSymptom: symptom.id.uuidString, fecha: date, cantidad: Float(metric), notas: notes))
                                 createRegister()
                                 dismiss()
                             }
@@ -191,7 +191,7 @@ struct RegisterSymptomView: View {
         // will wait until the createAction(symptom) finishes
         Task {
             do {
-                try await createAction(registers.registers.last ?? Register(idSymptom: 0, fecha: Date.now, cantidad: 0, notas: "")) //call the function that adds the symptom to the database
+                try await createAction(registers.registers.last ?? Register(idSymptom: "", fecha: Date.now, cantidad: 0, notas: "")) //call the function that adds the symptom to the database
             } catch {
                 print("[RegisterSymptomView] Cannot create register: \(error)")
             }
