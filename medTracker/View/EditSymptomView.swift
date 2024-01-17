@@ -34,10 +34,11 @@ struct EditSymptomView: View {
                     List {
                         Section(header: Text("Lista de datos de salud")) {
                             ForEach(symptoms.symptoms.indices, id: \.self) { index in
-                                ShowEditSymptomView(index: index, symptoms: symptoms, registers: registers)
+                                ShowEditSymptomView(symptom: symptoms.symptoms[index], symptoms: symptoms, registers: registers)
                             }
                         }
                     }
+                    .animation(.default, value: symptoms.symptoms)
                     .font(.title3)
                     .navigationTitle("Editar Datos")
                 }
