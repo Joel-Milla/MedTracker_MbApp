@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Symptom : Codable, Hashable {
-    var id : Int
+struct Symptom : Codable, Hashable, Identifiable {
+    var id = UUID()
     var nombre : String
     var icon : String
     var description : String
@@ -18,8 +18,7 @@ struct Symptom : Codable, Hashable {
     var color : String
     var notificacion : String?
     
-    init(id: Int, nombre: String, icon: String, description: String, cuantitativo: Bool, unidades: String, activo: Bool, color: String, notificacion : String) {
-        self.id = id
+    init(nombre: String, icon: String, description: String, cuantitativo: Bool, unidades: String, activo: Bool, color: String, notificacion : String) {
         self.nombre = nombre
         self.icon = icon
         self.description = description
