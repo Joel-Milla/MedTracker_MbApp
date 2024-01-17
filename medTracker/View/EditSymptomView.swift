@@ -34,7 +34,7 @@ struct EditSymptomView: View {
                     List {
                         Section(header: Text("Lista de datos de salud")) {
                             ForEach(symptoms.symptoms.indices, id: \.self) { index in
-                                ShowSymptom(index: index, symptoms: symptoms, registers: registers)
+                                ShowEditSymptomView(index: index, symptoms: symptoms, registers: registers)
                             }
                         }
                     }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ShowSymptom: View {
+struct ShowEditSymptomView: View {
     let index: Int
     @ObservedObject var symptoms: SymptomList
     @ObservedObject var registers : RegisterList
@@ -31,7 +31,7 @@ struct ShowSymptom: View {
         }
         .confirmationDialog("¿Seguro de querer borrar el dato de salud?", isPresented: $showConfirmationDialog, titleVisibility: .visible) {
             Button(role: .destructive, action: {
-                
+                symptoms.deleteSymptom(symptom: symptoms.symptoms[index])
             }) {
                 Text("Borrar")
             }

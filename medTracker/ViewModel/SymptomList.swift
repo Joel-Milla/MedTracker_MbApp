@@ -77,6 +77,17 @@ class SymptomList : ObservableObject {
         }
     }
     
+    // Function to delete a symptom
+    func deleteSymptom(symptom : Symptom) {
+        Task {
+            do {
+                try await self.repository.deleteSymptom(symptom)
+            } catch {
+                print("[SymptomList] Cannot delete symptom: \(error)")
+            }
+        }
+    }
+    
     // Function to update the state of the syntomsList. This is called each time the list is modified.
     private func updateStateBasedOnSymptoms() {
         if symptoms.isEmpty {
