@@ -14,6 +14,7 @@
 		1718E8BC2B4F381A001691B8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8BB2B4F381A001691B8 /* FirebaseAuth */; };
 		1718E8BE2B4F381A001691B8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8BD2B4F381A001691B8 /* FirebaseFirestore */; };
 		1718E8C02B4F381A001691B8 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8BF2B4F381A001691B8 /* FirebaseFirestoreSwift */; };
+		177B37632B575433009CB58D /* ShowSymptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B37622B575433009CB58D /* ShowSymptom.swift */; };
 		F82095A02AF58ACE002F1C28 /* Symptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820959F2AF58ACE002F1C28 /* Symptom.swift */; };
 		F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F838338D2B0C49F5005F2BB5 /* ShareView.swift */; };
 		F839EFF12AE0C4AE00CB5327 /* RegisterSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */; };
@@ -66,6 +67,7 @@
 		1700F3BC2B51D713009D0A62 /* Firestore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
 		170C07F52B51EE3A00AB937A /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		177B37622B575433009CB58D /* ShowSymptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSymptom.swift; sourceTree = "<group>"; };
 		F820959F2AF58ACE002F1C28 /* Symptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptom.swift; sourceTree = "<group>"; };
 		F838338D2B0C49F5005F2BB5 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSymptomView.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				FB87FED02ADDEE9800F6273B /* MainView.swift */,
 				FBD940B62AFD763000C3BD11 /* HomeView.swift */,
 				FBD940AE2AFD73E800C3BD11 /* EditSymptomView.swift */,
+				177B37622B575433009CB58D /* ShowSymptom.swift */,
 				FB320FA62AEB2754005865F5 /* AddSymptomView.swift */,
 				F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */,
 				F838338D2B0C49F5005F2BB5 /* ShareView.swift */,
@@ -435,6 +438,7 @@
 				FB9959A62B0C109500B0A888 /* HelperFunctions.swift in Sources */,
 				FBB5AD362AFC2829003918CA /* Register.swift in Sources */,
 				FBD940B72AFD763000C3BD11 /* HomeView.swift in Sources */,
+				177B37632B575433009CB58D /* ShowSymptom.swift in Sources */,
 				FB0EC3A32B13049700E7309B /* rowPatient.swift in Sources */,
 				FBE41E742AF6D464007B48E5 /* User.swift in Sources */,
 				FB45BFF62B08270E0019C0A1 /* SymbolLoader.swift in Sources */,

@@ -126,4 +126,8 @@ struct Repository {
         let document = patientReference.document(user.email)
         try await document.delete()
     }
+    
+    func deleteSymptomRegister() async throws {
+        
+    }
 }

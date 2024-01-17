@@ -14,6 +14,7 @@ struct EditSymptomView: View {
     @State var muestraAddSymptomView = false
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var symptoms: SymptomList
+    @ObservedObject var registers : RegisterList
     @State private var showConfirmationDialog = false
     
     var body: some View {
@@ -33,27 +34,8 @@ struct EditSymptomView: View {
                     List {
                         Section(header: Text("Lista de datos de salud")) {
                             ForEach(symptoms.symptoms.indices, id: \.self) { index in
-                                HStack{
-                                    Image(systemName: symptoms.symptoms[index].icon)
-                                        .foregroundColor(Color(hex: symptoms.symptoms[index].color))
-                                    Toggle(symptoms.symptoms[index].nombre, isOn: $symptoms.symptoms[index].activo)
-                                        .font(.title2)
-                                        .padding(5)
-                                }
+                                ShowSymptom(index: index, symptoms: symptoms, registers: registers)
                             }
-                            .swipeActions {
-                                Button {
-                                    showConfirmationDialog = true
-                                } label: {
-                                    Image(systemName: "trash")
-                                }
-                                .tint(.red)
-                            }
-                        }
-                    }
-                    .confirmationDialog("¿Estas seguro de querer borrar el dato de salud?", isPresented: $showConfirmationDialog, titleVisibility: .visible) {
-                        Button(role: .destructive, action: {}) {
-                            Text("Borrar")
                         }
                     }
                     .font(.title3)

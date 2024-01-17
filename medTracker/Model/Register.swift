@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Register : Codable, Hashable {
+struct Register : Codable, Hashable, Identifiable {
+    var id = UUID()
     var idSymptom : Int
     var fecha : Date
     var cantidad : Float
