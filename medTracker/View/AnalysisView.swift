@@ -146,7 +146,7 @@ struct AnalysisItemView: View {
                 .foregroundColor(.white)
                 .padding(.vertical)
                 .frame(maxWidth: .infinity)
-                .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
+                .background(LinearGradient(gradient: Gradient(colors: [Color(hex: symptom.color), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(10)
                 .shadow(radius: 5)
                 .frame(height: 50, alignment: .top)
