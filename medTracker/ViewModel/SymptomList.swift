@@ -13,6 +13,8 @@ import SwiftUI
  **********************************/
 @MainActor
 class SymptomList : ObservableObject {
+    typealias Action = () async throws -> Void
+
     @Published var symptoms = [Symptom]() {
         didSet {
             updateStateBasedOnSymptoms()
@@ -61,6 +63,17 @@ class SymptomList : ObservableObject {
     func makeCreateAction() -> AddSymptomView.CreateAction {
         return { [weak self] symptom in
             try await self?.repository.createSymptom(symptom)
+        }
+    }
+    
+    // The functions returns a closure that is used to write information in firebase
+    func makeUpdateAction(for symptom: Symptom) -> Action {
+        return { [weak self] in
+            var index = self?.symptoms.firstIndex(of: symptom)
+            if let index = index {
+                self?.symptoms[index].activo.toggle()
+            }
+            try await self?.repository.updateSymptomActivo(symptom)
         }
     }
     
