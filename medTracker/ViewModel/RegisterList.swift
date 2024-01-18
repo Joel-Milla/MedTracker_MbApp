@@ -12,6 +12,8 @@ import Foundation
  **********************************/
 @MainActor
 class RegisterList : ObservableObject {
+    typealias Action = () async throws -> Void
+
     @Published var registers = [Register]() {
         didSet {
             HelperFunctions.write(self.registers, inPath: registersURL)
@@ -55,6 +57,21 @@ class RegisterList : ObservableObject {
         }
     }
     
+    // The functions returns a closure that is used to write information in firebase
+    func makeDeleteAction(for symptom: Symptom) -> Action {
+        return { [weak self] in
+            self?.registers.removeAll{ $0.id == symptom.id}
+            if let registers = self?.registers {
+                for local_register in registers {
+                    if local_register.idSymptom == symptom.id.uuidString {
+                        try await self?.repository.deleteRegister(local_register)
+                    }
+                }
+            }
+        }
+    }
+
+
     // Fetch registers data from the database and save them on the registers list.
     func fetchRegisters() {
         Task {

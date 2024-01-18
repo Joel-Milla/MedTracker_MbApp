@@ -35,7 +35,7 @@ struct EditSymptomView: View {
                         Section(header: Text("Lista de datos de salud"), footer: Text("Deslice para borrar ó seleccione para desactivar")) {
                             ForEach(symptoms.symptoms.indices, id:\.self) { index in
                                 let symptom = symptoms.symptoms[index]
-                                ShowEditSymptomView(symptom: EditSymptomViewModel(symptom: symptom, deleteSymptomAction: nil, updateAction: symptoms.makeUpdateAction(for: symptom), deleteRegisterAction: nil), symptoms: symptoms, registers: registers)
+                                ShowEditSymptomView(symptom: EditSymptomViewModel(symptom: symptom, deleteSymptomAction: symptoms.makeDeleteAction(for: symptom), updateAction: symptoms.makeUpdateAction(for: symptom), deleteRegisterAction: registers.makeDeleteAction(for: symptom)), symptoms: symptoms, registers: registers)
                             }
                         }
                     }

@@ -77,6 +77,14 @@ class SymptomList : ObservableObject {
         }
     }
     
+    // The functions returns a closure that is used to write information in firebase
+    func makeDeleteAction(for symptom: Symptom) -> Action {
+        return { [weak self] in
+            self?.symptoms.removeAll{ $0.id == symptom.id}
+            try await self?.repository.deleteSymptom(symptom)
+        }
+    }
+    
     // Fetch symptoms from the database and save them on the symptoms list.
     func fetchSymptoms() {
         state = .isLoading

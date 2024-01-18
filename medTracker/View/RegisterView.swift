@@ -92,7 +92,9 @@ struct RegisterView: View {
                 if registrationMessage != nil {
                     showErrorAlert = true
                     if let message = registrationMessage?.localizedDescription {
-                        if message.contains("email address"){
+                        if message.contains("email address is already"){
+                            errorMessage = "El email ingresado ya esta en uso"
+                        } else if message.contains("email address"){
                             errorMessage = "El email ingresado no es válido"
                         } else if message.contains("password must be 6 characters") {
                             errorMessage = "La contraseña debe tener al menos seis caracteres"
