@@ -42,17 +42,8 @@ struct AnalysisView: View {
                     }
                     .tabViewStyle(.page)
                     .indexViewStyle(.page(backgroundDisplayMode: .always))
-                    
-                    Spacer(minLength: 50)
                 }
                 .background(Color("mainWhite"))
-            }
-            GeometryReader { geometry in
-                Image("logoP")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.4, height: geometry.size.height * 0.2)
-                    .position(x: geometry.size.width * 0.25, y: geometry.size.height * 0.015)
             }
         }
     }
@@ -74,18 +65,18 @@ struct AnalysisItemView: View {
                 .foregroundColor(colorSintoma)
                 .font(.largeTitle)
                 .bold()
-                .padding(.top, 40)
+                //.padding(.top, 40)
             
             Text("Descripción: ")
                 .font(.system(size: 24))
-                .padding(.top, 5)
+                //.padding(.top, 5)
             
             Text("\(symptom.description)")
-                .padding(.trailing, 20)
+                //.padding(.trailing, 20)
                 .foregroundColor(colorSintoma)
                 .lineSpacing(4)
                 .font(.system(size: 20))
-                .frame(height: 120, alignment: .top)
+                .frame(height: 60, alignment: .top)
             
             // The next if/else statement check for each symptoms if there is a data, if not then the if will run and notify the user that need to add a value to the symptom.
             if allRegisters.isEmpty {
@@ -118,7 +109,7 @@ struct AnalysisItemView: View {
                                 .tag("Todos")
                         }
                         .pickerStyle(.segmented)
-                        .padding(.leading, 60)
+                        .padding(.leading)
                     }
                     .padding(.bottom, symptom.cuantitativo ? 0 : 35)
                     
@@ -127,8 +118,10 @@ struct AnalysisItemView: View {
                     } else {
                         ChartCualitativa(filteredRegisters: tempRegisters)
                     }
+
                 }
-                .padding(10)
+                .padding()
+                //.padding(10)
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(Color("mainWhite").shadow(.drop(color: .primary,radius: 1)))
@@ -141,13 +134,28 @@ struct AnalysisItemView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(colorSintoma, lineWidth: 2) // Adjust color and line width as needed
                 )
-                .padding(.trailing, 20)
+                //.padding(.trailing, 20)
                 
-                Spacer(minLength: 50)
+                Button(action: {
+                    let one = 1
+                }, label: {
+                    Text("Ver todo los registros")
+                })
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundColor(.white)
+                .padding(.vertical)
+                .frame(maxWidth: .infinity)
+                .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
+                .cornerRadius(10)
+                .shadow(radius: 5)
+                .frame(height: 50, alignment: .top)
             }
+            
         }
+        .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .padding(.leading, 20)
+        //.padding(.leading, 20)
         .onAppear() {
             allRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString })
             tempRegisters = allRegisters
@@ -200,7 +208,7 @@ struct AnalysisItemView: View {
             }
         }
         .chartYScale(domain: min <= max ? min...max : 0...100)
-        .frame(height: 250)
+        .frame(width: 300, height: 250)
         .background(Color("mainWhite"))
         
     }
