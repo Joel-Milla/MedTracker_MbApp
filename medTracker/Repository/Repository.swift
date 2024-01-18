@@ -55,7 +55,7 @@ struct Repository {
     // Function to fetch all the symptoms in firebase
     func fetchSymptoms() async throws -> [Symptom] {
         let symptoms = try await symptomReference
-            .order(by: "id", descending: false)
+            .order(by: "fecha", descending: false)
             .getDocuments(as: Symptom.self)
         return symptoms
     }

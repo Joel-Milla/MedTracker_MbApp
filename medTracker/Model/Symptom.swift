@@ -17,6 +17,7 @@ struct Symptom : Codable, Hashable, Identifiable {
     var activo : Bool
     var color : String
     var notificacion : String?
+    var fecha : Date = Date.now
     
     init(nombre: String, icon: String, description: String, cuantitativo: Bool, unidades: String, activo: Bool, color: String, notificacion : String) {
         self.nombre = nombre
