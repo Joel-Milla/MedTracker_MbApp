@@ -53,8 +53,9 @@ struct AnalysisItemView: View {
     @State var symptom: Symptom
     @ObservedObject var registers: RegisterList
     @ObservedObject var symptoms : SymptomList
-    @State var allRegisters: [Register] = []
+    // @State var allRegisters: [Register] = []
     @State private var muestraRegisterSymptomView = false
+    @State private var muestraPreviousRegistersView = false
     @State var currentTab = "Semana"
     @State var tempRegisters : [Register] = []
     
@@ -79,7 +80,7 @@ struct AnalysisItemView: View {
                 .frame(height: 60, alignment: .top)
             
             // The next if/else statement check for each symptoms if there is a data, if not then the if will run and notify the user that need to add a value to the symptom.
-            if allRegisters.isEmpty {
+            if registers.registers.filter({ $0.idSymptom == symptom.id.uuidString }).isEmpty {
                 EmptyListView(
                     title: "No hay registros de este sintoma",
                     message: "Porfavor de agregar un estado a este sintoma para mostrar avances.",
@@ -137,7 +138,7 @@ struct AnalysisItemView: View {
                 //.padding(.trailing, 20)
                 
                 Button(action: {
-                    let one = 1
+                    muestraPreviousRegistersView = true
                 }, label: {
                     Text("Ver todo los registros")
                 })
@@ -153,24 +154,26 @@ struct AnalysisItemView: View {
             }
             
         }
+        .fullScreenCover(isPresented: $muestraPreviousRegistersView) {
+            PreviousRegistersView()
+        }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         //.padding(.leading, 20)
         .onAppear() {
-            allRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString })
-            tempRegisters = allRegisters
+            tempRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString })
             currentTab = "Semana"
             let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-            tempRegisters = allRegisters.filter { $0.fecha > oneWeekAgo }
+            tempRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString }).filter { $0.fecha > oneWeekAgo }
         }
         .onChange(of: currentTab) { newValue in
-            tempRegisters = allRegisters
+            tempRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString })
             if newValue == "Semana" {
                 let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-                tempRegisters = allRegisters.filter { $0.fecha > oneWeekAgo }
+                tempRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString }).filter { $0.fecha > oneWeekAgo }
             } else if newValue == "Mes" {
                 let oneMonthAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date())!
-                tempRegisters = allRegisters.filter { $0.fecha > oneMonthAgo }
+                tempRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString }).filter { $0.fecha > oneMonthAgo }
             }
         }
     }
@@ -183,8 +186,13 @@ struct AnalysisItemView: View {
         let registers = filteredRegisters.sorted { $0.fecha < $1.fecha }
         
         let spm = operaciones(registers: registers)
-        Text("Prom: \(spm[0].stringFormat)  Max: \(spm[1].stringFormat)  Min: \(spm[2].stringFormat)")
-            .font(.system(size: 18).bold())
+        if filteredRegisters.count > 1 {
+            Text("Prom: \(spm[0].stringFormat)  Max: \(spm[1].stringFormat)  Min: \(spm[2].stringFormat)")
+                .font(.system(size: 18).bold())
+        } else {
+            Text("Prom: -  Max: -  Min: -")
+                .font(.system(size: 18).bold())
+        }
         
         let min = spm[2]*0.8
         let max = spm[1]*1.2
