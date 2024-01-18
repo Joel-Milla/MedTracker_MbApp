@@ -32,9 +32,10 @@ struct EditSymptomView: View {
                 // If there are symptoms, then show them on a list.
                 else {
                     List {
-                        Section(header: Text("Lista de datos de salud")) {
-                            ForEach(symptoms.symptoms.indices, id: \.self) { index in
-                                ShowEditSymptomView(symptom: symptoms.symptoms[index], symptoms: symptoms, registers: registers)
+                        Section(header: Text("Lista de datos de salud"), footer: Text("Deslice para borrar ó seleccione para desactivar")) {
+                            ForEach(symptoms.symptoms.indices, id:\.self) { index in
+                                let symptom = symptoms.symptoms[index]
+                                ShowEditSymptomView(symptom: EditSymptomViewModel(symptom: symptom, deleteSymptomAction: nil, updateAction: symptoms.makeUpdateAction(for: symptom), deleteRegisterAction: nil), symptoms: symptoms, registers: registers)
                             }
                         }
                     }

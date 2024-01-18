@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct ShowEditSymptomView: View {
-    @State var symptom: Symptom
+    @ObservedObject var symptom: EditSymptomViewModel
     @ObservedObject var symptoms: SymptomList
     @ObservedObject var registers : RegisterList
     @State private var showConfirmationDialog = false
 
     var body: some View {
         HStack {
-            Image(systemName: symptom.icon)
-                .foregroundColor(Color(hex: symptom.color))
-            Toggle(symptom.nombre, isOn: $symptom.activo)
+            Image(systemName: symptom.symptom.icon)
+                .foregroundColor(Color(hex: symptom.symptom.color))
+            Toggle(symptom.symptom.nombre, isOn: $symptom.symptom.activo)
                 .font(.title2)
                 .padding(5)
+        }
+        .onChange(of: symptom.symptom.activo) { newValue in
+            symptom.updateValueActivo()
         }
         .swipeActions {
             Button {
@@ -29,10 +32,10 @@ struct ShowEditSymptomView: View {
             }
             .tint(.red)
         }
-        .confirmationDialog("¿Seguro de querer borrar el dato de salud?", isPresented: $showConfirmationDialog, titleVisibility: .visible) {
+        .confirmationDialog("¿Seguro de querer borrar el dato de salud y todos sus registros?", isPresented: $showConfirmationDialog, titleVisibility: .visible) {
             Button(role: .destructive, action: {
-                symptoms.deleteSymptom(symptom: symptom)
-                registers.deleteRegister(indexSymptom: symptom.id.uuidString)
+                symptoms.deleteSymptom(symptom: symptom.symptom)
+                registers.deleteRegister(indexSymptom: symptom.symptom.id.uuidString)
             }) {
                 Text("Borrar")
             }
