@@ -59,6 +59,12 @@ struct Repository {
             .getDocuments(as: Symptom.self)
         return symptoms
     }
+    // Function to update value symptom
+    func updateSymptomActivo(_ symptom: Symptom) async throws {
+        let document = symptomReference.document(symptom.id.uuidString)
+        let activo = symptom.activo
+        try await document.setData(["activo": !(activo)], merge: true)
+    }
     
     // Function to write a register in database.
     func createRegister(_ register: Register) async throws {
