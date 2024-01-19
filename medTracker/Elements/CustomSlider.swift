@@ -80,7 +80,7 @@ struct CustomSlider: View {
         }
     }
     
-    func getColor()->Color{
+    func getColor() -> Color {
         if(valueFinal < 20){
             return Color("green_MT")
         }

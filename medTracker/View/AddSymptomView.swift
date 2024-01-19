@@ -201,13 +201,12 @@ struct AddSymptomView: View {
                                 mensajeAlerta = "Ya existe un dato con el mismo nombre."
                                 mostrarAlerta = true
                             } else {
-                                let newID = symptoms.symptoms.generateUniqueID()
                                 var notificationIdentifier = ""
                                 if notificaciones {
                                     notificationIdentifier = scheduleNotification(frecuencia: selectedFrequency, selectedDate: selectedDate, selectedDayOfWeek: selectedDayOfWeek, nombreSintoma: nombreSintoma)
                                 }
                                 let cuantitativo = selectedIndex == 0 ? true : false
-                                symptoms.symptoms.append(Symptom(id: newID, nombre: nombreSintoma, icon: icon, description: descripcion, cuantitativo: cuantitativo, unidades: "", activo: true, color: colorString, notificacion: notificationIdentifier))
+                                symptoms.symptoms.append(Symptom(nombre: nombreSintoma, icon: icon, description: descripcion, cuantitativo: cuantitativo, unidades: "", activo: true, color: colorString, notificacion: notificationIdentifier))
                                 createSymptom()
                                 dismiss()
                             }
@@ -248,7 +247,7 @@ struct AddSymptomView: View {
         // will wait until the createAction(symptom) finishes
         Task {
             do {
-                try await createAction(symptoms.symptoms.last ?? Symptom(id: 0, nombre: "", icon: "", description: "", cuantitativo: true, unidades: "", activo: true, color: "", notificacion: "")) //call the function that adds the symptom to the database
+                try await createAction(symptoms.symptoms.last ?? Symptom(nombre: "", icon: "", description: "", cuantitativo: true, unidades: "", activo: true, color: "", notificacion: "")) //call the function that adds the symptom to the database
             } catch {
                 print("[AddSymptomView] Cannot create symptom: \(error)")
             }
@@ -286,15 +285,5 @@ struct AddSymptomView: View {
         )
         
         return hexString
-    }
-}
-
-extension Array where Element == Symptom {
-    func generateUniqueID() -> Int {
-        if let maxID = self.max(by: { $0.id < $1.id }) {
-            return maxID.id + 1
-        } else {
-            return 1 // If the array is empty, start with ID 1
-        }
     }
 }

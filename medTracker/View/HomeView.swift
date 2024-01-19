@@ -135,7 +135,7 @@ struct HomeView: View {
                 // Present full screen the EditSymptomView.
                 .fullScreenCover(isPresented: $muestraEditarSintomas) {
                     //ShareView(listaDatos: listaDatos, registers: registers)
-                    EditSymptomView(symptoms: symptoms)
+                    EditSymptomView(symptoms: symptoms, registers: registers)
                 }
                 .sheet(isPresented: $muestraAgregarSintomas, content: {
                     AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())

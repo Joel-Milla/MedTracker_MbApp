@@ -14,6 +14,8 @@ struct EditSymptomView: View {
     @State var muestraAddSymptomView = false
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var symptoms: SymptomList
+    @ObservedObject var registers : RegisterList
+    @State private var showConfirmationDialog = false
     
     var body: some View {
         NavigationView {
@@ -30,18 +32,14 @@ struct EditSymptomView: View {
                 // If there are symptoms, then show them on a list.
                 else {
                     List {
-                        Section(header: Text("Lista de datos de salud")) {
-                            ForEach(symptoms.symptoms.indices, id: \.self) { index in
-                                HStack{
-                                    Image(systemName: symptoms.symptoms[index].icon)
-                                        .foregroundColor(Color(hex: symptoms.symptoms[index].color))
-                                    Toggle(symptoms.symptoms[index].nombre, isOn: $symptoms.symptoms[index].activo)
-                                        .font(.title2)
-                                        .padding(5)
-                                }
+                        Section(header: Text("Lista de datos de salud"), footer: Text("Deslice para borrar ó seleccione para desactivar")) {
+                            ForEach(symptoms.symptoms.indices, id:\.self) { index in
+                                let symptom = symptoms.symptoms[index]
+                                ShowEditSymptomView(symptom: EditSymptomViewModel(symptom: symptom, deleteSymptomAction: symptoms.makeDeleteAction(for: symptom), updateAction: symptoms.makeUpdateAction(for: symptom), deleteRegisterAction: registers.makeDeleteAction(for: symptom)), symptoms: symptoms, registers: registers)
                             }
                         }
                     }
+                    .animation(.default, value: symptoms.symptoms)
                     .font(.title3)
                     .navigationTitle("Editar Datos")
                 }

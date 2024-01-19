@@ -7,14 +7,15 @@
 
 import Foundation
 
-struct Register : Codable, Hashable {
-    var idSymptom : Int
+struct Register : Codable, Hashable, Identifiable {
+    var id = UUID()
+    var idSymptom : String
     var fecha : Date
     var cantidad : Float
     var notas : String
     //var animacion : Bool
     
-    init(idSymptom: Int, fecha: Date, cantidad: Float, notas: String) {
+    init(idSymptom: String, fecha: Date, cantidad: Float, notas: String) {
         self.idSymptom = idSymptom
         self.fecha = fecha
         self.cantidad = cantidad

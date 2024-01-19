@@ -42,17 +42,8 @@ struct AnalysisView: View {
                     }
                     .tabViewStyle(.page)
                     .indexViewStyle(.page(backgroundDisplayMode: .always))
-                    
-                    Spacer(minLength: 50)
                 }
                 .background(Color("mainWhite"))
-            }
-            GeometryReader { geometry in
-                Image("logoP")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.4, height: geometry.size.height * 0.2)
-                    .position(x: geometry.size.width * 0.25, y: geometry.size.height * 0.015)
             }
         }
     }
@@ -62,8 +53,9 @@ struct AnalysisItemView: View {
     @State var symptom: Symptom
     @ObservedObject var registers: RegisterList
     @ObservedObject var symptoms : SymptomList
-    @State var allRegisters: [Register] = []
+    // @State var allRegisters: [Register] = []
     @State private var muestraRegisterSymptomView = false
+    @State private var muestraPreviousRegistersView = false
     @State var currentTab = "Semana"
     @State var tempRegisters : [Register] = []
     
@@ -74,21 +66,21 @@ struct AnalysisItemView: View {
                 .foregroundColor(colorSintoma)
                 .font(.largeTitle)
                 .bold()
-                .padding(.top, 40)
+                //.padding(.top, 40)
             
             Text("Descripción: ")
                 .font(.system(size: 24))
-                .padding(.top, 5)
+                //.padding(.top, 5)
             
             Text("\(symptom.description)")
-                .padding(.trailing, 20)
+                //.padding(.trailing, 20)
                 .foregroundColor(colorSintoma)
                 .lineSpacing(4)
                 .font(.system(size: 20))
-                .frame(height: 120, alignment: .top)
+                .frame(height: 60, alignment: .top)
             
             // The next if/else statement check for each symptoms if there is a data, if not then the if will run and notify the user that need to add a value to the symptom.
-            if allRegisters.isEmpty {
+            if registers.registers.filter({ $0.idSymptom == symptom.id.uuidString }).isEmpty {
                 EmptyListView(
                     title: "No hay registros de este sintoma",
                     message: "Porfavor de agregar un estado a este sintoma para mostrar avances.",
@@ -118,7 +110,7 @@ struct AnalysisItemView: View {
                                 .tag("Todos")
                         }
                         .pickerStyle(.segmented)
-                        .padding(.leading, 60)
+                        .padding(.leading)
                     }
                     .padding(.bottom, symptom.cuantitativo ? 0 : 35)
                     
@@ -127,8 +119,10 @@ struct AnalysisItemView: View {
                     } else {
                         ChartCualitativa(filteredRegisters: tempRegisters)
                     }
+
                 }
-                .padding(10)
+                .padding()
+                //.padding(10)
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(Color("mainWhite").shadow(.drop(color: .primary,radius: 1)))
@@ -141,28 +135,45 @@ struct AnalysisItemView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(colorSintoma, lineWidth: 2) // Adjust color and line width as needed
                 )
-                .padding(.trailing, 20)
+                //.padding(.trailing, 20)
                 
-                Spacer(minLength: 50)
+                Button(action: {
+                    muestraPreviousRegistersView = true
+                }, label: {
+                    Text("Ver todo los registros")
+                })
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundColor(.white)
+                .padding(.vertical)
+                .frame(maxWidth: .infinity)
+                .background(LinearGradient(gradient: Gradient(colors: [Color(hex: symptom.color), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
+                .cornerRadius(10)
+                .shadow(radius: 5)
+                .frame(height: 50, alignment: .top)
             }
+            
         }
+        .fullScreenCover(isPresented: $muestraPreviousRegistersView) {
+            PreviousRegistersView(registers: registers.registers.filter({ $0.idSymptom == symptom.id.uuidString }), symptom: symptom)
+        }
+        .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .padding(.leading, 20)
+        //.padding(.leading, 20)
         .onAppear() {
-            allRegisters = registers.registers.filter({ $0.idSymptom == symptom.id })
-            tempRegisters = allRegisters
+            tempRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString })
             currentTab = "Semana"
             let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-            tempRegisters = allRegisters.filter { $0.fecha > oneWeekAgo }
+            tempRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString }).filter { $0.fecha > oneWeekAgo }
         }
         .onChange(of: currentTab) { newValue in
-            tempRegisters = allRegisters
+            tempRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString })
             if newValue == "Semana" {
                 let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-                tempRegisters = allRegisters.filter { $0.fecha > oneWeekAgo }
+                tempRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString }).filter { $0.fecha > oneWeekAgo }
             } else if newValue == "Mes" {
                 let oneMonthAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date())!
-                tempRegisters = allRegisters.filter { $0.fecha > oneMonthAgo }
+                tempRegisters = registers.registers.filter({ $0.idSymptom == symptom.id.uuidString }).filter { $0.fecha > oneMonthAgo }
             }
         }
     }
@@ -175,8 +186,13 @@ struct AnalysisItemView: View {
         let registers = filteredRegisters.sorted { $0.fecha < $1.fecha }
         
         let spm = operaciones(registers: registers)
-        Text("Prom: \(spm[0].stringFormat)  Max: \(spm[1].stringFormat)  Min: \(spm[2].stringFormat)")
-            .font(.system(size: 18).bold())
+        if filteredRegisters.count > 1 {
+            Text("Prom: \(spm[0].stringFormat)  Max: \(spm[1].stringFormat)  Min: \(spm[2].stringFormat)")
+                .font(.system(size: 18).bold())
+        } else {
+            Text("Prom: -  Max: -  Min: -")
+                .font(.system(size: 18).bold())
+        }
         
         let min = spm[2]*0.8
         let max = spm[1]*1.2
@@ -200,7 +216,7 @@ struct AnalysisItemView: View {
             }
         }
         .chartYScale(domain: min <= max ? min...max : 0...100)
-        .frame(height: 250)
+        .frame(width: 300, height: 250)
         .background(Color("mainWhite"))
         
     }

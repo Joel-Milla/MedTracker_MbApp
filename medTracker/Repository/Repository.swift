@@ -42,22 +42,40 @@ struct Repository {
      **********************************/
     // Function to write a symptom in database.
     func createSymptom(_ symptom: Symptom) async throws {
-        let document = symptomReference.document(String(symptom.id))
+        let document = symptomReference.document(symptom.id.uuidString)
         try await document.setData(from: symptom)
+    }
+    
+    // Function to write a symptom in database.
+    func deleteSymptom(_ symptom: Symptom) async throws {
+        let document = symptomReference.document(symptom.id.uuidString)
+        try await document.delete()
     }
     
     // Function to fetch all the symptoms in firebase
     func fetchSymptoms() async throws -> [Symptom] {
         let symptoms = try await symptomReference
-            .order(by: "id", descending: false)
+            .order(by: "fecha", descending: false)
             .getDocuments(as: Symptom.self)
         return symptoms
+    }
+    // Function to update value symptom
+    func updateSymptomActivo(_ symptom: Symptom) async throws {
+        let document = symptomReference.document(symptom.id.uuidString)
+        let activo = symptom.activo
+        try await document.setData(["activo": !(activo)], merge: true)
     }
     
     // Function to write a register in database.
     func createRegister(_ register: Register) async throws {
-        let document = registerReference.document(UUID().uuidString)
+        let document = registerReference.document(register.id.uuidString)
         try await document.setData(from: register)
+    }
+    
+    // Function to delete a register
+    func deleteRegister(_ register: Register) async throws {
+        let document = registerReference.document(register.id.uuidString)
+        try await document.delete()
     }
     
     // Function to obtain the registers of the database
