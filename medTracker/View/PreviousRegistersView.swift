@@ -8,8 +8,22 @@
 import SwiftUI
 
 struct PreviousRegistersView: View {
+    @Environment(\.dismiss) var dismiss
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            VStack {
+                
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Image(systemName: "xmark")
+                    })
+                }
+            }
+        }
     }
 }
 
