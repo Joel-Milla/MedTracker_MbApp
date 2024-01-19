@@ -155,7 +155,7 @@ struct AnalysisItemView: View {
             
         }
         .fullScreenCover(isPresented: $muestraPreviousRegistersView) {
-            PreviousRegistersView()
+            PreviousRegistersView(registers: registers.registers.filter({ $0.idSymptom == symptom.id.uuidString }), symptom: symptom)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

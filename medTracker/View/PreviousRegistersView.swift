@@ -9,11 +9,17 @@ import SwiftUI
 
 struct PreviousRegistersView: View {
     @Environment(\.dismiss) var dismiss
+    @State var registers: [Register]
+    let symptom: Symptom
+
     var body: some View {
         NavigationStack {
-            VStack {
-                
+            List {
+                ForEach(registers) { register in
+                    rowRegister(register: register, symptom: symptom)
+                }
             }
+            .navigationTitle(symptom.nombre)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button(action: {
@@ -25,8 +31,4 @@ struct PreviousRegistersView: View {
             }
         }
     }
-}
-
-#Preview {
-    PreviousRegistersView()
 }
