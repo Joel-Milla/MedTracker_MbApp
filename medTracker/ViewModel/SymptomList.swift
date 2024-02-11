@@ -69,7 +69,7 @@ class SymptomList : ObservableObject {
     // The functions returns a closure that is used to write information in firebase
     func makeUpdateAction(for symptom: Symptom) -> Action {
         return { [weak self] in
-            var index = self?.symptoms.firstIndex(of: symptom)
+            let index = self?.symptoms.firstIndex(of: symptom)
             if let index = index {
                 self?.symptoms[index].activo.toggle()
             }
