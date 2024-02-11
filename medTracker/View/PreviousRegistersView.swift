@@ -9,14 +9,17 @@ import SwiftUI
 
 struct PreviousRegistersView: View {
     @Environment(\.dismiss) var dismiss
-    @State var registers: [Register]
+    @ObservedObject var registers: RegisterList
     let symptom: Symptom
 
     var body: some View {
         NavigationStack {
             List {
-                ForEach(registers) { register in
+                ForEach(registers.registers.filter({ $0.idSymptom == symptom.id.uuidString })) { register in
                     rowRegister(register: register, symptom: symptom)
+                }
+                .onDelete { indexSet in
+                    registers.deleteRegisterSet(atOffset: indexSet)
                 }
             }
             .navigationTitle(symptom.nombre)
@@ -27,6 +30,10 @@ struct PreviousRegistersView: View {
                     }, label: {
                         Image(systemName: "xmark")
                     })
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    EditButton()
+                        .padding()
                 }
             }
         }

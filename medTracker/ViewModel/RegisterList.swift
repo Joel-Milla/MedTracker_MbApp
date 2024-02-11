@@ -57,7 +57,7 @@ class RegisterList : ObservableObject {
         }
     }
     
-    // The functions returns a closure that is used to write information in firebase
+    // The functions returns a closure that is used to delete all registers of a symptom.
     func makeDeleteAction(for symptom: Symptom) -> Action {
         return { [weak self] in
             self?.registers.removeAll{ $0.id == symptom.id}
@@ -84,7 +84,7 @@ class RegisterList : ObservableObject {
     }
     
     // Delete registers that have a certain symptom
-    func deleteRegister(indexSymptom: String) {
+    func deleteRegistersSymptom(indexSymptom: String) {
         for register in registers {
             if register.idSymptom == indexSymptom {
                 Task {
@@ -95,6 +95,17 @@ class RegisterList : ObservableObject {
         registers.removeAll {
             $0.idSymptom == indexSymptom
         }
+    }
+    
+    // Delete specific registers
+    func deleteRegisterSet(atOffset indexSet: IndexSet) {
+        for index in indexSet {
+            let register = registers[index]
+            Task {
+                try await self.repository.deleteRegister(register)
+            }
+        }
+        registers.remove(atOffsets: indexSet)
     }
     
     // Dummy data for testing purposes.
