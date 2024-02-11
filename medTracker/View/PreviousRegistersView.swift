@@ -19,7 +19,7 @@ struct PreviousRegistersView: View {
                     rowRegister(register: register, symptom: symptom)
                 }
                 .onDelete { indexSet in
-                    registers.deleteRegisterSet(atOffset: indexSet)
+                    registers.deleteRegisterSet(atOffset: indexSet, ofSymptom: symptom)
                 }
             }
             .navigationTitle(symptom.nombre)
