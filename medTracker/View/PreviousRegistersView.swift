@@ -15,7 +15,7 @@ struct PreviousRegistersView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(registers.registers.filter({ $0.idSymptom == symptom.id.uuidString })) { register in
+                ForEach(registers.registers.filter({ $0.idSymptom == symptom.id.uuidString }).sorted(by: {$0.fecha > $1.fecha})) { register in
                     rowRegister(register: register, symptom: symptom)
                 }
                 .onDelete { indexSet in

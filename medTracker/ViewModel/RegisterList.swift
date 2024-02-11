@@ -99,7 +99,7 @@ class RegisterList : ObservableObject {
     
     // Delete specific registers
     func deleteRegisterSet(atOffset indexSet: IndexSet, ofSymptom symptom: Symptom) {
-        let filteredRegisters = registers.filter({ $0.idSymptom == symptom.id.uuidString })
+        let filteredRegisters = registers.filter({ $0.idSymptom == symptom.id.uuidString }).sorted(by: {$0.fecha > $1.fecha})
         let idsToDelete = indexSet.map { filteredRegisters[$0].id }
         
         registers.removeAll { register in
