@@ -99,17 +99,19 @@ class RegisterList : ObservableObject {
     
     // Delete specific registers
     func deleteRegisterSet(atOffset indexSet: IndexSet, ofSymptom symptom: Symptom) {
-        for index in indexSet {
-            let filteredRegisters = registers.filter({ $0.idSymptom == symptom.id.uuidString })
-            let registerToDelete = filteredRegisters[index]
-            registers.removeAll { register in
-                register.id == registerToDelete.id
-            }
+        let filteredRegisters = registers.filter({ $0.idSymptom == symptom.id.uuidString })
+        let idsToDelete = indexSet.map { filteredRegisters[$0].id }
+        
+        registers.removeAll { register in
+            idsToDelete.contains(register.id)
+        }
+        
+        idsToDelete.forEach { id in
             Task {
-                try await self.repository.deleteRegister(registerToDelete)
+                try await self.repository.deleteRegisterByID(id)
             }
         }
-
+        
     }
     
     // Dummy data for testing purposes.

@@ -78,6 +78,12 @@ struct Repository {
         try await document.delete()
     }
     
+    // Function to delete a register by id
+    func deleteRegisterByID(_ id: UUID) async throws {
+        let document = registerReference.document(id.uuidString)
+        try await document.delete()
+    }
+    
     // Function to obtain the registers of the database
     func fetchRegisters() async throws -> [Register] {
         let registers = try await registerReference
