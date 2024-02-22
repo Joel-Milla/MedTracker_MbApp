@@ -199,6 +199,9 @@ struct ProfileView: View {
                 AddDoctorView(user: user, writePatient: user.writePatient(), createAction: user.makeCreateAction(), deletePatient: user.makeDeleteAction())
             })
         }
+        .onAppear {
+            draftUser = user.user
+        }
         .onDisappear {
             NotificationCenter.default.removeObserver(self)
         }

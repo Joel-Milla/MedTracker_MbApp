@@ -78,11 +78,7 @@ class UserModel: ObservableObject {
     func fetchUser() {
         Task {
             do {
-                if let firebaseUserName = auth.currentUser?.displayName {
-                    self.user.nombreCompleto = firebaseUserName
-                } else {
-                    user = try await self.repository.fetchUser()
-                }
+                user = try await self.repository.fetchUser()
             } catch {
                 print("[UserModel] Cannot fetch user: \(error)")
                 // If user is not found in the repository, try to get the name from Firebase

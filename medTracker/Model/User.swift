@@ -62,7 +62,7 @@ struct User : Codable, Hashable {
     
     func error() -> (Bool, String) {
         if let height = Double(self.estatura) {
-            if (self.telefono == "" || self.nombreCompleto == "" || self.estatura == "" || self.sexo == "") {
+            if (self.telefono == "" || self.estatura == "" || self.sexo == "") {
                 return (true, "Datos faltantes. Por favor llena todos los campos obligatorios.")
             } else if (height < 0.20 || height > 2.5) {
                 return (true, "Estatura inválida. Favor de ingresar una estatura válida en metros.")
