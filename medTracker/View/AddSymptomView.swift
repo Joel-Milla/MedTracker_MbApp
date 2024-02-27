@@ -52,6 +52,7 @@ struct AddSymptomView: View {
                 VStack(alignment: .leading) {
                     HStack {
                         TextField("Dato de salud", text: $nombreSintoma)
+                            .disableAutocorrection(true)
                             .font(.system(size: 28))
                             .foregroundColor(colorSymptom)
                             .submitLabel(.done)
