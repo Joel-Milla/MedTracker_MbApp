@@ -15,7 +15,7 @@ struct SymbolIcon: View {
     var body: some View {
         Image(systemName: icon)
             .font(.system(size: 25))
-            .animation(.linear)
+//            .animation(.linear)
             .foregroundColor(self.selection == icon ? Color.accentColor : Color.primary)
             .onTapGesture {
                 

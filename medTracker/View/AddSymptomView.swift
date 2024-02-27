@@ -52,6 +52,7 @@ struct AddSymptomView: View {
                 VStack(alignment: .leading) {
                     HStack {
                         TextField("Dato de salud", text: $nombreSintoma)
+                            .disableAutocorrection(true)
                             .font(.system(size: 28))
                             .foregroundColor(colorSymptom)
                             .submitLabel(.done)
@@ -120,7 +121,7 @@ struct AddSymptomView: View {
                         .onAppear {
                             selectedIndex = 0
                         }
-                        .animation(.easeInOut(duration: 0.3))
+                        .animation(.easeInOut(duration: 0.3), value: selectedIndex ?? 0)
                         Spacer()
                     }
                     .padding(.trailing, 20)
