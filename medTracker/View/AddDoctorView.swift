@@ -155,7 +155,7 @@ struct AddDoctorView: View {
                 } else {
                     // modifying data locally
                     user.user.arregloDoctor.append(email)
-                    user.saveUserData() // save information of array doctor in firebase
+                    createUser(user: user.user)
                     
                     // modify data in database
                     writeDoctor(email: email, user: user.user)
