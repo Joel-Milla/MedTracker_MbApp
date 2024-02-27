@@ -121,7 +121,7 @@ struct AddSymptomView: View {
                         .onAppear {
                             selectedIndex = 0
                         }
-                        .animation(.easeInOut(duration: 0.3))
+                        .animation(.easeInOut(duration: 0.3), value: selectedIndex ?? 0)
                         Spacer()
                     }
                     .padding(.trailing, 20)
