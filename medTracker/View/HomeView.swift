@@ -36,9 +36,6 @@ struct HomeView: View {
     @State private var muestraEditarSintomas = false
     @State private var muestraAgregarSintomas = false
     @State private var muestraNewSymptom = false
-    @State private var muestraShare = false
-    @State private var isHomeViewActive = true
-    @State private var isNavigationViewActive = false
     
     
     var body: some View {
@@ -83,7 +80,7 @@ struct HomeView: View {
                 }
                 .overlay(
                     Group {
-                        if isHomeViewActive && (symptoms.state == .complete) {
+                        if (symptoms.state == .complete) {
                             Button {
                                 muestraAgregarSintomas = true
                             } label: {
