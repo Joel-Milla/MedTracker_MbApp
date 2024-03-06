@@ -134,9 +134,6 @@ struct HomeView: View {
                     //ShareView(listaDatos: listaDatos, registers: registers)
                     EditSymptomView(symptoms: symptoms, registers: registers)
                 }
-                .sheet(isPresented: $muestraAgregarSintomas, content: {
-                    AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
-                })
                 .sheet(isPresented: $isShowingActivityView) {
                     ActivityView(activityItems: activityItems, onComplete: { completed in
                         isShowingActivityView = false
@@ -144,8 +141,6 @@ struct HomeView: View {
                     })
                 }
             }
-            //            }
-            
         }
     }
     func exportCSV()-> URL? {
