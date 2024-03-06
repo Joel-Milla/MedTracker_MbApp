@@ -34,9 +34,9 @@ public func scheduleNotification(frecuencia: String, selectedDate: Date, selecte
     
     UNUserNotificationCenter.current().add(request) { error in
         if let error = error {
-            print("[Notifications] Error scheduling notification: \(error.localizedDescription)")
+            customPrint("[Notifications] Error scheduling notification: \(error.localizedDescription)")
         } else {
-            print("[Notifications] Notification scheduled successfully!")
+            customPrint("[Notifications] Notification scheduled successfully!")
         }
     }
     return request.identifier

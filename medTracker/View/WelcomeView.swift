@@ -51,9 +51,9 @@ struct WelcomeView: View {
 func requestNotificationPermission() {
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
         if success {
-            print("Permission granted!")
+            customPrint("Permission granted!")
         } else if let error = error {
-            print(error.localizedDescription)
+            customPrint(error.localizedDescription)
         }
     }
 }

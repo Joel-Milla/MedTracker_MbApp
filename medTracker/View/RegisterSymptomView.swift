@@ -193,7 +193,7 @@ struct RegisterSymptomView: View {
             do {
                 try await createAction(registers.registers.last ?? Register(idSymptom: "", fecha: Date.now, cantidad: 0, notas: "")) //call the function that adds the symptom to the database
             } catch {
-                print("[RegisterSymptomView] Cannot create register: \(error)")
+                customPrint("[RegisterSymptomView] Cannot create register: \(error)")
             }
         }
     }
@@ -292,7 +292,7 @@ struct NuevaSintoma: View {
             do {
                 try await createAction2(symptomModification) //call the function that adds the symptom to the database
             } catch {
-                print("[RegisterSymptomView] Cannot modify symptom: \(error)")
+                customPrint("[RegisterSymptomView] Cannot modify symptom: \(error)")
             }
         }
     }

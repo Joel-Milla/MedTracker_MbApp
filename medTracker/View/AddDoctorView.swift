@@ -171,7 +171,7 @@ struct AddDoctorView: View {
             }
         } catch {
             // Handle any errors
-            print(error.localizedDescription)
+            customPrint(error.localizedDescription)
             self.progress = .complete
             existError = true
             errorMessage = "No se encontro el email como valido."
@@ -185,7 +185,7 @@ struct AddDoctorView: View {
                 try await
                 createAction(user) //call the function that adds the user to the database
             } catch {
-                print("[AddDoctorView] Werent able to create the user: \(error)")
+                customPrint("[AddDoctorView] Werent able to create the user: \(error)")
             }
         }
     }
@@ -197,7 +197,7 @@ struct AddDoctorView: View {
                 try await
                 writePatient(email, user) //call the function that adds the user to the database
             } catch {
-                print("[AddDoctorView] Cannot write the doctor: \(error)")
+                customPrint("[AddDoctorView] Cannot write the doctor: \(error)")
             }
         }
     }

@@ -21,14 +21,14 @@ class AuthViewModel: ObservableObject {
     @Published var user: User?
     var userRole: String  {
         guard let userRol = user?.rol else {
-            print("[AuthViewModel] Error: User role not found")
+            customPrint("[AuthViewModel] Error: User role not found")
             return "Unknown role"
         }
         return userRol
     }
     var userEmail: String  {
         guard let userMail = user?.email else {
-            print("[AuthViewModel] Error: Email not found")
+            customPrint("[AuthViewModel] Error: Email not found")
             return "Unknown email"
         }
         return userMail
@@ -69,7 +69,7 @@ class AuthViewModel: ObservableObject {
                 isAuthenticated = false
                 
             } catch {
-                print("[AuthViewModel] Error while signin out: \(error)")
+                customPrint("[AuthViewModel] Error while signin out: \(error)")
             }
         }
     }

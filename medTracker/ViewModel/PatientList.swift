@@ -43,7 +43,7 @@ class PatientList : ObservableObject {
                 patientsList = try await self.repository.fetchPatients()
                 state = patientsList.isEmpty ? .isEmpty : .complete
             } catch {
-                print("[PatientsList] Cannot fetch patients: \(error)")
+                customPrint("[PatientsList] Cannot fetch patients: \(error)")
             }
         }
     }
