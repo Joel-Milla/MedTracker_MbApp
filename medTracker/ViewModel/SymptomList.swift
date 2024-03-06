@@ -93,7 +93,7 @@ class SymptomList : ObservableObject {
                 symptoms = try await self.repository.fetchSymptoms()
                 state = symptoms.isEmpty ? .isEmpty : .complete
             } catch {
-                print("[SymptomList] Cannot fetch symptoms: \(error)")
+                customPrint("[SymptomList] Cannot fetch symptoms: \(error)")
             }
         }
     }
@@ -105,7 +105,7 @@ class SymptomList : ObservableObject {
             do {
                 try await self.repository.deleteSymptom(symptom)
             } catch {
-                print("[SymptomList] Cannot delete symptom: \(error)")
+                customPrint("[SymptomList] Cannot delete symptom: \(error)")
             }
         }
     }

@@ -46,7 +46,7 @@ class PatientsData : ObservableObject {
                 symptoms = try await self.repository.fetchSymptomsPatient(patient.email)
                 registers = try await self.repository.fetchRegistersPatient(patient.email)
             } catch {
-                print("[PatientsData] Cannot fetch patients data: \(error)")
+                customPrint("[PatientsData] Cannot fetch patients data: \(error)")
             }
         }
         state = .complete

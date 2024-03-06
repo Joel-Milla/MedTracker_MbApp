@@ -57,7 +57,7 @@ class FormViewModel<Value>: ObservableObject {
         do {
             try await action(value)
         } catch {
-            print("[FormViewModel] Cannot submit: \(error)")
+            customPrint("[FormViewModel] Cannot submit: \(error)")
             self.error = error
         }
         state = .idle

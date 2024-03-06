@@ -90,7 +90,7 @@ struct AnalysisDoctorView: View {
                 }
             }
         } catch {
-            print("[AnalysisDoctorView] Error while creating CSV: \(error)")
+            customPrint("[AnalysisDoctorView] Error while creating CSV: \(error)")
         }
         return path
     }

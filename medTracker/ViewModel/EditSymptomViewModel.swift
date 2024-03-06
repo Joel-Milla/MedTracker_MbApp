@@ -39,7 +39,7 @@ class EditSymptomViewModel : ObservableObject {
             do {
                 try await updateAction()
             } catch {
-                print("[EditSymptomViewModel] Error while updating symptom: \(error)")
+                customPrint("[EditSymptomViewModel] Error while updating symptom: \(error)")
             }
         }
     }

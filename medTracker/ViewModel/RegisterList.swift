@@ -78,7 +78,7 @@ class RegisterList : ObservableObject {
             do {
                 registers = try await self.repository.fetchRegisters()
             } catch {
-                print("[RegisterList] Cannot fetch registers: \(error)")
+                customPrint("[RegisterList] Cannot fetch registers: \(error)")
             }
         }
     }
