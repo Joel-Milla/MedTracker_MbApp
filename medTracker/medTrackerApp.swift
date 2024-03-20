@@ -12,6 +12,7 @@ import Firebase
 struct medTrackerApp: App {
     // Initialize the configuration of the database
     init() {
+        // Firebase configuration
         FirebaseApp.configure()
     }
 
