@@ -38,6 +38,7 @@ struct AddSymptomView: View {
     @State var selectedIndex: Int?
     @State var mostrarAlerta = false
     @State var mensajeAlerta = ""
+    @State var cuantitativo = 0
     var cada_cuanto = ["Todos los días", "Cada semana", "Una vez al mes"]
     @State var notificaciones_seleccion = "Todos los días"
     @ObservedObject var symptoms : SymptomList
@@ -60,7 +61,7 @@ struct AddSymptomView: View {
                             .padding(.vertical, 2)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray, lineWidth: 1)
+                                    .stroke(Color("blueGreen"), lineWidth: 1)
                             )
                         
                         Button {
@@ -78,54 +79,25 @@ struct AddSymptomView: View {
                             .padding(.trailing, 20)
                     }
                     .padding(.top, 20)
-                    
-                    Text("Descripción")
-                        .font(.system(size: 24))
-                        .padding(.top, 22)
-                    
-                    TextField("Describe el dato de salud", text: $descripcion)//, axis : .vertical)
+
+                    TextField("Descripción del dato de salud", text: $descripcion)//, axis : .vertical)
                         .font(.system(size: 18))
                         .textFieldStyle(.roundedBorder)
                         .lineSpacing(4)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray, lineWidth: 1)
+                                .stroke(Color("blueGreen"), lineWidth: 1)
                         )
                         .padding(.trailing, 20)
                         .foregroundColor(colorSymptom)
                         .disableAutocorrection(true)
                         .submitLabel(.done)
-                    
-                    Text("Tipo")
-                        .font(.system(size: 24))
-                        .padding(.top, 40)
-                    
-                    HStack {
-                        Spacer()
-                        SegmentedPicker(
-                            ["Cuantitativo", "Cualitativo"],
-                            selectedIndex: Binding(
-                                get: { selectedIndex },
-                                set: { selectedIndex = $0 }),
-                            content: { item, isSelected in
-                                Text(item)
-                                    .foregroundColor(isSelected ? Color.white : Color.black )
-                                    .padding(.horizontal, 40)
-                                    .padding(.vertical, 8)
-                                
-                            },
-                            selection: {
-                                Capsule()
-                                    .fill(colorSymptom)
-                            })
-                        .onAppear {
-                            selectedIndex = 0
-                        }
-                        .animation(.easeInOut(duration: 0.3), value: selectedIndex ?? 0)
-                        Spacer()
+
+                    Picker("Sintoma cuantitativo o cualitativo?", selection: $cuantitativo) {
+                                    Text("Cuantitativo").tag(0)
+                                    Text("Cualitativo").tag(1)
                     }
-                    .padding(.trailing, 20)
-                    .frame(height: 50)
+                    .pickerStyle(.segmented)
                     
                     Toggle("Recibir notificaciones", isOn: $notificaciones)
                         .tint(colorSymptom)
@@ -190,9 +162,7 @@ struct AddSymptomView: View {
                         }
                     }
                     
-                    
                     HStack {
-                        Spacer()
                         Button {
                             if nombreSintoma == "" ||
                                 descripcion == "" {
@@ -212,23 +182,29 @@ struct AddSymptomView: View {
                                 dismiss()
                             }
                         } label: {
-                            Label("Añadir dato de salud", systemImage: "cross.circle.fill")
+                            Text("Crear dato")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: 250)
+                                .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
                         }
                         .alert("Error", isPresented: $mostrarAlerta) {
                             Button("OK") {}
                         }
-                    message: {
-                        Text(mensajeAlerta)
-                    }
-                    .buttonStyle(Button1MedTracker(backgroundColor: colorSymptom))
-                    .padding(.top, 50)
-                        Spacer()
+                        message: {
+                            Text(mensajeAlerta)
+                        }
+                        .padding(.top, 50)
                     }
                 }
                 .keyboardToolbar()
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding(.leading, 20)
-                .navigationBarTitle("Nuevo dato de salud")
+                .navigationBarTitle("Agregar dato de salud")
                 .ignoresSafeArea(.keyboard)
             }
         }
