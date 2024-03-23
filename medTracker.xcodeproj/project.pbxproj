@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1700F3BD2B51D713009D0A62 /* Firestore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1700F3BC2B51D713009D0A62 /* Firestore+Extensions.swift */; };
+		170948642BAB5BB2007E3E8B /* AnalysisView2.0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948632BAB5BB2007E3E8B /* AnalysisView2.0.swift */; };
+		170948862BAE3E24007E3E8B /* tempSignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948852BAE3E24007E3E8B /* tempSignOut.swift */; };
 		170C07F62B51EE3A00AB937A /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170C07F52B51EE3A00AB937A /* WelcomeView.swift */; };
 		1718E8B72B4F3736001691B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */; };
 		1718E8BA2B4F3802001691B8 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8B92B4F3802001691B8 /* FirebaseAnalytics */; };
@@ -69,6 +71,8 @@
 
 /* Begin PBXFileReference section */
 		1700F3BC2B51D713009D0A62 /* Firestore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
+		170948632BAB5BB2007E3E8B /* AnalysisView2.0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView2.0.swift; sourceTree = "<group>"; };
+		170948852BAE3E24007E3E8B /* tempSignOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempSignOut.swift; sourceTree = "<group>"; };
 		170C07F52B51EE3A00AB937A /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
@@ -193,6 +197,8 @@
 				FB320FA62AEB2754005865F5 /* AddSymptomView.swift */,
 				F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */,
 				F838338D2B0C49F5005F2BB5 /* ShareView.swift */,
+				170948632BAB5BB2007E3E8B /* AnalysisView2.0.swift */,
+				170948852BAE3E24007E3E8B /* tempSignOut.swift */,
 				FBE3812B2ADF3C2E004737C9 /* AnalysisView.swift */,
 				1789E8182B59ED780087531D /* PreviousRegistersView.swift */,
 				FB4C82282B13C13E004AF7B6 /* ProfileView */,
@@ -456,6 +462,7 @@
 				FB0EC3A32B13049700E7309B /* rowPatient.swift in Sources */,
 				FBE41E742AF6D464007B48E5 /* User.swift in Sources */,
 				FB45BFF62B08270E0019C0A1 /* SymbolLoader.swift in Sources */,
+				170948642BAB5BB2007E3E8B /* AnalysisView2.0.swift in Sources */,
 				FBA3D15E2AFF0936000E3E39 /* HexToColor.swift in Sources */,
 				FB0EC3A12B12FF9400E7309B /* PatientList.swift in Sources */,
 				1700F3BD2B51D713009D0A62 /* Firestore+Extensions.swift in Sources */,
@@ -478,6 +485,7 @@
 				FB45BFFA2B082B2B0019C0A1 /* UsageExample.swift in Sources */,
 				FB17DAB52B0D771F006294BD /* FloatToString.swift in Sources */,
 				FB87FECF2ADDEE9800F6273B /* medTrackerApp.swift in Sources */,
+				170948862BAE3E24007E3E8B /* tempSignOut.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,7 +624,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -649,7 +657,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

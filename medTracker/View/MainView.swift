@@ -24,7 +24,9 @@ struct MainView: View {
 //                .tag(Tab.Perfil)
 //        }
         TabView {
-            HomeView(symptoms: symptoms, registers: registers)
+//            AnalysisView(symptoms: symptoms, registers: registers)
+            AnalysisView2_0()
+//            HomeView(symptoms: symptoms, registers: registers)
                 .tabItem {
                     Label("Inicio", systemImage: "house")
                 }
