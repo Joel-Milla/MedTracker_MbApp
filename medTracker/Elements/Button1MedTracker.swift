@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-struct Button1MedTracker : ButtonStyle{
+struct Button1MedTracker : ButtonStyle {
     var backgroundColor: Color
     
     init(backgroundColor: Color = Color("blueGreen")) {

@@ -34,21 +34,16 @@ struct AnalysisView2_0: View {
         NavigationStack {
             VStack {
                 LineChartView(symptomTest: symptomTest, testRegisters: testRegisters)
+                    .padding(.bottom, 35)
                 
                 InsightsView(testRegisters: testRegisters)
+                    .padding(.bottom, 35)
                 
                 NavigationLink {
                     registersView()
                 } label: {
                     Text("Registros Pasados")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: 250)
-                        .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
+                        .gradientTextStyle()
                 }
                 
             }
