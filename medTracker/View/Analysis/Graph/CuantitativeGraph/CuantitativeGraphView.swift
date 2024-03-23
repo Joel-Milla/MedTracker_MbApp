@@ -13,7 +13,7 @@ struct CuantitativeGraphView: View {
     let testRegisters: [Register]
     // MARK: View Properties
     @State var currentTab: String = "Semana"
-    @State var isLineGraph: Bool = true
+    @State var isLineGraph: Bool = false
 
     var body: some View {
         // MARK: Line Chart API

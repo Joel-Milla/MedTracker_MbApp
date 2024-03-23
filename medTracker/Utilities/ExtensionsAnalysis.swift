@@ -7,6 +7,16 @@
 
 import Foundation
 
+extension Register {
+    // Returns a register that instead of having the complete date, only returns a day
+    func adjustDateToDay() -> Register {
+        let calendar = Calendar.current
+        var adjustedRegister = self
+        adjustedRegister.fecha = calendar.startOfDay(for: self.fecha)
+        return adjustedRegister
+    }
+}
+
 extension [Register] {
     // Filter an array of registers by tags.
     func filterBy(_ filter: String) -> [Register] {
@@ -30,19 +40,28 @@ extension [Register] {
         }
     }
     
-    // Functions used for insightsView
+    // Functions used for insightsView, obtain the min value
     func minValue() -> Float {
         self.min(by: { $0.cantidad < $1.cantidad })?.cantidad ?? 0.0
     }
     
+    // Functions used for insightsView, obtain the max value
     func maxValue() -> Float {
         self.max(by: { $0.cantidad < $1.cantidad })?.cantidad ?? 0.0
     }
     
+    // Functions used for insightsView, obtain the min value
     func meanValue() -> Float {
         guard !self.isEmpty else { return 0.0 }
         let sum = self.reduce(0.0) { $0 + $1.cantidad }
         return sum / Float(self.count)
+    }
+    
+    // Functions used for bar chart view, obtain the days of all the dates so its easier to preprocess the data
+    func adjustDatesToStartOfDay() -> [Register] {
+        return self.map { register in
+            return register.adjustDateToDay()
+        }
     }
 }
 
