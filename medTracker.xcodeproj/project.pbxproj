@@ -16,6 +16,7 @@
 		1709488F2BAE8FB1007E3E8B /* GradientMedTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488E2BAE8FB1007E3E8B /* GradientMedTracker.swift */; };
 		170948922BAE95ED007E3E8B /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948912BAE95ED007E3E8B /* GraphView.swift */; };
 		170948972BAE96BB007E3E8B /* CuantitativeGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948962BAE96BB007E3E8B /* CuantitativeGraphView.swift */; };
+		170948992BAEA033007E3E8B /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948982BAEA033007E3E8B /* BarChartView.swift */; };
 		170C07F62B51EE3A00AB937A /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170C07F52B51EE3A00AB937A /* WelcomeView.swift */; };
 		1718E8B72B4F3736001691B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */; };
 		1718E8BA2B4F3802001691B8 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8B92B4F3802001691B8 /* FirebaseAnalytics */; };
@@ -85,6 +86,7 @@
 		1709488E2BAE8FB1007E3E8B /* GradientMedTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientMedTracker.swift; sourceTree = "<group>"; };
 		170948912BAE95ED007E3E8B /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		170948962BAE96BB007E3E8B /* CuantitativeGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuantitativeGraphView.swift; sourceTree = "<group>"; };
+		170948982BAEA033007E3E8B /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		170C07F52B51EE3A00AB937A /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				1709488A2BAE8CAB007E3E8B /* LineChartView.swift */,
+				170948982BAEA033007E3E8B /* BarChartView.swift */,
 				170948962BAE96BB007E3E8B /* CuantitativeGraphView.swift */,
 			);
 			path = CuantitativeGraph;
@@ -503,6 +506,7 @@
 				177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */,
 				FB0EC3A32B13049700E7309B /* rowPatient.swift in Sources */,
 				FBE41E742AF6D464007B48E5 /* User.swift in Sources */,
+				170948992BAEA033007E3E8B /* BarChartView.swift in Sources */,
 				FB45BFF62B08270E0019C0A1 /* SymbolLoader.swift in Sources */,
 				170948972BAE96BB007E3E8B /* CuantitativeGraphView.swift in Sources */,
 				170948642BAB5BB2007E3E8B /* AnalysisView2.0.swift in Sources */,

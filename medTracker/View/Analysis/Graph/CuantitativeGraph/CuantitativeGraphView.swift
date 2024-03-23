@@ -13,6 +13,7 @@ struct CuantitativeGraphView: View {
     let testRegisters: [Register]
     // MARK: View Properties
     @State var currentTab: String = "Semana"
+    @State var isLineGraph: Bool = true
 
     var body: some View {
         // MARK: Line Chart API
@@ -32,7 +33,18 @@ struct CuantitativeGraphView: View {
                 .padding(.leading, 50)
             }
             
-            LineChartView(testRegisters: testRegisters, currentTab: $currentTab)
+            if (isLineGraph) {
+                LineChartView(testRegisters: testRegisters, currentTab: $currentTab)
+            } else {
+                BarChartView(testRegisters: testRegisters, currentTab: $currentTab)
+            }
+            
+            Picker("Tipo de gráfica:", selection: $isLineGraph) {
+                            Text("Línea").tag(true)
+                            Text("Barra").tag(false)
+            }
+            .pickerStyle(.segmented)
+            
         }
         .padding()
         // Following padding is for the label graph to look better
