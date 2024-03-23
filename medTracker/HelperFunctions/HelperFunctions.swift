@@ -55,7 +55,8 @@ class HelperFunctions {
         return role
     }
     
-    static func getImage(of value: Float) -> String {
+    // Function that when receives a value of number (like int/float/double) it returns the image that corresponds to that value. 
+    static func getImage<T: Numeric & Comparable>(of value: T) -> String {
         var imageName: String
 
         switch value {
