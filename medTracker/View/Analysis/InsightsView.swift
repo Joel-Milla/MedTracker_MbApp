@@ -48,22 +48,6 @@ struct InsightsView: View {
     }
 }
 
-extension [Register] {
-    func minValue() -> Float {
-        self.min(by: { $0.cantidad < $1.cantidad })?.cantidad ?? 0.0
-    }
-    
-    func maxValue() -> Float {
-        self.max(by: { $0.cantidad < $1.cantidad })?.cantidad ?? 0.0
-    }
-    
-    func meanValue() -> Float {
-        guard !self.isEmpty else { return 0.0 }
-        let sum = self.reduce(0.0) { $0 + $1.cantidad }
-        return sum / Float(self.count)
-    }
-}
-
 #Preview {
     NavigationStack {
         let testRegisters: [Register] = [
