@@ -33,7 +33,7 @@ struct AnalysisView2_0: View {
     var body: some View {
         NavigationStack {
             VStack {
-                LineChartView(symptomTest: symptomTest, testRegisters: testRegisters)
+                GraphView(isCuantitative: true, symptomTest: symptomTest, testRegisters: testRegisters)
                     .padding(.bottom, 35)
                 
                 InsightsView(testRegisters: testRegisters)
@@ -50,7 +50,6 @@ struct AnalysisView2_0: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .padding()
             .navigationTitle(symptomTest.nombre)
-            // MARK: Simplify updating values for segmented tabs
             .toolbar {
                 // Button to traverse to EditSymptomView.
                 ToolbarItem(placement: .navigationBarTrailing) {

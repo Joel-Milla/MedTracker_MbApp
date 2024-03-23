@@ -10,50 +10,22 @@ import Charts
 
 struct LineChartView: View {
     // Mock data
-    let symptomTest: Symptom
     let testRegisters: [Register]
     // MARK: View Properties
-    @State var currentTab: String = "Semana"
-    @State private var filteredRegisters: [Register] = []
+    @Binding var currentTab: String
+    @State var filteredRegisters: [Register] = []
     // MARK: Gesture Properties
     @State var currentActiveItem: Register?
     @State var plotWidth: CGFloat = 0
 
     var body: some View {
         // MARK: Line Chart API
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("Valores")
-                    .fontWeight(.semibold)
-                Picker("", selection: $currentTab) {
-                    Text("Semana")
-                        .tag("Semana")
-                    Text("Mes")
-                        .tag("Mes")
-                    Text("Todos")
-                        .tag("Todos")
-                }
-                .pickerStyle(.segmented)
-                .padding(.leading, 50)
+        AnimatedCharts()
+            .onChange(of: currentTab) { newValue in
+                filteredRegisters = testRegisters.filterBy(currentTab)
+                // Re-Animating View
+                animateGraph(fromChange: true)
             }
-            
-            AnimatedCharts()
-        }
-        .padding()
-        // Following padding is for the label graph to look better
-        .background {
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(.white.shadow(.drop(radius: 2)))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .stroke(Color("blueGreen"), lineWidth: 2)
-                )
-        }
-        .onChange(of: currentTab) { newValue in
-            filteredRegisters = testRegisters.filterBy(currentTab)
-            // Re-Animating View
-            animateGraph(fromChange: true)
-        }
     }
     
     @ViewBuilder
@@ -181,7 +153,6 @@ struct LineChartView: View {
 
 #Preview {
     NavigationStack {
-        let symptomTest = Symptom(nombre: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", cuantitativo: true, unidades: "kg", activo: true, color: "#007AFF", notificacion: "")
         
         let testRegisters: [Register] = [
             Register(idSymptom: "SYM-571", fecha: Date(), cantidad: 8.51, notas: "Note 66"),
@@ -203,6 +174,8 @@ struct LineChartView: View {
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 3.4, notas: "Note 30")
         ]
         
-        LineChartView(symptomTest: symptomTest, testRegisters: testRegisters)
+        @State var currentTab: String = "Semana"
+        
+        LineChartView(testRegisters: testRegisters, currentTab: $currentTab)
     }
 }
