@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct BarChartView: View {
+struct BarChartView_Cuant: View {
     // Mock data
     let testRegisters: [Register]
     // MARK: View Properties
@@ -150,6 +150,6 @@ struct BarChartView: View {
         
         @State var currentTab: String = "Semana"
         
-        BarChartView(testRegisters: testRegisters, currentTab: $currentTab)
+        BarChartView_Cuant(testRegisters: testRegisters, currentTab: $currentTab)
     }
 }

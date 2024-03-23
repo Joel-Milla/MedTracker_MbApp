@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import SwiftUI
 
 /**********************
  This class will contain all the functions that are needed multiple times among all the project.
@@ -53,4 +54,33 @@ class HelperFunctions {
         let role = document.data()?["role"] as? String ?? "[HelperFunctions] Rol desconocido"
         return role
     }
+    
+    static func getImage(of value: Float) -> (String, Color) {
+        var color: Color
+        var imageName: String
+
+        switch value {
+        case 0..<20:
+            color = Color("green_MT")
+            imageName = "happier_face" // Replace with actual system image name
+        case 20..<40:
+            color = Color("yellowgreen_MT")
+            imageName = "va_test" // Replace with actual system image name
+        case 40..<60:
+            color = Color("yellow_MT")
+            imageName = "normal_face" // Replace with actual system image name
+        case 60..<80:
+            color = Color("orange_MT")
+            imageName = "sad_face" // Replace with actual system image name
+        case 80...:
+            color = Color("red_MT")
+            imageName = "sadder_face" // Replace with actual system image name
+        default:
+            color = Color("mainBlue")
+            imageName = "" // Default image name if needed
+        }
+
+        return (imageName, color)
+    }
+    
 }

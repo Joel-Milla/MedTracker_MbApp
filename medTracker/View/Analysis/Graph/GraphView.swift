@@ -15,6 +15,8 @@ struct GraphView: View {
     var body: some View {
         if (isCuantitative) {
             CuantitativeGraphView(testRegisters: testRegisters)
+        } else {
+            CualitativeGraphView(testRegisters: testRegisters)
         }
     }
 }

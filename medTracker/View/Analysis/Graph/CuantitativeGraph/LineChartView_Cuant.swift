@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct LineChartView: View {
+struct LineChartView_Cuant: View {
     // Mock data
     let testRegisters: [Register]
     // MARK: View Properties
@@ -176,6 +176,6 @@ struct LineChartView: View {
         
         @State var currentTab: String = "Semana"
         
-        LineChartView(testRegisters: testRegisters, currentTab: $currentTab)
+        LineChartView_Cuant(testRegisters: testRegisters, currentTab: $currentTab)
     }
 }

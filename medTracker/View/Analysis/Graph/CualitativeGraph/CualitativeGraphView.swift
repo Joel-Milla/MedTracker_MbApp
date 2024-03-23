@@ -1,19 +1,19 @@
 //
-//  CuantitativeGraphView.swift
+//  CualitativeGraphView.swift
 //  medTracker
 //
-//  Created by Joel Alejandro Milla Lopez on 22/03/24.
+//  Created by Joel Alejandro Milla Lopez on 23/03/24.
 //
 
 
 import SwiftUI
 
-struct CuantitativeGraphView: View {
+struct CualitativeGraphView: View {
     // Mock data
     let testRegisters: [Register]
     // MARK: View Properties
     @State var currentTab: String = "Semana"
-    @State var isLineGraph: Bool = false
+    @State var isLineGraph: Bool = true
 
     var body: some View {
         // MARK: Line Chart API
@@ -34,9 +34,9 @@ struct CuantitativeGraphView: View {
             }
             
             if (isLineGraph) {
-                LineChartView_Cuant(testRegisters: testRegisters, currentTab: $currentTab)
+                LineChartView_Cual(testRegisters: testRegisters, currentTab: $currentTab)
             } else {
-                BarChartView_Cuant(testRegisters: testRegisters, currentTab: $currentTab)
+                BarChartView_Cual(testRegisters: testRegisters, currentTab: $currentTab)
             }
             
             Picker("Tipo de gráfica:", selection: $isLineGraph) {
@@ -82,7 +82,8 @@ struct CuantitativeGraphView: View {
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 3.4, notas: "Note 30")
         ]
         
-        CuantitativeGraphView(testRegisters: testRegisters)
+        CualitativeGraphView(testRegisters: testRegisters)
     }
 }
+
 
