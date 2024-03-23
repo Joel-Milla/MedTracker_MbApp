@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Charts
 
 struct AnalysisView2_0: View {
     let symptomTest = Symptom(nombre: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", cuantitativo: true, unidades: "kg", activo: true, color: "#007AFF", notificacion: "")
@@ -31,42 +30,12 @@ struct AnalysisView2_0: View {
         Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 3.4, notas: "Note 30")
     ]
     
-    // MARK: View Properties
-    @State var currentTab: String = "Semana"
-    // MARK: Gesture Properties
-    @State var currentActiveItem: Register?
-    @State var plotWidth: CGFloat = 0
-    
-    @State private var filteredRegisters: [Register] = []
-    
     var body: some View {
         NavigationStack {
             VStack {
-                // MARK: New Chart API
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack {
-                        Text("Valores")
-                            .fontWeight(.semibold)
-                        Picker("", selection: $currentTab) {
-                            Text("Semana")
-                                .tag("Semana")
-                            Text("Mes")
-                                .tag("Mes")
-                            Text("Todos")
-                                .tag("Todos")
-                        }
-                        .pickerStyle(.segmented)
-                        .padding(.leading, 50)
-                    }
-                    
-                    AnimatedCharts()
-                }
-                .padding()
-                // Following padding is for the label graph to look better
-                .background {
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(.white.shadow(.drop(radius: 2)))
-                }
+                LineChartView(symptomTest: symptomTest, testRegisters: testRegisters)
+                
+                InsightsView(testRegisters: testRegisters)
                 
                 NavigationLink {
                     registersView()
@@ -87,133 +56,15 @@ struct AnalysisView2_0: View {
             .padding()
             .navigationTitle(symptomTest.nombre)
             // MARK: Simplify updating values for segmented tabs
-            .onChange(of: currentTab) { newValue in
-                filteredRegisters = testRegisters.filterBy(currentTab)
-                // Re-Animating View
-                animateGraph(fromChange: true)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func AnimatedCharts() -> some View {
-        // Max value to extend the y-scale of the data
-        let max = filteredRegisters.max { item1, item2 in
-            return item2.cantidad > item1.cantidad
-        }?.cantidad ?? 0
-        // Values to block the x scale from moving
-        let buffer = TimeInterval(500 * 24) // One Day buffer
-        let minDate = filteredRegisters.map { $0.fecha }.min() ?? Date()
-        let maxDate = filteredRegisters.map { $0.fecha }.max() ?? Date()
-        
-        Chart {
-            ForEach(filteredRegisters) { register in
-                // MARK: Line Graph
-                LineMark(
-                    x: .value("Fecha", register.fecha),
-                    y: .value("Cantidad", register.animate ? register.cantidad : 0)
-                )
-                // Applying Gradient Style
-                // From swiftui 4.0 can direclty create gradient color
-                .foregroundStyle(.blue.gradient)
-                .interpolationMethod(.catmullRom)
-                
-                AreaMark(
-                    x: .value("Fecha", register.fecha),
-                    y: .value("Cantidad", register.animate ? register.cantidad : 0)
-                )
-                // Applying Gradient Style
-                // From swiftui 4.0 can direclty create gradient color
-                .foregroundStyle(.blue.opacity(0.1).gradient)
-                .interpolationMethod(.catmullRom)
-                
-                // Point Mark
-                PointMark(
-                    x: .value("Fecha", register.fecha),
-                    y: .value("Cantidad", register.animate ? register.cantidad : 0)
-                )
-                .symbol(Circle().strokeBorder())
-                .foregroundStyle(.red) // Color of point mark
-                
-                // MARK: Rule Mark for currently dragging item
-                if let currentActiveItem, currentActiveItem.id.uuidString == register.id.uuidString {
-                    RuleMark(
-                        x: .value("Fecha", currentActiveItem.fecha)
-//                        yStart: .value("Min", 0),
-//                        yEnd: .value("Cantidad", currentActiveItem.cantidad)
-                    )
-                    .annotation(position: .top) {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text(currentActiveItem.fecha.dateToStringMDH())
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                            Text(currentActiveItem.cantidad.asString())
-                                .font(.title3.bold())
-                        }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 4)
-                        .background {
-                            RoundedRectangle(cornerRadius: 6, style: .continuous)
-                                .fill(.white.shadow(.drop(radius: 2)))
-                        }
-                        // Move the annotation when it is on the corners
-                        .offset(x: currentActiveItem.fecha.dateToStringMDH() == minDate.dateToStringMDH() ? 35 : currentActiveItem.fecha.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
+            .toolbar {
+                // Button to traverse to EditSymptomView.
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        print("Hello world!")
+                    } label: {
+                        Image(systemName: "plus")
                     }
                 }
-            }
-        }
-        // Customizing the x labels
-        .chartXAxis {
-            if (currentTab == "Semana") {
-                AxisMarks(values: .automatic(desiredCount: 7))
-            } else {
-                AxisMarks(values: .automatic())
-            }
-            
-        }
-        // MARK: Customizing x and y axis length
-        .chartXScale(domain: minDate...maxDate)
-        .chartYScale(domain: 0...(max + max)) // bigger number, smaller the bar charts
-        // MARK: Gesture to highlight current bar
-        .chartOverlay(content: { proxy in
-            GeometryReader { innerProxy in
-                Rectangle()
-                    .fill(.clear).contentShape(Rectangle())
-                    .gesture(
-                        DragGesture()
-                            .onChanged { value in
-                                // MARK: Getting Current Location
-                                let location = value.location
-                                // Extracting value from the location
-                                // swift charts gives the direct ability to do that
-                                // were going to extract the date in a-axis then with the help of that date value were extracting the current item
-                                
-                                // dont forget to includ the perfect data type
-                                if let date: Date = proxy.value(atX: location.x) {
-                                    // Extracting the closes register
-                                    if let closestRegister = filteredRegisters.min(by: { abs($0.fecha.timeIntervalSince(date)) < abs($1.fecha.timeIntervalSince(date)) }) {
-                                        currentActiveItem = closestRegister
-                                    }
-                                }
-                            }.onEnded { _ in
-                                self.currentActiveItem = nil
-                            }
-                    )
-            }
-        })
-        .frame(height: 250)
-        .onAppear {
-            filteredRegisters = testRegisters.filterBy(currentTab)
-            animateGraph()
-        }
-    }
-    
-    // MARK: Animating Graph
-    func animateGraph(fromChange: Bool = false) {
-        for (index, _) in filteredRegisters.enumerated() {
-            // animation is for showing a good graph
-            withAnimation(fromChange ? .easeInOut(duration: 0.6) : .easeInOut(duration: 1)) {
-                filteredRegisters[index].animate = true
             }
         }
     }
