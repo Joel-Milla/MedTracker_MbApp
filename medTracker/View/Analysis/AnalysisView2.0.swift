@@ -157,12 +157,21 @@ struct AnalysisView2_0: View {
                                 .fill(.white.shadow(.drop(radius: 2)))
                         }
                         // Move the annotation when it is on the corners
-                        .offset(x: currentActiveItem.fecha.dateToStringMDH() == minDate.dateToStringMDH() ? 20 : currentActiveItem.fecha.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
+                        .offset(x: currentActiveItem.fecha.dateToStringMDH() == minDate.dateToStringMDH() ? 35 : currentActiveItem.fecha.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
                     }
                 }
             }
         }
-        // mark: Customizing x and y axis length
+        // Customizing the x labels
+        .chartXAxis {
+            if (currentTab == "Semana") {
+                AxisMarks(values: .automatic(desiredCount: 7))
+            } else {
+                AxisMarks(values: .automatic())
+            }
+            
+        }
+        // MARK: Customizing x and y axis length
         .chartXScale(domain: minDate...maxDate)
         .chartYScale(domain: 0...(max + max)) // bigger number, smaller the bar charts
         // MARK: Gesture to highlight current bar
