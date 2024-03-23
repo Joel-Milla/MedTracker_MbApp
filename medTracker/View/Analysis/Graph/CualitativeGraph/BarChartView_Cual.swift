@@ -29,10 +29,6 @@ struct BarChartView_Cual: View {
     
     @ViewBuilder
     func AnimatedCharts() -> some View {
-        // Max value to extend the y-scale of the data
-        let max = filteredRegisters.max { item1, item2 in
-            return item2.cantidad > item1.cantidad
-        }?.cantidad ?? 0
         // Values to block the x scale from moving
         let minDate = filteredRegisters.adjustDatesToStartOfDay().map { $0.fecha }.min() ?? Date()
         let maxDate = filteredRegisters.adjustDatesToStartOfDay().map { $0.fecha }.max() ?? Date()
@@ -59,14 +55,13 @@ struct BarChartView_Cual: View {
                                 Text(currentActiveItem.fecha.dateToStringMDH())
                                     .font(.caption)
                                     .foregroundStyle(.gray)
-                                let (imageName, imageColor) = HelperFunctions.getImage(of: currentActiveItem.cantidad)
+                                let imageName = HelperFunctions.getImage(of: currentActiveItem.cantidad)
                                 HStack {
                                     Spacer()
                                     Image(imageName)
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 30)
-                                        .foregroundColor(imageColor)
                                     Spacer()
                                 }
                             }
@@ -89,6 +84,7 @@ struct BarChartView_Cual: View {
         .chartYAxis {
             AxisMarks(preset: .aligned, position: .trailing, values: .stride(by: 50)) { value in
                 if let yValue = value.as(Double.self) {
+                    AxisGridLine()
                     AxisValueLabel {
                         switch yValue {
                         case 0:

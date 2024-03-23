@@ -9,6 +9,7 @@ import SwiftUI
 
 struct InsightsView: View {
     let testRegisters: [Register]
+    let isCuantitative: Bool
     
     var body: some View {
         ZStack {
@@ -19,32 +20,51 @@ struct InsightsView: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.white.opacity(0.5))
             
-            HStack(spacing: 45) {
+            HStack(spacing: 30) {
                 VStack {
                     Text("Valor mínimo")
                         .font(.caption)
                         .foregroundStyle(.gray)
-                    Text(testRegisters.minValue().asString())
-                        .font(.title2.bold())
+                    Value(isCuantitative: isCuantitative, value: testRegisters.minValue())
                 }
                 VStack {
                     Text("Valor promedio")
                         .font(.caption)
                         .foregroundStyle(.gray)
-                    Text(testRegisters.meanValue().asString())
-                        .font(.title2.bold())
+                    Value(isCuantitative: isCuantitative, value: testRegisters.meanValue())
                 }
                 VStack {
                     Text("Valor máximo")
                         .font(.caption)
                         .foregroundStyle(.gray)
-                    Text(testRegisters.maxValue().asString())
-                        .font(.title2.bold())
+                    Value(isCuantitative: isCuantitative, value: testRegisters.maxValue())
                 }
             }
             .padding() // Adjust the padding as needed
         }
         .frame(height: 80)
+    }
+}
+
+struct Value: View {
+    let isCuantitative: Bool
+    let value: Float
+    
+    var body: some View {
+        if (isCuantitative) {
+            Text(value.asString())
+                .font(.title2.bold())
+        } else {
+            let imageName = HelperFunctions.getImage(of: value)
+            HStack {
+                Spacer()
+                Image(imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 60)
+                Spacer()
+            }
+        }
     }
 }
 
@@ -69,6 +89,6 @@ struct InsightsView: View {
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 14), cantidad: 9, notas: "Note 29"),
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 3.4, notas: "Note 30")
         ]
-        InsightsView(testRegisters: testRegisters)
+        InsightsView(testRegisters: testRegisters, isCuantitative: true)
     }
 }

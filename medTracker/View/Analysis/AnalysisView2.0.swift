@@ -33,10 +33,10 @@ struct AnalysisView2_0: View {
     var body: some View {
         NavigationStack {
             VStack {
-                GraphView(isCuantitative: true, symptomTest: symptomTest, testRegisters: testRegisters)
+                GraphView(isCuantitative: false, symptomTest: symptomTest, testRegisters: testRegisters)
                     .padding(.bottom, 35)
                 
-                InsightsView(testRegisters: testRegisters)
+                InsightsView(testRegisters: testRegisters, isCuantitative: false)
                     .padding(.bottom, 35)
                 
                 NavigationLink {

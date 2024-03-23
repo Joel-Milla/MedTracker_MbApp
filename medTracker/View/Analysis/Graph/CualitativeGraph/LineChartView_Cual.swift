@@ -73,14 +73,13 @@ struct LineChartView_Cual: View {
                             Text(currentActiveItem.fecha.dateToStringMDH())
                                 .font(.caption)
                                 .foregroundStyle(.gray)
-                            let (imageName, imageColor) = HelperFunctions.getImage(of: currentActiveItem.cantidad)
+                            let imageName = HelperFunctions.getImage(of: currentActiveItem.cantidad)
                             HStack {
                                 Spacer()
                                 Image(imageName)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 30)
-                                    .foregroundColor(imageColor)
                                 Spacer()
                             }
                         }
