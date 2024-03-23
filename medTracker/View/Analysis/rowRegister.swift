@@ -19,10 +19,6 @@ struct rowRegister: View {
                     .fontWeight(.semibold)
                     .foregroundColor(Color(hex: symptom.color))
 
-                Text(symptom.description)
-                    .font(.footnote)
-                    .foregroundColor(Color.gray)
-
                 Text(register.fecha, formatter: itemFormatter)
                     .font(.footnote)
                     .foregroundColor(Color.gray)

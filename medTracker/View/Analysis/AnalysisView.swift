@@ -154,9 +154,9 @@ struct AnalysisItemView: View {
             }
             
         }
-        .fullScreenCover(isPresented: $muestraPreviousRegistersView) {
-            PreviousRegistersView(registers: registers, symptom: symptom)
-        }
+//        .fullScreenCover(isPresented: $muestraPreviousRegistersView) {
+//            registersView(registers: registers, symptom: symptom)
+//        }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         //.padding(.leading, 20)

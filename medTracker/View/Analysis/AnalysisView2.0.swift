@@ -35,7 +35,6 @@ struct AnalysisView2_0: View {
     // MARK: Gesture Properties
     @State var currentActiveItem: Register?
     @State var plotWidth: CGFloat = 0
-    @State var isLineGraph: Bool = false
     
     @State private var filteredRegisters: [Register] = []
     
@@ -66,9 +65,22 @@ struct AnalysisView2_0: View {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(.white.shadow(.drop(radius: 2)))
                 }
+                .padding(.bottom, 50)
                 
-                Toggle("Line Graph", isOn: $isLineGraph)
-                    .padding(.top)
+                NavigationLink {
+                    registersView()
+                } label: {
+                    Text("Registros Pasados")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: 250)
+                        .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                }
+                
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .padding()
