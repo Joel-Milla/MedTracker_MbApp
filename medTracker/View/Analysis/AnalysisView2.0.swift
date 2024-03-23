@@ -13,6 +13,7 @@ struct AnalysisView2_0: View {
     
     let testRegisters: [Register] = [
         Register(idSymptom: "SYM-571", fecha: Date(), cantidad: 8.51, notas: "Note 66"),
+        Register(idSymptom: "SYM-603", fecha: Date().addingTimeInterval(-32400), cantidad: 8.92, notas: "Note 40"),
         Register(idSymptom: "SYM-603", fecha: Date().addingTimeInterval(-86400 * 1), cantidad: 8.92, notas: "Note 40"),
         Register(idSymptom: "SYM-358", fecha: Date().addingTimeInterval(-86400 * 2), cantidad: 1.36, notas: "Note 25"),
         Register(idSymptom: "SYM-797", fecha: Date().addingTimeInterval(-86400 * 3), cantidad: 7.07, notas: "Note 68"),
@@ -55,17 +56,17 @@ struct AnalysisView2_0: View {
                                 .tag("Todos")
                         }
                         .pickerStyle(.segmented)
-                        .padding(.leading, 80)
+                        .padding(.leading, 50)
                     }
                     
                     AnimatedCharts()
                 }
                 .padding()
+                // Following padding is for the label graph to look better
                 .background {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(.white.shadow(.drop(radius: 2)))
                 }
-                .padding(.bottom, 50)
                 
                 NavigationLink {
                     registersView()
@@ -88,11 +89,6 @@ struct AnalysisView2_0: View {
             // MARK: Simplify updating values for segmented tabs
             .onChange(of: currentTab) { newValue in
                 filteredRegisters = testRegisters.filterBy(currentTab)
-                if newValue != "Semana" {
-                    for (index, _) in filteredRegisters.enumerated() {
-                        filteredRegisters[index].animate = false
-                    }
-                }
                 // Re-Animating View
                 animateGraph(fromChange: true)
             }
@@ -101,21 +97,20 @@ struct AnalysisView2_0: View {
     
     @ViewBuilder
     func AnimatedCharts() -> some View {
+        // Max value to extend the y-scale of the data
         let max = filteredRegisters.max { item1, item2 in
             return item2.cantidad > item1.cantidad
         }?.cantidad ?? 0
-        
-        //        let buffer = TimeInterval(50 * 50 * 2) // One hour buffer
-        //        let minHour = sampleAnalytics.map { $0.hour }.min() ?? Date()
-        //        let maxHour = sampleAnalytics.map { $0.hour }.max() ?? Date()
-        
-        
+        // Values to block the x scale from moving
+        let buffer = TimeInterval(500 * 24) // One Day buffer
+        let minDate = filteredRegisters.map { $0.fecha }.min() ?? Date()
+        let maxDate = filteredRegisters.map { $0.fecha }.max() ?? Date()
         
         Chart {
             ForEach(filteredRegisters) { register in
                 // MARK: Line Graph
                 LineMark(
-                    x: .value("Fecha", register.fecha, unit: .day),
+                    x: .value("Fecha", register.fecha),
                     y: .value("Cantidad", register.animate ? register.cantidad : 0)
                 )
                 // Applying Gradient Style
@@ -124,7 +119,7 @@ struct AnalysisView2_0: View {
                 .interpolationMethod(.catmullRom)
                 
                 AreaMark(
-                    x: .value("Fecha", register.fecha, unit: .day),
+                    x: .value("Fecha", register.fecha),
                     y: .value("Cantidad", register.animate ? register.cantidad : 0)
                 )
                 // Applying Gradient Style
@@ -134,40 +129,43 @@ struct AnalysisView2_0: View {
                 
                 // Point Mark
                 PointMark(
-                    x: .value("Fecha", register.fecha, unit: .day),
+                    x: .value("Fecha", register.fecha),
                     y: .value("Cantidad", register.animate ? register.cantidad : 0)
                 )
                 .symbol(Circle().strokeBorder())
-                .foregroundStyle(Color(hex: symptomTest.color)) // Color of point mark
+                .foregroundStyle(.red) // Color of point mark
+                
                 // MARK: Rule Mark for currently dragging item
                 if let currentActiveItem, currentActiveItem.id.uuidString == register.id.uuidString {
-                    RuleMark(x: .value("Fecha", currentActiveItem.fecha))
-                    // Dotted style
-                        .lineStyle(.init(lineWidth: 2, miterLimit: 2, dash: [3], dashPhase: 5))
-                    // MARK: Setting in middle of each bars
-                        .annotation(position: .top) {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text((currentActiveItem.fecha.dateToString()))
-                                    .font(.caption)
-                                    .foregroundStyle(.gray)
-                                Text((currentActiveItem.cantidad.asString()))
-                                    .font(.title3.bold())
-                            }
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 4)
-                            .background {
-                                RoundedRectangle(cornerRadius: 6, style: .continuous)
-                                    .fill(.white.shadow(.drop(radius: 2)))
-                            }
+                    RuleMark(
+                        x: .value("Fecha", currentActiveItem.fecha)
+//                        yStart: .value("Min", 0),
+//                        yEnd: .value("Cantidad", currentActiveItem.cantidad)
+                    )
+                    .annotation(position: .top) {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text(currentActiveItem.fecha.dateToStringMDH())
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                            Text(currentActiveItem.cantidad.asString())
+                                .font(.title3.bold())
                         }
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
+                        .background {
+                            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                .fill(.white.shadow(.drop(radius: 2)))
+                        }
+                        // Move the annotation when it is on the corners
+                        .offset(x: currentActiveItem.fecha.dateToStringMDH() == minDate.dateToStringMDH() ? 20 : currentActiveItem.fecha.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
+                    }
                 }
-                
             }
         }
         // mark: Customizing x and y axis length
-        //        .chartXScale(domain: minHour...maxHour.addingTimeInterval(buffer))
+        .chartXScale(domain: minDate...maxDate)
         .chartYScale(domain: 0...(max + max)) // bigger number, smaller the bar charts
-        //        // MARK: Gesture to highlight current bar
+        // MARK: Gesture to highlight current bar
         .chartOverlay(content: { proxy in
             GeometryReader { innerProxy in
                 Rectangle()
@@ -186,8 +184,6 @@ struct AnalysisView2_0: View {
                                     // Extracting the closes register
                                     if let closestRegister = filteredRegisters.min(by: { abs($0.fecha.timeIntervalSince(date)) < abs($1.fecha.timeIntervalSince(date)) }) {
                                         currentActiveItem = closestRegister
-                                        plotWidth = proxy.plotAreaSize.width
-                                        // Additional logic here to clamp the position of currentActiveItem if necessary
                                     }
                                 }
                             }.onEnded { _ in
@@ -206,7 +202,6 @@ struct AnalysisView2_0: View {
     // MARK: Animating Graph
     func animateGraph(fromChange: Bool = false) {
         for (index, _) in filteredRegisters.enumerated() {
-            // For some reasong delay is not working, using dispatch queue delay
             // animation is for showing a good graph
             withAnimation(fromChange ? .easeInOut(duration: 0.6) : .easeInOut(duration: 1)) {
                 filteredRegisters[index].animate = true
@@ -253,12 +248,20 @@ extension Float {
 }
 
 extension Date {
-    // Returns the date as a string on Format MM/dd
-    func dateToString() -> String {
+    // Returns the date as a string on Format MM d - h:m
+    func dateToStringMDH() -> String {
         let formatter = DateFormatter()
-        // Use "MMMM d" for the full name of the month, or "MMM d" for the abbreviated name.
-        formatter.dateFormat = "d 'de' MMMM" // Example: "1 de enero"
-        formatter.locale = Locale(identifier: "es_MX") // Set locale to Mexican Spanish
+        // Include abbreviated month name, day, hour, and minute
+        formatter.dateFormat = "MMM d - H:mm" // Example: "Feb 23 - 15:14"
+        formatter.locale = Locale(identifier: "es_MX") // Spanish month abbreviations
+        return formatter.string(from: self)
+    }
+    
+    // Returns the date as a string on format MM d
+    func dateToStringMD() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d" // Example: "feb 23"
+        formatter.locale = Locale(identifier: "es_MX") // Keep for Spanish month abbreviations
         return formatter.string(from: self)
     }
 }
