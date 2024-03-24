@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AnalysisView2_0: View {
+    // Mock data
     let symptomTest = Symptom(nombre: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", cuantitativo: true, unidades: "kg", activo: true, color: "#007AFF", notificacion: "")
     
     let testRegisters: [Register] = [
@@ -33,17 +34,18 @@ struct AnalysisView2_0: View {
     var body: some View {
         NavigationStack {
             VStack {
-                GraphView(isCuantitative: false, symptomTest: symptomTest, testRegisters: testRegisters)
+                // Chart that shows the data
+                ChartView(isCuantitative: symptomTest.cuantitativo, testRegisters: testRegisters)
                     .padding(.bottom, 35)
-                
-                InsightsView(testRegisters: testRegisters, isCuantitative: false)
+                // View that shows summarize data about the points
+                InsightsView(isCuantitative: symptomTest.cuantitativo, testRegisters: testRegisters)
                     .padding(.bottom, 35)
-                
+                // Button to show the past registers
                 NavigationLink {
                     registersView()
                 } label: {
                     Text("Registros Pasados")
-                        .gradientTextStyle()
+                        .gradientTextStyle() // Use the default gradient to show the correct style of the button
                 }
                 
             }

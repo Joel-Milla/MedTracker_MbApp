@@ -78,10 +78,10 @@ struct BarChartView_Cuant: View {
                 }
             }
         }
+        // MARK: Customizing x and y axis length
         // Customizing the x labels depending on the time zone selected
         // hard code the scale so it has an extra day and to make the bar chart to not be out of bounds.
         .chartXScale(domain: minDate...maxDate.addingTimeInterval(86400))
-        // MARK: Customizing x and y axis length
         .chartYScale(domain: 0...(3 * max)) // bigger number, smaller the bar charts
         // MARK: Gesture to highlight current bar.
         // Uses drag gesture and calculate the nearest x value on the graph
@@ -100,6 +100,7 @@ struct BarChartView_Cuant: View {
                                 
                                 // dont forget to includ the perfect data type
                                 if let date: Date = proxy.value(atX: location.x) {
+                                    // Extracting the closest register
                                     if let closestRegister = filteredRegisters.min(by: { abs($0.fecha.timeIntervalSince(date)) < abs($1.fecha.timeIntervalSince(date)) }) {
                                         self.currentActiveItem = closestRegister // set the closes register globally to put marks on there
                                         self.plotWidth = proxy.plotAreaSize.width // Obtain the width of the plot to know where to put the marks on the x axis

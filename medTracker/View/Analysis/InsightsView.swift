@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct InsightsView: View {
-    let testRegisters: [Register]
     let isCuantitative: Bool
+    let testRegisters: [Register]
     
     var body: some View {
         ZStack {
@@ -89,6 +89,6 @@ struct Value: View {
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 14), cantidad: 9, notas: "Note 29"),
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 3.4, notas: "Note 30")
         ]
-        InsightsView(testRegisters: testRegisters, isCuantitative: true)
+        InsightsView(isCuantitative: true, testRegisters: testRegisters)
     }
 }

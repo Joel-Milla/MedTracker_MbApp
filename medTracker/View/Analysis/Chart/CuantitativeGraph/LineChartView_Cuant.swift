@@ -127,7 +127,7 @@ struct LineChartView_Cuant: View {
                                 
                                 // dont forget to includ the perfect data type
                                 if let date: Date = proxy.value(atX: location.x) {
-                                    // Extracting the closes register
+                                    // Extracting the closest register
                                     if let closestRegister = filteredRegisters.min(by: { abs($0.fecha.timeIntervalSince(date)) < abs($1.fecha.timeIntervalSince(date)) }) {
                                         currentActiveItem = closestRegister // set the closes register globally to put marks on there
                                     }
