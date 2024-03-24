@@ -66,14 +66,14 @@ struct AnalysisItemView: View {
                 .foregroundColor(colorSintoma)
                 .font(.largeTitle)
                 .bold()
-                //.padding(.top, 40)
+            //.padding(.top, 40)
             
             Text("Descripción: ")
                 .font(.system(size: 24))
-                //.padding(.top, 5)
+            //.padding(.top, 5)
             
             Text("\(symptom.description)")
-                //.padding(.trailing, 20)
+            //.padding(.trailing, 20)
                 .foregroundColor(colorSintoma)
                 .lineSpacing(4)
                 .font(.system(size: 20))
@@ -119,7 +119,7 @@ struct AnalysisItemView: View {
                     } else {
                         ChartCualitativa(filteredRegisters: tempRegisters)
                     }
-
+                    
                 }
                 .padding()
                 //.padding(10)
@@ -154,9 +154,9 @@ struct AnalysisItemView: View {
             }
             
         }
-//        .fullScreenCover(isPresented: $muestraPreviousRegistersView) {
-//            registersView(registers: registers, symptom: symptom)
-//        }
+        //        .fullScreenCover(isPresented: $muestraPreviousRegistersView) {
+        //            registersView(registers: registers, symptom: symptom)
+        //        }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         //.padding(.leading, 20)

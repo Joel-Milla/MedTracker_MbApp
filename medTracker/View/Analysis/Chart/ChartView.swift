@@ -15,7 +15,7 @@ struct ChartView: View {
     // MARK: View Properties
     @State var currentTab: String = "Semana"
     @State var isLineGraph: Bool = true
-
+    
     var body: some View {
         // MARK: Chart API
         VStack(alignment: .leading, spacing: 12) {
@@ -52,8 +52,8 @@ struct ChartView: View {
             
             // Picker to shown if chart shown is line or bar chart
             Picker("Tipo de gráfica:", selection: $isLineGraph) {
-                            Text("Línea").tag(true)
-                            Text("Barra").tag(false)
+                Text("Línea").tag(true)
+                Text("Barra").tag(false)
             }
             .pickerStyle(.segmented)
             

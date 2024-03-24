@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct registersView: View {
-//    @ObservedObject var registers: RegisterList
-//    let symptom: Symptom
+    //    @ObservedObject var registers: RegisterList
+    //    let symptom: Symptom
     let symptom = Symptom(nombre: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", cuantitativo: true, unidades: "kg", activo: true, color: "#007AFF", notificacion: "")
     
     @State private var testRegisters: [Register] = [
@@ -30,7 +30,7 @@ struct registersView: View {
         Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 14), cantidad: 9, notas: "Note 29"),
         Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 3.4, notas: "Note 30")
     ]
-
+    
     var body: some View {
         NavigationStack {
             List {
@@ -39,7 +39,7 @@ struct registersView: View {
                 }
                 .onDelete { indexSet in
                     testRegisters.remove(atOffsets: indexSet)
-//                    registers.deleteRegisterSet(atOffset: indexSet, ofSymptom: symptom)
+                    //                    registers.deleteRegisterSet(atOffset: indexSet, ofSymptom: symptom)
                 }
             }
             .navigationTitle(symptom.nombre)

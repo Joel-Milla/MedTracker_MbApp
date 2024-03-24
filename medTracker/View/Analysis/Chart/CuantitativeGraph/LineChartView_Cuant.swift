@@ -17,7 +17,7 @@ struct LineChartView_Cuant: View {
     // MARK: Gesture Properties
     @State var currentActiveItem: Register?
     @State var plotWidth: CGFloat = 0
-
+    
     var body: some View {
         // MARK: Chart that changes when the currentTab (time zone selected changes)
         AnimatedCharts()
@@ -73,8 +73,8 @@ struct LineChartView_Cuant: View {
                     // Add a rule on the x value on the graph
                     RuleMark(
                         x: .value("Fecha", currentActiveItem.fecha)
-//                        yStart: .value("Min", 0),
-//                        yEnd: .value("Cantidad", currentActiveItem.cantidad)
+                        //                        yStart: .value("Min", 0),
+                        //                        yEnd: .value("Cantidad", currentActiveItem.cantidad)
                     )
                     // Add an annotation on top of the vertical line to show the value of the nearest item
                     .annotation(position: .top) {

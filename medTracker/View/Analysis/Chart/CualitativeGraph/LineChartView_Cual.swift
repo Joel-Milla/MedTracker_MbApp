@@ -17,7 +17,7 @@ struct LineChartView_Cual: View {
     // MARK: Gesture Properties
     @State var currentActiveItem: Register?
     @State var plotWidth: CGFloat = 0
-
+    
     var body: some View {
         // MARK: Chart that changes when the currentTab (time zone selected changes)
         AnimatedCharts()

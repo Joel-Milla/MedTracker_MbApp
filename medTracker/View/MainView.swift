@@ -10,7 +10,6 @@ import SwiftUI
 struct MainView: View {
     @StateObject var symptoms: SymptomList
     @StateObject var registers: RegisterList
-    @State private var muestraEditarSintomas = false
     @StateObject var user: UserModel
     
     @Namespace var animation
@@ -24,9 +23,7 @@ struct MainView: View {
 //                .tag(Tab.Perfil)
 //        }
         TabView {
-//            AnalysisView(symptoms: symptoms, registers: registers)
-            AnalysisView2_0()
-//            HomeView(symptoms: symptoms, registers: registers)
+            HomeView(symptoms: symptoms, registers: registers)
                 .tabItem {
                     Label("Inicio", systemImage: "house")
                 }
