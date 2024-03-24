@@ -14,8 +14,7 @@
 		1709488B2BAE8CAB007E3E8B /* LineChartView_Cuant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */; };
 		1709488D2BAE8E5B007E3E8B /* ExtensionsAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488C2BAE8E5B007E3E8B /* ExtensionsAnalysis.swift */; };
 		1709488F2BAE8FB1007E3E8B /* GradientMedTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488E2BAE8FB1007E3E8B /* GradientMedTracker.swift */; };
-		170948922BAE95ED007E3E8B /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948912BAE95ED007E3E8B /* GraphView.swift */; };
-		170948972BAE96BB007E3E8B /* CuantitativeGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948962BAE96BB007E3E8B /* CuantitativeGraphView.swift */; };
+		170948972BAE96BB007E3E8B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948962BAE96BB007E3E8B /* ChartView.swift */; };
 		170948992BAEA033007E3E8B /* BarChartView_Cuant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */; };
 		1709489C2BAEC130007E3E8B /* CualitativeGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709489B2BAEC130007E3E8B /* CualitativeGraphView.swift */; };
 		1709489E2BAEC23B007E3E8B /* LineChartView_Cual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */; };
@@ -87,8 +86,7 @@
 		1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView_Cuant.swift; sourceTree = "<group>"; };
 		1709488C2BAE8E5B007E3E8B /* ExtensionsAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsAnalysis.swift; sourceTree = "<group>"; };
 		1709488E2BAE8FB1007E3E8B /* GradientMedTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientMedTracker.swift; sourceTree = "<group>"; };
-		170948912BAE95ED007E3E8B /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
-		170948962BAE96BB007E3E8B /* CuantitativeGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuantitativeGraphView.swift; sourceTree = "<group>"; };
+		170948962BAE96BB007E3E8B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView_Cuant.swift; sourceTree = "<group>"; };
 		1709489B2BAEC130007E3E8B /* CualitativeGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CualitativeGraphView.swift; sourceTree = "<group>"; };
 		1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView_Cual.swift; sourceTree = "<group>"; };
@@ -168,23 +166,23 @@
 		170948872BAE536F007E3E8B /* Analysis */ = {
 			isa = PBXGroup;
 			children = (
-				170948902BAE95DE007E3E8B /* Graph */,
 				170948632BAB5BB2007E3E8B /* AnalysisView2.0.swift */,
+				170948902BAE95DE007E3E8B /* Chart */,
 				170948882BAE8900007E3E8B /* InsightsView.swift */,
-				FBE3812B2ADF3C2E004737C9 /* AnalysisView.swift */,
 				1789E8182B59ED780087531D /* registersView.swift */,
+				FBE3812B2ADF3C2E004737C9 /* AnalysisView.swift */,
 			);
 			path = Analysis;
 			sourceTree = "<group>";
 		};
-		170948902BAE95DE007E3E8B /* Graph */ = {
+		170948902BAE95DE007E3E8B /* Chart */ = {
 			isa = PBXGroup;
 			children = (
+				170948962BAE96BB007E3E8B /* ChartView.swift */,
 				170948932BAE9609007E3E8B /* CuantitativeGraph */,
-				170948912BAE95ED007E3E8B /* GraphView.swift */,
 				1709489A2BAEC117007E3E8B /* CualitativeGraph */,
 			);
-			path = Graph;
+			path = Chart;
 			sourceTree = "<group>";
 		};
 		170948932BAE9609007E3E8B /* CuantitativeGraph */ = {
@@ -192,7 +190,6 @@
 			children = (
 				1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */,
 				170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */,
-				170948962BAE96BB007E3E8B /* CuantitativeGraphView.swift */,
 			);
 			path = CuantitativeGraph;
 			sourceTree = "<group>";
@@ -528,7 +525,7 @@
 				FBE41E742AF6D464007B48E5 /* User.swift in Sources */,
 				170948992BAEA033007E3E8B /* BarChartView_Cuant.swift in Sources */,
 				FB45BFF62B08270E0019C0A1 /* SymbolLoader.swift in Sources */,
-				170948972BAE96BB007E3E8B /* CuantitativeGraphView.swift in Sources */,
+				170948972BAE96BB007E3E8B /* ChartView.swift in Sources */,
 				170948642BAB5BB2007E3E8B /* AnalysisView2.0.swift in Sources */,
 				FBA3D15E2AFF0936000E3E39 /* HexToColor.swift in Sources */,
 				FB0EC3A12B12FF9400E7309B /* PatientList.swift in Sources */,
@@ -557,7 +554,6 @@
 				FB17DAB52B0D771F006294BD /* FloatToString.swift in Sources */,
 				FB87FECF2ADDEE9800F6273B /* medTrackerApp.swift in Sources */,
 				170948862BAE3E24007E3E8B /* tempSignOut.swift in Sources */,
-				170948922BAE95ED007E3E8B /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

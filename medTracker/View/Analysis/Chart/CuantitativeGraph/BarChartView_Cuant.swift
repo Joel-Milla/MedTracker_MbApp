@@ -1,5 +1,5 @@
 //
-//  LineChartView.swift
+//  BarChartView.swift
 //  medTracker
 //
 //  Created by Joel Alejandro Milla Lopez on 22/03/24.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct LineChartView_Cuant: View {
+struct BarChartView_Cuant: View {
     // Mock data
     let testRegisters: [Register]
     // MARK: View Properties
@@ -17,9 +17,9 @@ struct LineChartView_Cuant: View {
     // MARK: Gesture Properties
     @State var currentActiveItem: Register?
     @State var plotWidth: CGFloat = 0
-
+    
     var body: some View {
-        // MARK: Line Chart API
+        // MARK: Bar Chart API that changes when the currentTab (time zone selected changes)
         AnimatedCharts()
             .onChange(of: currentTab) { newValue in
                 filteredRegisters = testRegisters.filterBy(currentTab)
@@ -35,78 +35,56 @@ struct LineChartView_Cuant: View {
             return item2.cantidad > item1.cantidad
         }?.cantidad ?? 0
         // Values to block the x scale from moving
-        let minDate = filteredRegisters.map { $0.fecha }.min() ?? Date()
-        let maxDate = filteredRegisters.map { $0.fecha }.max() ?? Date()
+        let minDate = filteredRegisters.adjustDatesToStartOfDay().map { $0.fecha }.min() ?? Date()
+        let maxDate = filteredRegisters.adjustDatesToStartOfDay().map { $0.fecha }.max() ?? Date()
         
         Chart {
             ForEach(filteredRegisters) { register in
-                // MARK: Line Graph
-                LineMark(
-                    x: .value("Fecha", register.fecha),
+                // MARK: Bar Graph
+                BarMark(
+                    x: .value("Fecha", register.adjustDateToDay().fecha, unit: .day),
                     y: .value("Cantidad", register.animate ? register.cantidad : 0)
                 )
                 // Applying Gradient Style
                 // From swiftui 4.0 can direclty create gradient color
                 .foregroundStyle(.blue.gradient)
-                .interpolationMethod(.catmullRom)
-                
-                AreaMark(
-                    x: .value("Fecha", register.fecha),
-                    y: .value("Cantidad", register.animate ? register.cantidad : 0)
-                )
-                // Applying Gradient Style
-                // From swiftui 4.0 can direclty create gradient color
-                .foregroundStyle(.blue.opacity(0.1).gradient)
-                .interpolationMethod(.catmullRom)
-                
-                // Point Mark
-                PointMark(
-                    x: .value("Fecha", register.fecha),
-                    y: .value("Cantidad", register.animate ? register.cantidad : 0)
-                )
-                .symbol(Circle().strokeBorder())
-                .foregroundStyle(.red) // Color of point mark
                 
                 // MARK: Rule Mark for currently dragging item
+                // The current item is choosen when the user makes a drag motion.
                 if let currentActiveItem, currentActiveItem.id.uuidString == register.id.uuidString {
-                    RuleMark(
-                        x: .value("Fecha", currentActiveItem.fecha)
-//                        yStart: .value("Min", 0),
-//                        yEnd: .value("Cantidad", currentActiveItem.cantidad)
-                    )
-                    .annotation(position: .top) {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text(currentActiveItem.fecha.dateToStringMDH())
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                            Text(currentActiveItem.cantidad.asString())
-                                .font(.title3.bold())
+                    // Add a rule on the x value on the graph
+                    RuleMark(x: .value("Fecha", currentActiveItem.adjustDateToDay().fecha))
+                    // MARK: Use offset to show the rule line in the middle of the current selected bar lines
+                        .offset(x: (plotWidth / CGFloat(filteredRegisters.count)) / 2)
+                    // Add an annotation on top of the vertical line to show the value of the nearest item
+                        .annotation(position: .top) {
+                            VStack(alignment: .leading, spacing: 6) {
+                                // Show the date of the current value and the value
+                                Text(currentActiveItem.fecha.dateToStringMDH())
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+                                Text(currentActiveItem.cantidad.asString())
+                                    .font(.title3.bold())
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 4)
+                            .background {
+                                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                    .fill(.white.shadow(.drop(radius: 2)))
+                            }
+                            // Move the annotation when it is on the corners so the annotation shows clearly and not on borders
+                            .offset(x: currentActiveItem.fecha.dateToStringMDH() == minDate.dateToStringMDH() ? 35 : currentActiveItem.fecha.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
                         }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 4)
-                        .background {
-                            RoundedRectangle(cornerRadius: 6, style: .continuous)
-                                .fill(.white.shadow(.drop(radius: 2)))
-                        }
-                        // Move the annotation when it is on the corners
-                        .offset(x: currentActiveItem.fecha.dateToStringMDH() == minDate.dateToStringMDH() ? 35 : currentActiveItem.fecha.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
-                    }
                 }
             }
         }
-        // Customizing the x labels
-        .chartXAxis {
-            if (currentTab == "Semana") {
-                AxisMarks(values: .automatic(desiredCount: 7))
-            } else {
-                AxisMarks(values: .automatic())
-            }
-            
-        }
+        // Customizing the x labels depending on the time zone selected
+        // hard code the scale so it has an extra day and to make the bar chart to not be out of bounds.
+        .chartXScale(domain: minDate...maxDate.addingTimeInterval(86400))
         // MARK: Customizing x and y axis length
-        .chartXScale(domain: minDate...maxDate)
-        .chartYScale(domain: 0...(max + max)) // bigger number, smaller the bar charts
-        // MARK: Gesture to highlight current bar
+        .chartYScale(domain: 0...(3 * max)) // bigger number, smaller the bar charts
+        // MARK: Gesture to highlight current bar.
+        // Uses drag gesture and calculate the nearest x value on the graph
         .chartOverlay(content: { proxy in
             GeometryReader { innerProxy in
                 Rectangle()
@@ -122,25 +100,27 @@ struct LineChartView_Cuant: View {
                                 
                                 // dont forget to includ the perfect data type
                                 if let date: Date = proxy.value(atX: location.x) {
-                                    // Extracting the closes register
                                     if let closestRegister = filteredRegisters.min(by: { abs($0.fecha.timeIntervalSince(date)) < abs($1.fecha.timeIntervalSince(date)) }) {
-                                        currentActiveItem = closestRegister
+                                        self.currentActiveItem = closestRegister // set the closes register globally to put marks on there
+                                        self.plotWidth = proxy.plotAreaSize.width // Obtain the width of the plot to know where to put the marks on the x axis
+                                        
                                     }
                                 }
                             }.onEnded { _ in
-                                self.currentActiveItem = nil
+                                self.currentActiveItem = nil // when drag gesture ends, reset the current item
                             }
                     )
             }
         })
         .frame(height: 250)
         .onAppear {
+            // Filter the current regiser based on the current time zone.
             filteredRegisters = testRegisters.filterBy(currentTab)
             animateGraph()
         }
     }
     
-    // MARK: Animating Graph
+    // MARK: Function to animate the graph
     func animateGraph(fromChange: Bool = false) {
         for (index, _) in filteredRegisters.enumerated() {
             // animation is for showing a good graph
@@ -176,6 +156,6 @@ struct LineChartView_Cuant: View {
         
         @State var currentTab: String = "Semana"
         
-        LineChartView_Cuant(testRegisters: testRegisters, currentTab: $currentTab)
+        BarChartView_Cuant(testRegisters: testRegisters, currentTab: $currentTab)
     }
 }

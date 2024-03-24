@@ -1,14 +1,15 @@
 //
-//  CualitativeGraphView.swift
+//  CuantitativeGraphView.swift
 //  medTracker
 //
-//  Created by Joel Alejandro Milla Lopez on 23/03/24.
+//  Created by Joel Alejandro Milla Lopez on 22/03/24.
 //
 
 
 import SwiftUI
 
-struct CualitativeGraphView: View {
+struct ChartView: View {
+    let isCuantitative: Bool
     // Mock data
     let testRegisters: [Register]
     // MARK: View Properties
@@ -16,8 +17,9 @@ struct CualitativeGraphView: View {
     @State var isLineGraph: Bool = true
 
     var body: some View {
-        // MARK: Line Chart API
+        // MARK: Chart API
         VStack(alignment: .leading, spacing: 12) {
+            // Picker to switch the time-zone of data shown
             HStack {
                 Text("Valores")
                     .fontWeight(.semibold)
@@ -33,12 +35,22 @@ struct CualitativeGraphView: View {
                 .padding(.leading, 50)
             }
             
+            // Switch between line and bar graph. Pass the currentTab selected to switch time-zones.
             if (isLineGraph) {
-                LineChartView_Cual(testRegisters: testRegisters, currentTab: $currentTab)
+                if (isCuantitative) {
+                    LineChartView_Cuant(testRegisters: testRegisters, currentTab: $currentTab)
+                } else {
+                    LineChartView_Cual(testRegisters: testRegisters, currentTab: $currentTab)
+                }
             } else {
-                BarChartView_Cual(testRegisters: testRegisters, currentTab: $currentTab)
+                if (isCuantitative) {
+                    BarChartView_Cuant(testRegisters: testRegisters, currentTab: $currentTab)
+                } else {
+                    BarChartView_Cual(testRegisters: testRegisters, currentTab: $currentTab)
+                }
             }
             
+            // Picker to shown if chart shown is line or bar chart
             Picker("Tipo de gráfica:", selection: $isLineGraph) {
                             Text("Línea").tag(true)
                             Text("Barra").tag(false)
@@ -46,8 +58,8 @@ struct CualitativeGraphView: View {
             .pickerStyle(.segmented)
             
         }
-        .padding()
-        // Following padding is for the label graph to look better
+        .padding() // Following padding is for the label graph to look better
+        // Background to add border to the graph
         .background {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .fill(.white.shadow(.drop(radius: 2)))
@@ -82,8 +94,7 @@ struct CualitativeGraphView: View {
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 3.4, notas: "Note 30")
         ]
         
-        CualitativeGraphView(testRegisters: testRegisters)
+        ChartView(isCuantitative: true, testRegisters: testRegisters)
     }
 }
-
 
