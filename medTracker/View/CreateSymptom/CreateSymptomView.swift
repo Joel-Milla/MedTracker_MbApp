@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-struct AddSymptomView2_0: View {
+struct CreateSymptomView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    AddSymptomView2_0()
+    NavigationStack {
+        CreateSymptomView()
+    }
 }

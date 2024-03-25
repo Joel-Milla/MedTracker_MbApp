@@ -90,7 +90,7 @@ struct HomeView: View {
                             .offset(x: -14, y: -95)
                             .sheet(isPresented: $muestraAgregarSintomas) {
                                 AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
-//                                AddSymptomView2_0()
+//                                CreateSymptomView()
                             }
                         }
                     },

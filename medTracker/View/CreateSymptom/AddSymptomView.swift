@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SegmentedPicker
+//import SegmentedPicker
 
 struct DateUtils {
     static func weekdayFromString(_ weekdayString: String) -> Int? {

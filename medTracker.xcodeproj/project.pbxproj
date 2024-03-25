@@ -24,7 +24,7 @@
 		1718E8BC2B4F381A001691B8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8BB2B4F381A001691B8 /* FirebaseAuth */; };
 		1718E8BE2B4F381A001691B8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8BD2B4F381A001691B8 /* FirebaseFirestore */; };
 		1718E8C02B4F381A001691B8 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8BF2B4F381A001691B8 /* FirebaseFirestoreSwift */; };
-		173EF2722BB0D11200F7ACF9 /* AddSymptomView2_0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2712BB0D11200F7ACF9 /* AddSymptomView2_0.swift */; };
+		173EF2722BB0D11200F7ACF9 /* CreateSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */; };
 		177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B37622B575433009CB58D /* ShowEditSymptomView.swift */; };
 		1789E8172B59DF0E0087531D /* EditSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */; };
 		1789E8192B59ED780087531D /* registersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8182B59ED780087531D /* registersView.swift */; };
@@ -92,7 +92,7 @@
 		170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView_Cual.swift; sourceTree = "<group>"; };
 		170C07F52B51EE3A00AB937A /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		173EF2712BB0D11200F7ACF9 /* AddSymptomView2_0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomView2_0.swift; sourceTree = "<group>"; };
+		173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSymptomView.swift; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
 		1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSymptomViewModel.swift; sourceTree = "<group>"; };
 		1789E8182B59ED780087531D /* registersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registersView.swift; sourceTree = "<group>"; };
@@ -214,6 +214,23 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		173EF2952BB1347000F7ACF9 /* CreateSymptom */ = {
+			isa = PBXGroup;
+			children = (
+				173EF2962BB1353700F7ACF9 /* IconPicker */,
+				FB320FA62AEB2754005865F5 /* AddSymptomView.swift */,
+				173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */,
+			);
+			path = CreateSymptom;
+			sourceTree = "<group>";
+		};
+		173EF2962BB1353700F7ACF9 /* IconPicker */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = IconPicker;
+			sourceTree = "<group>";
+		};
 		F83767772B0172850092CDED /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,8 +271,7 @@
 				FBD940B62AFD763000C3BD11 /* HomeView.swift */,
 				FBD940AE2AFD73E800C3BD11 /* EditSymptomView.swift */,
 				177B37622B575433009CB58D /* ShowEditSymptomView.swift */,
-				FB320FA62AEB2754005865F5 /* AddSymptomView.swift */,
-				173EF2712BB0D11200F7ACF9 /* AddSymptomView2_0.swift */,
+				173EF2952BB1347000F7ACF9 /* CreateSymptom */,
 				F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */,
 				F838338D2B0C49F5005F2BB5 /* ShareView.swift */,
 				170948872BAE536F007E3E8B /* Analysis */,
@@ -540,7 +556,7 @@
 				FB6BBA122B09791A008EFA9A /* AuthService.swift in Sources */,
 				FB45BFF22B0825AF0019C0A1 /* SearchBar.swift in Sources */,
 				1709488B2BAE8CAB007E3E8B /* LineChartView_Cuant.swift in Sources */,
-				173EF2722BB0D11200F7ACF9 /* AddSymptomView2_0.swift in Sources */,
+				173EF2722BB0D11200F7ACF9 /* CreateSymptomView.swift in Sources */,
 				1709488D2BAE8E5B007E3E8B /* ExtensionsAnalysis.swift in Sources */,
 				FBD940AF2AFD73E800C3BD11 /* EditSymptomView.swift in Sources */,
 				1789E8192B59ED780087531D /* registersView.swift in Sources */,
