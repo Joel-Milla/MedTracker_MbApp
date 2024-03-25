@@ -57,11 +57,13 @@ struct CreateSymptomView: View {
                 }
                 // Choose the type of symptom
                 Section(header: HelpView(title: "Tipo de dato")) {
-                    Picker("Sintoma cuantitativo o cualitativo?", selection: $cuantitativo) {
-                                    Text("Cuantitativo").tag(true)
-                                    Text("Cualitativo").tag(false)
+                    // Use animation to show nicely the new section
+                    Picker("Sintoma cuantitativo o cualitativo?", selection: $cuantitativo.animation()) {
+                        Text("Cuantitativo").tag(true)
+                        Text("Cualitativo").tag(false)
                     }
                     .pickerStyle(.segmented)
+                    // Show the view to select the new units
                     if (cuantitativo) {
                         Picker("Unidad", selection: $selectedUnit) {
                             ForEach(units, id: \.self) { unit in
@@ -73,9 +75,11 @@ struct CreateSymptomView: View {
                 }
                 
                 Section(header: Text("Notificaciones")) {
-                    Toggle(isOn: $allowNotifications) {
+                    // Use animation to show the new view nicely
+                    Toggle(isOn: $allowNotifications.animation()) {
                         Text("Permitir Notificaciones")
                     }
+                    // Show the view to select the notification
                     if (allowNotifications) {
                         ConfigureNotificationsView()
                     }
@@ -83,12 +87,11 @@ struct CreateSymptomView: View {
                 
                 Section {
                     Button(action: {}) {
-                        Text("Submit")
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
+                        Text("Guardar")
+                            .gradientTextStyle() // apply gradient style
                     }
-                    .listRowBackground(Color.blue)
-                    .listRowInsets(EdgeInsets())
+                    .frame(maxWidth: .infinity) // center the text
+                    .listRowBackground(Color.clear) // Makes the row background transparent
                 }
             }
             .navigationTitle("Crear Dato")
