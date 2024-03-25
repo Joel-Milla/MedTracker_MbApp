@@ -40,7 +40,7 @@ struct HomeView: View {
     
     var body: some View {
         ZStack{
-            NavigationStack {
+//            NavigationStack {
                 VStack {
                     // Show the view based on symptomList state (loading, emptyArray, arrayWithValues).
                     switch symptoms.state {
@@ -89,8 +89,8 @@ struct HomeView: View {
                             .buttonStyle(Button1MedTracker(backgroundColor: Color("blueGreen")))
                             .offset(x: -14, y: -95)
                             .sheet(isPresented: $muestraAgregarSintomas) {
-                                AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
-//                                CreateSymptomView()
+//                                AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
+                                CreateSymptomView()
                             }
                         }
                     },
@@ -142,7 +142,7 @@ struct HomeView: View {
                     })
                 }
             }
-        }
+//        }
     }
     func exportCSV()-> URL? {
         let formatter = DateFormatter()

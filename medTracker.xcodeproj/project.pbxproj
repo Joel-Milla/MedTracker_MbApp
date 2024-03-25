@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1700F3BD2B51D713009D0A62 /* Firestore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1700F3BC2B51D713009D0A62 /* Firestore+Extensions.swift */; };
+		1700F3BD2B51D713009D0A62 /* FirestoreExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1700F3BC2B51D713009D0A62 /* FirestoreExtensions.swift */; };
 		170948642BAB5BB2007E3E8B /* AnalysisView2_0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948632BAB5BB2007E3E8B /* AnalysisView2_0.swift */; };
 		170948862BAE3E24007E3E8B /* tempSignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948852BAE3E24007E3E8B /* tempSignOut.swift */; };
 		170948892BAE8900007E3E8B /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948882BAE8900007E3E8B /* InsightsView.swift */; };
 		1709488B2BAE8CAB007E3E8B /* LineChartView_Cuant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */; };
-		1709488D2BAE8E5B007E3E8B /* ExtensionsAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488C2BAE8E5B007E3E8B /* ExtensionsAnalysis.swift */; };
+		1709488D2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */; };
 		1709488F2BAE8FB1007E3E8B /* GradientMedTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488E2BAE8FB1007E3E8B /* GradientMedTracker.swift */; };
 		170948972BAE96BB007E3E8B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948962BAE96BB007E3E8B /* ChartView.swift */; };
 		170948992BAEA033007E3E8B /* BarChartView_Cuant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */; };
@@ -27,6 +27,7 @@
 		173EF2722BB0D11200F7ACF9 /* CreateSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */; };
 		173EF2982BB137BE00F7ACF9 /* IconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2972BB137BE00F7ACF9 /* IconModel.swift */; };
 		173EF29A2BB1B68C00F7ACF9 /* IconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2992BB1B68C00F7ACF9 /* IconPicker.swift */; };
+		173EF29D2BB1BA5900F7ACF9 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF29C2BB1BA5900F7ACF9 /* ColorExtensions.swift */; };
 		177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B37622B575433009CB58D /* ShowEditSymptomView.swift */; };
 		1789E8172B59DF0E0087531D /* EditSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */; };
 		1789E8192B59ED780087531D /* registersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8182B59ED780087531D /* registersView.swift */; };
@@ -38,7 +39,7 @@
 		F87256782B128AAA00044A05 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87256772B128AAA00044A05 /* Notifications.swift */; };
 		FB0EC3942B12721A00E7309B /* MainDoctorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EC3932B12721A00E7309B /* MainDoctorView.swift */; };
 		FB0EC3982B12759C00E7309B /* AddDoctorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EC3972B12759C00E7309B /* AddDoctorView.swift */; };
-		FB0EC39D2B12D3DC00E7309B /* DismissingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EC39C2B12D3DC00E7309B /* DismissingButton.swift */; };
+		FB0EC39D2B12D3DC00E7309B /* DismissButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EC39C2B12D3DC00E7309B /* DismissButtonExtension.swift */; };
 		FB0EC39F2B12FEC600E7309B /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EC39E2B12FEC600E7309B /* Patient.swift */; };
 		FB0EC3A12B12FF9400E7309B /* PatientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EC3A02B12FF9400E7309B /* PatientList.swift */; };
 		FB0EC3A32B13049700E7309B /* rowPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EC3A22B13049700E7309B /* rowPatient.swift */; };
@@ -60,7 +61,6 @@
 		FB87FED32ADDEEA100F6273B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB87FED22ADDEEA100F6273B /* Assets.xcassets */; };
 		FB87FED62ADDEEA100F6273B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB87FED52ADDEEA100F6273B /* Preview Assets.xcassets */; };
 		FB9959A62B0C109500B0A888 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9959A52B0C109500B0A888 /* HelperFunctions.swift */; };
-		FBA3D15E2AFF0936000E3E39 /* HexToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA3D15D2AFF0936000E3E39 /* HexToColor.swift */; };
 		FBB5AD362AFC2829003918CA /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB5AD352AFC2829003918CA /* Register.swift */; };
 		FBC7EF742B08263A00EDD70F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC7EF732B08263A00EDD70F /* UserModel.swift */; };
 		FBC80D982AF5AE0700820A3A /* SegmentedPicker in Frameworks */ = {isa = PBXBuildFile; productRef = FBC80D972AF5AE0700820A3A /* SegmentedPicker */; };
@@ -76,12 +76,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1700F3BC2B51D713009D0A62 /* Firestore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
+		1700F3BC2B51D713009D0A62 /* FirestoreExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreExtensions.swift; sourceTree = "<group>"; };
 		170948632BAB5BB2007E3E8B /* AnalysisView2_0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView2_0.swift; sourceTree = "<group>"; };
 		170948852BAE3E24007E3E8B /* tempSignOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempSignOut.swift; sourceTree = "<group>"; };
 		170948882BAE8900007E3E8B /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 		1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView_Cuant.swift; sourceTree = "<group>"; };
-		1709488C2BAE8E5B007E3E8B /* ExtensionsAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsAnalysis.swift; sourceTree = "<group>"; };
+		1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewExtensions.swift; sourceTree = "<group>"; };
 		1709488E2BAE8FB1007E3E8B /* GradientMedTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientMedTracker.swift; sourceTree = "<group>"; };
 		170948962BAE96BB007E3E8B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView_Cuant.swift; sourceTree = "<group>"; };
@@ -92,6 +92,7 @@
 		173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSymptomView.swift; sourceTree = "<group>"; };
 		173EF2972BB137BE00F7ACF9 /* IconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconModel.swift; sourceTree = "<group>"; };
 		173EF2992BB1B68C00F7ACF9 /* IconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPicker.swift; sourceTree = "<group>"; };
+		173EF29C2BB1BA5900F7ACF9 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
 		1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSymptomViewModel.swift; sourceTree = "<group>"; };
 		1789E8182B59ED780087531D /* registersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registersView.swift; sourceTree = "<group>"; };
@@ -104,7 +105,7 @@
 		F8D6CC832AFEE2A700736DFB /* TextFieldMedTracker1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldMedTracker1.swift; sourceTree = "<group>"; };
 		FB0EC3932B12721A00E7309B /* MainDoctorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDoctorView.swift; sourceTree = "<group>"; };
 		FB0EC3972B12759C00E7309B /* AddDoctorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDoctorView.swift; sourceTree = "<group>"; };
-		FB0EC39C2B12D3DC00E7309B /* DismissingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissingButton.swift; sourceTree = "<group>"; };
+		FB0EC39C2B12D3DC00E7309B /* DismissButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButtonExtension.swift; sourceTree = "<group>"; };
 		FB0EC39E2B12FEC600E7309B /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
 		FB0EC3A02B12FF9400E7309B /* PatientList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientList.swift; sourceTree = "<group>"; };
 		FB0EC3A22B13049700E7309B /* rowPatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rowPatient.swift; sourceTree = "<group>"; };
@@ -127,7 +128,6 @@
 		FB87FED22ADDEEA100F6273B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB87FED52ADDEEA100F6273B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FB9959A52B0C109500B0A888 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
-		FBA3D15D2AFF0936000E3E39 /* HexToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexToColor.swift; sourceTree = "<group>"; };
 		FBB5AD352AFC2829003918CA /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		FBC7EF732B08263A00EDD70F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		FBD940AE2AFD73E800C3BD11 /* EditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSymptomView.swift; sourceTree = "<group>"; };
@@ -214,6 +214,7 @@
 				173EF2962BB1353700F7ACF9 /* IconPicker */,
 				FB320FA62AEB2754005865F5 /* AddSymptomView.swift */,
 				173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */,
+				173EF29C2BB1BA5900F7ACF9 /* ColorExtensions.swift */,
 			);
 			path = CreateSymptom;
 			sourceTree = "<group>";
@@ -248,9 +249,9 @@
 		FB0EC39B2B12D3C800E7309B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				FB0EC39C2B12D3DC00E7309B /* DismissingButton.swift */,
-				1700F3BC2B51D713009D0A62 /* Firestore+Extensions.swift */,
-				1709488C2BAE8E5B007E3E8B /* ExtensionsAnalysis.swift */,
+				FB0EC39C2B12D3DC00E7309B /* DismissButtonExtension.swift */,
+				1700F3BC2B51D713009D0A62 /* FirestoreExtensions.swift */,
+				1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -395,7 +396,6 @@
 				FB1A55512AFD772900F9A74A /* CustomSlider.swift */,
 				FB1A55532AFD773F00F9A74A /* Button1MedTracker.swift */,
 				1709488E2BAE8FB1007E3E8B /* GradientMedTracker.swift */,
-				FBA3D15D2AFF0936000E3E39 /* HexToColor.swift */,
 				FB17DAB42B0D771F006294BD /* FloatToString.swift */,
 				F87256772B128AAA00044A05 /* Notifications.swift */,
 			);
@@ -524,9 +524,8 @@
 				170948992BAEA033007E3E8B /* BarChartView_Cuant.swift in Sources */,
 				170948972BAE96BB007E3E8B /* ChartView.swift in Sources */,
 				170948642BAB5BB2007E3E8B /* AnalysisView2_0.swift in Sources */,
-				FBA3D15E2AFF0936000E3E39 /* HexToColor.swift in Sources */,
 				FB0EC3A12B12FF9400E7309B /* PatientList.swift in Sources */,
-				1700F3BD2B51D713009D0A62 /* Firestore+Extensions.swift in Sources */,
+				1700F3BD2B51D713009D0A62 /* FirestoreExtensions.swift in Sources */,
 				FB0EC39F2B12FEC600E7309B /* Patient.swift in Sources */,
 				170948892BAE8900007E3E8B /* InsightsView.swift in Sources */,
 				FB87FED12ADDEE9800F6273B /* MainView.swift in Sources */,
@@ -538,15 +537,16 @@
 				FB6BBA122B09791A008EFA9A /* AuthService.swift in Sources */,
 				1709488B2BAE8CAB007E3E8B /* LineChartView_Cuant.swift in Sources */,
 				173EF2722BB0D11200F7ACF9 /* CreateSymptomView.swift in Sources */,
-				1709488D2BAE8E5B007E3E8B /* ExtensionsAnalysis.swift in Sources */,
+				1709488D2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift in Sources */,
 				FBD940AF2AFD73E800C3BD11 /* EditSymptomView.swift in Sources */,
 				1789E8192B59ED780087531D /* registersView.swift in Sources */,
-				FB0EC39D2B12D3DC00E7309B /* DismissingButton.swift in Sources */,
+				FB0EC39D2B12D3DC00E7309B /* DismissButtonExtension.swift in Sources */,
 				F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */,
 				FB6BBA142B0979B6008EFA9A /* AuthViewModel.swift in Sources */,
 				FBC7EF742B08263A00EDD70F /* UserModel.swift in Sources */,
 				170C07F62B51EE3A00AB937A /* WelcomeView.swift in Sources */,
 				F87256782B128AAA00044A05 /* Notifications.swift in Sources */,
+				173EF29D2BB1BA5900F7ACF9 /* ColorExtensions.swift in Sources */,
 				FB17DAB52B0D771F006294BD /* FloatToString.swift in Sources */,
 				FB87FECF2ADDEE9800F6273B /* medTrackerApp.swift in Sources */,
 				170948862BAE3E24007E3E8B /* tempSignOut.swift in Sources */,

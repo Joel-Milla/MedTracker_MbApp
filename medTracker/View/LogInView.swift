@@ -8,7 +8,7 @@ struct LogInView: View {
     @State private var showErrorAlert = false
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             Form {
                 Group {
                     TextField("Email", text: $signInModel.email)
@@ -64,7 +64,7 @@ struct LogInView: View {
             }
             .navigationTitle("Iniciar Sesión")
         }
-    }
+//    }
 }
 
 

@@ -12,7 +12,6 @@ struct MainView: View {
     @StateObject var registers: RegisterList
     @StateObject var user: UserModel
     
-    @Namespace var animation
     var body: some View {
 //        TabView (selection: $currentTab) {
 //            AnalysisView(symptoms: symptoms, registers: registers)
@@ -23,15 +22,18 @@ struct MainView: View {
 //                .tag(Tab.Perfil)
 //        }
         TabView {
-            HomeView(symptoms: symptoms, registers: registers)
-                .tabItem {
-                    Label("Inicio", systemImage: "house")
-                }
-            
-            ProfileView(user: user, symptoms: symptoms, createAction: user.makeCreateAction(), createAction2: symptoms.makeCreateAction())
-                .tabItem {
-                    Label("Perfil", systemImage: "person.crop.circle")
-                }
+            NavigationStack {
+                HomeView(symptoms: symptoms, registers: registers)
+            }
+            .tabItem {
+                Label("Inicio", systemImage: "house")
+            }
+            NavigationStack {
+                ProfileView(user: user, symptoms: symptoms, createAction: user.makeCreateAction(), createAction2: symptoms.makeCreateAction())
+            }
+            .tabItem {
+                Label("Perfil", systemImage: "person.crop.circle")
+            }
         }
         .accentColor(Color("blueGreen"))
         .navigationBarBackButtonHidden(true)

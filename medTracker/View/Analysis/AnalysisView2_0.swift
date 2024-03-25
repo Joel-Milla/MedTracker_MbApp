@@ -32,7 +32,7 @@ struct AnalysisView2_0: View {
     ]
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             VStack {
                 // Chart that shows the data
                 ChartView(isCuantitative: symptomTest.cuantitativo, testRegisters: testRegisters)
@@ -62,7 +62,7 @@ struct AnalysisView2_0: View {
                     }
                 }
             }
-        }
+//        }
     }
 }
 
