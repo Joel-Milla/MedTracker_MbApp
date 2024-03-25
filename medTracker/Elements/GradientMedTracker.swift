@@ -13,22 +13,7 @@ extension Color {
     static let blueGreen = Color("blueGreen")
 }
 
-// Button style
-struct GradientButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.headline)
-            .fontWeight(.semibold)
-            .foregroundColor(.white)
-            .padding()
-            .frame(maxWidth: 250)
-            .background(LinearGradient(gradient: Gradient(colors: [.mainBlue, .blueGreen]), startPoint: .leading, endPoint: .trailing))
-            .cornerRadius(10)
-            .shadow(radius: 5)
-    }
-}
-
-// Create a similar style for Text
+// Create gradient style with original colors for Text
 struct GradientTextStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -36,7 +21,7 @@ struct GradientTextStyle: ViewModifier {
             .fontWeight(.semibold)
             .foregroundColor(.white)
             .padding()
-            .frame(maxWidth: 250)
+            .frame(maxWidth: 250) // set width of the gradient
             .background(LinearGradient(gradient: Gradient(colors: [.mainBlue, .blueGreen]), startPoint: .leading, endPoint: .trailing))
             .cornerRadius(10)
             .shadow(radius: 5)
