@@ -71,7 +71,6 @@ struct AddSymptomView: View {
                                 .foregroundColor(colorSymptom)
                         }
                         .sheet(isPresented: $isPresented, content: {
-                            SymbolsPicker(selection: $icon, title: "Choose your symbol", autoDismiss: true)
                         }).padding()
                         
                         ColorPicker("", selection: $colorSymptom)

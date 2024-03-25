@@ -25,6 +25,8 @@
 		1718E8BE2B4F381A001691B8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8BD2B4F381A001691B8 /* FirebaseFirestore */; };
 		1718E8C02B4F381A001691B8 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8BF2B4F381A001691B8 /* FirebaseFirestoreSwift */; };
 		173EF2722BB0D11200F7ACF9 /* CreateSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */; };
+		173EF2982BB137BE00F7ACF9 /* IconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2972BB137BE00F7ACF9 /* IconModel.swift */; };
+		173EF29A2BB1B68C00F7ACF9 /* IconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2992BB1B68C00F7ACF9 /* IconPicker.swift */; };
 		177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B37622B575433009CB58D /* ShowEditSymptomView.swift */; };
 		1789E8172B59DF0E0087531D /* EditSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */; };
 		1789E8192B59ED780087531D /* registersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8182B59ED780087531D /* registersView.swift */; };
@@ -47,11 +49,6 @@
 		FB1A55522AFD772900F9A74A /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1A55512AFD772900F9A74A /* CustomSlider.swift */; };
 		FB1A55542AFD773F00F9A74A /* Button1MedTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1A55532AFD773F00F9A74A /* Button1MedTracker.swift */; };
 		FB320FA72AEB2754005865F5 /* AddSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB320FA62AEB2754005865F5 /* AddSymptomView.swift */; };
-		FB45BFF22B0825AF0019C0A1 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45BFF12B0825AF0019C0A1 /* SearchBar.swift */; };
-		FB45BFF42B08266B0019C0A1 /* SymbolIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45BFF32B08266B0019C0A1 /* SymbolIcon.swift */; };
-		FB45BFF62B08270E0019C0A1 /* SymbolLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45BFF52B08270E0019C0A1 /* SymbolLoader.swift */; };
-		FB45BFF82B08274C0019C0A1 /* SymbolsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45BFF72B08274C0019C0A1 /* SymbolsPicker.swift */; };
-		FB45BFFA2B082B2B0019C0A1 /* UsageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB45BFF92B082B2B0019C0A1 /* UsageExample.swift */; };
 		FB6BBA122B09791A008EFA9A /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6BBA112B09791A008EFA9A /* AuthService.swift */; };
 		FB6BBA142B0979B6008EFA9A /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6BBA132B0979B6008EFA9A /* AuthViewModel.swift */; };
 		FB6BBA162B0A990C008EFA9A /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6BBA152B0A990C008EFA9A /* FormViewModel.swift */; };
@@ -93,6 +90,8 @@
 		170C07F52B51EE3A00AB937A /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSymptomView.swift; sourceTree = "<group>"; };
+		173EF2972BB137BE00F7ACF9 /* IconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconModel.swift; sourceTree = "<group>"; };
+		173EF2992BB1B68C00F7ACF9 /* IconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPicker.swift; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
 		1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSymptomViewModel.swift; sourceTree = "<group>"; };
 		1789E8182B59ED780087531D /* registersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registersView.swift; sourceTree = "<group>"; };
@@ -116,11 +115,6 @@
 		FB1A55512AFD772900F9A74A /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		FB1A55532AFD773F00F9A74A /* Button1MedTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button1MedTracker.swift; sourceTree = "<group>"; };
 		FB320FA62AEB2754005865F5 /* AddSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomView.swift; sourceTree = "<group>"; };
-		FB45BFF12B0825AF0019C0A1 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		FB45BFF32B08266B0019C0A1 /* SymbolIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolIcon.swift; sourceTree = "<group>"; };
-		FB45BFF52B08270E0019C0A1 /* SymbolLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolLoader.swift; sourceTree = "<group>"; };
-		FB45BFF72B08274C0019C0A1 /* SymbolsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolsPicker.swift; sourceTree = "<group>"; };
-		FB45BFF92B082B2B0019C0A1 /* UsageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageExample.swift; sourceTree = "<group>"; };
 		FB6BBA112B09791A008EFA9A /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		FB6BBA132B0979B6008EFA9A /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		FB6BBA152B0A990C008EFA9A /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
@@ -227,6 +221,8 @@
 		173EF2962BB1353700F7ACF9 /* IconPicker */ = {
 			isa = PBXGroup;
 			children = (
+				173EF2972BB137BE00F7ACF9 /* IconModel.swift */,
+				173EF2992BB1B68C00F7ACF9 /* IconPicker.swift */,
 			);
 			path = IconPicker;
 			sourceTree = "<group>";
@@ -290,18 +286,6 @@
 				FBE41E732AF6D464007B48E5 /* User.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		FB45BFF02B0825640019C0A1 /* IconPicker */ = {
-			isa = PBXGroup;
-			children = (
-				FB45BFF12B0825AF0019C0A1 /* SearchBar.swift */,
-				FB45BFF32B08266B0019C0A1 /* SymbolIcon.swift */,
-				FB45BFF52B08270E0019C0A1 /* SymbolLoader.swift */,
-				FB45BFF72B08274C0019C0A1 /* SymbolsPicker.swift */,
-				FB45BFF92B082B2B0019C0A1 /* UsageExample.swift */,
-			);
-			path = IconPicker;
 			sourceTree = "<group>";
 		};
 		FB4C82282B13C13E004AF7B6 /* ProfileView */ = {
@@ -414,7 +398,6 @@
 				FBA3D15D2AFF0936000E3E39 /* HexToColor.swift */,
 				FB17DAB42B0D771F006294BD /* FloatToString.swift */,
 				F87256772B128AAA00044A05 /* Notifications.swift */,
-				FB45BFF02B0825640019C0A1 /* IconPicker */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -520,14 +503,14 @@
 				FB86F0712AFEC4160051C6A6 /* SymptomList.swift in Sources */,
 				1789E81B2B5B32850087531D /* rowRegister.swift in Sources */,
 				1709489E2BAEC23B007E3E8B /* LineChartView_Cual.swift in Sources */,
+				173EF2982BB137BE00F7ACF9 /* IconModel.swift in Sources */,
+				173EF29A2BB1B68C00F7ACF9 /* IconPicker.swift in Sources */,
 				FBE3812C2ADF3C2E004737C9 /* AnalysisView.swift in Sources */,
 				FBD940B32AFD754A00C3BD11 /* RegisterView.swift in Sources */,
 				FB6BBA162B0A990C008EFA9A /* FormViewModel.swift in Sources */,
 				FB0EC3982B12759C00E7309B /* AddDoctorView.swift in Sources */,
-				FB45BFF82B08274C0019C0A1 /* SymbolsPicker.swift in Sources */,
 				FBD940B52AFD759D00C3BD11 /* LogInView.swift in Sources */,
 				170948A22BAEC846007E3E8B /* BarChartView_Cual.swift in Sources */,
-				FB45BFF42B08266B0019C0A1 /* SymbolIcon.swift in Sources */,
 				FB0EC3A92B13144B00E7309B /* PatientsData.swift in Sources */,
 				F82095A02AF58ACE002F1C28 /* Symptom.swift in Sources */,
 				FB7EBC602B0BDF0B00FBAE8D /* EmptyListView.swift in Sources */,
@@ -539,7 +522,6 @@
 				FB0EC3A32B13049700E7309B /* rowPatient.swift in Sources */,
 				FBE41E742AF6D464007B48E5 /* User.swift in Sources */,
 				170948992BAEA033007E3E8B /* BarChartView_Cuant.swift in Sources */,
-				FB45BFF62B08270E0019C0A1 /* SymbolLoader.swift in Sources */,
 				170948972BAE96BB007E3E8B /* ChartView.swift in Sources */,
 				170948642BAB5BB2007E3E8B /* AnalysisView2_0.swift in Sources */,
 				FBA3D15E2AFF0936000E3E39 /* HexToColor.swift in Sources */,
@@ -554,7 +536,6 @@
 				17F133692B98E401004C6D8F /* GlobalUtilities.swift in Sources */,
 				FBD940B12AFD74D100C3BD11 /* AuthenticationView.swift in Sources */,
 				FB6BBA122B09791A008EFA9A /* AuthService.swift in Sources */,
-				FB45BFF22B0825AF0019C0A1 /* SearchBar.swift in Sources */,
 				1709488B2BAE8CAB007E3E8B /* LineChartView_Cuant.swift in Sources */,
 				173EF2722BB0D11200F7ACF9 /* CreateSymptomView.swift in Sources */,
 				1709488D2BAE8E5B007E3E8B /* ExtensionsAnalysis.swift in Sources */,
@@ -566,7 +547,6 @@
 				FBC7EF742B08263A00EDD70F /* UserModel.swift in Sources */,
 				170C07F62B51EE3A00AB937A /* WelcomeView.swift in Sources */,
 				F87256782B128AAA00044A05 /* Notifications.swift in Sources */,
-				FB45BFFA2B082B2B0019C0A1 /* UsageExample.swift in Sources */,
 				FB17DAB52B0D771F006294BD /* FloatToString.swift in Sources */,
 				FB87FECF2ADDEE9800F6273B /* medTrackerApp.swift in Sources */,
 				170948862BAE3E24007E3E8B /* tempSignOut.swift in Sources */,
