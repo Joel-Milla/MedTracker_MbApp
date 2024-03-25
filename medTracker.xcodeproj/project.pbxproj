@@ -224,8 +224,8 @@
 				FB320FA62AEB2754005865F5 /* AddSymptomView.swift */,
 				173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */,
 				173EF29E2BB1C9DB00F7ACF9 /* IconColorView.swift */,
-				173EF2A02BB1D23700F7ACF9 /* HelpView.swift */,
 				173EF2962BB1353700F7ACF9 /* IconPicker */,
+				173EF2A02BB1D23700F7ACF9 /* HelpView.swift */,
 				173EF29C2BB1BA5900F7ACF9 /* ColorExtensions.swift */,
 				173EF2A42BB20C3100F7ACF9 /* Notifications */,
 			);

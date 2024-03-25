@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CreateSymptomView: View {
+    // Dismiss the view when no longer needed
+    @Environment(\.dismiss) var dismiss
     // All possible units for quantitative symptoms
     let units = [
         "kg", // Kilogramos
@@ -55,7 +57,7 @@ struct CreateSymptomView: View {
                 }
                 // Description of the new symptom
                 Section(header: Text("Descripción")) {
-                    Text("Describe el dato")
+                    Text("Describe el dato:")
                     TextEditor(text: $description)
                 }
                 // Choose the type of symptom
@@ -85,7 +87,9 @@ struct CreateSymptomView: View {
                 }
                 
                 Section {
-                    Button(action: {}) {
+                    Button(action: {
+                        dismiss()
+                    }) {
                         Text("Guardar")
                             .gradientTextStyle() // apply gradient style
                     }
@@ -105,6 +109,16 @@ struct CreateSymptomView: View {
                 NotificationsView()
                     .presentationDetents([.fraction(0.5)]) // Set the width of the sheet to 30%
             })
+            // Dismiss the view
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Image(systemName: "xmark.circle")
+                    })
+                }
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ struct IconColorView: View {
     
     var body: some View {
         HStack {
-            Text("Escoge un ícono")
+            Text("Escoge un ícono:")
                 .frame(maxWidth: .infinity, alignment: .leading) // make the text as large as possible and position it to the left
             HStack {
                 // Button to show icon picker view

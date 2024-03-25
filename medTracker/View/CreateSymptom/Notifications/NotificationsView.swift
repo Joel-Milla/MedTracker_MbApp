@@ -18,6 +18,8 @@ enum NotificationFrequency: String, CaseIterable, Identifiable {
 }
 
 struct NotificationsView: View {
+    // Dismiss the view when no longer needed
+    @Environment(\.dismiss) var dismiss
     // Selected Frequency
     @State private var selectedFrequency: NotificationFrequency = .daily
     // Date frequency variables
@@ -65,6 +67,16 @@ struct NotificationsView: View {
             }
             .padding()
             .navigationTitle("Notificaciones")
+            // Dismiss the view
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Image(systemName: "xmark.circle")
+                    })
+                }
+            }
         }
     }
 }
