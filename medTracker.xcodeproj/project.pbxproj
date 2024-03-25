@@ -36,9 +36,9 @@
 		1789E8172B59DF0E0087531D /* EditSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */; };
 		1789E8192B59ED780087531D /* registersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8182B59ED780087531D /* registersView.swift */; };
 		1789E81B2B5B32850087531D /* rowRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E81A2B5B32850087531D /* rowRegister.swift */; };
-		17DBF1BF2BB2157B005DBF11 /* MonthlyNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1BE2BB2157B005DBF11 /* MonthlyNotificationsView.swift */; };
 		17DBF1C22BB22FE5005DBF11 /* CS_NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C12BB22FE5005DBF11 /* CS_NameView.swift */; };
 		17DBF1C42BB230D6005DBF11 /* CS_TypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C32BB230D6005DBF11 /* CS_TypeView.swift */; };
+		17DBF1C62BB2355B005DBF11 /* PersonalizedNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C52BB2355B005DBF11 /* PersonalizedNotificationsView.swift */; };
 		17F133692B98E401004C6D8F /* GlobalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F133682B98E401004C6D8F /* GlobalUtilities.swift */; };
 		F82095A02AF58ACE002F1C28 /* Symptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820959F2AF58ACE002F1C28 /* Symptom.swift */; };
 		F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F838338D2B0C49F5005F2BB5 /* ShareView.swift */; };
@@ -108,9 +108,9 @@
 		1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSymptomViewModel.swift; sourceTree = "<group>"; };
 		1789E8182B59ED780087531D /* registersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registersView.swift; sourceTree = "<group>"; };
 		1789E81A2B5B32850087531D /* rowRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rowRegister.swift; sourceTree = "<group>"; };
-		17DBF1BE2BB2157B005DBF11 /* MonthlyNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyNotificationsView.swift; sourceTree = "<group>"; };
 		17DBF1C12BB22FE5005DBF11 /* CS_NameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CS_NameView.swift; sourceTree = "<group>"; };
 		17DBF1C32BB230D6005DBF11 /* CS_TypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CS_TypeView.swift; sourceTree = "<group>"; };
+		17DBF1C52BB2355B005DBF11 /* PersonalizedNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedNotificationsView.swift; sourceTree = "<group>"; };
 		17F133682B98E401004C6D8F /* GlobalUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUtilities.swift; sourceTree = "<group>"; };
 		F820959F2AF58ACE002F1C28 /* Symptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptom.swift; sourceTree = "<group>"; };
 		F838338D2B0C49F5005F2BB5 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
@@ -231,7 +231,6 @@
 				17DBF1C32BB230D6005DBF11 /* CS_TypeView.swift */,
 				173EF29E2BB1C9DB00F7ACF9 /* IconColorView.swift */,
 				173EF2A02BB1D23700F7ACF9 /* HelpView.swift */,
-				173EF29C2BB1BA5900F7ACF9 /* ColorExtensions.swift */,
 				173EF2A42BB20C3100F7ACF9 /* Notifications */,
 			);
 			path = CreateSymptom;
@@ -251,7 +250,7 @@
 			children = (
 				173EF2A22BB1DEE700F7ACF9 /* NotificationsView.swift */,
 				173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */,
-				17DBF1BE2BB2157B005DBF11 /* MonthlyNotificationsView.swift */,
+				17DBF1C52BB2355B005DBF11 /* PersonalizedNotificationsView.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -289,6 +288,7 @@
 				FB0EC39C2B12D3DC00E7309B /* DismissButtonExtension.swift */,
 				1700F3BC2B51D713009D0A62 /* FirestoreExtensions.swift */,
 				1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */,
+				173EF29C2BB1BA5900F7ACF9 /* ColorExtensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -582,9 +582,9 @@
 				FBD940AF2AFD73E800C3BD11 /* EditSymptomView.swift in Sources */,
 				1789E8192B59ED780087531D /* registersView.swift in Sources */,
 				FB0EC39D2B12D3DC00E7309B /* DismissButtonExtension.swift in Sources */,
-				17DBF1BF2BB2157B005DBF11 /* MonthlyNotificationsView.swift in Sources */,
 				F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */,
 				FB6BBA142B0979B6008EFA9A /* AuthViewModel.swift in Sources */,
+				17DBF1C62BB2355B005DBF11 /* PersonalizedNotificationsView.swift in Sources */,
 				FBC7EF742B08263A00EDD70F /* UserModel.swift in Sources */,
 				170C07F62B51EE3A00AB937A /* WelcomeView.swift in Sources */,
 				F87256782B128AAA00044A05 /* Notifications.swift in Sources */,

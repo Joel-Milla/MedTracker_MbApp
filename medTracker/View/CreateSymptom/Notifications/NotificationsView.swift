@@ -57,13 +57,19 @@ struct NotificationsView: View {
                 case .weekly:
                     WeeklyNotificationsView(selectedDays: $selectedDays, selectedDate: $selectedDate)
                 case .monthly:
-                    DatePicker("Selecciona el día y la hora", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
+                    DatePicker("Empieza", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
                         .frame(maxHeight: 400)
                 case .customize:
-                    DatePicker("Escoge el día y la hora", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
-                        .datePickerStyle(CompactDatePickerStyle())
-                        .frame(maxHeight: 400)
+                    PersonalizedNotificationsView(selectedDate: $selectedDate)
                 }
+                
+                Button(action: {
+                    dismiss()
+                }) {
+                    Text("Guardar")
+                        .gradientTextStyle() // apply gradient style
+                }
+                .frame(maxWidth: .infinity) // center the text
             }
             .padding()
             .navigationTitle("Notificaciones")
