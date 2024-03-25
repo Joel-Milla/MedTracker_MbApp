@@ -15,6 +15,7 @@ struct HelpView: View {
     var body: some View {
         HStack(spacing: 8) {
             Text(title)
+                .textCase(.uppercase)
             Button {
                 showHelpAlert.toggle()
             } label: {

@@ -8,22 +8,44 @@
 import SwiftUI
 
 struct CreateSymptomView: View {
-    @State private var username: String = ""
-    @State private var password: String = ""
-    @State private var rememberMe: Bool = false
-    @State private var selectedOption: String = "Option 1"
-    let options = ["Option 1", "Option 2", "Option 3"]
+    // All possible units for quantitative symptoms
+    let units = [
+        "kg", // Kilogramos
+        "lb", // Libras
+        "cm", // Centímetros
+        "m",  // Metros
+        "mmHg", // Milímetros de mercurio (presión arterial)
+        "L",  // Litros (para líquidos)
+        "mL", // Mililitros
+        "pasos", // Pasos
+        "cal", // Calorías
+        "kcal", // Kilocalorías
+        "bpm", // Latidos por minuto (frecuencia cardíaca)
+        "mg/dL", // Miligramos por decilitro (glucosa en sangre)
+        "°C", // Grados Celsius
+        "°F", // Grados Fahrenheit
+        "h",  // Horas (para sueño o actividades)
+        "min", // Minutos
+        "seg", // Segundos
+        "%",  // Porcentaje (para saturación de oxígeno, por ejemplo)
+        "tazas", // Tazas (volumen para líquidos)
+        "g",  // Gramos
+    ]
     
     // Variables that hold values of the new symptom
+    @State var name: String = ""
     @State var selectedIcon: String = "heart"
     @State var selectedColor: Color = Color("blueGreen")
     @State var description: String = ""
+    @State var cuantitativo: Bool = true
+    @State var selectedUnit: String = "kg"
+    @State var allowNotifications: Bool = false
     
     var body: some View {
         NavigationStack {
             Form {
                 Section(header: Text("Nombre")) {
-                    TextField("Nombre del Dato", text: $username)
+                    TextField("Nombre del Dato", text: $name)
                         .disableAutocorrection(true)
                         .textContentType(.username)
                     IconColorView(selectedIcon: $selectedIcon, selectedColor: $selectedColor)
@@ -35,20 +57,24 @@ struct CreateSymptomView: View {
                 }
                 // Choose the type of symptom
                 Section(header: HelpView(title: "Tipo de dato")) {
-                    Toggle(isOn: $rememberMe) {
-                        Text("Remember me")
+                    Picker("Sintoma cuantitativo o cualitativo?", selection: $cuantitativo) {
+                                    Text("Cuantitativo").tag(true)
+                                    Text("Cualitativo").tag(false)
                     }
-                    
-                    Picker("Options", selection: $selectedOption) {
-                        ForEach(options, id: \.self) {
-                            Text($0)
+                    .pickerStyle(.segmented)
+                    if (cuantitativo) {
+                        Picker("Unidad", selection: $selectedUnit) {
+                            ForEach(units, id: \.self) { unit in
+                                Text(unit).tag(unit)
+                            }
                         }
+                        .tint(Color("blueGreen"))
                     }
                 }
                 
-                Section(header: Text("help")) {
-                    Toggle(isOn: $rememberMe) {
-                        Text("Remember me")
+                Section(header: Text("Notificaciones")) {
+                    Toggle(isOn: $allowNotifications) {
+                        Text("Permitir Notificaciones")
                     }
                     
                 }
