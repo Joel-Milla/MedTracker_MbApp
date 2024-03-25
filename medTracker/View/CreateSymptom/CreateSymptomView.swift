@@ -39,7 +39,10 @@ struct CreateSymptomView: View {
     @State var description: String = ""
     @State var cuantitativo: Bool = true
     @State var selectedUnit: String = "kg"
+    // Notifications properties
     @State var allowNotifications: Bool = false
+    @State var showNotifications: Bool = false
+
     
     var body: some View {
         NavigationStack {
@@ -79,10 +82,6 @@ struct CreateSymptomView: View {
                     Toggle(isOn: $allowNotifications.animation()) {
                         Text("Permitir Notificaciones")
                     }
-                    // Show the view to select the notification
-                    if (allowNotifications) {
-                        ConfigureNotificationsView()
-                    }
                 }
                 
                 Section {
@@ -95,6 +94,17 @@ struct CreateSymptomView: View {
                 }
             }
             .navigationTitle("Crear Dato")
+            // Use showNotifications to present the sheet to modify the notifications and only when it is true
+            .onChange(of: allowNotifications) { newValue in
+                if (newValue) {
+                    showNotifications = true
+                }
+            }
+            // Show the view to select the notification
+            .sheet(isPresented: $showNotifications, content: {
+                NotificationsView()
+                    .presentationDetents([.fraction(0.5)]) // Set the width of the sheet to 30%
+            })
         }
     }
 }
