@@ -76,7 +76,9 @@ struct CreateSymptomView: View {
                     Toggle(isOn: $allowNotifications) {
                         Text("Permitir Notificaciones")
                     }
-                    
+                    if (allowNotifications) {
+                        ConfigureNotificationsView()
+                    }
                 }
                 
                 Section {
