@@ -28,6 +28,8 @@
 		173EF2982BB137BE00F7ACF9 /* IconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2972BB137BE00F7ACF9 /* IconModel.swift */; };
 		173EF29A2BB1B68C00F7ACF9 /* IconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2992BB1B68C00F7ACF9 /* IconPicker.swift */; };
 		173EF29D2BB1BA5900F7ACF9 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF29C2BB1BA5900F7ACF9 /* ColorExtensions.swift */; };
+		173EF29F2BB1C9DB00F7ACF9 /* IconColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF29E2BB1C9DB00F7ACF9 /* IconColorView.swift */; };
+		173EF2A12BB1D23700F7ACF9 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2A02BB1D23700F7ACF9 /* HelpView.swift */; };
 		177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B37622B575433009CB58D /* ShowEditSymptomView.swift */; };
 		1789E8172B59DF0E0087531D /* EditSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */; };
 		1789E8192B59ED780087531D /* registersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8182B59ED780087531D /* registersView.swift */; };
@@ -93,6 +95,8 @@
 		173EF2972BB137BE00F7ACF9 /* IconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconModel.swift; sourceTree = "<group>"; };
 		173EF2992BB1B68C00F7ACF9 /* IconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPicker.swift; sourceTree = "<group>"; };
 		173EF29C2BB1BA5900F7ACF9 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		173EF29E2BB1C9DB00F7ACF9 /* IconColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconColorView.swift; sourceTree = "<group>"; };
+		173EF2A02BB1D23700F7ACF9 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
 		1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSymptomViewModel.swift; sourceTree = "<group>"; };
 		1789E8182B59ED780087531D /* registersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registersView.swift; sourceTree = "<group>"; };
@@ -211,9 +215,11 @@
 		173EF2952BB1347000F7ACF9 /* CreateSymptom */ = {
 			isa = PBXGroup;
 			children = (
-				173EF2962BB1353700F7ACF9 /* IconPicker */,
 				FB320FA62AEB2754005865F5 /* AddSymptomView.swift */,
 				173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */,
+				173EF2A02BB1D23700F7ACF9 /* HelpView.swift */,
+				173EF29E2BB1C9DB00F7ACF9 /* IconColorView.swift */,
+				173EF2962BB1353700F7ACF9 /* IconPicker */,
 				173EF29C2BB1BA5900F7ACF9 /* ColorExtensions.swift */,
 			);
 			path = CreateSymptom;
@@ -222,8 +228,8 @@
 		173EF2962BB1353700F7ACF9 /* IconPicker */ = {
 			isa = PBXGroup;
 			children = (
-				173EF2972BB137BE00F7ACF9 /* IconModel.swift */,
 				173EF2992BB1B68C00F7ACF9 /* IconPicker.swift */,
+				173EF2972BB137BE00F7ACF9 /* IconModel.swift */,
 			);
 			path = IconPicker;
 			sourceTree = "<group>";
@@ -501,9 +507,11 @@
 				FB1A55522AFD772900F9A74A /* CustomSlider.swift in Sources */,
 				F839EFF12AE0C4AE00CB5327 /* RegisterSymptomView.swift in Sources */,
 				FB86F0712AFEC4160051C6A6 /* SymptomList.swift in Sources */,
+				173EF29F2BB1C9DB00F7ACF9 /* IconColorView.swift in Sources */,
 				1789E81B2B5B32850087531D /* rowRegister.swift in Sources */,
 				1709489E2BAEC23B007E3E8B /* LineChartView_Cual.swift in Sources */,
 				173EF2982BB137BE00F7ACF9 /* IconModel.swift in Sources */,
+				173EF2A12BB1D23700F7ACF9 /* HelpView.swift in Sources */,
 				173EF29A2BB1B68C00F7ACF9 /* IconPicker.swift in Sources */,
 				FBE3812C2ADF3C2E004737C9 /* AnalysisView.swift in Sources */,
 				FBD940B32AFD754A00C3BD11 /* RegisterView.swift in Sources */,

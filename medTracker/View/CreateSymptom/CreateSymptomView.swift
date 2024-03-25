@@ -14,20 +14,27 @@ struct CreateSymptomView: View {
     @State private var selectedOption: String = "Option 1"
     let options = ["Option 1", "Option 2", "Option 3"]
     
+    // Variables that hold values of the new symptom
+    @State var selectedIcon: String = "heart"
+    @State var selectedColor: Color = Color("blueGreen")
+    @State var description: String = ""
+    
     var body: some View {
         NavigationStack {
             Form {
-                Section(header: Text("Credentials")) {
-                    TextField("Username", text: $username)
-                        .autocapitalization(.none)
+                Section(header: Text("Nombre")) {
+                    TextField("Nombre del Dato", text: $username)
                         .disableAutocorrection(true)
                         .textContentType(.username)
-                    
-                    SecureField("Password", text: $password)
-                        .textContentType(.password)
+                    IconColorView(selectedIcon: $selectedIcon, selectedColor: $selectedColor)
                 }
-                
-                Section(header: Text("Settings")) {
+                // Description of the new symptom
+                Section(header: Text("Descripción")) {
+                    Text("Describe el dato")
+                    TextEditor(text: $description)
+                }
+                // Choose the type of symptom
+                Section(header: HelpView(title: "Tipo de dato")) {
                     Toggle(isOn: $rememberMe) {
                         Text("Remember me")
                     }
@@ -37,6 +44,13 @@ struct CreateSymptomView: View {
                             Text($0)
                         }
                     }
+                }
+                
+                Section(header: Text("help")) {
+                    Toggle(isOn: $rememberMe) {
+                        Text("Remember me")
+                    }
+                    
                 }
                 
                 Section {
@@ -49,7 +63,7 @@ struct CreateSymptomView: View {
                     .listRowInsets(EdgeInsets())
                 }
             }
-            .navigationTitle("Professional Form")
+            .navigationTitle("Crear Dato")
         }
     }
 }
