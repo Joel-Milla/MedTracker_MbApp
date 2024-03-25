@@ -10,37 +10,8 @@ import SwiftUI
 struct CreateSymptomView: View {
     // Dismiss the view when no longer needed
     @Environment(\.dismiss) var dismiss
-    // All possible units for quantitative symptoms
-    let units = [
-        "kg", // Kilogramos
-        "lb", // Libras
-        "cm", // Centímetros
-        "m",  // Metros
-        "mmHg", // Milímetros de mercurio (presión arterial)
-        "L",  // Litros (para líquidos)
-        "mL", // Mililitros
-        "pasos", // Pasos
-        "cal", // Calorías
-        "kcal", // Kilocalorías
-        "bpm", // Latidos por minuto (frecuencia cardíaca)
-        "mg/dL", // Miligramos por decilitro (glucosa en sangre)
-        "°C", // Grados Celsius
-        "°F", // Grados Fahrenheit
-        "h",  // Horas (para sueño o actividades)
-        "min", // Minutos
-        "seg", // Segundos
-        "%",  // Porcentaje (para saturación de oxígeno, por ejemplo)
-        "tazas", // Tazas (volumen para líquidos)
-        "g",  // Gramos
-    ]
     
-    // Variables that hold values of the new symptom
-    @State var name: String = ""
-    @State var selectedIcon: String = "heart"
-    @State var selectedColor: Color = Color("blueGreen")
     @State var description: String = ""
-    @State var cuantitativo: Bool = true
-    @State var selectedUnit: String = "kg"
     // Notifications properties
     @State var allowNotifications: Bool = false
     @State var showNotifications: Bool = false
@@ -50,10 +21,7 @@ struct CreateSymptomView: View {
         NavigationStack {
             Form {
                 Section(header: Text("Nombre")) {
-                    TextField("Nombre del Dato", text: $name)
-                        .disableAutocorrection(true)
-                        .textContentType(.username)
-                    IconColorView(selectedIcon: $selectedIcon, selectedColor: $selectedColor)
+                    CS_NameView()
                 }
                 // Description of the new symptom
                 Section(header: Text("Descripción")) {
@@ -62,21 +30,7 @@ struct CreateSymptomView: View {
                 }
                 // Choose the type of symptom
                 Section(header: HelpView(title: "Tipo de dato")) {
-                    // Use animation to show nicely the new section
-                    Picker("Sintoma cuantitativo o cualitativo?", selection: $cuantitativo.animation()) {
-                        Text("Cuantitativo").tag(true)
-                        Text("Cualitativo").tag(false)
-                    }
-                    .pickerStyle(.segmented)
-                    // Show the view to select the new units
-                    if (cuantitativo) {
-                        Picker("Unidad", selection: $selectedUnit) {
-                            ForEach(units, id: \.self) { unit in
-                                Text(unit).tag(unit)
-                            }
-                        }
-                        .tint(Color("blueGreen"))
-                    }
+                    CS_TypeView()
                 }
                 
                 Section(header: Text("Notificaciones")) {

@@ -37,6 +37,8 @@
 		1789E8192B59ED780087531D /* registersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8182B59ED780087531D /* registersView.swift */; };
 		1789E81B2B5B32850087531D /* rowRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E81A2B5B32850087531D /* rowRegister.swift */; };
 		17DBF1BF2BB2157B005DBF11 /* MonthlyNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1BE2BB2157B005DBF11 /* MonthlyNotificationsView.swift */; };
+		17DBF1C22BB22FE5005DBF11 /* CS_NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C12BB22FE5005DBF11 /* CS_NameView.swift */; };
+		17DBF1C42BB230D6005DBF11 /* CS_TypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C32BB230D6005DBF11 /* CS_TypeView.swift */; };
 		17F133692B98E401004C6D8F /* GlobalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F133682B98E401004C6D8F /* GlobalUtilities.swift */; };
 		F82095A02AF58ACE002F1C28 /* Symptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820959F2AF58ACE002F1C28 /* Symptom.swift */; };
 		F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F838338D2B0C49F5005F2BB5 /* ShareView.swift */; };
@@ -107,6 +109,8 @@
 		1789E8182B59ED780087531D /* registersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registersView.swift; sourceTree = "<group>"; };
 		1789E81A2B5B32850087531D /* rowRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rowRegister.swift; sourceTree = "<group>"; };
 		17DBF1BE2BB2157B005DBF11 /* MonthlyNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyNotificationsView.swift; sourceTree = "<group>"; };
+		17DBF1C12BB22FE5005DBF11 /* CS_NameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CS_NameView.swift; sourceTree = "<group>"; };
+		17DBF1C32BB230D6005DBF11 /* CS_TypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CS_TypeView.swift; sourceTree = "<group>"; };
 		17F133682B98E401004C6D8F /* GlobalUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUtilities.swift; sourceTree = "<group>"; };
 		F820959F2AF58ACE002F1C28 /* Symptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptom.swift; sourceTree = "<group>"; };
 		F838338D2B0C49F5005F2BB5 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
@@ -223,8 +227,9 @@
 			children = (
 				FB320FA62AEB2754005865F5 /* AddSymptomView.swift */,
 				173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */,
+				17DBF1C02BB22FC6005DBF11 /* CS_Name */,
+				17DBF1C32BB230D6005DBF11 /* CS_TypeView.swift */,
 				173EF29E2BB1C9DB00F7ACF9 /* IconColorView.swift */,
-				173EF2962BB1353700F7ACF9 /* IconPicker */,
 				173EF2A02BB1D23700F7ACF9 /* HelpView.swift */,
 				173EF29C2BB1BA5900F7ACF9 /* ColorExtensions.swift */,
 				173EF2A42BB20C3100F7ACF9 /* Notifications */,
@@ -249,6 +254,15 @@
 				17DBF1BE2BB2157B005DBF11 /* MonthlyNotificationsView.swift */,
 			);
 			path = Notifications;
+			sourceTree = "<group>";
+		};
+		17DBF1C02BB22FC6005DBF11 /* CS_Name */ = {
+			isa = PBXGroup;
+			children = (
+				17DBF1C12BB22FE5005DBF11 /* CS_NameView.swift */,
+				173EF2962BB1353700F7ACF9 /* IconPicker */,
+			);
+			path = CS_Name;
 			sourceTree = "<group>";
 		};
 		F83767772B0172850092CDED /* Recovered References */ = {
@@ -516,6 +530,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBEC06372B0814B6007AC73B /* Repository.swift in Sources */,
+				17DBF1C42BB230D6005DBF11 /* CS_TypeView.swift in Sources */,
 				FB1A55542AFD773F00F9A74A /* Button1MedTracker.swift in Sources */,
 				FB0EC3942B12721A00E7309B /* MainDoctorView.swift in Sources */,
 				FBE3812A2ADF3BC9004737C9 /* ProfileView.swift in Sources */,
@@ -576,6 +591,7 @@
 				173EF29D2BB1BA5900F7ACF9 /* ColorExtensions.swift in Sources */,
 				FB17DAB52B0D771F006294BD /* FloatToString.swift in Sources */,
 				FB87FECF2ADDEE9800F6273B /* medTrackerApp.swift in Sources */,
+				17DBF1C22BB22FE5005DBF11 /* CS_NameView.swift in Sources */,
 				173EF2A32BB1DEE700F7ACF9 /* NotificationsView.swift in Sources */,
 				170948862BAE3E24007E3E8B /* tempSignOut.swift in Sources */,
 			);
