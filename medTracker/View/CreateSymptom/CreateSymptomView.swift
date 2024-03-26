@@ -20,6 +20,7 @@ struct CreateSymptomView: View {
     var body: some View {
         NavigationStack {
             Form {
+                // Select the name of the symptom and select the icon
                 Section(header: Text("Nombre")) {
                     CS_NameView()
                 }

@@ -47,7 +47,7 @@ struct PersonalizedNotificationsView: View {
         // Show the frequency
         Text(intervalToString(of: selectedNumber, as: selectedInterval))
         if (selectedInterval == "Semana") {
-            WeeklyIntervalView(selectedDays: $selectedDays)
+            WeeklyIntervalView(selectedDays: $selectedDays) // Select the days of the week
         }
         Spacer()
         // Select when it starts

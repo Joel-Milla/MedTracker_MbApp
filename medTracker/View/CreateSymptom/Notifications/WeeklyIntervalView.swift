@@ -15,6 +15,7 @@ struct WeeklyIntervalView: View {
     var body: some View {
         Text("Se repite el")
             .frame(maxWidth: .infinity, alignment: .leading)
+        // Show an hstack of all the days of the week for the user to select them
         HStack {
             ForEach(days, id: \.self) { day in
                 Button(action: {

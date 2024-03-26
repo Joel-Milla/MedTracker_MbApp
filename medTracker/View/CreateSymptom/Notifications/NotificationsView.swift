@@ -42,7 +42,7 @@ struct NotificationsView: View {
             VStack {
                 Text("Frecuencia")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
+                // Choose what type of notifications you want
                 Picker("Notificaciones", selection: $selectedFrequency.animation()) {
                     ForEach(NotificationFrequency.allCases) {frequency in
                         Text(frequency.rawValue).tag(frequency)
@@ -64,7 +64,7 @@ struct NotificationsView: View {
                 case .customize:
                     PersonalizedNotificationsView(selectedDate: $selectedDate)
                 }
-                
+                // Save the current notifications
                 Button(action: {
                     stringNotification = "Notificaciones de manera \(selectedFrequency.rawValue)"
                     dismiss()

@@ -12,6 +12,7 @@ struct WeeklyNotificationsView: View {
     @Binding var selectedDate: Date
     
     var body: some View {
+        // Choose which day of the week the notification to be and at what hour
         WeeklyIntervalView(selectedDays: $selectedDays)
         DatePicker("Selecciona la hora", selection: $selectedDate, displayedComponents: [.hourAndMinute])
             .frame(maxHeight: 400) // Adjust height as needed for your layout

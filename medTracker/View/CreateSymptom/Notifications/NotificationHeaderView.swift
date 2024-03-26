@@ -13,6 +13,7 @@ struct NotificationHeaderView: View {
     
     var body: some View {
         HStack {
+            // Use variables to know if the user wants to recieve notifications, and if yes then show in the header the option to edit the current notifications. 
             Text("Notificaciones")
                 .frame(maxWidth: .infinity, alignment: .leading)
             if (allowNotifications) {

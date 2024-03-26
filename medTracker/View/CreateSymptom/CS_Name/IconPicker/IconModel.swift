@@ -19,7 +19,7 @@ class IconModel: ObservableObject {
             // If the searchText is empty, dont return anything
             return icons
         } else {
-            // Return all the icons that contain the searchText
+            // Return all the icons that contain the searchText by using the filter option
             return icons.filter { icon in
                 icon.lowercased().contains(searchText.lowercased())
             }

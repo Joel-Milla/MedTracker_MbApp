@@ -17,12 +17,13 @@ struct HelpView: View {
             Text(title)
                 .textCase(.uppercase)
             Button {
-                showHelpAlert.toggle()
+                showHelpAlert.toggle() // show the alert when the question mark is clicked
             } label: {
                 Image(systemName: "questionmark.circle")
                     .foregroundStyle(.gray)
             }
         }
+        // Show the alert without styling the text to explain the difference between the options
         .alert("Explicación", isPresented: $showHelpAlert) {
             Button("OK", role: .cancel) { }
         } message: {
