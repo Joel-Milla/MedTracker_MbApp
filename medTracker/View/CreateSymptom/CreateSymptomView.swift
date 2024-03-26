@@ -14,8 +14,8 @@ struct CreateSymptomView: View {
     @State var description: String = ""
     // Notifications properties
     @State var allowNotifications: Bool = false
-    @State var showNotifications: Bool = false
-
+    @State var showNotificationView: Bool = false
+    @State var stringNotification: String = ""
     
     var body: some View {
         NavigationStack {
@@ -33,10 +33,13 @@ struct CreateSymptomView: View {
                     CS_TypeView()
                 }
                 
-                Section(header: Text("Notificaciones")) {
+                Section(header: NotificationHeaderView(allowNotifications: $allowNotifications, showNotificationView: $showNotificationView)) {
                     // Use animation to show the new view nicely
                     Toggle(isOn: $allowNotifications.animation()) {
                         Text("Permitir Notificaciones")
+                    }
+                    if (allowNotifications) {
+                        Text(stringNotification)
                     }
                 }
                 
@@ -55,13 +58,14 @@ struct CreateSymptomView: View {
             // Use showNotifications to present the sheet to modify the notifications and only when it is true
             .onChange(of: allowNotifications) { newValue in
                 if (newValue) {
-                    showNotifications = true
+                    showNotificationView = true
                 }
             }
             // Show the view to select the notification
-            .sheet(isPresented: $showNotifications, content: {
-                NotificationsView()
-                    .presentationDetents([.fraction(0.5)]) // Set the width of the sheet to 30%
+            .sheet(isPresented: $showNotificationView, content: {
+                NotificationsView(stringNotification: $stringNotification)
+                    .tint(Color.blueGreen) // Change the accent color to blue green
+                    .presentationDetents([.fraction(0.52), .fraction(0.6)]) // Set the width of the sheet to 30%
             })
             // Dismiss the view
             .toolbar {

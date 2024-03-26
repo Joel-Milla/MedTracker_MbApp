@@ -24,6 +24,8 @@ struct NotificationsView: View {
     @State private var selectedFrequency: NotificationFrequency = .daily
     // Date frequency variables
     @State var selectedDate: Date = Date()
+    // Variable that will hold the repetition of the notification
+    @Binding var stringNotification: String
     // Dates when the selected frequency is weekly
     @State var selectedDays: [String: Bool] = [
         "D": false,
@@ -64,6 +66,7 @@ struct NotificationsView: View {
                 }
                 
                 Button(action: {
+                    stringNotification = "Notificaciones de manera \(selectedFrequency.rawValue)"
                     dismiss()
                 }) {
                     Text("Guardar")
@@ -72,6 +75,17 @@ struct NotificationsView: View {
                 .frame(maxWidth: .infinity) // center the text
             }
             .padding()
+            // *********************************
+            // *********************************
+            // DELETE - Set the repetition of notifications
+            .onAppear {
+                stringNotification = "Notificaciones de manera \(selectedFrequency.rawValue)"
+            }
+            .onChange(of: selectedFrequency) { newValue in
+                stringNotification = "Notificaciones de manera \(newValue.rawValue)"
+            }
+            // *********************************
+            // *********************************
             .navigationTitle("Notificaciones")
             // Dismiss the view
             .toolbar {
@@ -88,6 +102,8 @@ struct NotificationsView: View {
 }
 
 #Preview {
-    
-    NotificationsView()
+    NavigationStack {
+        @State var stringNotification: String = ""
+        NotificationsView(stringNotification: $stringNotification)
+    }
 }

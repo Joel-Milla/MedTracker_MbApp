@@ -10,27 +10,46 @@ import SwiftUI
 struct PersonalizedNotificationsView: View {
     @Binding var selectedDate: Date
     @State var selectedNumber = 1
-    @State var selectedInterval: String = ""
+    @State var selectedInterval: String = "Día"
     // Possible frequency ranges
-    @State var intervals = ["Día ", "Semana ", "Mes "]
+    @State var intervals = ["Día", "Semana", "Mes"]
+    // Values when the frequency is weekly
+    @State var selectedDays: [String: Bool] = [
+        "D": false,
+        "L": false,
+        "M": false,
+        "X": false,
+        "J": false,
+        "V": false,
+        "S": false
+    ]
     var body: some View {
         HStack {
             // Stepper to select the number of repetition
             Stepper(value: $selectedNumber, in: 1...100) {
-                Text("Repetir cada \(selectedNumber) \(selectedNumber == 1 ? "día" : "días")")
-                    .fixedSize() // Ensure the text does not change size
+                HStack {
+                    Text("Frecuencia: ")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text("\(selectedNumber)")
+                }
             }
             // Select the interval
             Picker(selection: $selectedInterval, label: Text("Interval")) {
                 ForEach(intervals, id: \.self) { interval in
-                    Text(interval)
+                    Text(interval).tag(interval)
                 }
             }
             .tint(Color.blueGreen)
             .pickerStyle(MenuPickerStyle())
             .fixedSize() // Avoid the items form dispalcing
-            .frame(width: 80) // Fix size to avoid displacing the elements
+            .frame(width: 90) // Fix size to avoid displacing the elements
         }
+        // Show the frequency
+        Text(intervalToString(of: selectedNumber, as: selectedInterval))
+        if (selectedInterval == "Semana") {
+            WeeklyIntervalView(selectedDays: $selectedDays)
+        }
+        Spacer()
         // Select when it starts
         DatePicker("Empieza", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
             .datePickerStyle(CompactDatePickerStyle())
