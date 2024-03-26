@@ -8,7 +8,7 @@ struct LogInView: View {
     @State private var showErrorAlert = false
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             Form {
                 Group {
                     TextField("Email", text: $signInModel.email)
@@ -41,7 +41,6 @@ struct LogInView: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
                 .padding()
-                //.frame(width: UIScreen.main.bounds.width * 0.8, height: 50)
                 .frame(maxWidth: .infinity)
                 .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(10)
@@ -65,7 +64,7 @@ struct LogInView: View {
             }
             .navigationTitle("Iniciar Sesión")
         }
-    }
+//    }
 }
 
 

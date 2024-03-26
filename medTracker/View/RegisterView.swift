@@ -15,7 +15,7 @@ struct RegisterView: View {
     @State var errorMessage = ""
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             Form {
                 TextField("Nombre completo", text: $createAccountModel.name)
                     .textContentType(.name)
@@ -117,7 +117,7 @@ struct RegisterView: View {
             .navigationTitle("Registrarse")
             
         }
-    }
+//    }
 }
 
 struct registroUsuario_Previews: PreviewProvider {

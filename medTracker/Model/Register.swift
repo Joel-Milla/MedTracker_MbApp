@@ -13,7 +13,7 @@ struct Register : Codable, Hashable, Identifiable {
     var fecha : Date
     var cantidad : Float
     var notas : String
-    //var animacion : Bool
+    var animate : Bool = false
     
     init(idSymptom: String, fecha: Date, cantidad: Float, notas: String) {
         self.idSymptom = idSymptom
