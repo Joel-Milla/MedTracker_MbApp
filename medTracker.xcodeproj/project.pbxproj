@@ -19,6 +19,7 @@
 		1709489E2BAEC23B007E3E8B /* LineChartView_Cual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */; };
 		170948A22BAEC846007E3E8B /* BarChartView_Cual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */; };
 		170C07F62B51EE3A00AB937A /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170C07F52B51EE3A00AB937A /* WelcomeView.swift */; };
+		17117A072BB75B050009FED6 /* ChangingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17117A062BB75B050009FED6 /* ChangingText.swift */; };
 		1718E8B72B4F3736001691B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */; };
 		1718E8BA2B4F3802001691B8 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8B92B4F3802001691B8 /* FirebaseAnalytics */; };
 		1718E8BC2B4F381A001691B8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1718E8BB2B4F381A001691B8 /* FirebaseAuth */; };
@@ -99,6 +100,7 @@
 		1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView_Cual.swift; sourceTree = "<group>"; };
 		170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView_Cual.swift; sourceTree = "<group>"; };
 		170C07F52B51EE3A00AB937A /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		17117A062BB75B050009FED6 /* ChangingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingText.swift; sourceTree = "<group>"; };
 		1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSymptomView.swift; sourceTree = "<group>"; };
 		173EF2972BB137BE00F7ACF9 /* IconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconModel.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 				1789E81A2B5B32850087531D /* rowRegister.swift */,
 				179E78B52BB70EB500623AF1 /* MandatoryField.swift */,
 				179E78B72BB71FB700623AF1 /* Alert+Error.swift */,
+				17117A062BB75B050009FED6 /* ChangingText.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				FBE3812C2ADF3C2E004737C9 /* AnalysisView.swift in Sources */,
 				FBD940B32AFD754A00C3BD11 /* RegisterView.swift in Sources */,
 				FB6BBA162B0A990C008EFA9A /* FormViewModel.swift in Sources */,
+				17117A072BB75B050009FED6 /* ChangingText.swift in Sources */,
 				FB0EC3982B12759C00E7309B /* AddDoctorView.swift in Sources */,
 				FBD940B52AFD759D00C3BD11 /* LogInView.swift in Sources */,
 				170948A22BAEC846007E3E8B /* BarChartView_Cual.swift in Sources */,

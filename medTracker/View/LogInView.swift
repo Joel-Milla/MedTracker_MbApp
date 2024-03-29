@@ -6,6 +6,7 @@ import SwiftUI
 struct LogInView: View {
     @StateObject var signInModel: AuthViewModel.SignInViewModel
     @State private var showErrorAlert = false
+    @State var errorMessage = ""
     
     var body: some View {
 //        NavigationStack {
@@ -51,13 +52,22 @@ struct LogInView: View {
             }
             .keyboardToolbar()
             // The alert and onReceive check when there is a signIn error and show it.
-            .onReceive(signInModel.$error) { newValue in
-                showErrorAlert = newValue != nil
+            .onReceive(signInModel.$error) { registrationMessage in
+                if registrationMessage != nil {
+                    showErrorAlert = true
+                    if let message = registrationMessage?.localizedDescription {
+                        if message.contains("Network error"){
+                            errorMessage = "Hubo un problema de conexión."
+                        } else {
+                            errorMessage = "El mail o la contraseña son incorrectos."
+                        }
+                    }
+                }
             }
             .alert(isPresented: $showErrorAlert) {
                 Alert(
                     title: Text("Error al ingresar"),
-                    message: Text("El mail o la contraseña son incorrectos"),
+                    message: Text(errorMessage),
                     dismissButton: .default(Text("OK"), action: {
                         // Reset the registrationErrorMessage to nil when dismissing the alert
                         signInModel.error = nil

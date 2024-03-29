@@ -15,20 +15,13 @@ struct RegisterView: View {
     @State var errorMessage = ""
     
     var body: some View {
-//        NavigationStack {
             Form {
-                TextField("Nombre completo", text: $createAccountModel.name)
-                    .textContentType(.name)
-                    .textInputAutocapitalization(.words)
-                    .padding()
-                    .background(Color.secondary.opacity(0.15))
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color("mainBlue"), lineWidth: 1)
-                    )
-                
+                // Group that contains main data to enter
                 Group {
+                    TextField("Nombre completo", text: $createAccountModel.name)
+                        .textContentType(.name)
+                        .textInputAutocapitalization(.words)
+                    
                     TextField("Email", text: $createAccountModel.email)
                         .textContentType(.emailAddress)
                         .disableAutocorrection(true)
@@ -44,7 +37,7 @@ struct RegisterView: View {
                 .cornerRadius(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color("mainBlue"), lineWidth: 1)
+                        .stroke(Color.mainBlue, lineWidth: 1)
                 )
                 
                 // Account Type Picker
@@ -54,40 +47,27 @@ struct RegisterView: View {
                     }   
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .padding()
-                
-                Button(action: {
-                    if createAccountModel.name.isEmpty || createAccountModel.email.isEmpty || createAccountModel.password.isEmpty  {
-                        showErrorAlert = true
-                        errorMessage = "Llena todos los valores"
-                    } else if passwordConfirm != createAccountModel.password {
-                        showErrorAlert = true
-                        errorMessage = "Las contraseñas no coinciden"
-                    }
-                    else {
-                        createAccountModel.submit() //Submits the request to firebase to create a new user.
-                    }
-                }, label: {
-                    // The switch check the status of the request and shows a loading animation if it is waiting a response from firebase.
-                    switch createAccountModel.state {
-                    case .idle:
-                        Text("Crear Cuenta")
-                    case .isLoading:
-                        ProgressView()
-                    case .successfullyCompleted:
-                        Text("Crear Cuenta")
-                    }
-                })
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.white)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
-                .cornerRadius(10)
-                .shadow(radius: 5)
+                .padding(.vertical, 10)
+                Section {
+                    Button(action: {
+                        if createAccountModel.name.isEmpty || createAccountModel.email.isEmpty || createAccountModel.password.isEmpty  {
+                            showErrorAlert = true
+                            errorMessage = "Llena todos los valores"
+                        } else if passwordConfirm != createAccountModel.password {
+                            showErrorAlert = true
+                            errorMessage = "Las contraseñas no coinciden"
+                        }
+                        else {
+                            createAccountModel.submit() //Submits the request to firebase to create a new user.
+                        }
+                    }, label: {
+                        // Use changingText to show a progressView when the request is loading
+                        ChangingText(state: $createAccountModel.state, title: "Crear Cuenta")
+                    })
+                    .gradientTextStyle() // apply gradient style
+                }
             }
-            .keyboardToolbar()
+            .keyboardToolbar() // apply the button to have an ok and dismiss the view
             .onSubmit(createAccountModel.submit)
              // The alert and onReceive check when there is a registrationError and show it.
             .onReceive(createAccountModel.$error) { registrationMessage in
@@ -119,7 +99,6 @@ struct RegisterView: View {
             .navigationTitle("Registrarse")
             
         }
-//    }
 }
 
 struct registroUsuario_Previews: PreviewProvider {

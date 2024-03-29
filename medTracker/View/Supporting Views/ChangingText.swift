@@ -7,12 +7,25 @@
 
 import SwiftUI
 
-struct ChangingText: View {
+struct ChangingText<Value>: View {
+    @Binding var state: FormViewModel<Value>.State
+    @State var title: String
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        switch state {
+        case .idle:
+            Text(title)
+        case .isLoading:
+            ProgressView()
+        case .successfullyCompleted:
+            Text(title)
+        }
     }
 }
 
 #Preview {
-    ChangingText()
+    NavigationStack {
+        @State var state: FormViewModel<Symptom>.State = .idle
+        @State var title: String = "Hello"
+        ChangingText(state: $state, title: title)
+    }
 }

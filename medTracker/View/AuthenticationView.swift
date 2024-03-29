@@ -11,7 +11,7 @@ import SwiftUI
  This view only displays a welcome message and two buttons to log in or register.
  **********************************/
 struct AuthenticationView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel // Variable in charge of handling sign in and register
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -20,6 +20,7 @@ struct AuthenticationView: View {
                 Color("mainWhite")
                     .ignoresSafeArea()
                 VStack{
+                    // Show the logo
                     if colorScheme == .light{
                         Image("logoV")
                             .resizable()
@@ -38,28 +39,14 @@ struct AuthenticationView: View {
                         LogInView(signInModel: authViewModel.makeSignInViewModel())
                     } label: {
                         Text("Iniciar Sesión")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 220, height: 50)
-                            .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
+                            .gradientTextStyle() // apply gradient style
                     }
                     
                     NavigationLink {
                         RegisterView(createAccountModel: authViewModel.makeCreateAccountViewModel())
                     } label: {
                         Text("Registrarse")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 220, height: 50)
-                            .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
+                            .gradientTextStyle() // apply gradient style
                     }
                     
                 }
@@ -69,8 +56,9 @@ struct AuthenticationView: View {
     }
 }
 
-struct Bienvenida_Previews: PreviewProvider {
-    static var previews: some View {
+#Preview {
+    NavigationStack {
         AuthenticationView()
+            .environmentObject(AuthViewModel())
     }
 }

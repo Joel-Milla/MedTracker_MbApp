@@ -60,8 +60,6 @@ struct CreateSymptomView: View {
                         }
                     }
                     .gradientTextStyle() // apply gradient style
-                    .frame(maxWidth: .infinity) // center the text
-                    .listRowBackground(Color.clear) // Makes the row background transparent
                 }
             }
             .navigationTitle("Crear Dato")
