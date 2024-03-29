@@ -89,8 +89,8 @@ struct HomeView: View {
                             .buttonStyle(Button1MedTracker(backgroundColor: Color("blueGreen")))
                             .offset(x: -14, y: -95)
                             .sheet(isPresented: $muestraAgregarSintomas) {
-//                                AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
-                                CreateSymptomView(formViewModel: symptoms.makeNewSymptomForm())
+                                AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
+//                                CreateSymptomView(formViewModel: symptoms.makeNewSymptomForm())
                             }
                         }
                     },
