@@ -25,6 +25,9 @@ struct GradientTextStyle: ViewModifier {
             .background(LinearGradient(gradient: Gradient(colors: [.mainBlue, .blueGreen]), startPoint: .leading, endPoint: .trailing))
             .cornerRadius(10)
             .shadow(radius: 5)
+        // Add the next styles so the buttons are centered and without background inside a form element
+            .frame(maxWidth: .infinity) // center the text
+            .listRowBackground(Color.clear) // Makes the row background transparent
     }
 }
 
