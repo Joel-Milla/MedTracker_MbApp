@@ -33,9 +33,12 @@ struct CS_TypeView: View {
         "otro",
     ]
     // Variables to save
-    @State var cuantitativo: Bool = true
-    @State var selectedUnit: String = "kg"
+    @Binding var cuantitativo: Bool
+    @Binding var selectedUnit: String
+    @State var typeUnit: String = "kg"
+    // Variables for when the user is using a custom unit
     @State var customUnit: String = ""
+    @State private var isCustomUnitActive: Bool = false
     
     var body: some View {
         // Use animation to show nicely the new section
@@ -46,20 +49,41 @@ struct CS_TypeView: View {
         .pickerStyle(.segmented)
         // Show the view to select the new units
         if (cuantitativo) {
-            Picker("Unidad", selection: $selectedUnit.animation()) {
+            Picker("Unidad", selection: $typeUnit.animation()) {
                 ForEach(units, id: \.self) { unit in
                     Text(unit).tag(unit)
                 }
             }
             .tint(Color("blueGreen"))
+            // Save the value of type unit as the value of selectedUnit
+            .onAppear(perform: {
+                typeUnit = selectedUnit
+            })
+            // Use on change to save the unit that the user selected to the main variable
+            .onChange(of: typeUnit) { newValue in
+                // If the user selected "otro" then it needs to pay attention to custom unit
+                if (!(newValue == "otro")) {
+                    selectedUnit = typeUnit
+                }
+            }
         }
         // If the unit wasnt defined
-        if (selectedUnit == "otro") {
+        if (typeUnit == "otro") {
             TextField("Escribe tu unidad", text: $customUnit)
+            // OnChange so when the user has a typeUnit of otro, to save that value into selected unit
+                .onChange(of: customUnit) { newValue in
+                    if (typeUnit == "otro") {
+                        selectedUnit = newValue
+                    }
+                }
         }
     }
 }
 
 #Preview {
-    CS_TypeView()
+    NavigationStack {
+        @State var cuantitativo: Bool = true
+        @State var selectedUnit: String = "kg"
+        CS_TypeView(cuantitativo: $cuantitativo, selectedUnit: $selectedUnit)
+    }
 }

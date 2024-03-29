@@ -9,8 +9,9 @@ import SwiftUI
 
 struct CS_NameView: View {
     // Data variables
-    @State var name: String = ""
-    @State var selectedIcon: String = "heart"
+    @Binding var name: String
+    @Binding var selectedIcon: String
+    @Binding var colorToSave: String
     @State var selectedColor: Color = Color("blueGreen")
     // Sheet variables
     @State var showIconView = false
@@ -41,9 +42,18 @@ struct CS_NameView: View {
         .sheet(isPresented: $showIconView, content: {
             IconPicker(selectedIcon: $selectedIcon)
         })
+        // When the user changes the color, change the default color
+        .onChange(of: selectedColor) { newValue in
+            colorToSave = selectedColor.toHex()
+        }
     }
 }
 
 #Preview {
-    CS_NameView()
+    NavigationStack {
+        @State var name: String = ""
+        @State var selectedIcon: String = ""
+        @State var colorToSave: String = "#009C8C"
+        CS_NameView(name: $name, selectedIcon: $selectedIcon, colorToSave: $colorToSave)
+    }
 }

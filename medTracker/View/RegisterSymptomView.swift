@@ -159,7 +159,7 @@ struct RegisterSymptomView: View {
                                 notificacionesActivas.toggle()
                                 
                                 if notificacionesActivas == false {
-                                    cancelNotification(withID: symptom.notificacion ?? "")
+                                    cancelNotification(withID: symptom.notificacion)
                                     symptom.notificacion = ""
                                 } else {
                                     nuevaNotificacion = true

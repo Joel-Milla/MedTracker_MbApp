@@ -59,12 +59,36 @@ class SymptomList : ObservableObject {
      Helper functions
      **********************************/
     
+    // Functions used in CreateSymptomView that is the new view.
+    // ******************************************************************
+    // ******************************************************************
+    func makeNewSymptomViewModel() -> FormViewModel<Symptom> {
+        return FormViewModel(initialValue: Symptom()) { [weak self] symptom in
+            try await self?.repository.createSymptom(symptom)
+        }
+    }
+    
+    
+    // Functions used in CreateSymptomView that is the new view.
+    // ******************************************************************
+    // ******************************************************************
+    
+    
+    
+    
+    
+    // ************* DELETE WHEN AddSymptomView IS NOT USED *************
+    // ******************************************************************
+    // ******************************************************************
     // The functions returns a closure that is used to write information in firebase
     func makeCreateAction() -> AddSymptomView.CreateAction {
         return { [weak self] symptom in
             try await self?.repository.createSymptom(symptom)
         }
     }
+    // ******************************************************************
+    // ******************************************************************
+    // ************* DELETE WHEN AddSymptomView IS NOT USED *************
     
     // The functions returns a closure that is used to write information in firebase
     func makeUpdateAction(for symptom: Symptom) -> Action {
