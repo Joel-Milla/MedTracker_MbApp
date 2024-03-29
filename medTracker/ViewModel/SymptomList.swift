@@ -73,7 +73,7 @@ class SymptomList : ObservableObject {
         }
     }
     
-    func makeNewSymptomViewModel() -> FormViewModel<Symptom> {
+    func makeNewSymptomForm() -> FormViewModel<Symptom> {
         return FormViewModel(initialValue: Symptom()) { [weak self] symptom in
             let (hasError, message) = symptom.validateInput()
             if (hasError) {
