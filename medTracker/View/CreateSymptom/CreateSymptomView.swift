@@ -25,7 +25,7 @@ struct CreateSymptomView: View {
                     CS_NameView(name: $formViewModel.nombre, selectedIcon: $formViewModel.icon, colorToSave: $formViewModel.color)
                 }
                 // Description of the new symptom
-                Section(header: Text("Descripción")) {
+                Section(header: MandatoryField(text: "Nombre")) {
                     Text("Describe el dato:")
                     TextEditor(text: $formViewModel.description)
                 }
@@ -46,16 +46,33 @@ struct CreateSymptomView: View {
                 
                 Section {
                     Button(action: {
-                        dismiss()
+                        // Make the form submit
+                        formViewModel.submit()
                     }) {
-                        Text("Guardar")
-                            .gradientTextStyle() // apply gradient style
+                        // Depending on the state of the form, show the text
+                        switch formViewModel.state {
+                        case .idle:
+                            Text("Guardar")
+                        case .isLoading:
+                            ProgressView()
+                        case .successfullyCompleted:
+                            Text("Guardar")
+                        }
                     }
+                    .gradientTextStyle() // apply gradient style
                     .frame(maxWidth: .infinity) // center the text
                     .listRowBackground(Color.clear) // Makes the row background transparent
                 }
             }
             .navigationTitle("Crear Dato")
+            // Show alert to tell the user that there is an error
+            .alert("Error al guardar datos", error: $formViewModel.error)
+            // The next on change checks the state of the form submit and dismiss this view when it is completed succesfullly
+            .onChange(of: formViewModel.state) { newValue in
+                if (newValue == .successfullyCompleted ) {
+                    dismiss()
+                }
+            }
             // Use showNotifications to present the sheet to modify the notifications and only when it is true
             .onChange(of: allowNotifications) { newValue in
                 if (newValue) {

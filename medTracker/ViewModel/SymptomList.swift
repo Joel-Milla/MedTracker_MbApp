@@ -62,9 +62,26 @@ class SymptomList : ObservableObject {
     // Functions used in CreateSymptomView that is the new view.
     // ******************************************************************
     // ******************************************************************
+    // Special enum to throw tell that the input is not valid
+    enum ValidationError: Error, LocalizedError {
+        case invalidInput(String)
+        public var errorDescription: String? {
+            switch self {
+            case .invalidInput(let message):
+                return NSLocalizedString(message, comment: message)
+            }
+        }
+    }
+    
     func makeNewSymptomViewModel() -> FormViewModel<Symptom> {
         return FormViewModel(initialValue: Symptom()) { [weak self] symptom in
-            try await self?.repository.createSymptom(symptom)
+            let (hasError, message) = symptom.validateInput()
+            if (hasError) {
+                throw ValidationError.invalidInput(message)
+            } else {
+                self?.symptoms.append(symptom)
+                try await self?.repository.createSymptom(symptom)
+            }
         }
     }
     
@@ -80,6 +97,7 @@ class SymptomList : ObservableObject {
     // ************* DELETE WHEN AddSymptomView IS NOT USED *************
     // ******************************************************************
     // ******************************************************************
+    
     // The functions returns a closure that is used to write information in firebase
     func makeCreateAction() -> AddSymptomView.CreateAction {
         return { [weak self] symptom in

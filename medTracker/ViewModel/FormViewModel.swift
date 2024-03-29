@@ -32,6 +32,7 @@ class FormViewModel<Value>: ObservableObject {
     enum State {
         case idle
         case isLoading
+        case successfullyCompleted
     }
     
     /**********************
@@ -56,10 +57,11 @@ class FormViewModel<Value>: ObservableObject {
         state = .isLoading
         do {
             try await action(value)
+            state = .successfullyCompleted
         } catch {
             customPrint("[FormViewModel] Cannot submit: \(error)")
             self.error = error
+            state = .idle
         }
-        state = .idle
     }
 }

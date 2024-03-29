@@ -74,6 +74,8 @@ struct RegisterView: View {
                         Text("Crear Cuenta")
                     case .isLoading:
                         ProgressView()
+                    case .successfullyCompleted:
+                        Text("Crear Cuenta")
                     }
                 })
                 .font(.headline)

@@ -35,4 +35,14 @@ struct Symptom : Codable, Hashable, Identifiable {
         self.init(nombre: "", icon: "heart", description: "", cuantitativo: true, unidades: "kg", activo: true, color: "#009C8C", notificacion : "")
     }
     
+    // Function to validate if the necessary inputs are filled
+    func validateInput() -> (Bool, String) {
+        if (nombre == "") {
+            return (true, "Datos faltantes. Por favor de poner un nombre al dato.")
+        } else if (description == "") {
+            return (true, "Datos faltantes. Por favor de poner una descripción al dato.")
+        }
+        return (false, "")
+    }
+    
 }

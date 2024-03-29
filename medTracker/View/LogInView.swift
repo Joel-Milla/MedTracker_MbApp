@@ -35,6 +35,8 @@ struct LogInView: View {
                         Text("Iniciar Sesión")
                     case .isLoading:
                         ProgressView()
+                    case .successfullyCompleted:
+                        Text("Iniciar Sesión")
                     }
                 })
                 .font(.headline)
