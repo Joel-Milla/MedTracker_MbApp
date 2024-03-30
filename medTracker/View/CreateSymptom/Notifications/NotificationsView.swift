@@ -70,7 +70,7 @@ struct NotificationsView: View {
                     dismiss()
                 }) {
                     Text("Guardar")
-                        .gradientTextStyle() // apply gradient style
+                        .gradientStyle() // apply gradient style
                 }
                 .frame(maxWidth: .infinity) // center the text
             }

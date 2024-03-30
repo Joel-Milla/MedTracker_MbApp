@@ -14,7 +14,7 @@ extension Color {
 }
 
 // Create gradient style with original colors for Text
-struct GradientTextStyle: ViewModifier {
+struct GradientStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.headline)
@@ -31,9 +31,27 @@ struct GradientTextStyle: ViewModifier {
     }
 }
 
+// Create gradient style with original colors for Text
+struct InputStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        // Style for the input for having the borders with color, being gray and with spacing
+        content
+            .padding()
+            .background(Color.secondary.opacity(0.15))
+            .cornerRadius(10)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.mainBlue, lineWidth: 1)
+            )
+    }
+}
+
 // Extend View to create a custom modifier for any view
 extension View {
-    func gradientTextStyle() -> some View {
-        self.modifier(GradientTextStyle())
+    func gradientStyle() -> some View {
+        self.modifier(GradientStyle())
+    }
+    func inputStyle() -> some View {
+        self.modifier(InputStyle())
     }
 }

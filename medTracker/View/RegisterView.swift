@@ -7,10 +7,8 @@ import SwiftUI
 struct RegisterView: View {
     // Variables to display information to the user
     @State private var typesOfAccount = ["Paciente", "Doctor"]
+    // Object that makes the submission
     @StateObject var createAccountModel: AuthViewModel.CreateAccountViewModel
-    @State private var showErrorAlert = false
-    
-    @State var errorMessage = ""
     
     var body: some View {
             Form {
@@ -30,13 +28,8 @@ struct RegisterView: View {
                     SecureField("Confirmar Contraseña", text: $createAccountModel.confirmPassword)
                         .textContentType(.password)
                 }
-                .padding()
-                .background(Color.secondary.opacity(0.15))
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.mainBlue, lineWidth: 1)
-                )
+                // Groupped style to be applied to the input
+                .inputStyle()
                 
                 // Account Type Picker
                 Picker("Account Type", selection: $createAccountModel.role) {
@@ -46,6 +39,7 @@ struct RegisterView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.vertical, 10)
+    
                 Section {
                     Button(action: {
                         createAccountModel.submit() //Submits the request to firebase to create a new user.
@@ -53,48 +47,20 @@ struct RegisterView: View {
                         // Use changingText to show a progressView when the request is loading
                         ChangingText(state: $createAccountModel.state, title: "Crear Cuenta")
                     })
-                    .gradientTextStyle() // apply gradient style
+                    .gradientStyle() // apply gradient style
                 }
             }
             .keyboardToolbar() // apply the button to have an ok and dismiss the view
             .onSubmit(createAccountModel.submit)
-             // The alert and onReceive check when there is a registrationError and show it in spanish.
-            .onReceive(createAccountModel.$error) { registrationMessage in
-                if registrationMessage != nil {
-                    showErrorAlert = true
-                    if let message = registrationMessage?.localizedDescription {
-                        errorMessage = message
-//                        if message.contains("email address is already"){
-//                            errorMessage = "El email ingresado ya esta en uso"
-//                        } else if message.contains("email address"){
-//                            errorMessage = "El email ingresado no es válido"
-//                        } else if message.contains("password must be 6 characters") {
-//                            errorMessage = "La contraseña debe tener al menos seis caracteres"
-//                        } else {
-//                            errorMessage = "Error, no se pudo crear la cuenta."
-//                        }
-                    }
-                }
-            }
-            .alert(isPresented: $showErrorAlert) {
-                Alert(
-                    title: Text("Error al Crear la Cuenta"),
-                    message: Text(errorMessage),
-                    dismissButton: .default(Text("OK"), action: {
-                        // Reset the registrationErrorMessage to nil when dismissing the alert
-                        createAccountModel.error = nil
-                    })
-                )
-            }
+            .alert("Error al guardar datos", error: $createAccountModel.error) // Show the error if there is any with the submission
             .navigationTitle("Registrarse")
             
         }
 }
 
-struct registroUsuario_Previews: PreviewProvider {
-    static var viewModels = AuthViewModel()
-    static var previews: some View {
-        RegisterView(createAccountModel: viewModels.makeCreateAccountViewModel())
+#Preview {
+    NavigationStack {
+        RegisterView(createAccountModel: AuthViewModel().makeCreateAccountViewModel())
     }
 }
 

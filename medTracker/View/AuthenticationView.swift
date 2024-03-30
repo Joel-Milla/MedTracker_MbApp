@@ -40,14 +40,14 @@ struct AuthenticationView: View {
                         LogInView(signInModel: authViewModel.makeSignInViewModel())
                     } label: {
                         Text("Iniciar Sesión")
-                            .gradientTextStyle() // apply gradient style
+                            .gradientStyle() // apply gradient style
                     }
                     
                     NavigationLink {
                         RegisterView(createAccountModel: authViewModel.makeCreateAccountViewModel())
                     } label: {
                         Text("Registrarse")
-                            .gradientTextStyle() // apply gradient style
+                            .gradientStyle() // apply gradient style
                     }
                     
                 }

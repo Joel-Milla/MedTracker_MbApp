@@ -67,11 +67,11 @@ class AuthService: ObservableObject {
         self.name = name
         self.role = role
         do {
+            // Make requests to firebase
             let result = try await auth.createUser(withEmail: email, password: password)
             try await result.user.updateProfile(\.displayName, to: name) // Save the name of the user
             try await save(role, of: result.user.uid, with: email)
         } catch {
-            print(error)
             // With this transform the error into an error code to know which error firebase is giving
             if let error = error as NSError? {
                 if let errorCode = AuthErrorCode.Code(rawValue: error.code) {
@@ -81,17 +81,29 @@ class AuthService: ObservableObject {
         }
     }
     
-    func handleFirebaseError(code errorCode: AuthErrorCode.Code) throws {
-        switch(errorCode) {
-        case .invalidEmail:
-            throw HelperFunctions.ErrorType.invalidEmail
-        case .weakPassword:
-            throw HelperFunctions.ErrorType.weakPassword
-        case .emailAlreadyInUse:
-            throw HelperFunctions.ErrorType.emailAlreadyInUse
-        default:
-            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
+    // Function that tries to sign in.
+    func signIn(email: String, password: String) async throws {
+        // Validate if everything is correct before making the request to firebase
+        if (email.isEmpty || password.isEmpty) {
+            throw HelperFunctions.ErrorType.invalidInput("Llena todos los valores")
         }
+        do {
+            // Make request to firebase
+            try await auth.signIn(withEmail: email, password: password)
+        } catch {
+            customPrint(error)
+            // With this transform the error into an error code to know which error firebase is giving
+            if let error = error as NSError? {
+                if let errorCode = AuthErrorCode.Code(rawValue: error.code) {
+                    try handleFirebaseError(code: errorCode)
+                }
+            }
+        }
+    }
+    
+    // Function to sign out.
+    func signOut() throws {
+        try auth.signOut()
     }
     
     // Create the role of the user in the database
@@ -105,14 +117,22 @@ class AuthService: ObservableObject {
         ])
     }
     
-    // Function that tries to sign in.
-    func signIn(email: String, password: String) async throws {
-        try await auth.signIn(withEmail: email, password: password)
-    }
-    
-    // Function to sign out.
-    func signOut() throws {
-        try auth.signOut()
+    // Function that recieves a code error from firebase and handles the matching of errors
+    func handleFirebaseError(code errorCode: AuthErrorCode.Code) throws {
+        switch(errorCode) {
+        case .networkError:
+            throw HelperFunctions.ErrorType.networkError
+        case .invalidEmail:
+            throw HelperFunctions.ErrorType.invalidEmail
+        case .weakPassword:
+            throw HelperFunctions.ErrorType.weakPassword
+        case .emailAlreadyInUse:
+            throw HelperFunctions.ErrorType.emailAlreadyInUse
+        case .invalidCredential:
+            throw HelperFunctions.ErrorType.invalidCredentials
+        default:
+            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
+        }
     }
 }
 

@@ -79,27 +79,37 @@ class HelperFunctions {
     
     // Special enum to throw tell that the input is not valid and with the possibility to add a message to print
     enum ErrorType: Error, LocalizedError {
+        // General errors and modifiable errors
+        case networkError
         case general(String)
         case invalidInput(String)
+        // Error throwns when creating an account
         case invalidEmail
+        case weakPassword
         case emailAlreadyInUse
         case operationNotAllowed
-        case weakPassword
+        // Error thrown when signin in
+        case invalidCredentials
+        
         
         var errorDescription: String? {
             switch self {
+            case .networkError:
+                return "Hubo un problema de conexión, intentalo nuevamente."
             case .general(let message):
                 return message
             case .invalidInput(let message):
                 return message
-            case .invalidEmail:
+            case .invalidEmail: // for creating an account and when loggin in
                 return "La dirección de correo electrónico está mal formada."
+            case .weakPassword:
+                return "La contraseña debe de tener al menos 6 caracteres."
             case .emailAlreadyInUse:
                 return "El correo electrónico ya está en uso."
             case .operationNotAllowed:
                 return "La operación no está permitida."
-            case .weakPassword:
-                return "La contraseña debe de tener al menos 6 caracteres"
+            case .invalidCredentials:
+                return "El mail o la contraseña son incorrectos."
             }
         }
     }

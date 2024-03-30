@@ -59,7 +59,7 @@ struct CreateSymptomView: View {
                             Text("Guardar")
                         }
                     }
-                    .gradientTextStyle() // apply gradient style
+                    .gradientStyle() // apply gradient style
                 }
             }
             .navigationTitle("Crear Dato")

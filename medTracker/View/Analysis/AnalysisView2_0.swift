@@ -45,7 +45,7 @@ struct AnalysisView2_0: View {
                     registersView()
                 } label: {
                     Text("Registros Pasados")
-                        .gradientTextStyle() // Use the default gradient to show the correct style of the button
+                        .gradientStyle() // Use the default gradient to show the correct style of the button
                 }
                 
             }

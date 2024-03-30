@@ -13,7 +13,7 @@
 		170948892BAE8900007E3E8B /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948882BAE8900007E3E8B /* InsightsView.swift */; };
 		1709488B2BAE8CAB007E3E8B /* LineChartView_Cuant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */; };
 		1709488D2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */; };
-		1709488F2BAE8FB1007E3E8B /* GradientMedTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488E2BAE8FB1007E3E8B /* GradientMedTracker.swift */; };
+		1709488F2BAE8FB1007E3E8B /* StylesMedTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488E2BAE8FB1007E3E8B /* StylesMedTracker.swift */; };
 		170948972BAE96BB007E3E8B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948962BAE96BB007E3E8B /* ChartView.swift */; };
 		170948992BAEA033007E3E8B /* BarChartView_Cuant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */; };
 		1709489E2BAEC23B007E3E8B /* LineChartView_Cual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */; };
@@ -94,7 +94,7 @@
 		170948882BAE8900007E3E8B /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 		1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView_Cuant.swift; sourceTree = "<group>"; };
 		1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewExtensions.swift; sourceTree = "<group>"; };
-		1709488E2BAE8FB1007E3E8B /* GradientMedTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientMedTracker.swift; sourceTree = "<group>"; };
+		1709488E2BAE8FB1007E3E8B /* StylesMedTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylesMedTracker.swift; sourceTree = "<group>"; };
 		170948962BAE96BB007E3E8B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView_Cuant.swift; sourceTree = "<group>"; };
 		1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView_Cual.swift; sourceTree = "<group>"; };
@@ -447,7 +447,7 @@
 			children = (
 				FB1A55512AFD772900F9A74A /* CustomSlider.swift */,
 				FB1A55532AFD773F00F9A74A /* Button1MedTracker.swift */,
-				1709488E2BAE8FB1007E3E8B /* GradientMedTracker.swift */,
+				1709488E2BAE8FB1007E3E8B /* StylesMedTracker.swift */,
 				FB17DAB42B0D771F006294BD /* FloatToString.swift */,
 				F87256772B128AAA00044A05 /* Notifications.swift */,
 			);
@@ -587,7 +587,7 @@
 				FB0EC39F2B12FEC600E7309B /* Patient.swift in Sources */,
 				170948892BAE8900007E3E8B /* InsightsView.swift in Sources */,
 				FB87FED12ADDEE9800F6273B /* MainView.swift in Sources */,
-				1709488F2BAE8FB1007E3E8B /* GradientMedTracker.swift in Sources */,
+				1709488F2BAE8FB1007E3E8B /* StylesMedTracker.swift in Sources */,
 				FB0EC3AB2B13181300E7309B /* AnalysisDoctorView.swift in Sources */,
 				FB320FA72AEB2754005865F5 /* AddSymptomView.swift in Sources */,
 				17F133692B98E401004C6D8F /* GlobalUtilities.swift in Sources */,
