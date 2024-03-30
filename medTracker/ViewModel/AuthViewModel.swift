@@ -39,15 +39,15 @@ class AuthViewModel: ObservableObject {
      **********************************/
     private let authService = AuthService()
     @Published var state: State = .idle // Variable to know the state of the request of firebase
-    @Published var isAuthenticated = false // to know if the user is authenticated or not
+//    @Published var isAuthenticated = false // to know if the user is authenticated or not
     
     /**********************
      Important initialization method
      **********************************/
     init() {
         // To know the current state of the user.
-        authService.$isAuthenticated.assign(to: &$isAuthenticated)
-        authService.$user.assign(to: &$user)
+//        authService.$isAuthenticated.assign(to: &$isAuthenticated)
+        authService.$user.assign(to: &$user) // This line of code links the variable user of authService to the user variable of this file
         fetchUserRole()
     }
     
@@ -66,7 +66,7 @@ class AuthViewModel: ObservableObject {
                 try authService.signOut() // Reset the state of the authService
                 // The next lines of code delete all the information of the current user
                 deleteFiles()
-                isAuthenticated = false
+//                isAuthenticated = false
                 
             } catch {
                 customPrint("[AuthViewModel] Error while signin out: \(error)")
@@ -77,6 +77,7 @@ class AuthViewModel: ObservableObject {
     // Function that performs a shallow search on the files created and deletes them
     private func deleteFiles() {
         do {
+            // Obtain all the files that were written in file manager and deletes them
             let fileManager = FileManager.default
             let documentsDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let documentsDirectoryPath = documentsDirectory.path
@@ -92,7 +93,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    // Fetch users role from firestore
+    // Fetch users role from Firebase
     func fetchUserRole() {
         Task {
             user?.rol = try await HelperFunctions.fetchUserRole(email: userEmail)
@@ -134,7 +135,7 @@ class AuthViewModel: ObservableObject {
     
     // returns a closure of a form to create an account
     func makeCreateAccountViewModel() -> CreateAccountViewModel {
-        return CreateAccountViewModel(action: authService.createAccount(name:email:password:role:))
+        return CreateAccountViewModel(action: authService.createAccount(name:email:password:confirmPassword:role:))
     }
 }
 
@@ -145,9 +146,9 @@ extension AuthViewModel {
         }
     }
     
-    class CreateAccountViewModel: FormViewModel<(name: String, email: String, password: String, role: String)> {
+    class CreateAccountViewModel: FormViewModel<(name: String, email: String, password: String, confirmPassword: String, role: String)> {
         convenience init(action: @escaping Action) {
-            self.init(initialValue: (name: "", email: "", password: "", role: "Paciente"), action: action)
+            self.init(initialValue: (name: "", email: "", password: "", confirmPassword: "", role: "Paciente"), action: action)
         }
     }
 }

@@ -16,7 +16,7 @@ import FirebaseFirestoreSwift
 @MainActor
 class AuthService: ObservableObject {
     @Published var user: User?
-    @Published var isAuthenticated = false
+//    @Published var isAuthenticated = false
     // The next two variables are used to keep the model update when creating an account, because the update firebaseDisplayName or the role from firebase are written way after the functions are ran. So the variables keep updated everything when creating an account. When using log in are not necessary because are already created.
     private var name: String?
     private var role: String?
@@ -29,7 +29,7 @@ class AuthService: ObservableObject {
      **********************************/
     init() {
         listener = auth.addStateDidChangeListener ({ _, firebaseUser in
-            self.isAuthenticated = firebaseUser != nil
+//            self.isAuthenticated = firebaseUser != nil
             if let firebaseUser = firebaseUser {
                 if let name = self.name, let role = self.role {
                     // This will run when the user creates an account
@@ -56,12 +56,42 @@ class AuthService: ObservableObject {
      **********************************/
     
     // Function to create an account based on a name, email, and password.
-    func createAccount(name: String, email: String, password: String, role: String) async throws {
+    func createAccount(name: String, email: String, password: String, confirmPassword: String, role: String) async throws {
+        // Validate if everything is correct before making the request to firebase
+        if (name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+            throw HelperFunctions.ErrorType.invalidInput("Llena todos los valores")
+        } else if (password != confirmPassword) {
+            throw HelperFunctions.ErrorType.invalidInput("Las contraseñas no coinciden")
+        }
+        // Save data into the model and make the request to firebase to create the user
         self.name = name
         self.role = role
-        let result = try await auth.createUser(withEmail: email, password: password)
-        try await result.user.updateProfile(\.displayName, to: name) // Save the name of the yser
-        try await save(role, of: result.user.uid, with: email)
+        do {
+            let result = try await auth.createUser(withEmail: email, password: password)
+            try await result.user.updateProfile(\.displayName, to: name) // Save the name of the user
+            try await save(role, of: result.user.uid, with: email)
+        } catch {
+            print(error)
+            // With this transform the error into an error code to know which error firebase is giving
+            if let error = error as NSError? {
+                if let errorCode = AuthErrorCode.Code(rawValue: error.code) {
+                    try handleFirebaseError(code: errorCode)
+                }
+            }
+        }
+    }
+    
+    func handleFirebaseError(code errorCode: AuthErrorCode.Code) throws {
+        switch(errorCode) {
+        case .invalidEmail:
+            throw HelperFunctions.ErrorType.invalidEmail
+        case .weakPassword:
+            throw HelperFunctions.ErrorType.weakPassword
+        case .emailAlreadyInUse:
+            throw HelperFunctions.ErrorType.emailAlreadyInUse
+        default:
+            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
+        }
     }
     
     // Create the role of the user in the database
@@ -95,7 +125,7 @@ private extension FirebaseAuth.User {
     }
 }
 
-// Convert the user information
+// Convert the user information into the userModel and save it
 private extension User {
     init(from firebaseUser: FirebaseAuth.User, name: String? = nil, role: String? = nil) {
         self.id = firebaseUser.uid

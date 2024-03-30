@@ -62,25 +62,17 @@ class SymptomList : ObservableObject {
     // Functions used in CreateSymptomView that is the new view.
     // ******************************************************************
     // ******************************************************************
-    // Special enum to throw tell that the input is not valid
-    enum ValidationError: Error, LocalizedError {
-        case invalidInput(String)
-        public var errorDescription: String? {
-            switch self {
-            case .invalidInput(let message):
-                return NSLocalizedString(message, comment: message)
-            }
-        }
-    }
     
-    func makeNewSymptomForm() -> FormViewModel<Symptom> {
+    // Return a formViewModel that handles the creation of a new symptom
+    func createSymptomViewModel() -> FormViewModel<Symptom> {
         return FormViewModel(initialValue: Symptom()) { [weak self] symptom in
             let (hasError, message) = symptom.validateInput()
+            // if the symptom doesnt have valid input, throw an error
             if (hasError) {
-                throw ValidationError.invalidInput(message)
+                throw HelperFunctions.ErrorType.invalidInput(message)
             } else {
-                self?.symptoms.append(symptom)
-                try await self?.repository.createSymptom(symptom)
+                self?.symptoms.append(symptom) // adds the symptom to the current array
+                try await self?.repository.createSymptom(symptom) // use function in the repository to create the symptom
             }
         }
     }

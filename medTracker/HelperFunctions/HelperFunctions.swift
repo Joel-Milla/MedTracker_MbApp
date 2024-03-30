@@ -77,4 +77,32 @@ class HelperFunctions {
         return imageName
     }
     
+    // Special enum to throw tell that the input is not valid and with the possibility to add a message to print
+    enum ErrorType: Error, LocalizedError {
+        case general(String)
+        case invalidInput(String)
+        case invalidEmail
+        case emailAlreadyInUse
+        case operationNotAllowed
+        case weakPassword
+        
+        var errorDescription: String? {
+            switch self {
+            case .general(let message):
+                return message
+            case .invalidInput(let message):
+                return message
+            case .invalidEmail:
+                return "La dirección de correo electrónico está mal formada."
+            case .emailAlreadyInUse:
+                return "El correo electrónico ya está en uso."
+            case .operationNotAllowed:
+                return "La operación no está permitida."
+            case .weakPassword:
+                return "La contraseña debe de tener al menos 6 caracteres"
+            }
+        }
+    }
 }
+    
+

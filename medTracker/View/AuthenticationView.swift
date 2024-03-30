@@ -35,6 +35,7 @@ struct AuthenticationView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 300)
                     }
+                    // Buttons to log in or to create a new account
                     NavigationLink {
                         LogInView(signInModel: authViewModel.makeSignInViewModel())
                     } label: {

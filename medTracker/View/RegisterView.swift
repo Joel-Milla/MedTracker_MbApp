@@ -5,18 +5,16 @@ import SwiftUI
  **********************************/
 
 struct RegisterView: View {
+    // Variables to display information to the user
+    @State private var typesOfAccount = ["Paciente", "Doctor"]
     @StateObject var createAccountModel: AuthViewModel.CreateAccountViewModel
     @State private var showErrorAlert = false
-    @State private var selectedAccountType = ["Paciente", "Doctor"]
-    @State private var emptyField = false
-    @State var user = User()
-    @State var passwordConfirm = ""
     
     @State var errorMessage = ""
     
     var body: some View {
             Form {
-                // Group that contains main data to enter
+                // Group that contains the data to be filled by the user
                 Group {
                     TextField("Nombre completo", text: $createAccountModel.name)
                         .textContentType(.name)
@@ -29,7 +27,7 @@ struct RegisterView: View {
                     
                     SecureField("Contraseña", text: $createAccountModel.password)
                         .textContentType(.password)
-                    SecureField("Confirmar Contraseña", text: $passwordConfirm)
+                    SecureField("Confirmar Contraseña", text: $createAccountModel.confirmPassword)
                         .textContentType(.password)
                 }
                 .padding()
@@ -42,7 +40,7 @@ struct RegisterView: View {
                 
                 // Account Type Picker
                 Picker("Account Type", selection: $createAccountModel.role) {
-                    ForEach(selectedAccountType, id: \.self) { type in
+                    ForEach(typesOfAccount, id: \.self) { type in
                         Text(type).tag(type)
                     }   
                 }
@@ -50,16 +48,7 @@ struct RegisterView: View {
                 .padding(.vertical, 10)
                 Section {
                     Button(action: {
-                        if createAccountModel.name.isEmpty || createAccountModel.email.isEmpty || createAccountModel.password.isEmpty  {
-                            showErrorAlert = true
-                            errorMessage = "Llena todos los valores"
-                        } else if passwordConfirm != createAccountModel.password {
-                            showErrorAlert = true
-                            errorMessage = "Las contraseñas no coinciden"
-                        }
-                        else {
-                            createAccountModel.submit() //Submits the request to firebase to create a new user.
-                        }
+                        createAccountModel.submit() //Submits the request to firebase to create a new user.
                     }, label: {
                         // Use changingText to show a progressView when the request is loading
                         ChangingText(state: $createAccountModel.state, title: "Crear Cuenta")
@@ -69,20 +58,21 @@ struct RegisterView: View {
             }
             .keyboardToolbar() // apply the button to have an ok and dismiss the view
             .onSubmit(createAccountModel.submit)
-             // The alert and onReceive check when there is a registrationError and show it.
+             // The alert and onReceive check when there is a registrationError and show it in spanish.
             .onReceive(createAccountModel.$error) { registrationMessage in
                 if registrationMessage != nil {
                     showErrorAlert = true
                     if let message = registrationMessage?.localizedDescription {
-                        if message.contains("email address is already"){
-                            errorMessage = "El email ingresado ya esta en uso"
-                        } else if message.contains("email address"){
-                            errorMessage = "El email ingresado no es válido"
-                        } else if message.contains("password must be 6 characters") {
-                            errorMessage = "La contraseña debe tener al menos seis caracteres"
-                        } else {
-                            errorMessage = "Error, no se pudo crear la cuenta."
-                        }
+                        errorMessage = message
+//                        if message.contains("email address is already"){
+//                            errorMessage = "El email ingresado ya esta en uso"
+//                        } else if message.contains("email address"){
+//                            errorMessage = "El email ingresado no es válido"
+//                        } else if message.contains("password must be 6 characters") {
+//                            errorMessage = "La contraseña debe tener al menos seis caracteres"
+//                        } else {
+//                            errorMessage = "Error, no se pudo crear la cuenta."
+//                        }
                     }
                 }
             }
