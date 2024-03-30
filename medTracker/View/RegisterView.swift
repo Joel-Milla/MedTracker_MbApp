@@ -5,14 +5,14 @@ import SwiftUI
  **********************************/
 
 struct RegisterView: View {
-    // Variables to display information to the user
+    // Variabl to display information to the user
     @State private var typesOfAccount = ["Paciente", "Doctor"]
     // Object that makes the submission
     @StateObject var createAccountModel: AuthViewModel.CreateAccountViewModel
     
     var body: some View {
             Form {
-                // Group that contains the data to be filled by the user
+                // Group that contains the data to be filled by the user with modifiers that tell the type of data that user will enter and what kind of modifications this data has
                 Group {
                     TextField("Nombre completo", text: $createAccountModel.name)
                         .textContentType(.name)
@@ -28,7 +28,7 @@ struct RegisterView: View {
                     SecureField("Confirmar Contraseña", text: $createAccountModel.confirmPassword)
                         .textContentType(.password)
                 }
-                // Groupped style to be applied to the input
+                // Groupped style to be applied to the inputs
                 .inputStyle()
                 
                 // Account Type Picker
@@ -52,7 +52,7 @@ struct RegisterView: View {
             }
             .keyboardToolbar() // apply the button to have an ok and dismiss the view
             .onSubmit(createAccountModel.submit)
-            .alert("Error al guardar datos", error: $createAccountModel.error) // Show the error if there is any with the submission
+            .alert("Error al registrarse", error: $createAccountModel.error) // Show the error if there is any with the submission
             .navigationTitle("Registrarse")
             
         }

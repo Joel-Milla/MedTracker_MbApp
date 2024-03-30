@@ -4,13 +4,12 @@ import SwiftUI
  This view sends the request to firebase to log in and show any errors as alerts.
  **********************************/
 struct LogInView: View {
+    // Object that makes the submission to firebase
     @StateObject var signInModel: AuthViewModel.SignInViewModel
-    @State private var showErrorAlert = false
-    @State var errorMessage = ""
     
     var body: some View {
-//        NavigationStack {
             Form {
+                // Group that contains the data to be filled by the user with modifiers that tell the type of data that user will enter and what kind of modifications this data has
                 Group {
                     TextField("Email", text: $signInModel.email)
                         .textContentType(.emailAddress)
@@ -19,65 +18,34 @@ struct LogInView: View {
                     SecureField("Contraseña", text: $signInModel.password)
                         .textContentType(.password)
                 }
-                .padding()
-                .background(Color.secondary.opacity(0.15))
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color("mainBlue"), lineWidth: 1)
-                )
+                // Groupped style to be applied to the inputs
+                .inputStyle()
                 
-                Button(action: {
-                    signInModel.submit()
-                }, label: {
-                    // The switch check the status of the request and shows a loading animation if it is waiting a response from firebase.
-                    switch signInModel.state {
-                    case .idle:
-                        Text("Iniciar Sesión")
-                    case .isLoading:
-                        ProgressView()
-                    case .successfullyCompleted:
-                        Text("Iniciar Sesión")
-                    }
-                })
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.white)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
-                .cornerRadius(10)
-                .shadow(radius: 5)
+                
+                Section {
+                    Button(action: {
+                        signInModel.submit()
+                    }, label: {
+                        // Use changingText to show a progressView when the request is loading
+                        ChangingText(state: $signInModel.state, title: "Iniciar Sesión")
+                    })
+                    .gradientStyle() // apply gradient style
+                }
                 
             }
             .keyboardToolbar()
-            // The alert and onReceive check when there is a signIn error and show it.
-            .onReceive(signInModel.$error) { registrationMessage in
-                if registrationMessage != nil {
-                    showErrorAlert = true
-                    if let message = registrationMessage?.localizedDescription {
-                        if message.contains("Network error"){
-                            errorMessage = "Hubo un problema de conexión."
-                        } else {
-                            errorMessage = "El mail o la contraseña son incorrectos."
-                        }
-                    }
-                }
-            }
-            .alert(isPresented: $showErrorAlert) {
-                Alert(
-                    title: Text("Error al ingresar"),
-                    message: Text(errorMessage),
-                    dismissButton: .default(Text("OK"), action: {
-                        // Reset the registrationErrorMessage to nil when dismissing the alert
-                        signInModel.error = nil
-                    })
-                )
-            }
+            .onSubmit(signInModel.submit)
+            .alert("Error al iniciar sesión", error: $signInModel.error) // Show the error if there is any with the submission
             .navigationTitle("Iniciar Sesión")
         }
-//    }
 }
+
+#Preview {
+    NavigationStack {
+        RegisterView(createAccountModel: AuthViewModel().makeCreateAccountViewModel())
+    }
+}
+
 
 
 
