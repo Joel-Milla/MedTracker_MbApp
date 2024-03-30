@@ -40,6 +40,18 @@ struct User : Codable, Hashable {
         }
     }
     
+    // Main init
+    init(telefono: String, nombre: String, antecedentes: String, sexo: String, fechaNacimiento: Date, estatura: String, arregloDoctor: [String]) {
+        self.telefono = telefono
+        self.nombreCompleto = nombre
+        self.antecedentes = antecedentes
+        self.sexo = sexo
+        self.fechaNacimiento = fechaNacimiento
+        self.estatura = estatura
+        self.arregloDoctor = arregloDoctor
+    }
+    
+    // Init for creating empty objects
     init() {
         self.telefono = ""
         self.nombreCompleto = ""
@@ -50,9 +62,13 @@ struct User : Codable, Hashable {
         self.arregloDoctor = []
     }
     
-    init(telefono: String, nombre: String, antecedentes: String, sexo: String, fechaNacimiento: Date, estatura: String, arregloDoctor: [String]) {
+    // Init for the preview in mainView to work
+    init(id: String, rol: String, email: String, telefono: String, nombreCompleto: String, antecedentes: String, sexo: String, fechaNacimiento: Date, estatura: String, arregloDoctor: [String]) {
+        self.id = id
+        self.rol = rol
+        self.email = email
         self.telefono = telefono
-        self.nombreCompleto = nombre
+        self.nombreCompleto = nombreCompleto
         self.antecedentes = antecedentes
         self.sexo = sexo
         self.fechaNacimiento = fechaNacimiento

@@ -39,7 +39,7 @@ struct HomeView: View {
     
     
     var body: some View {
-        ZStack{
+        ZStack {
 //            NavigationStack {
                 VStack {
                     // Show the view based on symptomList state (loading, emptyArray, arrayWithValues).

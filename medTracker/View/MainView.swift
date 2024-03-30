@@ -13,21 +13,15 @@ struct MainView: View {
     @StateObject var user: UserModel
     
     var body: some View {
-//        TabView (selection: $currentTab) {
-//            AnalysisView(symptoms: symptoms, registers: registers)
-//                .tag(Tab.Analisis)
-//            HomeView(symptoms: symptoms, registers: registers)
-//                .tag(Tab.Inicio)
-//            ProfileView(user: user, symptoms: symptoms, createAction: user.makeCreateAction(), createAction2: symptoms.makeCreateAction())
-//                .tag(Tab.Perfil)
-//        }
         TabView {
+            // Default view that shows the list of symptoms
             NavigationStack {
                 HomeView(symptoms: symptoms, registers: registers)
             }
             .tabItem {
                 Label("Inicio", systemImage: "house")
             }
+            // View for the users to see their information and edit it.
             NavigationStack {
                 ProfileView(user: user, symptoms: symptoms, createAction: user.makeCreateAction(), createAction2: symptoms.makeCreateAction())
             }
@@ -36,6 +30,17 @@ struct MainView: View {
             }
         }
         .accentColor(Color("blueGreen"))
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(true) // Do not show the option to go back
+    }
+}
+
+#Preview {
+    NavigationStack {
+        @State var repository = Repository(user: User(id: "3zPDb70ofQQHximl1NXwPMgIhMR2", rol: "Paciente", email: "joel@mail.com", telefono: "", nombreCompleto: "Joel", antecedentes: "", sexo: "", fechaNacimiento: Date.now, estatura: "", arregloDoctor: ["doc@mail.com"]))
+        
+        @State var symptoms: SymptomList = SymptomList(repository: repository)
+        @State var registers: RegisterList = RegisterList(repository: repository)
+        @State var user: UserModel = UserModel(repository: repository)
+        MainView(symptoms: symptoms, registers: registers, user: user)
     }
 }
