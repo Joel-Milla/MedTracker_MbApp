@@ -49,19 +49,14 @@ struct CreateSymptomView: View {
                         // Make the form submit
                         formViewModel.submit()
                     }) {
-                        // Depending on the state of the form, show the text
-                        switch formViewModel.state {
-                        case .idle:
-                            Text("Guardar")
-                        case .isLoading:
-                            ProgressView()
-                        case .successfullyCompleted:
-                            Text("Guardar")
-                        }
+                        // Use changingText to show a progressView when the request is loading
+                        ChangingText(state: $formViewModel.state, title: "Guardar")
                     }
                     .gradientStyle() // apply gradient style
                 }
             }
+            .keyboardToolbar() // apply the button to have an ok and dismiss the view
+            .onSubmit(formViewModel.submit)
             .navigationTitle("Crear Dato")
             // Show alert to tell the user that there is an error
             .alert("Error al guardar datos", error: $formViewModel.error)
