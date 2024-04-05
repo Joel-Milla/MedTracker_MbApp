@@ -40,6 +40,7 @@
 		17DBF1C62BB2355B005DBF11 /* PersonalizedNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C52BB2355B005DBF11 /* PersonalizedNotificationsView.swift */; };
 		17DBF1C82BB245ED005DBF11 /* WeeklyIntervalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C72BB245ED005DBF11 /* WeeklyIntervalView.swift */; };
 		17DBF1CA2BB24C26005DBF11 /* NotificationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C92BB24C26005DBF11 /* NotificationHeaderView.swift */; };
+		17E5CEE82BC08EE600F57199 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E5CEE72BC08EE600F57199 /* DateUtility.swift */; };
 		17F133692B98E401004C6D8F /* GlobalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F133682B98E401004C6D8F /* GlobalUtilities.swift */; };
 		F82095A02AF58ACE002F1C28 /* Symptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820959F2AF58ACE002F1C28 /* Symptom.swift */; };
 		F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F838338D2B0C49F5005F2BB5 /* ShareView.swift */; };
@@ -123,6 +124,7 @@
 		17DBF1C52BB2355B005DBF11 /* PersonalizedNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedNotificationsView.swift; sourceTree = "<group>"; };
 		17DBF1C72BB245ED005DBF11 /* WeeklyIntervalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyIntervalView.swift; sourceTree = "<group>"; };
 		17DBF1C92BB24C26005DBF11 /* NotificationHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHeaderView.swift; sourceTree = "<group>"; };
+		17E5CEE72BC08EE600F57199 /* DateUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
 		17F133682B98E401004C6D8F /* GlobalUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUtilities.swift; sourceTree = "<group>"; };
 		F820959F2AF58ACE002F1C28 /* Symptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptom.swift; sourceTree = "<group>"; };
 		F838338D2B0C49F5005F2BB5 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				1700F3BC2B51D713009D0A62 /* FirestoreExtensions.swift */,
 				1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */,
 				173EF29C2BB1BA5900F7ACF9 /* ColorExtensions.swift */,
+				17E5CEE72BC08EE600F57199 /* DateUtility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -605,6 +608,7 @@
 				1709488D2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift in Sources */,
 				FBD940AF2AFD73E800C3BD11 /* EditSymptomView.swift in Sources */,
 				1789E8192B59ED780087531D /* registersView.swift in Sources */,
+				17E5CEE82BC08EE600F57199 /* DateUtility.swift in Sources */,
 				FB0EC39D2B12D3DC00E7309B /* DismissButtonExtension.swift in Sources */,
 				F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */,
 				179E78B82BB71FB700623AF1 /* Alert+Error.swift in Sources */,

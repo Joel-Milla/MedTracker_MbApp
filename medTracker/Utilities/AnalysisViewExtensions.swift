@@ -77,22 +77,3 @@ extension Float {
         }
     }
 }
-
-extension Date {
-    // Returns the date as a string on Format MM d - h:m
-    func dateToStringMDH() -> String {
-        let formatter = DateFormatter()
-        // Include abbreviated month name, day, hour, and minute
-        formatter.dateFormat = "MMM d - H:mm" // Example: "Feb 23 - 15:14"
-        formatter.locale = Locale(identifier: "es_MX") // Spanish month abbreviations
-        return formatter.string(from: self)
-    }
-    
-    // Returns the date as a string on format MM d
-    func dateToStringMD() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM d" // Example: "feb 23"
-        formatter.locale = Locale(identifier: "es_MX") // Keep for Spanish month abbreviations
-        return formatter.string(from: self)
-    }
-}

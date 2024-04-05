@@ -74,7 +74,7 @@ struct CreateSymptomView: View {
             }
             // Show the view to select the notification
             .sheet(isPresented: $showNotificationView, content: {
-                NotificationsView(stringNotification: $formViewModel.notificacion)
+                NotificationsView(codeNotification: $formViewModel.notificacion)
                     .tint(Color.blueGreen) // Change the accent color to blue green
                     .presentationDetents([.fraction(0.52), .fraction(0.6)]) // Set the width of the sheet to 30%
             })
