@@ -11,6 +11,9 @@ struct AnalysisView2_0: View {
     // Receive mock data
     @State var symptomTest: Symptom
     @State var testRegisters: [Register]
+    @State var isPresented : Bool = false // Para mostrar RegisterSymptomView
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @State var sliderValue : Double = 0.0
     
     var body: some View {
             VStack {
@@ -36,12 +39,15 @@ struct AnalysisView2_0: View {
                 // Button to traverse to EditSymptomView.
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        print("Hello world!")
+                        isPresented = true
                     } label: {
                         Image(systemName: "plus")
                     }
                 }
             }
+            .sheet(isPresented: $isPresented, content: {
+                RegisterSymptomView(symptom: $symptomTest, registers: authViewModel.makeRegisterList()!, symptoms: authViewModel.makeSymptomList()!, sliderValue: $sliderValue, createAction: {register in})
+            })
     }
 }
 
