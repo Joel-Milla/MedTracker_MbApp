@@ -185,11 +185,11 @@
 			isa = PBXGroup;
 			children = (
 				170948852BAE3E24007E3E8B /* tempSignOut.swift */,
+				FBE3812B2ADF3C2E004737C9 /* AnalysisView.swift */,
 				170948632BAB5BB2007E3E8B /* AnalysisView2_0.swift */,
 				170948902BAE95DE007E3E8B /* Chart */,
 				170948882BAE8900007E3E8B /* InsightsView.swift */,
 				1789E8182B59ED780087531D /* registersView.swift */,
-				FBE3812B2ADF3C2E004737C9 /* AnalysisView.swift */,
 			);
 			path = Analysis;
 			sourceTree = "<group>";
