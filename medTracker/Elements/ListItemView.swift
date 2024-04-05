@@ -46,7 +46,7 @@ struct ListItemView: View {
         let spm = operaciones(registers: registers)
         
         let min = spm[2]*0.8
-        let max = spm[1]*1.2
+//        let max = spm[1]*1.2 // Variable never used
         
         Chart {
             ForEach(registers, id:\.self) { register in

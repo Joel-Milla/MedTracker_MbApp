@@ -87,7 +87,9 @@ struct HomeView: View {
                                 if symptoms.symptoms[index].activo {
                                     let symptom = symptoms.symptoms[index]
                                     NavigationLink{
-                                        RegisterSymptomView(symptom: $symptoms.symptoms[index], registers: registers, symptoms: symptoms, sliderValue : .constant(0.155) ,createAction: registers.makeCreateAction())
+//                                        RegisterSymptomView(symptom: $symptoms.symptoms[index], registers: registers, symptoms: symptoms, sliderValue : .constant(0.155) ,createAction: registers.makeCreateAction())
+                                        // Pass the symptom and the registers of that symptom
+                                        AnalysisView2_0(symptomTest: symptoms.symptoms[index], testRegisters: testRegisters)
                                     }
                                 label: {
                                     ListItemView(item: symptom, registers: testRegisters)
@@ -111,8 +113,8 @@ struct HomeView: View {
                             .buttonStyle(Button1MedTracker(backgroundColor: Color("blueGreen")))
                             .offset(x: -14, y: -95)
                             .sheet(isPresented: $muestraAgregarSintomas) {
-                                AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
-//                                CreateSymptomView(formViewModel: symptoms.createSymptomViewModel())
+//                                AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
+                                CreateSymptomView(formViewModel: symptoms.createSymptomViewModel())
                             }
                         }
                     },
