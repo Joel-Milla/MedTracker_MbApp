@@ -18,6 +18,9 @@ struct RegisterSymptomView: View {
     @Binding var sliderValue : Double
     @State var metricsString = ""
     @State private var date = Date.now
+    @State private var hour = Date.now
+    @State var valueFinal:Double = 0
+    
     //@State var sliderOrTF : Bool = false
     @State var notes = "Agrega alguna nota..."
     var dummySymptom = "Migraña"
@@ -39,151 +42,109 @@ struct RegisterSymptomView: View {
     
     
     var body: some View {
-        GeometryReader { geometry in
-            NavigationStack(){
-                ZStack {
-                    VStack() {
-                        Text(symptom.nombre)
-                            .font(.title)
-                            .foregroundStyle(Color(hex: symptom.color))
-                            .bold()
-                            .padding(.horizontal, -179)
-                            .frame(height: geometry.size.height *  0.06)
-                        DatePicker("Fecha registro", selection: $date, in: dateRange,  displayedComponents: [.date, .hourAndMinute])
-                            .datePickerStyle(.automatic)
-                            .padding(.vertical,30)
-                            .foregroundColor(Color(hex: symptom.color))
-                            .tint(Color(hex: symptom.color))
-                            .bold()
-                        //Text("La fecha es \(date.formatted(date: .numeric, time: .shortened))")
-                        if(!symptom.cuantitativo){
-                            Text("¿Qué tanto malestar tienes?")
-                                .font(.system(size: 18))
-                                .foregroundStyle(Color(hex: symptom.color))
-                                .bold()
-                            CustomSlider(valueFinal: $metric, valor: sliderValue)
-                                .padding(.horizontal, 5)
-                                .frame(height: geometry.size.height * 0.06)
-                                .padding(.vertical, 35)
-                        }
-                        else{
-                            Text("Ingresa el valor")
-                                .font(.system(size: 18))
-                                .foregroundStyle(Color(hex: symptom.color))
-                                .bold()
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.gray, lineWidth: 0.5)
-                                    .background(RoundedRectangle(cornerRadius: 20).fill(Color("mainWhite")))
-                                    .frame(width: geometry.size.width * 0.63, height: geometry.size.height * 0.1)
-                                
-                                HStack {
-                                    Image(systemName: "heart.text.square.fill")
-                                        .foregroundColor(Color(hex: symptom.color))
-                                        .font(.title)
-                                    TextField("", text: $metricsString, prompt: Text("Valor").foregroundColor(.gray))
-                                        .font(.title2)
-                                        .padding()
-                                        .textFieldStyle(OvalTextFieldStyle())
-                                        .multilineTextAlignment(.leading)
-                                        .keyboardType(.numberPad)
-                                        .focused($mostrarTeclado)
-                                }
+        NavigationStack{
+            GeometryReader{ geometry in
+                VStack(alignment: .leading) {
+                    Text(symptom.nombre)
+                        .font(.title)
+                        .bold()
+                    ZStack{
+                        VStack(alignment: .leading){
+                            Text("Fecha de registro")
+                                .padding(.horizontal)
+                                .foregroundStyle(Color(uiColor: .systemGray))
+                            DateSection(date: date, hour: hour)
                                 .padding()
+                            if(!symptom.cuantitativo){
+                                CustomSlider(valueFinal: $valueFinal)
+                                    .padding(.horizontal, 5)
+                                    .frame(height: geometry.size.height * 0.06)
+                                    .padding(.vertical, 35)
                             }
-                        }
-                        
-                        //Spacer()
-                        TextEditor(text: self.$notes) // usar geomtery reader
-                            .foregroundColor(self.notes == notes ? .gray : .primary)
-                            .onTapGesture {
-                                if self.notes == notes {
-                                    self.notes = ""
-                                }
-                            }
-                            .padding(10)
-                            .cornerRadius(30)
-                            .scrollContentBackground(.hidden)
-                            .background(Color("mainWhite"))
-                            .shadow(color: .gray, radius: 0.5)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(5)
-                            .frame(height: geometry.size.height *  0.28)
-                            .focused($mostrarTeclado)
-                            .toolbar {
-                                ToolbarItemGroup(placement: .keyboard) {
-                                    Spacer()
+                            else{
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.gray, lineWidth: 0.5)
+                                        .background(RoundedRectangle(cornerRadius: 20).fill(Color("mainWhite")))
+                                        .frame(width: geometry.size.width * 0.63, height: geometry.size.height * 0.1)
                                     
-                                    Button("OK") {
-                                        mostrarTeclado = false
+                                    HStack {
+                                        Image(systemName: symptom.icon)
+                                            .foregroundColor(Color(hex: symptom.color))
+                                            .font(.title)
+                                            .padding(.leading, geometry.size.width * 0.25)
+                                        TextField("", text: $metricsString, prompt: Text("Valor").foregroundColor(.gray))
+                                            .font(.title2)
+                                            .padding()
+                                            .multilineTextAlignment(.leading)
+                                            .keyboardType(.numberPad)
+                                        //.focused($mostrarTeclado)
                                     }
+                                    //.frame(width: geometry.size.width * 0.63, height: geometry.size.height * 0.1)
+                                    .padding()
                                 }
                             }
-                        Button{
-                            if(self.notes == "Agrega alguna nota..."){
-                                notes = ""
-                            }
-                            
-                            if symptom.cuantitativo {
-                                if let cantidad = Float(metricsString) {
-                                    registers.registers.append(Register(idSymptom: symptom.id.uuidString, fecha: date, cantidad: cantidad, notas: notes))
-                                    createRegister()
-                                    dismiss()
-                                }
-                                else{
-                                    isPresented = true
-                                }
-                            } else {
-                                registers.registers.append(Register(idSymptom: symptom.id.uuidString, fecha: date, cantidad: Float(metric), notas: notes))
-                                createRegister()
-                                dismiss()
-                            }
-                        }label:{
-                            Label("Añadir información", systemImage: "cross.circle.fill")
                         }
-                        .alert("Ingresa algún dato para continuar", isPresented: $isPresented, actions: {})
-                        .buttonStyle(Button1MedTracker(backgroundColor: Color(hex: symptom.color)))
-                        .frame(height: geometry.size.height *  0.12)
-                        
+                        .padding(.vertical)
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    //.background(Color("mainGray"))
+                    //.shadow(radius: 5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color(hex: symptom.color), lineWidth: 2)
+                            .padding(.horizontal, geometry.size.width * 0.01)
+                    )
+                    .padding(.vertical)
+                    ZStack{
+                        VStack(alignment: .leading){
+                            TextField("Agrega alguna nota", text: $notes, axis: .vertical)
+                                .lineLimit(5)
+                                .padding()
+                                .frame(height: geometry.size.height / 6, alignment: .top)
+                        }
+                        //.padding(.bottom)
+                    }
+                    //.background(Color("mainGray"))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color(hex: symptom.color), lineWidth: 2)
+                            .padding(.horizontal, geometry.size.width * 0.01)
+                    )
+                    .shadow(radius: 10)
                     //Spacer()
-                    .navigationTitle("Agregar registro")
-                    .navigationBarTitleDisplayMode(.inline)
-                    
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                // Cambiar el estado de las notificaciones y actualizar la IU
-                                notificacionesActivas.toggle()
-                                
-                                if notificacionesActivas == false {
-                                    cancelNotification(withID: symptom.notificacion)
-                                    symptom.notificacion = ""
-                                } else {
-                                    nuevaNotificacion = true
-                                }
-                                
-                            } label: {
-                                Image(systemName: notificacionesActivas ? "bell.fill" : "bell.slash")
-                            }
-                            
-                        }
+                    Button{
+                    }label:{
+                        Label("Añadir registro", systemImage: "cross.circle.fill")
                     }
+                    .buttonStyle(Button1MedTracker(backgroundColor: Color(hex: symptom.color)))
+                    //.frame(height: geometry.size.height *  0.12)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.vertical, 30)
                     
+                }
+                .padding()
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        notificacionesActivas.toggle()
+                        // Cambiar el estado de las notificaciones y actualizar la IU
+//                        notificacionesActivas.toggle()
+//
+//                        if notificacionesActivas == false {
+//                            cancelNotification(withID: symptom.notificacion ?? "")
+//                            symptom.notificacion = ""
+//                        } else {
+//                            nuevaNotificacion = true
+//                        }
+                        
+                    } label: {
+                        Image(systemName: notificacionesActivas ? "bell.fill" : "bell.slash")
+                    }
                     
                 }
             }
-            .onAppear {
-                notificacionesActivas = symptom.notificacion != ""
-            }
-            .sheet(isPresented: $nuevaNotificacion) {
-                NuevaSintoma(symptom: $symptom, notificacionesActivas: $notificacionesActivas,createAction2: symptoms.makeCreateAction())
-                    .presentationDetents([.fraction(0.35)])
-            }
         }
-        .ignoresSafeArea(.keyboard)
     }
     
     

@@ -51,6 +51,7 @@
 		F8A27C652BBFA47B006513FC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F8A27C642BBFA47B006513FC /* FirebaseFirestore */; };
 		F8A27C672BBFA47F006513FC /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F8A27C662BBFA47F006513FC /* FirebaseFirestoreSwift */; };
 		F8A27C692BBFA656006513FC /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A27C682BBFA656006513FC /* ListItemView.swift */; };
+		F8DEFE3E2BBFA99800936499 /* DateSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DEFE3D2BBFA99800936499 /* DateSection.swift */; };
 		FB0EC3942B12721A00E7309B /* MainDoctorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EC3932B12721A00E7309B /* MainDoctorView.swift */; };
 		FB0EC3982B12759C00E7309B /* AddDoctorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EC3972B12759C00E7309B /* AddDoctorView.swift */; };
 		FB0EC39D2B12D3DC00E7309B /* DismissButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0EC39C2B12D3DC00E7309B /* DismissButtonExtension.swift */; };
@@ -129,6 +130,7 @@
 		F87256772B128AAA00044A05 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		F8A27C682BBFA656006513FC /* ListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
 		F8D6CC832AFEE2A700736DFB /* TextFieldMedTracker1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldMedTracker1.swift; sourceTree = "<group>"; };
+		F8DEFE3D2BBFA99800936499 /* DateSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSection.swift; sourceTree = "<group>"; };
 		FB0EC3932B12721A00E7309B /* MainDoctorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDoctorView.swift; sourceTree = "<group>"; };
 		FB0EC3972B12759C00E7309B /* AddDoctorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDoctorView.swift; sourceTree = "<group>"; };
 		FB0EC39C2B12D3DC00E7309B /* DismissButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButtonExtension.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 				1709488E2BAE8FB1007E3E8B /* StylesMedTracker.swift */,
 				FB17DAB42B0D771F006294BD /* FloatToString.swift */,
 				F87256772B128AAA00044A05 /* Notifications.swift */,
+				F8DEFE3D2BBFA99800936499 /* DateSection.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -618,6 +621,7 @@
 				173EF2A32BB1DEE700F7ACF9 /* NotificationsView.swift in Sources */,
 				17DBF1C82BB245ED005DBF11 /* WeeklyIntervalView.swift in Sources */,
 				170948862BAE3E24007E3E8B /* tempSignOut.swift in Sources */,
+				F8DEFE3E2BBFA99800936499 /* DateSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
