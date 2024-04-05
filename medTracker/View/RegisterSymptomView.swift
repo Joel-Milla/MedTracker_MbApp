@@ -22,8 +22,7 @@ struct RegisterSymptomView: View {
     @State var valueFinal:Double = 0
     
     //@State var sliderOrTF : Bool = false
-    @State var notes = "Agrega alguna nota..."
-    var dummySymptom = "Migraña"
+    @State var notes = ""
     @State var metric: Double = 0
     @State private var notificacionesActivas = false
     @State var nuevaNotificacion = false
@@ -113,9 +112,24 @@ struct RegisterSymptomView: View {
                     .shadow(radius: 10)
                     //Spacer()
                     Button{
+                        if symptom.cuantitativo {
+                            if let cantidad = Float(metricsString) {
+                                registers.registers.append(Register(idSymptom: symptom.id.uuidString, fecha: date, cantidad: cantidad, notas: notes))
+                                createRegister()
+                                dismiss()
+                            }
+                            else{
+                                isPresented = true
+                            }
+                        } else {
+                            registers.registers.append(Register(idSymptom: symptom.id.uuidString, fecha: date, cantidad: Float(metric), notas: notes))
+                            createRegister()
+                            dismiss()
+                        }
                     }label:{
                         Label("Añadir registro", systemImage: "cross.circle.fill")
                     }
+                    .alert("Ingresa algún dato para continuar", isPresented: $isPresented, actions: {})
                     .buttonStyle(Button1MedTracker(backgroundColor: Color(hex: symptom.color)))
                     //.frame(height: geometry.size.height *  0.12)
                     .frame(maxWidth: .infinity, alignment: .center)
