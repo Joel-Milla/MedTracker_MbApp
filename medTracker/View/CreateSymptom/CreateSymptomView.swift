@@ -40,7 +40,7 @@ struct CreateSymptomView: View {
                         Text("Permitir Notificaciones")
                     }
                     if (allowNotifications) {
-                        Text(stringNotification)
+                        Text(formViewModel.notificacion)
                     }
                 }
                 

@@ -71,6 +71,8 @@ class SymptomList : ObservableObject {
             if (hasError) {
                 throw HelperFunctions.ErrorType.invalidInput(message)
             } else {
+                // Schedule notifications based on the input received from the user
+                NotificationManager.instance.scheduleNotifications(symptom.notificacion, symptom.nombre)
                 self?.symptoms.append(symptom) // adds the symptom to the current array
                 try await self?.repository.createSymptom(symptom) // use function in the repository to create the symptom
             }
