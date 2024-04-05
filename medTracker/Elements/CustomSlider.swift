@@ -16,42 +16,26 @@ struct CustomSlider: View {
     @State var value : Double = 0
     var body: some View {
         GeometryReader { gr in
-            let cursorSize = gr.size.height * 0.8
+            let cursorSize = gr.size.height
             let radius = gr.size.height * 0.5
             let minValue = 0.0
             let maxValue = gr.size.width * 0.87
-            
-            ZStack {
-                RoundedRectangle (cornerRadius: radius)
-                    .foregroundColor (getColor())
-                HStack {
-                    Circle()
-                        .foregroundStyle(.white)
-                        .frame (width: cursorSize, height: cursorSize)
-                        .offset (x: self.value + 3)
-                        .gesture (
-                            DragGesture (minimumDistance: 0)
-                                .onChanged { v in
-                                    if (abs(v.translation.width) < 0.1) {
-                                        self.lastCoordinateValue = self.value
-                                    }
-                                    if v.translation.width > 0  && valueFinal <= 96{
-                                        self.value = min (maxValue, self.lastCoordinateValue + v.translation.width)
-                                    } else{
-                                        self.value = max (minValue, self.lastCoordinateValue + v.translation.width)
-                                    }
-                                    if(valueFinal == 96){
-                                        self.value = value
-                                        valueFinal = 100;
-                                    }
-                                }
-                        )
-                    GeometryReader{ gr in
+            VStack(alignment: .leading){
+                Text("Desliza dependiendo de cómo te sientes")
+                    .foregroundStyle(Color(uiColor: .systemGray))
+                    .padding(.horizontal)
+                ZStack {
+                    RoundedRectangle (cornerRadius: radius)
+                        .foregroundColor (getColor())
+                    HStack {
                         Image(getImage())
                             .resizable()
                             .scaledToFit()
                             .aspectRatio(contentMode: .fit)
-                            .offset(x:self.value - gr.size.width * valor + 3)
+                            .clipShape(Circle())
+                            //.foregroundStyle(.white)
+                            .frame (width: cursorSize , height: cursorSize)
+                            .offset (x: self.value + 3)
                             .gesture (
                                 DragGesture (minimumDistance: 0)
                                     .onChanged { v in
@@ -71,11 +55,37 @@ struct CustomSlider: View {
                                         }
                                     }
                             )
+//                            Image(getImage())
+//                                .resizable()
+//                                .scaledToFit()
+//                                .aspectRatio(contentMode: .fit)
+//                                .frame(width: cursorSize * 1.3, height: cursorSize * 1.3)
+//                                .offset(x:self.value - gr.size.width * valor + 7.5)
+//                                .gesture (
+//                                    DragGesture (minimumDistance: 0)
+//                                        .onChanged { v in
+//                                            if (abs(v.translation.width) < 0.1) {
+//                                                self.lastCoordinateValue = self.value
+//                                            }
+//                                            if (v.translation.width > 0 && self.value <= maxValue) {
+//                                                self.value = min (maxValue, self.lastCoordinateValue + v.translation.width)
+//                                                valueFinal = getValue(maxValue: maxValue)
+//                                            } else{
+//                                                self.value = max (minValue, self.lastCoordinateValue + v.translation.width)
+//                                                valueFinal = getValue(maxValue: maxValue)
+//                                            }
+//                                            if(self.value >= maxValue){
+//                                                self.value = maxValue
+//                                                valueFinal = 100;
+//                                            }
+//                                        }
+//                                )
+                        //                    Text("\(valueFinal,  specifier: "%.2F")")
+                        //                    Text("\(value,  specifier: "%.2F")")
+                        Spacer()
                     }
-                    //                    Text("\(valueFinal,  specifier: "%.2F")")
-                    //                    Text("\(value,  specifier: "%.2F")")
-                    Spacer()
                 }
+                .shadow(radius: 5)
             }
         }
     }
@@ -112,7 +122,7 @@ struct CustomSlider: View {
         }
         else if(valueFinal >= 20 && valueFinal < 80){
             if(valueFinal < 40){
-                return "va_test"
+                return "happy_face"
             }
             else if(valueFinal >= 40 && valueFinal < 60){
                 return "normal_face"
