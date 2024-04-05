@@ -55,7 +55,7 @@ struct HomeView: View {
         Register(idSymptom: "SYM-345", fecha: Date().addingTimeInterval(-86400 * 12), cantidad: 22, notas: "Note 24"),
         Register(idSymptom: "SYM-346", fecha: Date().addingTimeInterval(-86400 * 13), cantidad: 62, notas: "Note 25"),
         Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 14), cantidad: 90, notas: "Note 29"),
-        Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 34, notas: "Note 30")
+        //Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 34, notas: "Note 30")
     ]
     
     
@@ -111,7 +111,7 @@ struct HomeView: View {
                                 Label("Agregar nuevo dato", systemImage: "square.and.pencil")
                             }
                             .buttonStyle(Button1MedTracker(backgroundColor: Color("blueGreen")))
-                            .offset(x: -14, y: -95)
+                            .offset(x: -14, y: -55)
                             .sheet(isPresented: $muestraAgregarSintomas) {
 //                                AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
                                 CreateSymptomView(formViewModel: symptoms.createSymptomViewModel())
