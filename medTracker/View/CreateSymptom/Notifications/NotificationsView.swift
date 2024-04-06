@@ -25,7 +25,7 @@ struct NotificationsView: View {
     // Date frequency variables
     @State var selectedDate: Date = Date()
     // Variable that will hold the repetition of the notification
-    @Binding var stringNotification: String
+    @Binding var codeNotification: String
     // Dates when the selected frequency is weekly
     @State var selectedDays: [String: Bool] = [
         "D": false,
@@ -66,7 +66,7 @@ struct NotificationsView: View {
                 }
                 // Save the current notifications
                 Button(action: {
-                    stringNotification = "Notificaciones de manera \(selectedFrequency.rawValue)"
+                    codeNotification = "Notificaciones de manera \(selectedFrequency.rawValue)"
                     dismiss()
                 }) {
                     Text("Guardar")
@@ -79,10 +79,10 @@ struct NotificationsView: View {
             // *********************************
             // DELETE - Set the repetition of notifications
             .onAppear {
-                stringNotification = "Notificaciones de manera \(selectedFrequency.rawValue)"
+                codeNotification = setNotifications()
             }
             .onChange(of: selectedFrequency) { newValue in
-                stringNotification = "Notificaciones de manera \(newValue.rawValue)"
+                codeNotification = "Notificaciones de manera \(newValue.rawValue)"
             }
             // *********************************
             // *********************************
@@ -99,11 +99,39 @@ struct NotificationsView: View {
             }
         }
     }
+    
+    func setNotifications() -> String {
+        switch (selectedFrequency) {
+        case .daily:
+            var notificationString = "D#"
+            let hourValues = DateUtility.hourToString(selectedDate) // If the user selected 20:18, then this string will be '20:18'
+            notificationString += hourValues
+            return notificationString
+        case .weekly:
+            var notificationString = "W#"
+            let hourValues = DateUtility.hourToString(selectedDate) // If the user selected 20:18, then this string will be '20:18'
+            // Iterate through the array and save the information
+            for (day, isSelected) in selectedDays {
+                if isSelected {
+                    notificationString += day
+                }
+            }
+            notificationString += hourValues
+            return notificationString
+        case .monthly:
+            var notificationString = "M#"
+            let dayValues = DateUtility.dateToString(selectedDate)
+            notificationString += dayValues
+            return notificationString
+        case .customize:
+            return ""
+        }
+    }
 }
 
 #Preview {
     NavigationStack {
-        @State var stringNotification: String = ""
-        NotificationsView(stringNotification: $stringNotification)
+        @State var codeNotification: String = ""
+        NotificationsView(codeNotification: $codeNotification)
     }
 }
