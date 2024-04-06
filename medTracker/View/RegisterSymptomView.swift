@@ -22,7 +22,7 @@ struct RegisterSymptomView: View {
     @State var valueFinal:Double = 0
     
     //@State var sliderOrTF : Bool = false
-    @State var notes = "Agrega alguna nota..."
+    @State var notes = ""
     var dummySymptom = "Migraña"
     @State var metric: Double = 0
     @State private var notificacionesActivas = false
