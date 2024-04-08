@@ -88,7 +88,7 @@ struct HomeView: View {
                                     let symptom = symptoms.symptoms[index]
                                     NavigationLink {
                                         // Pass the symptom and the registers of that symptom and the register list
-                                        AnalysisView2_0(symptom: symptom, symptomRegisters: registers.filterBy(symptom), registers: registers)
+                                        AnalysisView2_0(symptom: symptom, registers: registers)
                                     }
                                 label: {
                                     ListItemView(item: symptom, registers: testRegisters)

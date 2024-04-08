@@ -11,7 +11,7 @@ import SwiftUI
 struct ChartView: View {
     let isCuantitative: Bool
     // Mock data
-    let testRegisters: [Register]
+    let symptomRegisters: [Register]
     // MARK: View Properties
     @State var currentTab: String = "Semana"
     @State var isLineGraph: Bool = true
@@ -38,15 +38,15 @@ struct ChartView: View {
             // Switch between line and bar graph. Pass the currentTab selected to switch time-zones.
             if (isLineGraph) {
                 if (isCuantitative) {
-                    LineChartView_Cuant(testRegisters: testRegisters, currentTab: $currentTab)
+                    LineChartView_Cuant(symptomRegisters: symptomRegisters, currentTab: $currentTab)
                 } else {
-                    LineChartView_Cual(testRegisters: testRegisters, currentTab: $currentTab)
+                    LineChartView_Cual(symptomRegisters: symptomRegisters, currentTab: $currentTab)
                 }
             } else {
                 if (isCuantitative) {
-                    BarChartView_Cuant(testRegisters: testRegisters, currentTab: $currentTab)
+                    BarChartView_Cuant(symptomRegisters: symptomRegisters, currentTab: $currentTab)
                 } else {
-                    BarChartView_Cual(testRegisters: testRegisters, currentTab: $currentTab)
+                    BarChartView_Cual(symptomRegisters: symptomRegisters, currentTab: $currentTab)
                 }
             }
             
@@ -74,7 +74,7 @@ struct ChartView: View {
 #Preview {
     NavigationStack {
         
-        let testRegisters: [Register] = [
+        let symptomRegisters: [Register] = [
             Register(idSymptom: "SYM-571", fecha: Date(), cantidad: 8.51, notas: "Note 66"),
             Register(idSymptom: "SYM-603", fecha: Date().addingTimeInterval(-32400), cantidad: 8.92, notas: "Note 40"),
             Register(idSymptom: "SYM-603", fecha: Date().addingTimeInterval(-86400 * 1), cantidad: 8.92, notas: "Note 40"),
@@ -94,7 +94,7 @@ struct ChartView: View {
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 3.4, notas: "Note 30")
         ]
         
-        ChartView(isCuantitative: true, testRegisters: testRegisters)
+        ChartView(isCuantitative: true, symptomRegisters: symptomRegisters)
     }
 }
 

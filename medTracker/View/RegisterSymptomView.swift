@@ -94,14 +94,22 @@ struct RegisterSymptomView: View {
                             .padding(.horizontal, geometry.size.width * 0.01)
                     )
                     .shadow(radius: 10)
-                    Button{
+                    Button {
                         // When symptom is quant, change the value of string into Float
                         if (symptom.cuantitativo) {
                             formViewModel.cantidad = Float(inputValue) ?? -1000.99
                         }
                         formViewModel.submit()
                     } label: {
-                        Label("Añadir registro", systemImage: "cross.circle.fill")
+                        // Use changingText to show a progressView when the request is loading
+                        switch (formViewModel.state) {
+                        case .idle:
+                            Label("Añadir registro", systemImage: "cross.circle.fill")
+                        case .isLoading:
+                            ProgressView()
+                        case .successfullyCompleted:
+                            Label("Añadir registro", systemImage: "cross.circle.fill")
+                        }
                     }
                     .buttonStyle(Button1MedTracker(backgroundColor: Color(hex: symptom.color)))
                     .frame(maxWidth: .infinity, alignment: .center)

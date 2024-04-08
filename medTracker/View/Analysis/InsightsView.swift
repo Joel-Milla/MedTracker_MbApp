@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InsightsView: View {
     let isCuantitative: Bool
-    let testRegisters: [Register]
+    let symptomRegisters: [Register]
     
     var body: some View {
         ZStack {
@@ -25,19 +25,19 @@ struct InsightsView: View {
                     Text("Valor mínimo")
                         .font(.caption)
                         .foregroundStyle(.gray)
-                    Value(isCuantitative: isCuantitative, value: testRegisters.minValue())
+                    Value(isCuantitative: isCuantitative, value: symptomRegisters.minValue())
                 }
                 VStack {
                     Text("Valor promedio")
                         .font(.caption)
                         .foregroundStyle(.gray)
-                    Value(isCuantitative: isCuantitative, value: testRegisters.meanValue())
+                    Value(isCuantitative: isCuantitative, value: symptomRegisters.meanValue())
                 }
                 VStack {
                     Text("Valor máximo")
                         .font(.caption)
                         .foregroundStyle(.gray)
-                    Value(isCuantitative: isCuantitative, value: testRegisters.maxValue())
+                    Value(isCuantitative: isCuantitative, value: symptomRegisters.maxValue())
                 }
             }
             .padding() // Adjust the padding as needed
@@ -70,7 +70,7 @@ struct Value: View {
 
 #Preview {
     NavigationStack {
-        let testRegisters: [Register] = [
+        let symptomRegisters: [Register] = [
             Register(idSymptom: "SYM-571", fecha: Date(), cantidad: 8.51, notas: "Note 66"),
             Register(idSymptom: "SYM-603", fecha: Date().addingTimeInterval(-32400), cantidad: 8.92, notas: "Note 40"),
             Register(idSymptom: "SYM-603", fecha: Date().addingTimeInterval(-86400 * 1), cantidad: 8.92, notas: "Note 40"),
@@ -89,6 +89,6 @@ struct Value: View {
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 14), cantidad: 9, notas: "Note 29"),
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 3.4, notas: "Note 30")
         ]
-        InsightsView(isCuantitative: true, testRegisters: testRegisters)
+        InsightsView(isCuantitative: true, symptomRegisters: symptomRegisters)
     }
 }
