@@ -32,7 +32,8 @@ struct Symptom : Codable, Hashable, Identifiable {
     }
     // Init for initializing a symptom with default values
     init() {
-        self.init(nombre: "", icon: "heart", description: "", cuantitativo: true, unidades: "kg", activo: true, color: "#009C8C", notificacion : "")
+        // Initial value for NotificationsView to render inside the notification
+        self.init(nombre: "", icon: "heart", description: "", cuantitativo: true, unidades: "kg", activo: true, color: "#009C8C", notificacion : "D#\(DateUtility.hourToString(Date.now))")
     }
     
     // Function to validate if the necessary inputs are filled

@@ -88,7 +88,7 @@ struct AnalysisItemView: View {
                     action: { muestraRegisterSymptomView = true }
                 )
                 .sheet(isPresented: $muestraRegisterSymptomView) {
-                    RegisterSymptomView(symptom: $symptom, registers: registers, symptoms: symptoms, sliderValue: .constant(0.162),createAction: registers.makeCreateAction())
+//                    RegisterSymptomView(symptom: $symptom, registers: registers, symptoms: symptoms, sliderValue: .constant(0.162),createAction: registers.makeCreateAction())
                 }
                 //The else statement runs if there is already data associated with the symptom.
             } else {

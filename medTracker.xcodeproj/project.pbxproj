@@ -41,6 +41,7 @@
 		17DBF1C82BB245ED005DBF11 /* WeeklyIntervalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C72BB245ED005DBF11 /* WeeklyIntervalView.swift */; };
 		17DBF1CA2BB24C26005DBF11 /* NotificationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C92BB24C26005DBF11 /* NotificationHeaderView.swift */; };
 		17E5CEE82BC08EE600F57199 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E5CEE72BC08EE600F57199 /* DateUtility.swift */; };
+		17E5CEEA2BC0B15100F57199 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E5CEE92BC0B15100F57199 /* NotificationManager.swift */; };
 		17F133692B98E401004C6D8F /* GlobalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F133682B98E401004C6D8F /* GlobalUtilities.swift */; };
 		F82095A02AF58ACE002F1C28 /* Symptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820959F2AF58ACE002F1C28 /* Symptom.swift */; };
 		F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F838338D2B0C49F5005F2BB5 /* ShareView.swift */; };
@@ -125,6 +126,7 @@
 		17DBF1C72BB245ED005DBF11 /* WeeklyIntervalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyIntervalView.swift; sourceTree = "<group>"; };
 		17DBF1C92BB24C26005DBF11 /* NotificationHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHeaderView.swift; sourceTree = "<group>"; };
 		17E5CEE72BC08EE600F57199 /* DateUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
+		17E5CEE92BC0B15100F57199 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		17F133682B98E401004C6D8F /* GlobalUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUtilities.swift; sourceTree = "<group>"; };
 		F820959F2AF58ACE002F1C28 /* Symptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptom.swift; sourceTree = "<group>"; };
 		F838338D2B0C49F5005F2BB5 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */,
 				17DBF1C52BB2355B005DBF11 /* PersonalizedNotificationsView.swift */,
 				17DBF1C72BB245ED005DBF11 /* WeeklyIntervalView.swift */,
+				17E5CEE92BC0B15100F57199 /* NotificationManager.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -280,6 +283,15 @@
 				173EF2962BB1353700F7ACF9 /* IconPicker */,
 			);
 			path = CS_Name;
+			sourceTree = "<group>";
+		};
+		17E5CEEB2BC38CEA00F57199 /* EditSymptomList */ = {
+			isa = PBXGroup;
+			children = (
+				FBD940AE2AFD73E800C3BD11 /* EditSymptomView.swift */,
+				177B37622B575433009CB58D /* ShowEditSymptomView.swift */,
+			);
+			path = EditSymptomList;
 			sourceTree = "<group>";
 		};
 		F83767772B0172850092CDED /* Recovered References */ = {
@@ -322,8 +334,7 @@
 				FBD940B42AFD759D00C3BD11 /* LogInView.swift */,
 				FB87FED02ADDEE9800F6273B /* MainView.swift */,
 				FBD940B62AFD763000C3BD11 /* HomeView.swift */,
-				FBD940AE2AFD73E800C3BD11 /* EditSymptomView.swift */,
-				177B37622B575433009CB58D /* ShowEditSymptomView.swift */,
+				17E5CEEB2BC38CEA00F57199 /* EditSymptomList */,
 				173EF2952BB1347000F7ACF9 /* CreateSymptom */,
 				F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */,
 				F838338D2B0C49F5005F2BB5 /* ShareView.swift */,
@@ -561,6 +572,7 @@
 				1789E8172B59DF0E0087531D /* EditSymptomViewModel.swift in Sources */,
 				FB86F0732AFEC42A0051C6A6 /* RegisterList.swift in Sources */,
 				FB1A55522AFD772900F9A74A /* CustomSlider.swift in Sources */,
+				17E5CEEA2BC0B15100F57199 /* NotificationManager.swift in Sources */,
 				F839EFF12AE0C4AE00CB5327 /* RegisterSymptomView.swift in Sources */,
 				FB86F0712AFEC4160051C6A6 /* SymptomList.swift in Sources */,
 				173EF29F2BB1C9DB00F7ACF9 /* IconColorView.swift in Sources */,

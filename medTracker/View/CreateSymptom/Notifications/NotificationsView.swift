@@ -12,7 +12,7 @@ enum NotificationFrequency: String, CaseIterable, Identifiable {
     case daily = "Diaria"
     case weekly = "Semanal"
     case monthly = "Mensual"
-    case customize = "Personalizar"
+//    case customize = "Personalizar"
     
     var id: String { self.rawValue }
 }
@@ -61,12 +61,12 @@ struct NotificationsView: View {
                 case .monthly:
                     DatePicker("Empieza", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
                         .frame(maxHeight: 400)
-                case .customize:
-                    PersonalizedNotificationsView(selectedDate: $selectedDate)
+                    // Customize is too complex to implement, search in the future how to do it
+//                case .customize:
+//                    PersonalizedNotificationsView(selectedDate: $selectedDate)
                 }
                 // Save the current notifications
                 Button(action: {
-                    codeNotification = "Notificaciones de manera \(selectedFrequency.rawValue)"
                     dismiss()
                 }) {
                     Text("Guardar")
@@ -75,17 +75,20 @@ struct NotificationsView: View {
                 .frame(maxWidth: .infinity) // center the text
             }
             .padding()
-            // *********************************
-            // *********************************
-            // DELETE - Set the repetition of notifications
+            // Set the initial values to be used in notifications to also be on sync with the values received
             .onAppear {
+                setVariables()
+            }
+            // On change of the important variables, save that into notifications
+            .onChange(of: selectedFrequency) { _ in
                 codeNotification = setNotifications()
             }
-            .onChange(of: selectedFrequency) { newValue in
-                codeNotification = "Notificaciones de manera \(newValue.rawValue)"
+            .onChange(of: selectedDate) { _ in
+                codeNotification = setNotifications()
             }
-            // *********************************
-            // *********************************
+            .onChange(of: selectedDays) { _ in
+                codeNotification = setNotifications()
+            }
             .navigationTitle("Notificaciones")
             // Dismiss the view
             .toolbar {
@@ -97,6 +100,28 @@ struct NotificationsView: View {
                     })
                 }
             }
+        }
+    }
+    
+    func setVariables() {
+        let elements = codeNotification.components(separatedBy: "#")
+        switch(elements[0]) {
+        case "D":
+            selectedFrequency = .daily
+            selectedDate = DateUtility.stringToHour(elements[1]) ?? Date.now // The string contains an hour like 20:18, so it convert to a date variable and saves it
+        case "W":
+            selectedFrequency = .weekly
+            selectedDate = DateUtility.stringToHour(elements[2]) ?? Date.now // The string contains an hour like 20:18, so it convert to a date variable and saves it
+            // This loop traverses the days that contain the string which are days, to convert that to true if the day was selected
+            for day in elements[1] {
+                let keyDay = String(day) // Convert the character into a string to obtain the value in dictionary
+                selectedDays[keyDay] = true
+            }
+        case "M":
+            selectedFrequency = .monthly
+            selectedDate = DateUtility.stringToDate(elements[1]) ?? Date.now // The string contains an hour like 20:18, so it convert to a date variable and saves it
+        default:
+            return
         }
     }
     
@@ -116,15 +141,13 @@ struct NotificationsView: View {
                     notificationString += day
                 }
             }
-            notificationString += hourValues
+            notificationString += "#\(hourValues)"
             return notificationString
         case .monthly:
             var notificationString = "M#"
             let dayValues = DateUtility.dateToString(selectedDate)
             notificationString += dayValues
             return notificationString
-        case .customize:
-            return ""
         }
     }
 }

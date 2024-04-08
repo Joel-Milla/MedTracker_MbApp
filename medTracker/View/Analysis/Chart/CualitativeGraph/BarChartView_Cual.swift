@@ -9,7 +9,7 @@ import Charts
 
 struct BarChartView_Cual: View {
     // Mock data
-    let testRegisters: [Register]
+    let symptomRegisters: [Register]
     // MARK: View Properties
     @Binding var currentTab: String
     @State var filteredRegisters: [Register] = []
@@ -21,7 +21,7 @@ struct BarChartView_Cual: View {
         // MARK: Bar Chart API that changes when the currentTab (time zone selected changes)
         AnimatedCharts()
             .onChange(of: currentTab) { newValue in
-                filteredRegisters = testRegisters.filterBy(currentTab)
+                filteredRegisters = symptomRegisters.filterBy(currentTab)
                 // Re-Animating View
                 animateGraph(fromChange: true)
             }
@@ -150,7 +150,7 @@ struct BarChartView_Cual: View {
         .frame(height: 250)
         .onAppear {
             // Filter the current regiser based on the current time zone.
-            filteredRegisters = testRegisters.filterBy(currentTab)
+            filteredRegisters = symptomRegisters.filterBy(currentTab)
             animateGraph()
         }
     }
@@ -169,7 +169,7 @@ struct BarChartView_Cual: View {
 #Preview {
     NavigationStack {
         
-        let testRegisters: [Register] = [
+        let symptomRegisters: [Register] = [
             Register(idSymptom: "SYM-571", fecha: Date(), cantidad: 8.51, notas: "Note 66"),
             Register(idSymptom: "SYM-603", fecha: Date().addingTimeInterval(-32400), cantidad: 8.92, notas: "Note 40"),
             Register(idSymptom: "SYM-603", fecha: Date().addingTimeInterval(-86400 * 1), cantidad: 8.92, notas: "Note 40"),
@@ -191,7 +191,7 @@ struct BarChartView_Cual: View {
         
         @State var currentTab: String = "Semana"
         
-        BarChartView_Cual(testRegisters: testRegisters, currentTab: $currentTab)
+        BarChartView_Cual(symptomRegisters: symptomRegisters, currentTab: $currentTab)
     }
 }
 

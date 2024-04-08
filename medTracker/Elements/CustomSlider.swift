@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CustomSlider: View {
     
-    @Binding var valueFinal: Double
+    @Binding var valueFinal: Float
     var valor : Double = 0.155
     @State var lastCoordinateValue: CGFloat = 0
     @State var value : Double = 0
@@ -113,9 +113,10 @@ struct CustomSlider: View {
         }
         return Color(.white)
     }
-    func getValue(maxValue: Double)->Double{
-        return(100 * value) / maxValue
+    func getValue(maxValue: Double) -> Float {
+        return Float((100 * value) / maxValue)
     }
+
     func getImage()->String{
         if(valueFinal < 20){
             return "happier_face"
