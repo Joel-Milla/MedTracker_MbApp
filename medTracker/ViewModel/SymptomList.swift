@@ -15,7 +15,7 @@ import SwiftUI
 class SymptomList : ObservableObject {
     typealias Action = () async throws -> Void
 
-    @Published var symptoms = [Symptom]() {
+    @Published var symptoms = [String: Symptom]() {
         didSet {
             updateStateBasedOnSymptoms()
             HelperFunctions.write(self.symptoms, inPath: symptomListURL)
@@ -39,7 +39,7 @@ class SymptomList : ObservableObject {
      **********************************/
     init(repository: Repository) {
         self.repository = repository
-        if let decodedData = HelperFunctions.loadData(in: symptomListURL, as: [Symptom].self) {
+        if let decodedData = HelperFunctions.loadData(in: symptomListURL, as: [String: Symptom].self) {
             self.symptoms = decodedData
         }
         //If there is no info in JSON, fetch
@@ -67,7 +67,7 @@ class SymptomList : ObservableObject {
     func createSymptomViewModel() -> FormViewModel<Symptom> {
         return FormViewModel(initialValue: Symptom()) { [weak self] symptom in
             let (hasError, message) = symptom.validateInput()
-            let symptomExists = self?.symptoms.firstIndex(where: { $0.nombre == symptom.nombre }) != nil // Validate if a symptom with the same name already exists
+            let symptomExists = self?.symptoms.values.contains(where: { $0.nombre == symptom.nombre }) ?? false // Validate if a symptom with the same name already exists
             // if the symptom doesnt have valid input, throw an error
             if (hasError) {
                 throw HelperFunctions.ErrorType.invalidInput(message)
@@ -77,7 +77,7 @@ class SymptomList : ObservableObject {
             else {
                 // Schedule notifications based on the input received from the user
                 NotificationManager.instance.scheduleNotifications(symptom.notificacion, symptom.nombre)
-                self?.symptoms.append(symptom) // adds the symptom to the current array
+                self?.symptoms[symptom.id.uuidString] = symptom
                 try await self?.repository.createSymptom(symptom) // use function in the repository to create the symptom
             }
         }
@@ -97,33 +97,33 @@ class SymptomList : ObservableObject {
     // ******************************************************************
     
     // The functions returns a closure that is used to write information in firebase
-    func makeCreateAction() -> AddSymptomView.CreateAction {
-        return { [weak self] symptom in
-            try await self?.repository.createSymptom(symptom)
-        }
-    }
+//    func makeCreateAction() -> AddSymptomView.CreateAction {
+//        return { [weak self] symptom in
+//            try await self?.repository.createSymptom(symptom)
+//        }
+//    }
     // ******************************************************************
     // ******************************************************************
     // ************* DELETE WHEN AddSymptomView IS NOT USED *************
     
     // The functions returns a closure that is used to write information in firebase
-    func makeUpdateAction(for symptom: Symptom) -> Action {
-        return { [weak self] in
-            let index = self?.symptoms.firstIndex(of: symptom)
-            if let index = index {
-                self?.symptoms[index].activo.toggle()
-            }
-            try await self?.repository.updateSymptomActivo(symptom)
-        }
-    }
+//    func makeUpdateAction(for symptom: Symptom) -> Action {
+//        return { [weak self] in
+//            let index = self?.symptoms.firstIndex(of: symptom)
+//            if let index = index {
+//                self?.symptoms[index].activo.toggle()
+//            }
+//            try await self?.repository.updateSymptomActivo(symptom)
+//        }
+//    }
     
     // The functions returns a closure that is used to write information in firebase
-    func makeDeleteAction(for symptom: Symptom) -> Action {
-        return { [weak self] in
-            self?.symptoms.removeAll{ $0.id == symptom.id}
-            try await self?.repository.deleteSymptom(symptom)
-        }
-    }
+//    func makeDeleteAction(for symptom: Symptom) -> Action {
+//        return { [weak self] in
+//            self?.symptoms.removeAll{ $0.id == symptom.id}
+//            try await self?.repository.deleteSymptom(symptom)
+//        }
+//    }
     
     // Fetch symptoms from the database and save them on the symptoms list.
     func fetchSymptoms() {
@@ -139,16 +139,16 @@ class SymptomList : ObservableObject {
     }
     
     // Function to delete a symptom
-    func deleteSymptom(symptom : Symptom) {
-        self.symptoms.removeAll{ $0.id == symptom.id }
-        Task {
-            do {
-                try await self.repository.deleteSymptom(symptom)
-            } catch {
-                customPrint("[SymptomList] Cannot delete symptom: \(error)")
-            }
-        }
-    }
+//    func deleteSymptom(symptom : Symptom) {
+//        self.symptoms.removeAll{ $0.id == symptom.id }
+//        Task {
+//            do {
+//                try await self.repository.deleteSymptom(symptom)
+//            } catch {
+//                customPrint("[SymptomList] Cannot delete symptom: \(error)")
+//            }
+//        }
+//    }
     
     // Function to update the state of the syntomsList. This is called each time the list is modified.
     private func updateStateBasedOnSymptoms() {
@@ -158,22 +158,15 @@ class SymptomList : ObservableObject {
             state = .complete
         }
     }
-    func returnName(id : String)->String{
-        var name = ""
-        for symptom in self.symptoms{
-            if symptom.id.uuidString == id{
-                name = symptom.nombre
-            }
-        }
+    
+    func returnName(id : String) -> String {
+        let name = self.symptoms[id]?.nombre ?? ""
         return name
     }
-    func returnActive(id : String) -> Bool{
-        for symptom in self.symptoms {
-            if symptom.id.uuidString == id{
-                return symptom.activo
-            }
-        }
-        return false
+    
+    func returnActive(id : String) -> Bool {
+        let activo = self.symptoms[id]?.activo ?? false
+        return activo
     }
     
     // Dummy data for testing purposes.

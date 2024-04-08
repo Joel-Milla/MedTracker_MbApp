@@ -53,10 +53,14 @@ struct Repository {
     }
     
     // Function to fetch all the symptoms in firebase
-    func fetchSymptoms() async throws -> [Symptom] {
-        let symptoms = try await symptomReference
-            .order(by: "fecha", descending: false)
+    func fetchSymptoms() async throws -> [String: Symptom] {
+        let symptomList = try await symptomReference
+//            .order(by: "fecha", descending: false) // Im not sure if should order the symptoms
             .getDocuments(as: Symptom.self)
+        var symptoms: [String: Symptom] = [:]
+        for symptom in symptomList {
+            symptoms[symptom.id.uuidString] = symptom
+        }
         return symptoms
     }
     // Function to update value symptom

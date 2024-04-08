@@ -28,23 +28,24 @@ struct AnalysisView: View {
                     action: { muestraNewSymptom = true }
                 )
                 .sheet(isPresented: $muestraNewSymptom) {
-                    AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
+//                    AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
+                    CreateSymptomView(formViewModel: symptoms.createSymptomViewModel())
                 }
             }
             // If there are symptoms being checked then show this view.
-            else {
-                VStack {
-                    // Show a tab for each symptom that is active.
-                    TabView {
-                        ForEach(symptoms.symptoms.filter { $0.activo == true }, id: \.id) { symptom in
-                            AnalysisItemView(symptom: symptom, registers: registers, symptoms: symptoms)
-                        }
-                    }
-                    .tabViewStyle(.page)
-                    .indexViewStyle(.page(backgroundDisplayMode: .always))
-                }
-                .background(Color("mainWhite"))
-            }
+//            else {
+//                VStack {
+//                    // Show a tab for each symptom that is active.
+//                    TabView {
+//                        ForEach(symptoms.symptoms.filter { $0.activo == true }, id: \.id) { symptom in
+//                            AnalysisItemView(symptom: symptom, registers: registers, symptoms: symptoms)
+//                        }
+//                    }
+//                    .tabViewStyle(.page)
+//                    .indexViewStyle(.page(backgroundDisplayMode: .always))
+//                }
+//                .background(Color("mainWhite"))
+//            }
         }
     }
 }

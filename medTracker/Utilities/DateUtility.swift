@@ -69,3 +69,18 @@ extension Date {
         return formatter.string(from: self)
     }
 }
+// Struct to handle days of the week
+struct DateUtils {
+    static func weekdayFromString(_ weekdayString: String) -> Int? {
+        switch weekdayString {
+        case "Domingo": return 1
+        case "Lunes": return 2
+        case "Martes": return 3
+        case "Miércoles": return 4
+        case "Jueves": return 5
+        case "Viernes": return 6
+        case "Sábado": return 7
+        default: return nil
+        }
+    }
+}

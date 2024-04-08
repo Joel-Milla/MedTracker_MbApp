@@ -83,19 +83,14 @@ struct HomeView: View {
                         }
                     case .complete:
                         List {
-                            ForEach(symptoms.symptoms.indices, id: \.self) { index in
-                                if symptoms.symptoms[index].activo {
-                                    let symptom = symptoms.symptoms[index]
-                                    NavigationLink {
-                                        // Pass the symptom and the registers of that symptom and the register list
-                                        AnalysisView2_0(symptom: symptom, registers: registers)
+                            // Convert dictionary to an array and sort them by date
+                            ForEach(Array(symptoms.symptoms.values).sorted(by: { $0.fecha < $1.fecha }), id: \.self) { symptom in
+                                if symptom.activo {
+                                    // Show a listItem view and redirect user to analysis upon touching
+                                    NavigationLink(destination: AnalysisView2_0(symptom: symptom, registers: registers)) {
+                                        ListItemView(item: symptom, registers: testRegisters)
+                                            .padding(10)
                                     }
-                                label: {
-                                    ListItemView(item: symptom, registers: testRegisters)
-                                }
-                                .padding(10)
-                                    //                                .padding(10)
-                                    
                                 }
                             }
                         }

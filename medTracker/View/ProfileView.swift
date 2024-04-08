@@ -134,11 +134,12 @@ struct ProfileView: View {
                         }
                         
                         Button {
-                            for (index,_) in symptoms.symptoms.enumerated() {
-                                symptoms.symptoms[index].notificacion = ""
-                                modifySymptom(symptomModification: symptoms.symptoms[index])
-                                cancelAllNotification()
-                            }
+                            // MARK: Dont know why this exists, check. Was commented to transform symptoms to a dictionary
+//                            for (index,_) in symptoms.symptoms.enumerated() {
+//                                symptoms.symptoms[index].notificacion = ""
+//                                modifySymptom(symptomModification: symptoms.symptoms[index])
+//                                cancelAllNotification()
+//                            }
                             
                             authentication.signOut()
                         } label: {
