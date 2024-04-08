@@ -32,18 +32,18 @@ struct BarChartView_Cuant: View {
     func AnimatedCharts() -> some View {
         // Max value to extend the y-scale of the data
         let max = filteredRegisters.max { item1, item2 in
-            return item2.cantidad > item1.cantidad
-        }?.cantidad ?? 0
+            return item2.amount > item1.amount
+        }?.amount ?? 0
         // Values to block the x scale from moving
-        let minDate = filteredRegisters.adjustDatesToStartOfDay().map { $0.fecha }.min() ?? Date()
-        let maxDate = filteredRegisters.adjustDatesToStartOfDay().map { $0.fecha }.max() ?? Date()
+        let minDate = filteredRegisters.adjustDatesToStartOfDay().map { $0.date }.min() ?? Date()
+        let maxDate = filteredRegisters.adjustDatesToStartOfDay().map { $0.date }.max() ?? Date()
         
         Chart {
             ForEach(filteredRegisters) { register in
                 // MARK: Bar Graph
                 BarMark(
-                    x: .value("Fecha", register.adjustDateToDay().fecha, unit: .day),
-                    y: .value("Cantidad", register.animate ? register.cantidad : 0)
+                    x: .value("Fecha", register.adjustDateToDay().date, unit: .day),
+                    y: .value("Cantidad", register.animate ? register.amount : 0)
                 )
                 // Applying Gradient Style
                 // From swiftui 4.0 can direclty create gradient color
@@ -53,17 +53,17 @@ struct BarChartView_Cuant: View {
                 // The current item is choosen when the user makes a drag motion.
                 if let currentActiveItem, currentActiveItem.id.uuidString == register.id.uuidString {
                     // Add a rule on the x value on the graph
-                    RuleMark(x: .value("Fecha", currentActiveItem.adjustDateToDay().fecha))
+                    RuleMark(x: .value("Fecha", currentActiveItem.adjustDateToDay().date))
                     // MARK: Use offset to show the rule line in the middle of the current selected bar lines
                         .offset(x: (plotWidth / CGFloat(filteredRegisters.count)) / 2)
                     // Add an annotation on top of the vertical line to show the value of the nearest item
                         .annotation(position: .top) {
                             VStack(alignment: .leading, spacing: 6) {
                                 // Show the date of the current value and the value
-                                Text(currentActiveItem.fecha.dateToStringMDH())
+                                Text(currentActiveItem.date.dateToStringMDH())
                                     .font(.caption)
                                     .foregroundStyle(.gray)
-                                Text(currentActiveItem.cantidad.asString())
+                                Text(currentActiveItem.amount.asString())
                                     .font(.title3.bold())
                             }
                             .padding(.horizontal, 10)
@@ -73,7 +73,7 @@ struct BarChartView_Cuant: View {
                                     .fill(.white.shadow(.drop(radius: 2)))
                             }
                             // Move the annotation when it is on the corners so the annotation shows clearly and not on borders
-                            .offset(x: currentActiveItem.fecha.dateToStringMDH() == minDate.dateToStringMDH() ? 35 : currentActiveItem.fecha.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
+                            .offset(x: currentActiveItem.date.dateToStringMDH() == minDate.dateToStringMDH() ? 35 : currentActiveItem.date.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
                         }
                 }
             }
@@ -101,7 +101,7 @@ struct BarChartView_Cuant: View {
                                 // dont forget to includ the perfect data type
                                 if let date: Date = proxy.value(atX: location.x) {
                                     // Extracting the closest register
-                                    if let closestRegister = filteredRegisters.min(by: { abs($0.fecha.timeIntervalSince(date)) < abs($1.fecha.timeIntervalSince(date)) }) {
+                                    if let closestRegister = filteredRegisters.min(by: { abs($0.date.timeIntervalSince(date)) < abs($1.date.timeIntervalSince(date)) }) {
                                         self.currentActiveItem = closestRegister // set the closes register globally to put marks on there
                                         self.plotWidth = proxy.plotAreaSize.width // Obtain the width of the plot to know where to put the marks on the x axis
                                         
@@ -135,25 +135,7 @@ struct BarChartView_Cuant: View {
 #Preview {
     NavigationStack {
         
-        let symptomRegisters: [Register] = [
-            Register(idSymptom: "SYM-571", fecha: Date(), cantidad: 8.51, notas: "Note 66"),
-            Register(idSymptom: "SYM-603", fecha: Date().addingTimeInterval(-32400), cantidad: 8.92, notas: "Note 40"),
-            Register(idSymptom: "SYM-603", fecha: Date().addingTimeInterval(-86400 * 1), cantidad: 8.92, notas: "Note 40"),
-            Register(idSymptom: "SYM-358", fecha: Date().addingTimeInterval(-86400 * 2), cantidad: 1.36, notas: "Note 25"),
-            Register(idSymptom: "SYM-797", fecha: Date().addingTimeInterval(-86400 * 3), cantidad: 7.07, notas: "Note 68"),
-            Register(idSymptom: "SYM-936", fecha: Date().addingTimeInterval(-86400 * 4), cantidad: 9.86, notas: "Note 33"),
-            Register(idSymptom: "SYM-781", fecha: Date().addingTimeInterval(-86400 * 5), cantidad: 3.29, notas: "Note 77"),
-            Register(idSymptom: "SYM-272", fecha: Date().addingTimeInterval(-86400 * 6), cantidad: 9.24, notas: "Note 10"),
-            Register(idSymptom: "SYM-158", fecha: Date().addingTimeInterval(-86400 * 7), cantidad: 5.29, notas: "Note 90"),
-            Register(idSymptom: "SYM-739", fecha: Date().addingTimeInterval(-86400 * 8), cantidad: 2.67, notas: "Note 46"),
-            Register(idSymptom: "SYM-342", fecha: Date().addingTimeInterval(-86400 * 9), cantidad: 5.2, notas: "Note 21"),
-            Register(idSymptom: "SYM-343", fecha: Date().addingTimeInterval(-86400 * 10), cantidad: 5.2, notas: "Note 22"),
-            Register(idSymptom: "SYM-344", fecha: Date().addingTimeInterval(-86400 * 11), cantidad: 5.2, notas: "Note 23"),
-            Register(idSymptom: "SYM-345", fecha: Date().addingTimeInterval(-86400 * 12), cantidad: 22, notas: "Note 24"),
-            Register(idSymptom: "SYM-346", fecha: Date().addingTimeInterval(-86400 * 13), cantidad: 5.2, notas: "Note 25"),
-            Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 14), cantidad: 9, notas: "Note 29"),
-            //Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 3.4, notas: "Note 30")
-        ]
+        let symptomRegisters: [Register] = RegisterList.getDefaultRegisters()
         
         @State var currentTab: String = "Semana"
         

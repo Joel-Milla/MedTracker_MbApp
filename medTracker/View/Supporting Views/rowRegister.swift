@@ -19,7 +19,7 @@ struct rowRegister: View {
                     .fontWeight(.semibold)
                     .foregroundColor(Color(hex: symptom.color))
 
-                Text(register.fecha, formatter: itemFormatter)
+                Text(register.date, formatter: itemFormatter)
                     .font(.footnote)
                     .foregroundColor(Color.gray)
             }
@@ -27,11 +27,11 @@ struct rowRegister: View {
             Spacer()
 
             if symptom.cuantitativo {
-                Text("Cantidad: \(register.cantidad, specifier: "%.2f")")
+                Text("Cantidad: \(register.amount, specifier: "%.2f")")
                     .font(.footnote)
                     .foregroundColor(Color.gray)
             } else {
-                let (imageName, imageColor) = getImage(of: register.cantidad)
+                let (imageName, imageColor) = getImage(of: register.amount)
                 Image(imageName)
                     .resizable()
                     .scaledToFit()

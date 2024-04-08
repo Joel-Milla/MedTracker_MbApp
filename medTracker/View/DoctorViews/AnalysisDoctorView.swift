@@ -73,9 +73,9 @@ struct AnalysisDoctorView: View {
         var csvText = "Nombre del Dato,Fecha,Cantidad,Notas\n"
         let sortedRegs = patientsData.registers.sorted(by: {$0.idSymptom > $1.idSymptom})
         for register in sortedRegs {
-            let fechaStr = formatter.string(from:register.fecha)
+            let fechaStr = formatter.string(from:register.date)
             if(getSymptomIsActive(register: register)){
-                let newLine = "\(getSymptomOfName(register: register)),\(fechaStr),\(register.cantidad),\(register.notas)\n"
+                let newLine = "\(getSymptomOfName(register: register)),\(fechaStr),\(register.amount),\(register.notes)\n"
                 csvText.append(contentsOf: newLine)
             }
         }
@@ -194,16 +194,16 @@ struct AnalysisPatientView: View {
             registers = allRegisters
             currentTab = "Semana"
             let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-            registers = allRegisters.filter { $0.fecha > oneWeekAgo }
+            registers = allRegisters.filter { $0.date > oneWeekAgo }
         }
         .onChange(of: currentTab) { newValue in
             registers = allRegisters
             if newValue == "Semana" {
                 let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-                registers = allRegisters.filter { $0.fecha > oneWeekAgo }
+                registers = allRegisters.filter { $0.date > oneWeekAgo }
             } else if newValue == "Mes" {
                 let oneMonthAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date())!
-                registers = allRegisters.filter { $0.fecha > oneMonthAgo }
+                registers = allRegisters.filter { $0.date > oneMonthAgo }
             }
         }
     }
@@ -213,7 +213,7 @@ struct AnalysisPatientView: View {
     @ViewBuilder
     func ChartCuantitativa(filteredRegisters: [Register]) -> some View {
         
-        let registers = filteredRegisters.sorted { $0.fecha < $1.fecha }
+        let registers = filteredRegisters.sorted { $0.date < $1.date }
         
         let spm = operaciones(registers: registers)
         Text("Prom: \(spm[0].stringFormat)  Max: \(spm[1].stringFormat)  Min: \(spm[2].stringFormat)")
@@ -226,16 +226,16 @@ struct AnalysisPatientView: View {
         Chart {
             ForEach(registers, id:\.self) { register in
                 LineMark (
-                    x: .value("Día", register.fecha, unit: .day),
-                    y: .value("CANTIDAD", register.cantidad)//register.animacion ? register.cantidad : 0)
+                    x: .value("Día", register.date, unit: .day),
+                    y: .value("CANTIDAD", register.amount)//register.animacion ? register.cantidad : 0)
                 )
                 .foregroundStyle(Color(hex: symptom.color))
                 .interpolationMethod(.catmullRom)
                 
                 AreaMark (
-                    x: .value("Día", register.fecha, unit: .day),
+                    x: .value("Día", register.date, unit: .day),
                     yStart: .value("minY", min),
-                    yEnd: .value("maxY", register.cantidad)
+                    yEnd: .value("maxY", register.amount)
                     //y: .range(min...register.cantidad)//register.animacion ? register.cantidad : 0)
                 )
                 .foregroundStyle(Color(hex: symptom.color).opacity(0.1))
@@ -250,7 +250,7 @@ struct AnalysisPatientView: View {
     
     @ViewBuilder
     func ChartCualitativa(filteredRegisters: [Register]) -> some View {
-        let registers = filteredRegisters.sorted { $0.fecha < $1.fecha }
+        let registers = filteredRegisters.sorted { $0.date < $1.date }
         
         let yAxisLabels: [ImageYAxisLabel] = [
             ImageYAxisLabel(id: 10, image: "sadder_face"),
@@ -263,16 +263,16 @@ struct AnalysisPatientView: View {
         Chart {
             ForEach(registers, id:\.self) { register in
                 LineMark (
-                    x: .value("Día", register.fecha, unit: .day),
-                    y: .value("CANTIDAD", register.cantidad)
+                    x: .value("Día", register.date, unit: .day),
+                    y: .value("CANTIDAD", register.amount)
                 )
                 .foregroundStyle(Color(hex: symptom.color))
                 .interpolationMethod(.catmullRom)
                 
                 AreaMark (
-                    x: .value("Día", register.fecha, unit: .day),
+                    x: .value("Día", register.date, unit: .day),
                     yStart: .value("minY", 0),
-                    yEnd: .value("maxY", register.cantidad)
+                    yEnd: .value("maxY", register.amount)
                 )
                 .foregroundStyle(Color(hex: symptom.color).opacity(0.1))
                 .interpolationMethod(.catmullRom)
@@ -307,12 +307,12 @@ struct AnalysisPatientView: View {
         var operacionesList : [Float] = [0,0,Float.greatestFiniteMagnitude]
         
         for item in registers {
-            operacionesList[0] = operacionesList[0] + item.cantidad
-            if operacionesList[1] < item.cantidad {
-                operacionesList[1] = item.cantidad
+            operacionesList[0] = operacionesList[0] + item.amount
+            if operacionesList[1] < item.amount {
+                operacionesList[1] = item.amount
             }
-            if operacionesList[2] > item.cantidad {
-                operacionesList[2] = item.cantidad
+            if operacionesList[2] > item.amount {
+                operacionesList[2] = item.amount
             }
         }
         operacionesList[0] = operacionesList[0] / Float(registers.count)

@@ -12,7 +12,7 @@ extension Register {
     func adjustDateToDay() -> Register {
         let calendar = Calendar.current
         var adjustedRegister = self
-        adjustedRegister.fecha = calendar.startOfDay(for: self.fecha)
+        adjustedRegister.date = calendar.startOfDay(for: self.date)
         return adjustedRegister
     }
 }
@@ -25,13 +25,13 @@ extension [Register] {
             // Date of last seven days
             let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
             return self.filter({ register in
-                register.fecha > sevenDaysAgo
+                register.date > sevenDaysAgo
             })
         case "Mes":
             // Date of last seven days
             let monthAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date())!
             return self.filter({ register in
-                register.fecha > monthAgo
+                register.date > monthAgo
             })
         case "Todos":
             return self
@@ -42,18 +42,18 @@ extension [Register] {
     
     // Functions used for insightsView, obtain the min value
     func minValue() -> Float {
-        self.min(by: { $0.cantidad < $1.cantidad })?.cantidad ?? 0.0
+        self.min(by: { $0.amount < $1.amount })?.amount ?? 0.0
     }
     
     // Functions used for insightsView, obtain the max value
     func maxValue() -> Float {
-        self.max(by: { $0.cantidad < $1.cantidad })?.cantidad ?? 0.0
+        self.max(by: { $0.amount < $1.amount })?.amount ?? 0.0
     }
     
     // Functions used for insightsView, obtain the min value
     func meanValue() -> Float {
         guard !self.isEmpty else { return 0.0 }
-        let sum = self.reduce(0.0) { $0 + $1.cantidad }
+        let sum = self.reduce(0.0) { $0 + $1.amount }
         return sum / Float(self.count)
     }
     
