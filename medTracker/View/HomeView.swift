@@ -79,7 +79,7 @@ struct HomeView: View {
                         )
                         // The sheets sends the user to the view to create a new symptom.
                         .sheet(isPresented: $muestraNewSymptom) {
-                            AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
+                            CreateSymptomView(formViewModel: symptoms.createSymptomViewModel())
                         }
                     case .complete:
                         List {

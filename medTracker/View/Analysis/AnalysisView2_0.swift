@@ -11,7 +11,7 @@ struct AnalysisView2_0: View {
     // Receive mock data
     @State var symptomTest: Symptom
     @State var testRegisters: [Register]
-    @State var isPresented : Bool = false // Para mostrar RegisterSymptomView
+    @State var showRegisterSymptomView : Bool = false // To show RegisterSymptomView
     @EnvironmentObject var authViewModel: AuthViewModel
     @State var sliderValue : Double = 0.0
     
@@ -39,13 +39,13 @@ struct AnalysisView2_0: View {
                 // Button to traverse to EditSymptomView.
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        isPresented = true
+                        showRegisterSymptomView = true
                     } label: {
                         Image(systemName: "plus")
                     }
                 }
             }
-            .sheet(isPresented: $isPresented, content: {
+            .sheet(isPresented: $showRegisterSymptomView, content: {
                 RegisterSymptomView(symptom: $symptomTest, registers: authViewModel.makeRegisterList()!, symptoms: authViewModel.makeSymptomList()!, sliderValue: $sliderValue, createAction: {register in})
             })
     }
