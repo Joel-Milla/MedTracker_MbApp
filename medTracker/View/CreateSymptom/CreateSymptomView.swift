@@ -11,7 +11,7 @@ struct CreateSymptomView: View {
     // Dismiss the view when no longer needed
     @Environment(\.dismiss) var dismiss
     // Handles the form submission to create a new register
-    @State var formViewModel: FormViewModel<Symptom>
+    @StateObject var formViewModel: FormViewModel<Symptom>
     // Notifications properties
     @State var allowNotifications: Bool = false
     @State var showNotificationView: Bool = false
