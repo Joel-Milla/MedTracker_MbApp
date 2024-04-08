@@ -20,6 +20,10 @@ struct RegisterSymptomView: View {
     // Dismiss the view when no longer needed
     @Environment(\.dismiss) var dismiss
     
+    //@State var sliderOrTF : Bool = false
+    @State var notes = ""
+    var dummySymptom = "Migraña"
+    @State var metric: Double = 0
     @State private var notificacionesActivas = false
     
     var body: some View {
