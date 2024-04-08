@@ -36,7 +36,7 @@ struct MainView: View {
 
 #Preview {
     NavigationStack {
-        @State var repository = Repository(user: User(id: "3zPDb70ofQQHximl1NXwPMgIhMR2", rol: "Paciente", email: "joel@mail.com", telefono: "", nombreCompleto: "Joel", antecedentes: "", sexo: "", fechaNacimiento: Date.now, estatura: "", arregloDoctor: ["doc@mail.com"]))
+        @State var repository = Repository(user: User(id: "3zPDb70ofQQHximl1NXwPMgIhMR2", rol: "Paciente", email: "joel@mail.com", phone: "", name: "Joel", clinicalHistory: "", sex: "", birthdate: Date.now, height: "", doctors: ["doc@mail.com"]))
         
         @State var symptoms: SymptomList = SymptomList(repository: repository)
         @State var registers: RegisterList = RegisterList(repository: repository)

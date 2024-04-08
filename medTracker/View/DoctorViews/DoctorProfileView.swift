@@ -49,14 +49,14 @@ struct DoctorProfileView: View {
                         if isEditing {
                             HStack {
                                 Text("Nombre completo:")
-                                Text("\(user.user.nombreCompleto)")
+                                Text("\(user.user.name)")
                             }
                             HStack {
                                 Text("Teléfono:")
-                                TextField("+81 2611 1857", text: $draftUser.telefono)}
+                                TextField("+81 2611 1857", text: $draftUser.phone)}
                         } else {
-                            Text("Nombre completo: \(user.user.nombreCompleto)")
-                            Text("Teléfono: \(user.user.telefono)")
+                            Text("Nombre completo: \(user.user.name)")
+                            Text("Teléfono: \(user.user.phone)")
                         }
                     } header: {
                         Text("Datos personales")
@@ -66,11 +66,11 @@ struct DoctorProfileView: View {
                         if isEditing {
                             HStack {
                                 Text("Estatura:")
-                                TextField("1.80", text: $draftUser.estatura)
+                                TextField("1.80", text: $draftUser.height)
                                     .keyboardType(.decimalPad)
                             }
                             DatePicker("Fecha de Nacimiento",
-                                       selection: $draftUser.fechaNacimiento, in: dateRange,
+                                       selection: $draftUser.birthdate, in: dateRange,
                                        displayedComponents: .date)
 
                             Picker("Sexo", selection: $selectedSexo) {
@@ -80,13 +80,13 @@ struct DoctorProfileView: View {
                             }
                             .pickerStyle(MenuPickerStyle())
                             .onAppear {
-                                self.selectedSexo = draftUser.sexo
+                                self.selectedSexo = draftUser.sex
                             }
                             .onChange(of: selectedSexo) { newValue in
-                                draftUser.sexo = newValue
+                                draftUser.sex = newValue
                             }
                         } else {
-                            Text("Estatura: \(user.user.estatura)")
+                            Text("Estatura: \(user.user.height)")
                             HStack {
                                 Text("Fecha de nacimiento:")
                                 Spacer()
@@ -96,7 +96,7 @@ struct DoctorProfileView: View {
                             HStack {
                                 Text("Sexo:")
                                 Spacer()
-                                Text(draftUser.sexo)
+                                Text(draftUser.sex)
                             }
                         }
                     } header: {

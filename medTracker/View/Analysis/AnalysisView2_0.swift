@@ -56,7 +56,7 @@ struct AnalysisView2_0: View {
     NavigationStack {
         @State var symptomTest = Symptom(nombre: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", cuantitativo: true, unidades: "kg", activo: true, color: "#007AFF", notificacion: "")
         
-        @State var repository = Repository(user: User(id: "3zPDb70ofQQHximl1NXwPMgIhMR2", rol: "Paciente", email: "joel@mail.com", telefono: "", nombreCompleto: "Joel", antecedentes: "", sexo: "", fechaNacimiento: Date.now, estatura: "", arregloDoctor: ["doc@mail.com"]))
+        @State var repository = Repository(user: User(id: "3zPDb70ofQQHximl1NXwPMgIhMR2", rol: "Paciente", email: "joel@mail.com", phone: "", name: "Joel", clinicalHistory: "", sex: "", birthdate: Date.now, height: "", doctors: ["doc@mail.com"]))
         
         @State var registers: RegisterList = RegisterList(repository: repository)
         AnalysisView2_0(symptom: symptomTest, registers: registers)

@@ -125,7 +125,7 @@ struct Repository {
         let patientsReference = docDocument.collection("patients")
         let document = patientsReference.document(user.email)
         try await document.setData([
-            "name": user.nombreCompleto,
+            "name": user.name,
             "email": user.email
         ])
     }
