@@ -88,11 +88,21 @@ struct Repository {
         try await document.delete()
     }
     
-    // Function to obtain the registers of the database
-    func fetchRegisters() async throws -> [Register] {
-        let registers = try await registerReference
-            .order(by: "idSymptom", descending: false)
+    // Function to obtain the registers of the database in ascending order (old to new)
+    func fetchRegisters() async throws -> [String: [Register]] {
+        let registerList = try await registerReference
+            .order(by: "fecha", descending: false)
             .getDocuments(as: Register.self)
+        var registers: [String: [Register]] = [:]
+        for register in registerList {
+            let idSymptom = register.idSymptom
+            // Check if the key has an empty array
+            if (registers[idSymptom] == nil) {
+                registers[idSymptom] = []
+            }
+            // Add the register
+            registers[idSymptom]?.append(register)
+        }
         return registers
     }
     

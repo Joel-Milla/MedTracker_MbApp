@@ -14,7 +14,7 @@ import Foundation
 class RegisterList : ObservableObject {
     typealias Action = () async throws -> Void
 
-    @Published var registers = [Register]() {
+    @Published var registers = [String: [Register]]() {
         didSet {
             HelperFunctions.write(self.registers, inPath: registersURL)
         }
@@ -35,7 +35,7 @@ class RegisterList : ObservableObject {
      **********************************/
     init(repository: Repository) {
         self.repository = repository
-        if let decodedData = HelperFunctions.loadData(in: registersURL, as: [Register].self) {
+        if let decodedData = HelperFunctions.loadData(in: registersURL, as: [String: [Register]].self) {
             self.registers = decodedData
         }
         
@@ -51,9 +51,7 @@ class RegisterList : ObservableObject {
      **********************************/
     // Filter the registers by a symptom
     func filterBy(_ symptom: Symptom) -> [Register] {
-        return registers.filter { register in
-            register.idSymptom == symptom.id.uuidString
-        }
+        return registers[symptom.id.uuidString] ?? []
     }
     
     // Return a formViewModel that handles the creation of a new register
@@ -64,11 +62,23 @@ class RegisterList : ObservableObject {
             if (hasError) {
                 throw HelperFunctions.ErrorType.invalidInput(message)
             } else {
-                self?.registers.append(register) // adds the symptom to the current array
-                do {
-                    try await self?.repository.createRegister(register) // use function in the repository to create the register in firebase
-                } catch {
-                    try HelperFunctions.handleFirestoreError(code: error)
+                // If the symptom doesnt have a register yet, create it
+                if self?.registers[idSymptom] == nil {
+                    self?.registers[idSymptom] = []
+                }
+                // Insert the new register
+                if var registersOfSymptom = self?.registers[idSymptom] {
+                    // Index to insert the register in a sorted way
+                    let insertIndex = registersOfSymptom.firstIndex(where: {$0.fecha > register.fecha}) ?? registersOfSymptom.endIndex
+                    registersOfSymptom.insert(register, at: insertIndex)
+                    self?.registers[idSymptom] = registersOfSymptom
+                    
+                    // Make the request to firebase to create the register
+                    do {
+                        try await self?.repository.createRegister(register)
+                    } catch {
+                        try HelperFunctions.handleFirestoreError(code: error)
+                    }
                 }
             }
         }
@@ -89,18 +99,18 @@ class RegisterList : ObservableObject {
     // ******************************************************************
     
     // The functions returns a closure that is used to delete all registers of a symptom.
-    func makeDeleteAction(for symptom: Symptom) -> Action {
-        return { [weak self] in
-            self?.registers.removeAll{ $0.id == symptom.id}
-            if let registers = self?.registers {
-                for local_register in registers {
-                    if local_register.idSymptom == symptom.id.uuidString {
-                        try await self?.repository.deleteRegister(local_register)
-                    }
-                }
-            }
-        }
-    }
+//    func makeDeleteAction(for symptom: Symptom) -> Action {
+//        return { [weak self] in
+//            self?.registers.removeAll{ $0.id == symptom.id}
+//            if let registers = self?.registers {
+//                for local_register in registers {
+//                    if local_register.idSymptom == symptom.id.uuidString {
+//                        try await self?.repository.deleteRegister(local_register)
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
     // Fetch registers data from the database and save them on the registers list.
@@ -115,35 +125,35 @@ class RegisterList : ObservableObject {
     }
     
     // Delete registers that have a certain symptom
-    func deleteRegistersSymptom(indexSymptom: String) {
-        for register in registers {
-            if register.idSymptom == indexSymptom {
-                Task {
-                    try await self.repository.deleteRegister(register)
-                }
-            }
-        }
-        registers.removeAll {
-            $0.idSymptom == indexSymptom
-        }
-    }
+//    func deleteRegistersSymptom(indexSymptom: String) {
+//        for register in registers {
+//            if register.idSymptom == indexSymptom {
+//                Task {
+//                    try await self.repository.deleteRegister(register)
+//                }
+//            }
+//        }
+//        registers.removeAll {
+//            $0.idSymptom == indexSymptom
+//        }
+//    }
     
     // Delete specific registers
-    func deleteRegisterSet(atOffset indexSet: IndexSet, ofSymptom symptom: Symptom) {
-        let filteredRegisters = registers.filter({ $0.idSymptom == symptom.id.uuidString }).sorted(by: {$0.fecha > $1.fecha})
-        let idsToDelete = indexSet.map { filteredRegisters[$0].id }
-        
-        registers.removeAll { register in
-            idsToDelete.contains(register.id)
-        }
-        
-        idsToDelete.forEach { id in
-            Task {
-                try await self.repository.deleteRegisterByID(id)
-            }
-        }
-        
-    }
+//    func deleteRegisterSet(atOffset indexSet: IndexSet, ofSymptom symptom: Symptom) {
+//        let filteredRegisters = registers.filter({ $0.idSymptom == symptom.id.uuidString }).sorted(by: {$0.fecha > $1.fecha})
+//        let idsToDelete = indexSet.map { filteredRegisters[$0].id }
+//        
+//        registers.removeAll { register in
+//            idsToDelete.contains(register.id)
+//        }
+//        
+//        idsToDelete.forEach { id in
+//            Task {
+//                try await self.repository.deleteRegisterByID(id)
+//            }
+//        }
+//        
+//    }
     
     // Dummy data for testing purposes.
     private func getDefaultRegisters() -> [Register] {

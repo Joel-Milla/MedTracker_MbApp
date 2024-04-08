@@ -33,41 +33,42 @@ struct ShareView: View {
         }
     }
     func exportCSV()-> URL? {
-        let fileName = "Datos.csv"
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileName)
-        
-        var csvText = "Nombre del Dato,Fecha,Cantidad,Notas\n"
-        let sortedRegs = registers.registers.sorted(by: {$0.idSymptom > $1.idSymptom})
-        for register in sortedRegs {
-            let newLine = "\(getSymptomName(register: register, listaDatos: symptoms)),\(register.fecha),\(register.cantidad),\(register.notas)\n"
-            csvText.append(contentsOf: newLine)
-        }
-        
-        do {
-            try csvText.write(to: path, atomically: true, encoding: String.Encoding.utf8)
-            
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                if let rootViewController = windowScene.windows.first?.rootViewController {
-                    let activityVC = UIActivityViewController(activityItems: [path], applicationActivities: nil)
-                    rootViewController.present(activityVC, animated: true, completion: nil)
-                }
-            }
-        } catch {
-            customPrint("[ShareView] Error while writing the CSV: \(error)")
-        }
-        return path
+//        let fileName = "Datos.csv"
+//        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileName)
+//        
+//        var csvText = "Nombre del Dato,Fecha,Cantidad,Notas\n"
+//        let sortedRegs = registers.registers.sorted(by: {$0.idSymptom > $1.idSymptom})
+//        for register in sortedRegs {
+//            let newLine = "\(getSymptomName(register: register, listaDatos: symptoms)),\(register.fecha),\(register.cantidad),\(register.notas)\n"
+//            csvText.append(contentsOf: newLine)
+//        }
+//        
+//        do {
+//            try csvText.write(to: path, atomically: true, encoding: String.Encoding.utf8)
+//            
+//            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+//                if let rootViewController = windowScene.windows.first?.rootViewController {
+//                    let activityVC = UIActivityViewController(activityItems: [path], applicationActivities: nil)
+//                    rootViewController.present(activityVC, animated: true, completion: nil)
+//                }
+//            }
+//        } catch {
+//            customPrint("[ShareView] Error while writing the CSV: \(error)")
+//        }
+//        return path
+        nil
     }
     
 }
-@MainActor func iterate (registers : RegisterList)->[String]{
-    var csvInfo = [String]()
-    csvInfo.reserveCapacity(registers.registers.count)
-    for (register) in registers.registers{
-        let stringAppend = "\(register.fecha), \(String(register.cantidad)), \(register.notas)"
-        csvInfo.append(stringAppend)
-    }
-    return csvInfo
-}
+//@MainActor func iterate (registers : RegisterList)->[String]{
+//    var csvInfo = [String]()
+//    csvInfo.reserveCapacity(registers.registers.count)
+//    for (register) in registers.registers {
+//        let stringAppend = "\(register.fecha), \(String(register.cantidad)), \(register.notas)"
+//        csvInfo.append(stringAppend)
+//    }
+//    return csvInfo
+//}
 
 
 struct ShareInfo{
