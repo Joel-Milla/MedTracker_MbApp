@@ -67,10 +67,14 @@ class SymptomList : ObservableObject {
     func createSymptomViewModel() -> FormViewModel<Symptom> {
         return FormViewModel(initialValue: Symptom()) { [weak self] symptom in
             let (hasError, message) = symptom.validateInput()
+            let symptomExists = self?.symptoms.firstIndex(where: { $0.nombre == symptom.nombre }) != nil // Validate if a symptom with the same name already exists
             // if the symptom doesnt have valid input, throw an error
             if (hasError) {
                 throw HelperFunctions.ErrorType.invalidInput(message)
-            } else {
+            } else if (symptomExists) {
+                throw HelperFunctions.ErrorType.general("Un dato con ese sintoma ya se esta registrando")
+            }
+            else {
                 // Schedule notifications based on the input received from the user
                 NotificationManager.instance.scheduleNotifications(symptom.notificacion, symptom.nombre)
                 self?.symptoms.append(symptom) // adds the symptom to the current array

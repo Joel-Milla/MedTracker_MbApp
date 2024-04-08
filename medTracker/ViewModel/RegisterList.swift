@@ -49,13 +49,44 @@ class RegisterList : ObservableObject {
     /**********************
      Helper functions
      **********************************/
-    
-    // The functions returns a closure that is used to write information in firebase
-    func makeCreateAction() -> RegisterSymptomView.CreateAction {
-        return { [weak self] register in
-            try await self?.repository.createRegister(register)
+    // Filter the registers by a symptom
+    func filterBy(_ symptom: Symptom) -> [Register] {
+        return registers.filter { register in
+            register.idSymptom == symptom.id.uuidString
         }
     }
+    
+    // Return a formViewModel that handles the creation of a new register
+    func createRegisterViewModel(idSymptom: String) -> FormViewModel<Register> {
+        return FormViewModel(initialValue: Register(idSymptom: idSymptom)) { [weak self] register in
+            let (hasError, message) = register.validateInput()
+            // if the symptom doesnt have valid input, throw an error
+            if (hasError) {
+                throw HelperFunctions.ErrorType.invalidInput(message)
+            } else {
+                self?.registers.append(register) // adds the symptom to the current array
+                do {
+                    try await self?.repository.createRegister(register) // use function in the repository to create the register in firebase
+                } catch {
+                    try HelperFunctions.handleFirestoreError(code: error)
+                }
+            }
+        }
+    }
+    
+    
+    // ************* DELETE WHEN makeCreateAction in RegisterSymptomView IS NOT USED *************
+    // ******************************************************************
+    // ******************************************************************
+    // The functions returns a closure that is used to write information in firebase
+//    func makeCreateAction() -> RegisterSymptomView.CreateAction {
+//        return { [weak self] register in
+//            try await self?.repository.createRegister(register)
+//        }
+//    }
+    // ************* DELETE WHEN makeCreateAction in RegisterSymptomView IS NOT USED *************
+    // ******************************************************************
+    // ******************************************************************
     
     // The functions returns a closure that is used to delete all registers of a symptom.
     func makeDeleteAction(for symptom: Symptom) -> Action {

@@ -72,12 +72,9 @@ class AuthService: ObservableObject {
             try await result.user.updateProfile(\.displayName, to: name) // Save the name of the user
             try await save(role, of: result.user.uid, with: email)
         } catch {
-            // With this transform the error into an error code to know which error firebase is giving
-            if let error = error as NSError? {
-                if let errorCode = AuthErrorCode.Code(rawValue: error.code) {
-                    try handleFirebaseError(code: errorCode)
-                }
-            }
+            customPrint("[AuthService] Error creating account: \(error.localizedDescription)")
+            // This function gets the error and saves it correclty
+            try HelperFunctions.handleFirebaseAuthError(code: error)
         }
     }
     
@@ -91,13 +88,9 @@ class AuthService: ObservableObject {
             // Make request to firebase
             try await auth.signIn(withEmail: email, password: password)
         } catch {
-            customPrint(error)
-            // With this transform the error into an error code to know which error firebase is giving
-            if let error = error as NSError? {
-                if let errorCode = AuthErrorCode.Code(rawValue: error.code) {
-                    try handleFirebaseError(code: errorCode)
-                }
-            }
+            customPrint("[AuthService] Error signin in: \(error.localizedDescription)")
+            // This function gets the error and saves it
+            try HelperFunctions.handleFirebaseAuthError(code: error)
         }
     }
     
@@ -115,24 +108,6 @@ class AuthService: ObservableObject {
             "id": id,
             "email": email
         ])
-    }
-    
-    // Function that recieves a code error from firebase and handles the matching of errors
-    func handleFirebaseError(code errorCode: AuthErrorCode.Code) throws {
-        switch(errorCode) {
-        case .networkError:
-            throw HelperFunctions.ErrorType.networkError
-        case .invalidEmail:
-            throw HelperFunctions.ErrorType.invalidEmail
-        case .weakPassword:
-            throw HelperFunctions.ErrorType.weakPassword
-        case .emailAlreadyInUse:
-            throw HelperFunctions.ErrorType.emailAlreadyInUse
-        case .invalidCredential:
-            throw HelperFunctions.ErrorType.invalidCredentials
-        default:
-            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
-        }
     }
 }
 

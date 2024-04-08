@@ -285,13 +285,13 @@
 			path = CS_Name;
 			sourceTree = "<group>";
 		};
-		17E5CEEB2BC38CEA00F57199 /* EditSymptom */ = {
+		17E5CEEB2BC38CEA00F57199 /* EditSymptomList */ = {
 			isa = PBXGroup;
 			children = (
 				FBD940AE2AFD73E800C3BD11 /* EditSymptomView.swift */,
 				177B37622B575433009CB58D /* ShowEditSymptomView.swift */,
 			);
-			path = EditSymptom;
+			path = EditSymptomList;
 			sourceTree = "<group>";
 		};
 		F83767772B0172850092CDED /* Recovered References */ = {
@@ -334,7 +334,7 @@
 				FBD940B42AFD759D00C3BD11 /* LogInView.swift */,
 				FB87FED02ADDEE9800F6273B /* MainView.swift */,
 				FBD940B62AFD763000C3BD11 /* HomeView.swift */,
-				17E5CEEB2BC38CEA00F57199 /* EditSymptom */,
+				17E5CEEB2BC38CEA00F57199 /* EditSymptomList */,
 				173EF2952BB1347000F7ACF9 /* CreateSymptom */,
 				F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */,
 				F838338D2B0C49F5005F2BB5 /* ShareView.swift */,

@@ -8,20 +8,21 @@
 import SwiftUI
 
 struct AnalysisView2_0: View {
-    // Receive mock data
-    @State var symptomTest: Symptom
-    @State var testRegisters: [Register]
-    @State var showRegisterSymptomView : Bool = false // To show RegisterSymptomView
-    @EnvironmentObject var authViewModel: AuthViewModel
-    @State var sliderValue : Double = 0.0
+    // Variables that are shown on the view
+    @State var symptom: Symptom
+    @State var symptomRegisters: [Register]
+    // To show RegisterSymptomView
+    @State var showRegisterSymptomView : Bool = false
+    // To create the viewModel that creates a new register
+    @ObservedObject var registers: RegisterList
     
     var body: some View {
             VStack {
                 // Chart that shows the data
-                ChartView(isCuantitative: symptomTest.cuantitativo, testRegisters: testRegisters)
+                ChartView(isCuantitative: symptom.cuantitativo, testRegisters: symptomRegisters)
                     .padding(.bottom, 35)
                 // View that shows summarize data about the points
-                InsightsView(isCuantitative: symptomTest.cuantitativo, testRegisters: testRegisters)
+                InsightsView(isCuantitative: symptom.cuantitativo, testRegisters: symptomRegisters)
                     .padding(.bottom, 35)
                 // Button to show the past registers
                 NavigationLink {
@@ -34,7 +35,7 @@ struct AnalysisView2_0: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .padding()
-            .navigationTitle(symptomTest.nombre)
+            .navigationTitle(symptom.nombre)
             .toolbar {
                 // Button to traverse to EditSymptomView.
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -46,7 +47,8 @@ struct AnalysisView2_0: View {
                 }
             }
             .sheet(isPresented: $showRegisterSymptomView, content: {
-                RegisterSymptomView(symptom: $symptomTest, registers: authViewModel.makeRegisterList()!, symptoms: authViewModel.makeSymptomList()!, sliderValue: $sliderValue, createAction: {register in})
+                // Create the viewModel that handles the creation of a register and pass the symptom
+                RegisterSymptomView(formViewModel: registers.createRegisterViewModel(idSymptom: symptom.id.uuidString), symptom: symptom)
             })
     }
 }
@@ -74,7 +76,11 @@ struct AnalysisView2_0: View {
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 14), cantidad: 90, notas: "Note 29"),
             Register(idSymptom: "SYM-347", fecha: Date().addingTimeInterval(-86400 * 56), cantidad: 34, notas: "Note 30")
         ]
-        AnalysisView2_0(symptomTest: symptomTest, testRegisters: testRegisters)
+        
+        @State var repository = Repository(user: User(id: "3zPDb70ofQQHximl1NXwPMgIhMR2", rol: "Paciente", email: "joel@mail.com", telefono: "", nombreCompleto: "Joel", antecedentes: "", sexo: "", fechaNacimiento: Date.now, estatura: "", arregloDoctor: ["doc@mail.com"]))
+        
+        @State var registers: RegisterList = RegisterList(repository: repository)
+        AnalysisView2_0(symptom: symptomTest, symptomRegisters: testRegisters, registers: registers)
     }
 }
 

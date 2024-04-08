@@ -10,8 +10,8 @@ import SwiftUI
 struct CreateSymptomView: View {
     // Dismiss the view when no longer needed
     @Environment(\.dismiss) var dismiss
-    
-    @StateObject var formViewModel: FormViewModel<Symptom>
+    // Handles the form submission to create a new register
+    @State var formViewModel: FormViewModel<Symptom>
     // Notifications properties
     @State var allowNotifications: Bool = false
     @State var showNotificationView: Bool = false
@@ -55,9 +55,10 @@ struct CreateSymptomView: View {
                     .gradientStyle() // apply gradient style
                 }
             }
+            .navigationTitle("Crear Dato")
+            // MARK: The following edits are in charge of a good user experience
             .keyboardToolbar() // apply the button to have an ok and dismiss the view
             .onSubmit(formViewModel.submit)
-            .navigationTitle("Crear Dato")
             // Show alert to tell the user that there is an error
             .alert("Error al guardar datos", error: $formViewModel.error)
             // The next on change checks the state of the form submit and dismiss this view when it is completed succesfullly
@@ -66,6 +67,17 @@ struct CreateSymptomView: View {
                     dismiss()
                 }
             }
+            // Dismiss the view
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Image(systemName: "xmark.circle")
+                    })
+                }
+            }
+            // MARK: Ending of general user experience
             // Use showNotifications to present the sheet to modify the notifications and only when it is true
             .onChange(of: allowNotifications) { newValue in
                 if (newValue) {
@@ -78,16 +90,6 @@ struct CreateSymptomView: View {
                     .tint(Color.blueGreen) // Change the accent color to blue green
                     .presentationDetents([.fraction(0.52), .fraction(0.6)]) // Set the width of the sheet to 30%
             })
-            // Dismiss the view
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        dismiss()
-                    }, label: {
-                        Image(systemName: "xmark.circle")
-                    })
-                }
-            }
         }
     }
 }

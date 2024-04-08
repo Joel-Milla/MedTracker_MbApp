@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 struct DateSection : View {
-    @State var date : Date
-    @State var hour : Date
+    @Binding var date : Date
+
     var body: some View{
         VStack{
             HStack{
@@ -27,5 +27,12 @@ struct DateSection : View {
                     .datePickerStyle(.automatic)
             }
         }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        @State var date = Date.now
+        DateSection(date: $date)
     }
 }

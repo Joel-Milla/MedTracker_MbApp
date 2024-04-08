@@ -10,40 +10,21 @@ import SwiftUI
 
 
 struct RegisterSymptomView: View {
+    // Variable to make the request
+    @StateObject var formViewModel: FormViewModel<Register>
+    @State var symptom : Symptom
+
+    // Variable that handle the input of the user for the register
+    @State var inputValue = ""
+    
+    // Dismiss the view when no longer needed
     @Environment(\.dismiss) var dismiss
-    @FocusState private var mostrarTeclado : Bool
-    @Binding var symptom : Symptom
-    @State var registers : RegisterList
-    @State var symptoms : SymptomList
-    @Binding var sliderValue : Double
-    @State var metricsString = ""
-    @State private var date = Date.now
-    @State private var hour = Date.now
-    @State var valueFinal:Double = 0
     
-    //@State var sliderOrTF : Bool = false
-    @State var notes = "Agrega alguna nota..."
-    var dummySymptom = "Migraña"
-    @State var metric: Double = 0
     @State private var notificacionesActivas = false
-    @State var nuevaNotificacion = false
-    
-    @State var isPresented = false
-    
-    typealias CreateAction = (Register) async throws -> Void
-    let createAction: CreateAction
-    
-    let dateRange: ClosedRange<Date> = {
-        let calendar = Calendar.current
-        let start = calendar.date(byAdding: .month, value: -6, to: Date())!
-        let end = Date()
-        return start...end
-    }()
-    
     
     var body: some View {
         NavigationStack{
-            GeometryReader{ geometry in
+            GeometryReader { geometry in
                 VStack(alignment: .leading) {
                     Text(symptom.nombre)
                         .font(.title)
@@ -53,10 +34,12 @@ struct RegisterSymptomView: View {
                             Text("Fecha de registro")
                                 .padding(.horizontal)
                                 .foregroundStyle(Color(uiColor: .systemGray))
-                            DateSection(date: date, hour: hour)
+                            DateSection(date: $formViewModel.fecha)
                                 .padding()
+                            // Show different views depending if the symptoms is quantitative or not
                             if(!symptom.cuantitativo){
-                                CustomSlider(valueFinal: $valueFinal)
+                                CustomSlider(valueFinal: $formViewModel.cantidad)
+                                    .keyboardType(.numberPad)
                                     .padding(.horizontal, 5)
                                     .frame(height: geometry.size.height * 0.06)
                                     .padding(.vertical, 35)
@@ -73,22 +56,24 @@ struct RegisterSymptomView: View {
                                             .foregroundColor(Color(hex: symptom.color))
                                             .font(.title)
                                             .padding(.leading, geometry.size.width * 0.25)
-                                        TextField("", text: $metricsString, prompt: Text("Valor").foregroundColor(.gray))
+                                        TextField("", text: $inputValue, prompt: Text("Valor").foregroundColor(.gray))
                                             .font(.title2)
                                             .padding()
                                             .multilineTextAlignment(.leading)
                                             .keyboardType(.numberPad)
-                                        //.focused($mostrarTeclado)
+                                            .onChange(of: inputValue) { newValue in
+                                                let filtered = newValue.filter { "0123456789.-".contains($0) }
+                                                if filtered != newValue {
+                                                    self.inputValue = filtered
+                                                }
+                                            }
                                     }
-                                    //.frame(width: geometry.size.width * 0.63, height: geometry.size.height * 0.1)
                                     .padding()
                                 }
                             }
                         }
                         .padding(.vertical)
                     }
-                    //.background(Color("mainGray"))
-                    //.shadow(radius: 5)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color(hex: symptom.color), lineWidth: 2)
@@ -97,67 +82,77 @@ struct RegisterSymptomView: View {
                     .padding(.vertical)
                     ZStack{
                         VStack(alignment: .leading){
-                            TextField("Agrega alguna nota", text: $notes, axis: .vertical)
+                            TextField("Agrega alguna nota", text: $formViewModel.notas, axis: .vertical)
                                 .lineLimit(5)
                                 .padding()
                                 .frame(height: geometry.size.height / 6, alignment: .top)
                         }
-                        //.padding(.bottom)
                     }
-                    //.background(Color("mainGray"))
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color(hex: symptom.color), lineWidth: 2)
                             .padding(.horizontal, geometry.size.width * 0.01)
                     )
                     .shadow(radius: 10)
-                    //Spacer()
                     Button{
-                    }label:{
+                        // When symptom is quant, change the value of string into Float
+                        if (symptom.cuantitativo) {
+                            formViewModel.cantidad = Float(inputValue) ?? -1000.99
+                        }
+                        formViewModel.submit()
+                    } label: {
                         Label("Añadir registro", systemImage: "cross.circle.fill")
                     }
                     .buttonStyle(Button1MedTracker(backgroundColor: Color(hex: symptom.color)))
-                    //.frame(height: geometry.size.height *  0.12)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 30)
                     
                 }
                 .padding()
             }
+            // MARK: The following edits are in charge of a good user experience
+            .keyboardToolbar() // apply the button to have an ok and dismiss the view
+            .onSubmit(formViewModel.submit)
+            // Show alert to tell the user that there is an error
+            .alert("Error al guardar datos", error: $formViewModel.error)
+            // The next on change checks the state of the form submit and dismiss this view when it is completed succesfullly
+            .onChange(of: formViewModel.state) { newValue in
+                if (newValue == .successfullyCompleted ) {
+                    dismiss()
+                }
+            }
+            // MARK: Ending of general user experience
             .toolbar {
+                // Dismiss the view
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Image(systemName: "xmark.circle")
+                    })
+                }
+                
+                // Change value of notification
                 ToolbarItem(placement: .navigationBarTrailing) {
+                    //MARK: El boton no sirve ********************
                     Button {
                         notificacionesActivas.toggle()
-                        // Cambiar el estado de las notificaciones y actualizar la IU
-//                        notificacionesActivas.toggle()
-//
-//                        if notificacionesActivas == false {
-//                            cancelNotification(withID: symptom.notificacion ?? "")
-//                            symptom.notificacion = ""
-//                        } else {
-//                            nuevaNotificacion = true
-//                        }
-                        
                     } label: {
                         Image(systemName: notificacionesActivas ? "bell.fill" : "bell.slash")
                     }
-                    
+                    //MARK: El boton no sirve ********************
                 }
-            }
-        }
-    }
-    
-    
-    private func createRegister() {
-        // will wait until the createAction(symptom) finishes
-        Task {
-            do {
-                try await createAction(registers.registers.last ?? Register(idSymptom: "", fecha: Date.now, cantidad: 0, notas: "")) //call the function that adds the symptom to the database
-            } catch {
-                customPrint("[RegisterSymptomView] Cannot create register: \(error)")
             }
         }
     }
 }
 
+
+#Preview {
+    NavigationStack {
+        @State var formViewModel: FormViewModel<Register> = FormViewModel(initialValue: Register(idSymptom: "1"), action: {_ in })
+        @State var symptom = Symptom(nombre: "Hello", icon: "heart", description: "wow", cuantitativo: true, unidades: "kg", activo: true, color: "#000", notificacion: "1234")
+        RegisterSymptomView(formViewModel: formViewModel, symptom: symptom)
+    }
+}
 

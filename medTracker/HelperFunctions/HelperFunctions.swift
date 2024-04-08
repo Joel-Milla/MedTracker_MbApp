@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import SwiftUI
@@ -77,12 +78,50 @@ class HelperFunctions {
         return imageName
     }
     
+    // Function receives an error from authentication service and returns the error localized
+    static func handleFirebaseAuthError(code error: Error) throws {
+        guard let error = error as NSError? else { 
+            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
+        }
+        guard let errorCode = AuthErrorCode.Code(rawValue: error.code) else {
+            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
+        }
+        switch(errorCode) {
+        case .networkError:
+            throw HelperFunctions.ErrorType.networkError
+        case .invalidEmail:
+            throw HelperFunctions.ErrorType.invalidEmail
+        case .weakPassword:
+            throw HelperFunctions.ErrorType.weakPassword
+        case .emailAlreadyInUse:
+            throw HelperFunctions.ErrorType.emailAlreadyInUse
+        case .invalidCredential:
+            throw HelperFunctions.ErrorType.invalidCredentials
+        default:
+            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
+        }
+    }
+    
+    // Function that handles an error when making a request to Firestore
+    static func handleFirestoreError(code error: Error) throws {
+        // MARK: With this, can obtain the error code when making a request to firestore
+//        guard let error = error as NSError? else {
+//            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
+//        }
+//        
+//        guard let errorCode = FirestoreErrorCode.Code(rawValue: error.code) else {
+//            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
+//        }
+
+        throw HelperFunctions.ErrorType.general("Hubo un error, por favor de intentarlo nuevamente")
+    }
+    
     // Special enum to throw tell that the input is not valid and with the possibility to add a message to print
     enum ErrorType: Error, LocalizedError {
         // General errors and modifiable errors
         case networkError
-        case general(String)
-        case invalidInput(String)
+        case general(String) // Error for a case not handle on the other errors.
+        case invalidInput(String) // Error when the input of the user is invalid
         // Error throwns when creating an account
         case invalidEmail
         case weakPassword
