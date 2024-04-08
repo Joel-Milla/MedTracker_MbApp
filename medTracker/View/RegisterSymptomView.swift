@@ -30,7 +30,7 @@ struct RegisterSymptomView: View {
         NavigationStack{
             GeometryReader { geometry in
                 VStack(alignment: .leading) {
-                    Text(symptom.nombre)
+                    Text(symptom.name)
                         .font(.title)
                         .bold()
                     ZStack{
@@ -41,7 +41,7 @@ struct RegisterSymptomView: View {
                             DateSection(date: $formViewModel.date)
                                 .padding()
                             // Show different views depending if the symptoms is quantitative or not
-                            if(!symptom.cuantitativo){
+                            if(!symptom.isQuantitative){
                                 CustomSlider(valueFinal: $formViewModel.amount)
                                     .keyboardType(.numberPad)
                                     .padding(.horizontal, 5)
@@ -100,7 +100,7 @@ struct RegisterSymptomView: View {
                     .shadow(radius: 10)
                     Button {
                         // When symptom is quant, change the value of string into Float
-                        if (symptom.cuantitativo) {
+                        if (symptom.isQuantitative) {
                             formViewModel.amount = Float(inputValue) ?? -1000.99
                         }
                         formViewModel.submit()
@@ -163,7 +163,7 @@ struct RegisterSymptomView: View {
 #Preview {
     NavigationStack {
         @State var formViewModel: FormViewModel<Register> = FormViewModel(initialValue: Register(idSymptom: "1"), action: {_ in })
-        @State var symptom = Symptom(nombre: "Hello", icon: "heart", description: "wow", cuantitativo: true, unidades: "kg", activo: true, color: "#000", notificacion: "1234")
+        @State var symptom = Symptom(name: "Hello", icon: "heart", description: "wow", isQuantitative: true, units: "kg", isActive: true, color: "#000", notification: "1234")
         RegisterSymptomView(formViewModel: formViewModel, symptom: symptom)
     }
 }

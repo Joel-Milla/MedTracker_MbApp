@@ -20,14 +20,14 @@ struct ListItemView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 20, height: 20).foregroundStyle(Color(hex: item.color))
-                    Text(item.nombre)
+                    Text(item.name)
                         .font(.title3)
                         .bold()
                         .padding(.horizontal, 10)
                 }
                 .padding(.vertical)
                 HStack{
-                    Text("\(item.fecha.formatted(date: .abbreviated, time: .omitted))  |  64kg")
+                    Text("\(item.creationDate.formatted(date: .abbreviated, time: .omitted))  |  64kg")
                         .font(.subheadline)
                 }
                 Spacer()

@@ -9,36 +9,36 @@ import Foundation
 
 struct Symptom : Codable, Hashable, Identifiable {
     var id = UUID()
-    var nombre : String
+    var name : String
     var icon : String
     var description : String
-    var cuantitativo : Bool // True = Cuantitativo, False = Cualitativo
-    var unidades  : String
-    var activo : Bool
+    var isQuantitative : Bool // True = Cuantitativo, False = Cualitativo
+    var units  : String
+    var isActive : Bool
     var color : String
-    var notificacion : String
-    var fecha : Date = Date.now
+    var notification : String
+    var creationDate : Date = Date.now
     
     // Normal Init
-    init(nombre: String, icon: String, description: String, cuantitativo: Bool, unidades: String, activo: Bool, color: String, notificacion : String) {
-        self.nombre = nombre
+    init(name: String, icon: String, description: String, isQuantitative: Bool, units: String, isActive: Bool, color: String, notification : String) {
+        self.name = name
         self.icon = icon
         self.description = description
-        self.cuantitativo = cuantitativo
-        self.unidades = unidades
-        self.activo = activo
+        self.isQuantitative = isQuantitative
+        self.units = units
+        self.isActive = isActive
         self.color = color
-        self.notificacion = notificacion
+        self.notification = notification
     }
     // Init for initializing a symptom with default values
     init() {
         // Initial value for NotificationsView to render inside the notification
-        self.init(nombre: "", icon: "heart", description: "", cuantitativo: true, unidades: "kg", activo: true, color: "#009C8C", notificacion : "D#\(DateUtility.hourToString(Date.now))")
+        self.init(name: "", icon: "heart", description: "", isQuantitative: true, units: "kg", isActive: true, color: "#009C8C", notification : "D#\(DateUtility.hourToString(Date.now))")
     }
     
     // Function to validate if the necessary inputs are filled
     func validateInput() -> (Bool, String) {
-        if (nombre == "") {
+        if (name == "") {
             return (true, "Datos faltantes. Por favor de poner un nombre al dato.")
         } else if (description == "") {
             return (true, "Datos faltantes. Por favor de poner una descripción al dato.")

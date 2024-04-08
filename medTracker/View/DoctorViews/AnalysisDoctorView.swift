@@ -34,7 +34,7 @@ struct AnalysisDoctorView: View {
                     VStack {
                         // Show a tab for each symptom that is active.
                         TabView {
-                            ForEach(patientsData.symptoms.filter { $0.activo == true }, id: \.id) { symptom in
+                            ForEach(patientsData.symptoms.filter { $0.isActive == true }, id: \.id) { symptom in
                                 AnalysisPatientView(symptom: symptom, allRegisters: patientsData.registers.filter({ $0.idSymptom == symptom.id.uuidString }))
                             }
                         }
@@ -97,14 +97,14 @@ struct AnalysisDoctorView: View {
     
     func getSymptomIsActive(register: Register) -> Bool {
         if let symptom = patientsData.symptoms.first(where: { $0.id.uuidString == register.idSymptom }) {
-            return symptom.activo
+            return symptom.isActive
         }
         return false
     }
     
     func getSymptomOfName(register: Register) -> String {
         if let symptom = patientsData.symptoms.first(where: { $0.id.uuidString == register.idSymptom }) {
-            return symptom.nombre
+            return symptom.name
         }
         return "Unknown Symptom"
     }
@@ -120,7 +120,7 @@ struct AnalysisPatientView: View {
     var body: some View {
         let colorSintoma = Color(hex: symptom.color)
         VStack(alignment: .leading) {
-            Text(symptom.nombre)
+            Text(symptom.name)
                 .foregroundColor(colorSintoma)
                 .font(.largeTitle)
                 .bold()
@@ -166,9 +166,9 @@ struct AnalysisPatientView: View {
                         .pickerStyle(.segmented)
                         .padding(.leading, 60)
                     }
-                    .padding(.bottom, symptom.cuantitativo ? 0 : 35)
+                    .padding(.bottom, symptom.isQuantitative ? 0 : 35)
                     
-                    if symptom.cuantitativo {
+                    if symptom.isQuantitative {
                         ChartCuantitativa(filteredRegisters: registers)
                     } else {
                         ChartCualitativa(filteredRegisters: registers)

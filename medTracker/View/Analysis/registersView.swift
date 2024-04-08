@@ -10,7 +10,7 @@ import SwiftUI
 struct registersView: View {
     //    @ObservedObject var registers: RegisterList
     //    let symptom: Symptom
-    let symptom = Symptom(nombre: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", cuantitativo: true, unidades: "kg", activo: true, color: "#007AFF", notificacion: "")
+    let symptom = Symptom(name: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", isQuantitative: true, units: "kg", isActive: true, color: "#007AFF", notification: "")
     
     @State var symptomRegisters: [Register]
     
@@ -25,7 +25,7 @@ struct registersView: View {
                     //                    registers.deleteRegisterSet(atOffset: indexSet, ofSymptom: symptom)
                 }
             }
-            .navigationTitle(symptom.nombre)
+            .navigationTitle(symptom.name)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     EditButton()

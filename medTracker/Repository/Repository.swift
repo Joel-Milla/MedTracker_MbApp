@@ -66,7 +66,7 @@ struct Repository {
     // Function to update value symptom
     func updateSymptomActivo(_ symptom: Symptom) async throws {
         let document = symptomReference.document(symptom.id.uuidString)
-        let activo = symptom.activo
+        let activo = symptom.isActive
         try await document.setData(["activo": !(activo)], merge: true)
     }
     

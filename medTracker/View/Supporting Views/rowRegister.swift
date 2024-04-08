@@ -14,7 +14,7 @@ struct rowRegister: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text(symptom.nombre)
+                Text(symptom.name)
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(Color(hex: symptom.color))
@@ -26,7 +26,7 @@ struct rowRegister: View {
 
             Spacer()
 
-            if symptom.cuantitativo {
+            if symptom.isQuantitative {
                 Text("Cantidad: \(register.amount, specifier: "%.2f")")
                     .font(.footnote)
                     .foregroundColor(Color.gray)

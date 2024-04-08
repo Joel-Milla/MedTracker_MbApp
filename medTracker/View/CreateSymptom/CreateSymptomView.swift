@@ -22,7 +22,7 @@ struct CreateSymptomView: View {
             Form {
                 // Select the name of the symptom and select the icon
                 Section(header: MandatoryField(text: "Nombre")) {
-                    CS_NameView(name: $formViewModel.nombre, selectedIcon: $formViewModel.icon, colorToSave: $formViewModel.color)
+                    CS_NameView(name: $formViewModel.name, selectedIcon: $formViewModel.icon, colorToSave: $formViewModel.color)
                 }
                 // Description of the new symptom
                 Section(header: MandatoryField(text: "Nombre")) {
@@ -31,7 +31,7 @@ struct CreateSymptomView: View {
                 }
                 // Choose the type of symptom
                 Section(header: HelpView(title: "Tipo de dato")) {
-                    CS_TypeView(cuantitativo: $formViewModel.cuantitativo, selectedUnit: $formViewModel.unidades)
+                    CS_TypeView(cuantitativo: $formViewModel.isQuantitative, selectedUnit: $formViewModel.units)
                 }
                 // Header view to show an edit button when the user has notifications enabled
                 Section(header: NotificationHeaderView(allowNotifications: $allowNotifications, showNotificationView: $showNotificationView)) {
@@ -40,7 +40,7 @@ struct CreateSymptomView: View {
                         Text("Permitir Notificaciones")
                     }
                     if (allowNotifications) {
-                        Text(formViewModel.notificacion)
+                        Text(formViewModel.notification)
                     }
                 }
                 
@@ -86,7 +86,7 @@ struct CreateSymptomView: View {
             }
             // Show the view to select the notification
             .sheet(isPresented: $showNotificationView, content: {
-                NotificationsView(codeNotification: $formViewModel.notificacion)
+                NotificationsView(codeNotification: $formViewModel.notification)
                     .tint(Color.blueGreen) // Change the accent color to blue green
                     .presentationDetents([.fraction(0.52), .fraction(0.6)]) // Set the width of the sheet to 30%
             })

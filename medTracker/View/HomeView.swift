@@ -66,8 +66,8 @@ struct HomeView: View {
                     case .complete:
                         List {
                             // Convert dictionary to an array and sort them by date
-                            ForEach(Array(symptoms.symptoms.values).sorted(by: { $0.fecha < $1.fecha }), id: \.self) { symptom in
-                                if symptom.activo {
+                            ForEach(Array(symptoms.symptoms.values).sorted(by: { $0.creationDate < $1.creationDate }), id: \.self) { symptom in
+                                if symptom.isActive {
                                     // Show a listItem view and redirect user to analysis upon touching
                                     NavigationLink(destination: AnalysisView2_0(symptom: symptom, registers: registers)) {
                                         ListItemView(item: symptom, registers: testRegisters)
@@ -193,7 +193,7 @@ struct Celda: View {
             Image(systemName: unDato.icon)
                 .foregroundColor(Color(hex: unDato.color))
             VStack(alignment: .leading) {
-                Text(unDato.nombre)
+                Text(unDato.name)
                     .font(.title2)
                 
             }
