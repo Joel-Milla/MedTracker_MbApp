@@ -12,16 +12,16 @@ struct registersView: View {
     //    let symptom: Symptom
     let symptom = Symptom(name: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", isQuantitative: true, units: "kg", isActive: true, color: "#007AFF", notification: "")
     
-    @State var symptomRegisters: [Register]
+    @State var registers: [Register]
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach(symptomRegisters.sorted(by: {$0.date > $1.date})) { register in
+                ForEach(registers.sorted(by: {$0.date > $1.date})) { register in
                     rowRegister(register: register, symptom: symptom)
                 }
                 .onDelete { indexSet in
-                    symptomRegisters.remove(atOffsets: indexSet)
+                    registers.remove(atOffsets: indexSet)
                     //                    registers.deleteRegisterSet(atOffset: indexSet, ofSymptom: symptom)
                 }
             }
@@ -39,7 +39,7 @@ struct registersView: View {
 
 #Preview {
     NavigationStack {
-        @State var symptomRegisters = RegisterList.getDefaultRegisters()
-        registersView(symptomRegisters: symptomRegisters)
+        @State var registers = RegisterList.getDefaultRegisters()
+        registersView(registers: registers)
     }
 }

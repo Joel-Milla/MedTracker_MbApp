@@ -10,22 +10,21 @@ import SwiftUI
 struct AnalysisView2_0: View {
     // Variables that are shown on the view
     @State var symptom: Symptom
+    @ObservedObject var registers: RegisterList
     // To show RegisterSymptomView
     @State var showRegisterSymptomView : Bool = false
-    // To create the viewModel that creates a new register
-    @ObservedObject var registers: RegisterList
     
     var body: some View {
             VStack {
                 // Chart that shows the data
-                ChartView(isCuantitative: symptom.isQuantitative, symptomRegisters: registers.filterBy(symptom))
+                ChartView(symptom: symptom, registers: registers)
                     .padding(.bottom, 35)
                 // View that shows summarize data about the points
-                InsightsView(isCuantitative: symptom.isQuantitative, symptomRegisters: registers.filterBy(symptom))
+                InsightsView(isQuantitative: symptom.isQuantitative, registers: registers.registers[symptom.id.uuidString] ?? [])
                     .padding(.bottom, 35)
                 // Button to show the past registers
                 NavigationLink {
-                    registersView(symptomRegisters: registers.filterBy(symptom))
+                    registersView(registers: registers.registers[symptom.id.uuidString] ?? [])
                 } label: {
                     Text("Registros Pasados")
                         .gradientStyle() // Use the default gradient to show the correct style of the button
@@ -57,8 +56,8 @@ struct AnalysisView2_0: View {
         @State var symptomTest = Symptom(name: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", isQuantitative: true, units: "kg", isActive: true, color: "#007AFF", notification: "")
         
         @State var repository = Repository(user: User(id: "3zPDb70ofQQHximl1NXwPMgIhMR2", rol: "Paciente", email: "joel@mail.com", phone: "", name: "Joel", clinicalHistory: "", sex: "", birthdate: Date.now, height: "", doctors: ["doc@mail.com"]))
-        
         @State var registers: RegisterList = RegisterList(repository: repository)
+        
         AnalysisView2_0(symptom: symptomTest, registers: registers)
     }
 }
