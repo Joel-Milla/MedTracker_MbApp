@@ -41,9 +41,10 @@ class SymptomList : ObservableObject {
         self.repository = repository
         if let decodedData = HelperFunctions.loadData(in: symptomListURL, as: [String: Symptom].self) {
             self.symptoms = decodedData
+        } else {
+            //If there is no info in JSON, fetch
+            fetchSymptoms()
         }
-        //If there is no info in JSON, fetch
-        fetchSymptoms()
         
         // For testing, the next function can be used for dummy data.
         //symptoms = getDefaultSymptoms()

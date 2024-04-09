@@ -39,9 +39,10 @@ class UserModel: ObservableObject {
         self.user = self.repository.user
         if let decodedData = HelperFunctions.loadData(in: usersURL, as: User.self) {
             self.user = decodedData
+        } else {
+            //If there is no info in JSON, fetch
+            fetchUser()
         }
-        //If there is no info in JSON, fetch
-        fetchUser()
     }
     
     /**********************

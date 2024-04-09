@@ -17,7 +17,7 @@ struct registersView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(registers.sorted(by: {$0.date > $1.date})) { register in
+                ForEach(registers.reversed()) { register in
                     rowRegister(register: register, symptom: symptom)
                 }
                 .onDelete { indexSet in
