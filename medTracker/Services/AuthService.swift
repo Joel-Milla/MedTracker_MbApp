@@ -124,14 +124,14 @@ private extension FirebaseAuth.User {
 private extension User {
     init(from firebaseUser: FirebaseAuth.User, name: String? = nil, role: String? = nil) {
         self.id = firebaseUser.uid
-        self.nombreCompleto = firebaseUser.displayName ?? name ?? "[AuthService] Nombre desconocido"
+        self.name = firebaseUser.displayName ?? name ?? "[AuthService] Nombre desconocido"
         self.rol = role ?? "[AuthService] Rol desconocido"
         self.email = firebaseUser.email ?? "[AuthService] Email desconocido"
-        self.telefono = ""
-        self.antecedentes = ""
-        self.sexo = ""
-        self.fechaNacimiento = Date()
-        self.estatura = ""
-        self.arregloDoctor = []
+        self.phone = ""
+        self.clinicalHistory = ""
+        self.sex = ""
+        self.birthdate = Date()
+        self.height = ""
+        self.doctors = []
     }
 }

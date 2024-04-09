@@ -14,24 +14,24 @@ struct rowRegister: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text(symptom.nombre)
+                Text(symptom.name)
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(Color(hex: symptom.color))
 
-                Text(register.fecha, formatter: itemFormatter)
+                Text(register.date, formatter: itemFormatter)
                     .font(.footnote)
                     .foregroundColor(Color.gray)
             }
 
             Spacer()
 
-            if symptom.cuantitativo {
-                Text("Cantidad: \(register.cantidad, specifier: "%.2f")")
+            if symptom.isQuantitative {
+                Text("Cantidad: \(register.amount, specifier: "%.2f")")
                     .font(.footnote)
                     .foregroundColor(Color.gray)
             } else {
-                let (imageName, imageColor) = getImage(of: register.cantidad)
+                let (imageName, imageColor) = getImage(of: register.amount)
                 Image(imageName)
                     .resizable()
                     .scaledToFit()

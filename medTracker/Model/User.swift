@@ -11,80 +11,80 @@ struct User : Codable, Hashable {
     var id: String = ""
     var rol: String = ""
     var email: String = ""
-    var telefono : String // Unique identifier
-    var nombreCompleto : String
-    var antecedentes : String
-    var sexo: String
-    var fechaNacimiento: Date
-    var estatura : String
-    var arregloDoctor: [String]
+    var phone : String // Unique identifier
+    var name : String
+    var clinicalHistory : String
+    var sex: String
+    var birthdate: Date
+    var height : String
+    var doctors: [String]
     
     var formattedDateOfBirth: String {
         get {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd" // Set the date format as needed
-            return dateFormatter.string(from: fechaNacimiento)
+            return dateFormatter.string(from: birthdate)
         }
     }
     
-    var formattedAntecedentes: String {
+    var formattedClinicalHistory: String {
         get {
-            return self.antecedentes
+            return self.clinicalHistory
         }
         set {
             if newValue.count > 1000 {
-                self.antecedentes = String(newValue.prefix(1000))
+                self.clinicalHistory = String(newValue.prefix(1000))
             } else {
-                self.antecedentes = newValue
+                self.clinicalHistory = newValue
             }
         }
     }
     
     // Main init
-    init(telefono: String, nombre: String, antecedentes: String, sexo: String, fechaNacimiento: Date, estatura: String, arregloDoctor: [String]) {
-        self.telefono = telefono
-        self.nombreCompleto = nombre
-        self.antecedentes = antecedentes
-        self.sexo = sexo
-        self.fechaNacimiento = fechaNacimiento
-        self.estatura = estatura
-        self.arregloDoctor = arregloDoctor
+    init(phone: String, name: String, clinicalHistory: String, sex: String, birthdate: Date, height: String, doctors: [String]) {
+        self.phone = phone
+        self.name = name
+        self.clinicalHistory = clinicalHistory
+        self.sex = sex
+        self.birthdate = birthdate
+        self.height = height
+        self.doctors = doctors
     }
     
     // Init for creating empty objects
     init() {
-        self.telefono = ""
-        self.nombreCompleto = ""
-        self.antecedentes = ""
-        self.sexo = ""
-        self.fechaNacimiento = Date()
-        self.estatura = ""
-        self.arregloDoctor = []
+        self.phone = ""
+        self.name = ""
+        self.clinicalHistory = ""
+        self.sex = ""
+        self.birthdate = Date()
+        self.height = ""
+        self.doctors = []
     }
     
     // Init for the preview in mainView to work
-    init(id: String, rol: String, email: String, telefono: String, nombreCompleto: String, antecedentes: String, sexo: String, fechaNacimiento: Date, estatura: String, arregloDoctor: [String]) {
+    init(id: String, rol: String, email: String, phone: String, name: String, clinicalHistory: String, sex: String, birthdate: Date, height: String, doctors: [String]) {
         self.id = id
         self.rol = rol
         self.email = email
-        self.telefono = telefono
-        self.nombreCompleto = nombreCompleto
-        self.antecedentes = antecedentes
-        self.sexo = sexo
-        self.fechaNacimiento = fechaNacimiento
-        self.estatura = estatura
-        self.arregloDoctor = arregloDoctor
+        self.phone = phone
+        self.name = name
+        self.clinicalHistory = clinicalHistory
+        self.sex = sex
+        self.birthdate = birthdate
+        self.height = height
+        self.doctors = doctors
     }
     
     func error() -> (Bool, String) {
-        if let height = Double(self.estatura) {
-            if (self.telefono == "" || self.estatura == "" || self.sexo == "") {
+        if let height = Double(self.height) {
+            if (self.phone == "" || self.height == "" || self.sex == "") {
                 return (true, "Datos faltantes. Por favor llena todos los campos obligatorios.")
             } else if (height < 0.20 || height > 2.5) {
                 return (true, "Estatura inválida. Favor de ingresar una estatura válida en metros.")
-            } else if (self.fechaNacimiento == Date.now || self.fechaNacimiento > Date.now || (getYear(date: Date.now) - getYear(date: self.fechaNacimiento) > 120)) {
+            } else if (self.birthdate == Date.now || self.birthdate > Date.now || (getYear(date: Date.now) - getYear(date: self.birthdate) > 120)) {
                 return (true, "Por favor ingresa una fecha válida.")
-            } else if (self.sexo == "-") {
+            } else if (self.sex == "-") {
                 return (true, "Favor de elegir sexo.")
             }
         } else {

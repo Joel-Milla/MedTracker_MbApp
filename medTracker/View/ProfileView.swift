@@ -53,14 +53,14 @@ struct ProfileView: View {
                 Form {
                     Section {
                         if isEditing {
-                            Text("Nombre completo: \(user.user.nombreCompleto)")
+                            Text("Nombre completo: \(user.user.name)")
                             HStack {
                                 Text("Teléfono:")
-                                TextField("+81 2611 1857", text: $draftUser.telefono)
+                                TextField("+81 2611 1857", text: $draftUser.phone)
                             }
                         } else {
-                            Text("Nombre completo: \(user.user.nombreCompleto)")
-                            Text("Teléfono: \(user.user.telefono)")
+                            Text("Nombre completo: \(user.user.name)")
+                            Text("Teléfono: \(user.user.phone)")
                         }
                     } header: {
                         Text("Datos personales")
@@ -70,11 +70,11 @@ struct ProfileView: View {
                         if isEditing {
                             HStack {
                                 Text("Estatura:")
-                                TextField("1.80", text: $draftUser.estatura)
+                                TextField("1.80", text: $draftUser.height)
                                     .keyboardType(.decimalPad)
                             }
                             DatePicker("Fecha de Nacimiento",
-                                       selection: $draftUser.fechaNacimiento, in: dateRange,
+                                       selection: $draftUser.birthdate, in: dateRange,
                                        displayedComponents: .date)
                             
                             Picker("Sexo", selection: $selectedSexo) {
@@ -84,13 +84,13 @@ struct ProfileView: View {
                             }
                             .pickerStyle(MenuPickerStyle())
                             .onAppear {
-                                self.selectedSexo = draftUser.sexo
+                                self.selectedSexo = draftUser.sex
                             }
                             .onChange(of: selectedSexo) { newValue in
-                                draftUser.sexo = newValue
+                                draftUser.sex = newValue
                             }
                         } else {
-                            Text("Estatura: \(user.user.estatura)")
+                            Text("Estatura: \(user.user.height)")
                             HStack {
                                 Text("Fecha de nacimiento:")
                                 Spacer()
@@ -100,7 +100,7 @@ struct ProfileView: View {
                             HStack {
                                 Text("Sexo:")
                                 Spacer()
-                                Text(draftUser.sexo)
+                                Text(draftUser.sex)
                             }
                         }
                     } header: {
@@ -110,11 +110,11 @@ struct ProfileView: View {
                     Section {
                         if isEditing {
                             Text("Antecedentes médicos:")
-                            TextEditor(text: $draftUser.formattedAntecedentes)
+                            TextEditor(text: $draftUser.formattedClinicalHistory)
                         } else {
                             Text("Antecedentes médicos:")
                             ScrollView {
-                                Text(user.user.antecedentes)
+                                Text(user.user.clinicalHistory)
                                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
                             }
                             .frame(minHeight: 0, maxHeight: 22 * 10)
@@ -134,11 +134,12 @@ struct ProfileView: View {
                         }
                         
                         Button {
-                            for (index,_) in symptoms.symptoms.enumerated() {
-                                symptoms.symptoms[index].notificacion = ""
-                                modifySymptom(symptomModification: symptoms.symptoms[index])
-                                cancelAllNotification()
-                            }
+                            // MARK: Dont know why this exists, check. Was commented to transform symptoms to a dictionary
+//                            for (index,_) in symptoms.symptoms.enumerated() {
+//                                symptoms.symptoms[index].notificacion = ""
+//                                modifySymptom(symptomModification: symptoms.symptoms[index])
+//                                cancelAllNotification()
+//                            }
                             
                             authentication.signOut()
                         } label: {

@@ -30,7 +30,7 @@ struct RegisterSymptomView: View {
         NavigationStack{
             GeometryReader { geometry in
                 VStack(alignment: .leading) {
-                    Text(symptom.nombre)
+                    Text(symptom.name)
                         .font(.title)
                         .bold()
                     ZStack{
@@ -38,11 +38,11 @@ struct RegisterSymptomView: View {
                             Text("Fecha de registro")
                                 .padding(.horizontal)
                                 .foregroundStyle(Color(uiColor: .systemGray))
-                            DateSection(date: $formViewModel.fecha)
+                            DateSection(date: $formViewModel.date)
                                 .padding()
                             // Show different views depending if the symptoms is quantitative or not
-                            if(!symptom.cuantitativo){
-                                CustomSlider(valueFinal: $formViewModel.cantidad)
+                            if(!symptom.isQuantitative){
+                                CustomSlider(valueFinal: $formViewModel.amount)
                                     .keyboardType(.numberPad)
                                     .padding(.horizontal, 5)
                                     .frame(height: geometry.size.height * 0.06)
@@ -86,7 +86,7 @@ struct RegisterSymptomView: View {
                     .padding(.vertical)
                     ZStack{
                         VStack(alignment: .leading){
-                            TextField("Agrega alguna nota", text: $formViewModel.notas, axis: .vertical)
+                            TextField("Agrega alguna nota", text: $formViewModel.notes, axis: .vertical)
                                 .lineLimit(5)
                                 .padding()
                                 .frame(height: geometry.size.height / 6, alignment: .top)
@@ -100,8 +100,8 @@ struct RegisterSymptomView: View {
                     .shadow(radius: 10)
                     Button {
                         // When symptom is quant, change the value of string into Float
-                        if (symptom.cuantitativo) {
-                            formViewModel.cantidad = Float(inputValue) ?? -1000.99
+                        if (symptom.isQuantitative) {
+                            formViewModel.amount = Float(inputValue) ?? -1000.99
                         }
                         formViewModel.submit()
                     } label: {
@@ -163,7 +163,7 @@ struct RegisterSymptomView: View {
 #Preview {
     NavigationStack {
         @State var formViewModel: FormViewModel<Register> = FormViewModel(initialValue: Register(idSymptom: "1"), action: {_ in })
-        @State var symptom = Symptom(nombre: "Hello", icon: "heart", description: "wow", cuantitativo: true, unidades: "kg", activo: true, color: "#000", notificacion: "1234")
+        @State var symptom = Symptom(name: "Hello", icon: "heart", description: "wow", isQuantitative: true, units: "kg", isActive: true, color: "#000", notification: "1234")
         RegisterSymptomView(formViewModel: formViewModel, symptom: symptom)
     }
 }

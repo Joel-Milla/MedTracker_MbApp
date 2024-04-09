@@ -15,7 +15,7 @@ import SwiftUI
 class SymptomList : ObservableObject {
     typealias Action = () async throws -> Void
 
-    @Published var symptoms = [Symptom]() {
+    @Published var symptoms = [String: Symptom]() {
         didSet {
             updateStateBasedOnSymptoms()
             HelperFunctions.write(self.symptoms, inPath: symptomListURL)
@@ -39,7 +39,7 @@ class SymptomList : ObservableObject {
      **********************************/
     init(repository: Repository) {
         self.repository = repository
-        if let decodedData = HelperFunctions.loadData(in: symptomListURL, as: [Symptom].self) {
+        if let decodedData = HelperFunctions.loadData(in: symptomListURL, as: [String: Symptom].self) {
             self.symptoms = decodedData
         }
         //If there is no info in JSON, fetch
@@ -67,7 +67,7 @@ class SymptomList : ObservableObject {
     func createSymptomViewModel() -> FormViewModel<Symptom> {
         return FormViewModel(initialValue: Symptom()) { [weak self] symptom in
             let (hasError, message) = symptom.validateInput()
-            let symptomExists = self?.symptoms.firstIndex(where: { $0.nombre == symptom.nombre }) != nil // Validate if a symptom with the same name already exists
+            let symptomExists = self?.symptoms.values.contains(where: { $0.name == symptom.name }) ?? false // Validate if a symptom with the same name already exists
             // if the symptom doesnt have valid input, throw an error
             if (hasError) {
                 throw HelperFunctions.ErrorType.invalidInput(message)
@@ -76,8 +76,8 @@ class SymptomList : ObservableObject {
             }
             else {
                 // Schedule notifications based on the input received from the user
-                NotificationManager.instance.scheduleNotifications(symptom.notificacion, symptom.nombre)
-                self?.symptoms.append(symptom) // adds the symptom to the current array
+                NotificationManager.instance.scheduleNotifications(symptom.notification, symptom.name)
+                self?.symptoms[symptom.id.uuidString] = symptom
                 try await self?.repository.createSymptom(symptom) // use function in the repository to create the symptom
             }
         }
@@ -97,33 +97,33 @@ class SymptomList : ObservableObject {
     // ******************************************************************
     
     // The functions returns a closure that is used to write information in firebase
-    func makeCreateAction() -> AddSymptomView.CreateAction {
-        return { [weak self] symptom in
-            try await self?.repository.createSymptom(symptom)
-        }
-    }
+//    func makeCreateAction() -> AddSymptomView.CreateAction {
+//        return { [weak self] symptom in
+//            try await self?.repository.createSymptom(symptom)
+//        }
+//    }
     // ******************************************************************
     // ******************************************************************
     // ************* DELETE WHEN AddSymptomView IS NOT USED *************
     
     // The functions returns a closure that is used to write information in firebase
-    func makeUpdateAction(for symptom: Symptom) -> Action {
-        return { [weak self] in
-            let index = self?.symptoms.firstIndex(of: symptom)
-            if let index = index {
-                self?.symptoms[index].activo.toggle()
-            }
-            try await self?.repository.updateSymptomActivo(symptom)
-        }
-    }
+//    func makeUpdateAction(for symptom: Symptom) -> Action {
+//        return { [weak self] in
+//            let index = self?.symptoms.firstIndex(of: symptom)
+//            if let index = index {
+//                self?.symptoms[index].activo.toggle()
+//            }
+//            try await self?.repository.updateSymptomActivo(symptom)
+//        }
+//    }
     
     // The functions returns a closure that is used to write information in firebase
-    func makeDeleteAction(for symptom: Symptom) -> Action {
-        return { [weak self] in
-            self?.symptoms.removeAll{ $0.id == symptom.id}
-            try await self?.repository.deleteSymptom(symptom)
-        }
-    }
+//    func makeDeleteAction(for symptom: Symptom) -> Action {
+//        return { [weak self] in
+//            self?.symptoms.removeAll{ $0.id == symptom.id}
+//            try await self?.repository.deleteSymptom(symptom)
+//        }
+//    }
     
     // Fetch symptoms from the database and save them on the symptoms list.
     func fetchSymptoms() {
@@ -139,16 +139,16 @@ class SymptomList : ObservableObject {
     }
     
     // Function to delete a symptom
-    func deleteSymptom(symptom : Symptom) {
-        self.symptoms.removeAll{ $0.id == symptom.id }
-        Task {
-            do {
-                try await self.repository.deleteSymptom(symptom)
-            } catch {
-                customPrint("[SymptomList] Cannot delete symptom: \(error)")
-            }
-        }
-    }
+//    func deleteSymptom(symptom : Symptom) {
+//        self.symptoms.removeAll{ $0.id == symptom.id }
+//        Task {
+//            do {
+//                try await self.repository.deleteSymptom(symptom)
+//            } catch {
+//                customPrint("[SymptomList] Cannot delete symptom: \(error)")
+//            }
+//        }
+//    }
     
     // Function to update the state of the syntomsList. This is called each time the list is modified.
     private func updateStateBasedOnSymptoms() {
@@ -158,33 +158,25 @@ class SymptomList : ObservableObject {
             state = .complete
         }
     }
-    func returnName(id : String)->String{
-        var name = ""
-        for symptom in self.symptoms{
-            if symptom.id.uuidString == id{
-                name = symptom.nombre
-            }
-        }
+    
+    func returnName(id : String) -> String {
+        let name = self.symptoms[id]?.name ?? ""
         return name
     }
-    func returnActive(id : String) -> Bool{
-        for symptom in self.symptoms {
-            if symptom.id.uuidString == id{
-                return symptom.activo
-            }
-        }
-        return false
+    
+    func returnActive(id : String) -> Bool {
+        let activo = self.symptoms[id]?.isActive ?? false
+        return activo
     }
     
     // Dummy data for testing purposes.
-    private func getDefaultSymptoms() -> [Symptom] {
+    static func getDefaultSymptoms() -> [Symptom] {
         return [
-            Symptom(nombre: "Peso", icon: "star.fill",  description: "Este es un ejemplo de descripción que es bastante largo y se va haciendo mucho más largo para comprobar la funcionalidad.", cuantitativo: true, unidades: "kg", activo: true, color: "#007AF", notificacion: ""),
-            Symptom(nombre: "Cansancio", icon: "star.fill", description: "Este es un ejemplo de descripción corto.", cuantitativo: false, unidades: "", activo: true, color: "#AF43EB", notificacion: "sssss"),
-            Symptom(nombre: "Insomnio", icon: "star.fill", description: "Este es un ejemplo de descripción mediano, es decir, con esto está bien.", cuantitativo: true, unidades: "", activo: true, color: "#D03A20", notificacion: ""),
-            Symptom(nombre: "Estado cardíaco", icon: "star.fill", description: "Latidos por minuto.", cuantitativo: true, unidades: "BPM", activo: true, color: "#86B953", notificacion: ""),
-            Symptom(nombre: "Estado cardíaco 2", icon: "star.fill", description: "Latidos por minuto.", cuantitativo: true, unidades: "BPM", activo: true, color: "#86B953", notificacion: "ssssss")
-            
+            Symptom(name: "Peso", icon: "star.fill", description: "Este es un ejemplo de descripción que es bastante largo y se va haciendo mucho más largo para comprobar la funcionalidad.", isQuantitative: true, units: "kg", isActive: true, color: "#007AF", notification: ""),
+            Symptom(name: "Cansancio", icon: "star.fill", description: "Este es un ejemplo de descripción corto.", isQuantitative: false, units: "", isActive: true, color: "#AF43EB", notification: "sssss"),
+            Symptom(name: "Insomnio", icon: "star.fill", description: "Este es un ejemplo de descripción mediano, es decir, con esto está bien.", isQuantitative: true, units: "", isActive: true, color: "#D03A20", notification: ""),
+            Symptom(name: "Estado cardíaco", icon: "star.fill", description: "Latidos por minuto.", isQuantitative: true, units: "BPM", isActive: true, color: "#86B953", notification: ""),
+            Symptom(name: "Estado cardíaco 2", icon: "star.fill", description: "Latidos por minuto.", isQuantitative: true, units: "BPM", isActive: true, color: "#86B953", notification: "ssssss")
         ]
     }
 }

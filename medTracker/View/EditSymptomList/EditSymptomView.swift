@@ -30,19 +30,19 @@ struct EditSymptomView: View {
                     )
                 }
                 // If there are symptoms, then show them on a list.
-                else {
-                    List {
-                        Section(header: Text("Lista de datos de salud"), footer: Text("Deslice para borrar ó seleccione para desactivar")) {
-                            ForEach(symptoms.symptoms.indices, id:\.self) { index in
-                                let symptom = symptoms.symptoms[index]
-                                ShowEditSymptomView(symptom: EditSymptomViewModel(symptom: symptom, deleteSymptomAction: symptoms.makeDeleteAction(for: symptom), updateAction: symptoms.makeUpdateAction(for: symptom), deleteRegisterAction: registers.makeDeleteAction(for: symptom)), symptoms: symptoms, registers: registers)
-                            }
-                        }
-                    }
-                    .animation(.default, value: symptoms.symptoms)
-                    .font(.title3)
-                    .navigationTitle("Editar Datos")
-                }
+//                else {
+//                    List {
+//                        Section(header: Text("Lista de datos de salud"), footer: Text("Deslice para borrar ó seleccione para desactivar")) {
+//                            ForEach(symptoms.symptoms.indices, id:\.self) { index in
+//                                let symptom = symptoms.symptoms[index]
+//                                ShowEditSymptomView(symptom: EditSymptomViewModel(symptom: symptom, deleteSymptomAction: symptoms.makeDeleteAction(for: symptom), updateAction: symptoms.makeUpdateAction(for: symptom), deleteRegisterAction: registers.makeDeleteAction(for: symptom)), symptoms: symptoms, registers: registers)
+//                            }
+//                        }
+//                    }
+//                    .animation(.default, value: symptoms.symptoms)
+//                    .font(.title3)
+//                    .navigationTitle("Editar Datos")
+//                }
             }
             .toolbar {
                 // Shows the back button to homeView
@@ -57,7 +57,8 @@ struct EditSymptomView: View {
                 // Button to add a new symptom.
             }
             .sheet(isPresented: $muestraAddSymptomView) {
-                AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
+//                AddSymptomView(symptoms: symptoms, createAction: symptoms.makeCreateAction())
+                CreateSymptomView(formViewModel: symptoms.createSymptomViewModel())
             }
         }
     }

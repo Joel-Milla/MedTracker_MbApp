@@ -53,16 +53,20 @@ struct Repository {
     }
     
     // Function to fetch all the symptoms in firebase
-    func fetchSymptoms() async throws -> [Symptom] {
-        let symptoms = try await symptomReference
-            .order(by: "fecha", descending: false)
+    func fetchSymptoms() async throws -> [String: Symptom] {
+        let symptomList = try await symptomReference
+//            .order(by: "fecha", descending: false) // Im not sure if should order the symptoms
             .getDocuments(as: Symptom.self)
+        var symptoms: [String: Symptom] = [:]
+        for symptom in symptomList {
+            symptoms[symptom.id.uuidString] = symptom
+        }
         return symptoms
     }
     // Function to update value symptom
     func updateSymptomActivo(_ symptom: Symptom) async throws {
         let document = symptomReference.document(symptom.id.uuidString)
-        let activo = symptom.activo
+        let activo = symptom.isActive
         try await document.setData(["activo": !(activo)], merge: true)
     }
     
@@ -84,11 +88,21 @@ struct Repository {
         try await document.delete()
     }
     
-    // Function to obtain the registers of the database
-    func fetchRegisters() async throws -> [Register] {
-        let registers = try await registerReference
-            .order(by: "idSymptom", descending: false)
+    // Function to obtain the registers of the database in ascending order (old to new)
+    func fetchRegisters() async throws -> [String: [Register]] {
+        let registerList = try await registerReference
+            .order(by: "fecha", descending: false)
             .getDocuments(as: Register.self)
+        var registers: [String: [Register]] = [:]
+        for register in registerList {
+            let idSymptom = register.idSymptom
+            // Check if the key has an empty array
+            if (registers[idSymptom] == nil) {
+                registers[idSymptom] = []
+            }
+            // Add the register
+            registers[idSymptom]?.append(register)
+        }
         return registers
     }
     
@@ -111,7 +125,7 @@ struct Repository {
         let patientsReference = docDocument.collection("patients")
         let document = patientsReference.document(user.email)
         try await document.setData([
-            "name": user.nombreCompleto,
+            "name": user.name,
             "email": user.email
         ])
     }

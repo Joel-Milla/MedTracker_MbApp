@@ -74,7 +74,7 @@ struct AddDoctorView: View {
                     }
                     
                     Section(header: Text("Doctores Registrados"), footer: customFooterView) {
-                        if user.user.arregloDoctor.isEmpty {
+                        if user.user.doctors.isEmpty {
                             HStack {
                                 Spacer()
                                 EmptyListView(
@@ -85,7 +85,7 @@ struct AddDoctorView: View {
                                 Spacer()
                             }
                         } else {
-                            ForEach(user.user.arregloDoctor, id: \.self) { email in
+                            ForEach(user.user.doctors, id: \.self) { email in
                                 Text(email)
                                     .font(.body)
                                     .padding(8)
@@ -117,7 +117,7 @@ struct AddDoctorView: View {
     
     private var customFooterView: some View {
         HStack {
-            if !user.user.arregloDoctor.isEmpty {
+            if !user.user.doctors.isEmpty {
                 Text("Desliza la fila para eliminar")
             }
         }
@@ -126,14 +126,14 @@ struct AddDoctorView: View {
     private func deletePatient(at offsets: IndexSet) {
         // Delete info from database
         for index in offsets {
-            let emailToDelete = user.user.arregloDoctor[index]
+            let emailToDelete = user.user.doctors[index]
             Task {
                 try await deletePatient(emailToDelete)
             }
         }
         
         // Implement deletion logic for locally stored information.
-        user.user.arregloDoctor.remove(atOffsets: offsets)
+        user.user.doctors.remove(atOffsets: offsets)
         user.saveUserData()
         
         // modify data in database
@@ -146,7 +146,7 @@ struct AddDoctorView: View {
             email = email.lowercased()
             let doctorRole = try await HelperFunctions.fetchUserRole(email: email)
             if doctorRole == "Doctor" {
-                if user.user.arregloDoctor.contains(where: {
+                if user.user.doctors.contains(where: {
                     $0 == email
                 }) {
                     existError = true
@@ -154,7 +154,7 @@ struct AddDoctorView: View {
                     self.progress = .complete
                 } else {
                     // modifying data locally
-                    user.user.arregloDoctor.append(email)
+                    user.user.doctors.append(email)
                     createUser(user: user.user)
                     
                     // modify data in database

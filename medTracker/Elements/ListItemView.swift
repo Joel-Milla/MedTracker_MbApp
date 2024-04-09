@@ -20,14 +20,14 @@ struct ListItemView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 20, height: 20).foregroundStyle(Color(hex: item.color))
-                    Text(item.nombre)
+                    Text(item.name)
                         .font(.title3)
                         .bold()
                         .padding(.horizontal, 10)
                 }
                 .padding(.vertical)
                 HStack{
-                    Text("\(item.fecha.formatted(date: .abbreviated, time: .omitted))  |  64kg")
+                    Text("\(item.creationDate.formatted(date: .abbreviated, time: .omitted))  |  64kg")
                         .font(.subheadline)
                 }
                 Spacer()
@@ -41,7 +41,7 @@ struct ListItemView: View {
     @ViewBuilder
     func ChartCuantitativa(filteredRegisters: [Register]) -> some View {
         
-        let registers = filteredRegisters.sorted { $0.fecha < $1.fecha }
+        let registers = filteredRegisters.sorted { $0.date < $1.date }
         
         let spm = operaciones(registers: registers)
         
@@ -51,16 +51,16 @@ struct ListItemView: View {
         Chart {
             ForEach(registers, id:\.self) { register in
                 BarMark (
-                    x: .value("Día", register.fecha, unit: .day),
-                    y: .value("CANTIDAD", register.cantidad)//register.animacion ? register.cantidad : 0)
+                    x: .value("Día", register.date, unit: .day),
+                    y: .value("CANTIDAD", register.amount)//register.animacion ? register.cantidad : 0)
                 )
                 .foregroundStyle(Color(hex: item.color))
                 .interpolationMethod(.catmullRom)
                 
                 AreaMark (
-                    x: .value("Día", register.fecha, unit: .day),
+                    x: .value("Día", register.date, unit: .day),
                     yStart: .value("minY", min),
-                    yEnd: .value("maxY", register.cantidad)
+                    yEnd: .value("maxY", register.amount)
                 )
                 .foregroundStyle(Color(hex: item.color).opacity(0.1))
                 .interpolationMethod(.catmullRom)
@@ -77,12 +77,12 @@ struct ListItemView: View {
         var operacionesList : [Float] = [0,0,Float.greatestFiniteMagnitude]
         
         for item in registers {
-            operacionesList[0] = operacionesList[0] + item.cantidad
-            if operacionesList[1] < item.cantidad {
-                operacionesList[1] = item.cantidad
+            operacionesList[0] = operacionesList[0] + item.amount
+            if operacionesList[1] < item.amount {
+                operacionesList[1] = item.amount
             }
-            if operacionesList[2] > item.cantidad {
-                operacionesList[2] = item.cantidad
+            if operacionesList[2] > item.amount {
+                operacionesList[2] = item.amount
             }
         }
         operacionesList[0] = operacionesList[0] / Float(registers.count)
