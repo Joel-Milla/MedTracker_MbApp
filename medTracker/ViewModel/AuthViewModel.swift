@@ -64,10 +64,9 @@ class AuthViewModel: ObservableObject {
         Task {
             do {
                 try authService.signOut() // Reset the state of the authService
+                
                 // The next lines of code delete all the information of the current user
                 deleteFiles()
-//                isAuthenticated = false
-                
             } catch {
                 customPrint("[AuthViewModel] Error while signin out: \(error)")
             }

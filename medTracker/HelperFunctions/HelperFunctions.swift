@@ -31,7 +31,7 @@ class HelperFunctions {
             try encodedData.write(to: file)
         }
         catch {
-            fatalError("[HelperFunctions] Error while writing a file in \(file): \(error)")
+            fatalError("[HelperFunctions] Error while writing a file in \(file): Error \(error)")
         }
     }
 
