@@ -37,10 +37,10 @@ class RegisterList : ObservableObject {
         self.repository = repository
         if let decodedData = HelperFunctions.loadData(in: registersURL, as: [String: [Register]].self) {
             self.registers = decodedData
+        } else {
+            //If no JSON, fetch info
+            fetchRegisters()
         }
-        
-        //If no JSON, fetch info
-        fetchRegisters()
         
         
         // For testing, the next function can be used for dummy data.
@@ -72,6 +72,17 @@ class RegisterList : ObservableObject {
                     // Index to insert the register in a sorted way
                     let insertIndex = registersOfSymptom.firstIndex(where: {$0.date > register.date}) ?? registersOfSymptom.endIndex
                     registersOfSymptom.insert(register, at: insertIndex)
+                    // Check if there is already a register on the same day
+                    if (registersOfSymptom.count > 1) {
+                        // Use calendar to get the two registers that are close to each other
+                        let calendar = Calendar.current
+                        let day1 = calendar.startOfDay(for: registersOfSymptom[insertIndex].date)
+                        let day2 = calendar.startOfDay(for: registersOfSymptom[insertIndex - 1].date)
+
+                        if (day1 == day2) {
+                            throw HelperFunctions.ErrorType.invalidInput("Ya existe un registro en esta fecha")
+                        }
+                    }
                     self?.registers[idSymptom] = registersOfSymptom
                     
                     // Make the request to firebase to create the register
