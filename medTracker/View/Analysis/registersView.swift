@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct registersView: View {
-    //    @ObservedObject var registers: RegisterList
-    //    let symptom: Symptom
     let symptom = Symptom(name: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", isQuantitative: true, units: "kg", isActive: true, color: "#007AFF", notification: "")
     
     @State var registers: [Register]
@@ -22,7 +20,6 @@ struct registersView: View {
                 }
                 .onDelete { indexSet in
                     registers.remove(atOffsets: indexSet)
-                    //                    registers.deleteRegisterSet(atOffset: indexSet, ofSymptom: symptom)
                 }
             }
             .navigationTitle(symptom.name)

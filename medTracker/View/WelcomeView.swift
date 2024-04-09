@@ -36,10 +36,13 @@ struct WelcomeView: View {
                 } else {
                     Text("Hubo un problema")
                 }
-            } 
-            // When there is currently no rol, show a progress view.
+            }
             else {
+                // When there is currently no rol, show a progress view and sign out so the user can register
                 ProgressView()
+                    .onAppear {
+                        authViewModel.signOut()
+                    }
             }
         } else {
             // When there is no role, show the authentication view.
