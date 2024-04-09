@@ -32,7 +32,6 @@
 		177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B37622B575433009CB58D /* ShowEditSymptomView.swift */; };
 		1789E8172B59DF0E0087531D /* EditSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */; };
 		1789E8192B59ED780087531D /* registersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8182B59ED780087531D /* registersView.swift */; };
-		1789E81B2B5B32850087531D /* rowRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E81A2B5B32850087531D /* rowRegister.swift */; };
 		179E78B62BB70EB500623AF1 /* MandatoryField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E78B52BB70EB500623AF1 /* MandatoryField.swift */; };
 		179E78B82BB71FB700623AF1 /* Alert+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E78B72BB71FB700623AF1 /* Alert+Error.swift */; };
 		17DBF1C22BB22FE5005DBF11 /* CS_NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C12BB22FE5005DBF11 /* CS_NameView.swift */; };
@@ -117,7 +116,6 @@
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
 		1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSymptomViewModel.swift; sourceTree = "<group>"; };
 		1789E8182B59ED780087531D /* registersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registersView.swift; sourceTree = "<group>"; };
-		1789E81A2B5B32850087531D /* rowRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rowRegister.swift; sourceTree = "<group>"; };
 		179E78B52BB70EB500623AF1 /* MandatoryField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandatoryField.swift; sourceTree = "<group>"; };
 		179E78B72BB71FB700623AF1 /* Alert+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+Error.swift"; sourceTree = "<group>"; };
 		17DBF1C12BB22FE5005DBF11 /* CS_NameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CS_NameView.swift; sourceTree = "<group>"; };
@@ -385,7 +383,6 @@
 			children = (
 				FB7EBC5F2B0BDF0B00FBAE8D /* EmptyListView.swift */,
 				FB0EC3A22B13049700E7309B /* rowPatient.swift */,
-				1789E81A2B5B32850087531D /* rowRegister.swift */,
 				179E78B52BB70EB500623AF1 /* MandatoryField.swift */,
 				179E78B72BB71FB700623AF1 /* Alert+Error.swift */,
 				17117A062BB75B050009FED6 /* ChangingText.swift */,
@@ -576,7 +573,6 @@
 				F839EFF12AE0C4AE00CB5327 /* RegisterSymptomView.swift in Sources */,
 				FB86F0712AFEC4160051C6A6 /* SymptomList.swift in Sources */,
 				173EF29F2BB1C9DB00F7ACF9 /* IconColorView.swift in Sources */,
-				1789E81B2B5B32850087531D /* rowRegister.swift in Sources */,
 				1709489E2BAEC23B007E3E8B /* LineChartView_Cual.swift in Sources */,
 				173EF2982BB137BE00F7ACF9 /* IconModel.swift in Sources */,
 				173EF2A12BB1D23700F7ACF9 /* HelpView.swift in Sources */,
