@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct ChartView: View {
-    let isCuantitative: Bool
-    // Mock data
-    let symptomRegisters: [Register]
+    // Variables to show information
+    @State var symptom: Symptom
+    @ObservedObject var registers: RegisterList
     // MARK: View Properties
     @State var currentTab: String = "Semana"
     @State var isLineGraph: Bool = true
@@ -37,16 +37,16 @@ struct ChartView: View {
             
             // Switch between line and bar graph. Pass the currentTab selected to switch time-zones.
             if (isLineGraph) {
-                if (isCuantitative) {
-                    LineChartView_Cuant(symptomRegisters: symptomRegisters, currentTab: $currentTab)
+                if (symptom.isQuantitative) {
+                    LineChartView_Cuant(symptom: symptom, registers: registers, currentTab: $currentTab)
                 } else {
-                    LineChartView_Cual(symptomRegisters: symptomRegisters, currentTab: $currentTab)
+                    LineChartView_Cual(symptom: symptom, registers: registers, currentTab: $currentTab)
                 }
             } else {
-                if (isCuantitative) {
-                    BarChartView_Cuant(symptomRegisters: symptomRegisters, currentTab: $currentTab)
+                if (symptom.isQuantitative) {
+                    BarChartView_Cuant(symptom: symptom, registers: registers, currentTab: $currentTab)
                 } else {
-                    BarChartView_Cual(symptomRegisters: symptomRegisters, currentTab: $currentTab)
+                    BarChartView_Cual(symptom: symptom, registers: registers, currentTab: $currentTab)
                 }
             }
             
@@ -73,10 +73,12 @@ struct ChartView: View {
 
 #Preview {
     NavigationStack {
+        @State var repository = Repository(user: User(id: "3zPDb70ofQQHximl1NXwPMgIhMR2", rol: "Paciente", email: "joel@mail.com", phone: "", name: "Joel", clinicalHistory: "", sex: "", birthdate: Date.now, height: "", doctors: ["doc@mail.com"]))
+        @State var registers: RegisterList = RegisterList(repository: repository)
         
-        let symptomRegisters: [Register] = RegisterList.getDefaultRegisters()
-        
-        ChartView(isCuantitative: true, symptomRegisters: symptomRegisters)
+        @State var symptom = Symptom(name: "", icon: "heart", description: "", isQuantitative: true, units: "kg", isActive: true, color: "#000000", notification: "")
+                
+        ChartView(symptom: symptom, registers: registers)
     }
 }
 
