@@ -19,13 +19,7 @@ struct RegisterSymptomView: View {
     
     // Dismiss the view when no longer needed
     @Environment(\.dismiss) var dismiss
-    
-    //@State var sliderOrTF : Bool = false
-    @State var notes = ""
-    var dummySymptom = "Migraña"
-    @State var metric: Double = 0
-    @State private var notificacionesActivas = false
-    
+        
     var body: some View {
         NavigationStack{
             GeometryReader { geometry in
@@ -122,7 +116,7 @@ struct RegisterSymptomView: View {
                 }
                 .padding()
             }
-            // MARK: The following edits are in charge of a good user experience
+            // MARK: The following edits are in charge of a good user experience that are consistent across sheets
             .keyboardToolbar() // apply the button to have an ok and dismiss the view
             .onSubmit(formViewModel.submit)
             // Show alert to tell the user that there is an error
@@ -133,7 +127,6 @@ struct RegisterSymptomView: View {
                     dismiss()
                 }
             }
-            // MARK: Ending of general user experience
             .toolbar {
                 // Dismiss the view
                 ToolbarItem(placement: .topBarLeading) {
@@ -143,18 +136,8 @@ struct RegisterSymptomView: View {
                         Image(systemName: "xmark.circle")
                     })
                 }
-                
-                // Change value of notification
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    //MARK: El boton no sirve ********************
-                    Button {
-                        notificacionesActivas.toggle()
-                    } label: {
-                        Image(systemName: notificacionesActivas ? "bell.fill" : "bell.slash")
-                    }
-                    //MARK: El boton no sirve ********************
-                }
             }
+            // MARK: Ending of consistent UI
         }
     }
 }
