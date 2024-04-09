@@ -9,8 +9,9 @@ import SwiftUI
 import Charts
 
 struct BarChartView_Cuant: View {
-    // Mock data
-    let symptomRegisters: [Register]
+    // Variables to show information
+    let symptom: Symptom
+    @ObservedObject var registers: RegisterList
     // MARK: View Properties
     @Binding var currentTab: String
     @State var filteredRegisters: [Register] = []
@@ -22,9 +23,15 @@ struct BarChartView_Cuant: View {
         // MARK: Bar Chart API that changes when the currentTab (time zone selected changes)
         AnimatedCharts()
             .onChange(of: currentTab) { newValue in
-                filteredRegisters = symptomRegisters.filterBy(currentTab)
+                filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
                 // Re-Animating View
                 animateGraph(fromChange: true)
+            }
+        // This onChange will trigger the graph to update when a new register is created
+            .onChange(of: registers.registers) { _ in
+                filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
+                // Re-Animating View
+                animateGraph()
             }
     }
     
@@ -116,7 +123,7 @@ struct BarChartView_Cuant: View {
         .frame(height: 250)
         .onAppear {
             // Filter the current regiser based on the current time zone.
-            filteredRegisters = symptomRegisters.filterBy(currentTab)
+            filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
             animateGraph()
         }
     }
@@ -134,11 +141,13 @@ struct BarChartView_Cuant: View {
 
 #Preview {
     NavigationStack {
+        @State var repository = Repository(user: User(id: "3zPDb70ofQQHximl1NXwPMgIhMR2", rol: "Paciente", email: "joel@mail.com", phone: "", name: "Joel", clinicalHistory: "", sex: "", birthdate: Date.now, height: "", doctors: ["doc@mail.com"]))
+        @State var registers: RegisterList = RegisterList(repository: repository)
         
-        let symptomRegisters: [Register] = RegisterList.getDefaultRegisters()
+        @State var symptom = Symptom(name: "", icon: "heart", description: "", isQuantitative: true, units: "kg", isActive: true, color: "#000000", notification: "")
         
         @State var currentTab: String = "Semana"
         
-        BarChartView_Cuant(symptomRegisters: symptomRegisters, currentTab: $currentTab)
+        BarChartView_Cuant(symptom: symptom, registers: registers, currentTab: $currentTab)
     }
 }

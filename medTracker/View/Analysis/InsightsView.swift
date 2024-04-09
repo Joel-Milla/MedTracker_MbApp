@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct InsightsView: View {
-    let isCuantitative: Bool
-    let symptomRegisters: [Register]
+    let isQuantitative: Bool
+    let registers: [Register]
     
     var body: some View {
+        // Make three columns to organize the information
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(lineWidth: 2)
@@ -25,19 +26,19 @@ struct InsightsView: View {
                     Text("Valor mínimo")
                         .font(.caption)
                         .foregroundStyle(.gray)
-                    Value(isCuantitative: isCuantitative, value: symptomRegisters.minValue())
+                    Value(isCuantitative: isQuantitative, value: registers.minValue())
                 }
                 VStack {
                     Text("Valor promedio")
                         .font(.caption)
                         .foregroundStyle(.gray)
-                    Value(isCuantitative: isCuantitative, value: symptomRegisters.meanValue())
+                    Value(isCuantitative: isQuantitative, value: registers.meanValue())
                 }
                 VStack {
                     Text("Valor máximo")
                         .font(.caption)
                         .foregroundStyle(.gray)
-                    Value(isCuantitative: isCuantitative, value: symptomRegisters.maxValue())
+                    Value(isCuantitative: isQuantitative, value: registers.maxValue())
                 }
             }
             .padding() // Adjust the padding as needed
@@ -46,32 +47,38 @@ struct InsightsView: View {
     }
 }
 
+// View that shows the image or the values depending if the symptom is quantitative or not
 struct Value: View {
     let isCuantitative: Bool
-    let value: Float
+    let value: Float?
     
     var body: some View {
-        if (isCuantitative) {
-            Text(value.asString())
-                .font(.title2.bold())
-        } else {
-            let imageName = HelperFunctions.getImage(of: value)
-            HStack {
-                Spacer()
-                Image(imageName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 60)
-                Spacer()
+        // Show different views depending if there is data or not
+        if (value != nil) {
+            if (isCuantitative) {
+                Text(value?.asString() ?? "")
+                    .font(.title2.bold())
+            } else {
+                let imageName = HelperFunctions.getImage(of: value ?? 0.0)
+                HStack {
+                    Spacer()
+                    Image(imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 60)
+                    Spacer()
+                }
             }
+        } else {
+            Text("--")
         }
     }
 }
 
 #Preview {
     NavigationStack {
-        let symptomRegisters: [Register] = RegisterList.getDefaultRegisters()
+        let registers: [Register] = []
         
-        InsightsView(isCuantitative: true, symptomRegisters: symptomRegisters)
+        InsightsView(isQuantitative: true, registers: registers)
     }
 }

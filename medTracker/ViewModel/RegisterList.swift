@@ -42,6 +42,7 @@ class RegisterList : ObservableObject {
         //If no JSON, fetch info
         fetchRegisters()
         
+        
         // For testing, the next function can be used for dummy data.
         //registers = getDefaultRegisters()
     }

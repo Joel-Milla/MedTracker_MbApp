@@ -55,7 +55,6 @@ struct Repository {
     // Function to fetch all the symptoms in firebase
     func fetchSymptoms() async throws -> [String: Symptom] {
         let symptomList = try await symptomReference
-//            .order(by: "fecha", descending: false) // Im not sure if should order the symptoms
             .getDocuments(as: Symptom.self)
         var symptoms: [String: Symptom] = [:]
         for symptom in symptomList {
@@ -91,7 +90,7 @@ struct Repository {
     // Function to obtain the registers of the database in ascending order (old to new)
     func fetchRegisters() async throws -> [String: [Register]] {
         let registerList = try await registerReference
-            .order(by: "fecha", descending: false)
+            .order(by: "date", descending: false)
             .getDocuments(as: Register.self)
         var registers: [String: [Register]] = [:]
         for register in registerList {

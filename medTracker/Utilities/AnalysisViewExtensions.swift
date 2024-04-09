@@ -41,18 +41,20 @@ extension [Register] {
     }
     
     // Functions used for insightsView, obtain the min value
-    func minValue() -> Float {
-        self.min(by: { $0.amount < $1.amount })?.amount ?? 0.0
+    func minValue() -> Float? {
+        guard !self.isEmpty else { return nil }
+        return self.min(by: { $0.amount < $1.amount })?.amount
     }
     
     // Functions used for insightsView, obtain the max value
-    func maxValue() -> Float {
-        self.max(by: { $0.amount < $1.amount })?.amount ?? 0.0
+    func maxValue() -> Float? {
+        guard !self.isEmpty else { return nil }
+        return self.max(by: { $0.amount < $1.amount })?.amount
     }
     
     // Functions used for insightsView, obtain the min value
-    func meanValue() -> Float {
-        guard !self.isEmpty else { return 0.0 }
+    func meanValue() -> Float? {
+        guard !self.isEmpty else { return nil }
         let sum = self.reduce(0.0) { $0 + $1.amount }
         return sum / Float(self.count)
     }
