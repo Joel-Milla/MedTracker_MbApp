@@ -62,17 +62,17 @@ class HelperFunctions {
 
         switch value {
         case 0..<20:
-            imageName = "happier_face" // Replace with actual system image name
+            imageName = "sadder_face"
         case 20..<40:
-            imageName = "va_test" // Replace with actual system image name
+            imageName = "sad_face"
         case 40..<60:
-            imageName = "normal_face" // Replace with actual system image name
+            imageName = "normal_face"
         case 60..<80:
-            imageName = "sad_face" // Replace with actual system image name
+            imageName = "va_test"
         case 80...:
-            imageName = "sadder_face" // Replace with actual system image name
+            imageName = "happier_face"
         default:
-            imageName = "" // Default image name if needed
+            imageName = ""
         }
 
         return imageName

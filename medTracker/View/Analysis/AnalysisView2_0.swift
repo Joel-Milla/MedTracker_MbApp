@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AnalysisView2_0: View {
     // Variables that are shown on the view
-    @State var symptom: Symptom
+    let symptom: Symptom
     @ObservedObject var registers: RegisterList
     // To show RegisterSymptomView
     @State var showRegisterSymptomView : Bool = false
@@ -24,7 +24,7 @@ struct AnalysisView2_0: View {
                     .padding(.bottom, 35)
                 // Button to show the past registers
                 NavigationLink {
-                    registersView(registers: registers.registers[symptom.id.uuidString] ?? [])
+                    registersView(symptom: symptom, registers: registers.registers[symptom.id.uuidString] ?? [])
                 } label: {
                     Text("Registros Pasados")
                         .gradientStyle() // Use the default gradient to show the correct style of the button
