@@ -44,7 +44,6 @@ struct ShareButtonView: View {
             
             // Write in the fileManager (in that direction) the string data
             try stringData.write(to: fileURL, atomically: true , encoding: .utf8)
-            print(fileURL!)
             
         } catch {
             customPrint("[ShareButtonView] Error generating csv file")

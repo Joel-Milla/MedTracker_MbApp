@@ -43,7 +43,6 @@
 		17E5CEEA2BC0B15100F57199 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E5CEE92BC0B15100F57199 /* NotificationManager.swift */; };
 		17F133692B98E401004C6D8F /* GlobalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F133682B98E401004C6D8F /* GlobalUtilities.swift */; };
 		F82095A02AF58ACE002F1C28 /* Symptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820959F2AF58ACE002F1C28 /* Symptom.swift */; };
-		F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F838338D2B0C49F5005F2BB5 /* ShareView.swift */; };
 		F839EFF12AE0C4AE00CB5327 /* RegisterSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */; };
 		F87256782B128AAA00044A05 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87256772B128AAA00044A05 /* Notifications.swift */; };
 		F8A27C692BBFA656006513FC /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A27C682BBFA656006513FC /* ListItemView.swift */; };
@@ -127,7 +126,6 @@
 		17E5CEE92BC0B15100F57199 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		17F133682B98E401004C6D8F /* GlobalUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUtilities.swift; sourceTree = "<group>"; };
 		F820959F2AF58ACE002F1C28 /* Symptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptom.swift; sourceTree = "<group>"; };
-		F838338D2B0C49F5005F2BB5 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSymptomView.swift; sourceTree = "<group>"; };
 		F87256772B128AAA00044A05 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		F8A27C682BBFA656006513FC /* ListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
@@ -317,7 +315,6 @@
 				17E5CEEB2BC38CEA00F57199 /* EditSymptomList */,
 				173EF2952BB1347000F7ACF9 /* CreateSymptom */,
 				F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */,
-				F838338D2B0C49F5005F2BB5 /* ShareView.swift */,
 				170948872BAE536F007E3E8B /* Analysis */,
 				FB4C82282B13C13E004AF7B6 /* ProfileView */,
 				FB0EC3992B128F0C00E7309B /* DoctorViews */,
@@ -602,7 +599,6 @@
 				17E5CEE82BC08EE600F57199 /* DateUtility.swift in Sources */,
 				177BB6D52BC7126A000C8E26 /* ShareButtonView.swift in Sources */,
 				FB0EC39D2B12D3DC00E7309B /* DismissButtonExtension.swift in Sources */,
-				F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */,
 				179E78B82BB71FB700623AF1 /* Alert+Error.swift in Sources */,
 				FB6BBA142B0979B6008EFA9A /* AuthViewModel.swift in Sources */,
 				17DBF1C62BB2355B005DBF11 /* PersonalizedNotificationsView.swift in Sources */,
