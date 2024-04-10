@@ -15,6 +15,7 @@ import SwiftUI
 class SymptomList : ObservableObject {
     typealias Action = () async throws -> Void
 
+    // The key is the idSymptom and then the structure symptom is the value
     @Published var symptoms = [String: Symptom]() {
         didSet {
             updateStateBasedOnSymptoms()

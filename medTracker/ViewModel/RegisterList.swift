@@ -14,6 +14,8 @@ import Foundation
 class RegisterList : ObservableObject {
     typealias Action = () async throws -> Void
 
+    // The registers contained are in ascending order, from the oldest to the newest register. Are sorted by date
+    // The key is the idSymptom and each value are all the registers of that symptom
     @Published var registers = [String: [Register]]() {
         didSet {
             HelperFunctions.write(self.registers, inPath: registersURL)
@@ -72,15 +74,25 @@ class RegisterList : ObservableObject {
                     // Index to insert the register in a sorted way
                     let insertIndex = registersOfSymptom.firstIndex(where: {$0.date > register.date}) ?? registersOfSymptom.endIndex
                     registersOfSymptom.insert(register, at: insertIndex)
-                    // Check if there is already a register on the same day
-                    if (registersOfSymptom.count > 1) {
-                        // Use calendar to get the two registers that are close to each other
-                        let calendar = Calendar.current
-                        let day1 = calendar.startOfDay(for: registersOfSymptom[insertIndex].date)
-                        let day2 = calendar.startOfDay(for: registersOfSymptom[insertIndex - 1].date)
-
-                        if (day1 == day2) {
-                            throw HelperFunctions.ErrorType.invalidInput("Ya existe un registro en esta fecha")
+                    
+                    // MARK: Check if there is already a register on the same day
+                    let calendar = Calendar.current
+                    let previousIndex = insertIndex - 1
+                    let nextIndex = insertIndex + 1
+                    let newRegisterDate = calendar.startOfDay(for: register.date)
+                    // Check previous date if it exists
+                    if previousIndex >= 0 && previousIndex < registersOfSymptom.count {
+                        let previousDate = calendar.startOfDay(for: registersOfSymptom[previousIndex].date)
+                        if newRegisterDate == previousDate {
+                            throw HelperFunctions.ErrorType.invalidInput("Ya existe un registro en esta fecha.")
+                        }
+                    }
+                    
+                    // Check next date if it exists
+                    if nextIndex < registersOfSymptom.count {
+                        let nextDate = calendar.startOfDay(for: registersOfSymptom[nextIndex].date)
+                        if newRegisterDate == nextDate {
+                            throw HelperFunctions.ErrorType.invalidInput("Ya existe un registro en esta fecha.")
                         }
                     }
                     self?.registers[idSymptom] = registersOfSymptom
@@ -170,7 +182,6 @@ class RegisterList : ObservableObject {
     // Dummy data for testing purposes.
     static func getDefaultRegisters() -> [Register] {
         return [
-            Register(idSymptom: "SYM-571"),
             Register(idSymptom: "SYM-603", date: Date().addingTimeInterval(-32400), amount: 8.92, notes: "Note 40"),
             Register(idSymptom: "SYM-603", date: Date().addingTimeInterval(-86400 * 1), amount: 8.92, notes: "Note 40"),
             Register(idSymptom: "SYM-358", date: Date().addingTimeInterval(-86400 * 2), amount: 1.36, notes: "Note 25"),

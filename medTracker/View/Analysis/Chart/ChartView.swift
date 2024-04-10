@@ -37,17 +37,9 @@ struct ChartView: View {
             
             // Switch between line and bar graph. Pass the currentTab selected to switch time-zones.
             if (isLineGraph) {
-                if (symptom.isQuantitative) {
-                    LineChartView_Cuant(symptom: symptom, registers: registers, currentTab: $currentTab)
-                } else {
-                    LineChartView_Cual(symptom: symptom, registers: registers, currentTab: $currentTab)
-                }
+                LineChartView(symptom: symptom, registers: registers, currentTab: $currentTab)
             } else {
-                if (symptom.isQuantitative) {
-                    BarChartView_Cuant(symptom: symptom, registers: registers, currentTab: $currentTab)
-                } else {
-                    BarChartView_Cual(symptom: symptom, registers: registers, currentTab: $currentTab)
-                }
+                BarChartView(symptom: symptom, registers: registers, currentTab: $currentTab)
             }
             
             // Picker to shown if chart shown is line or bar chart

@@ -20,24 +20,45 @@ extension Register {
 extension [Register] {
     // Filter an array of registers by tags.
     func filterBy(_ filter: String) -> [Register] {
+        // Array containing the filtered registers
+        var filteredRegisters: [Register] = []
+        
         switch(filter) {
         case "Semana":
             // Date of last seven days
             let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-            return self.filter({ register in
-                register.date > sevenDaysAgo
-            })
+            
+            // Start from the end since the array is sorted by date
+            for register in self.reversed() {
+                if register.date >= sevenDaysAgo {
+                    filteredRegisters.append(register)
+                } else {
+                    // Once a register's date is older than the start date, break out of the loop
+                    break
+                }
+            }
         case "Mes":
             // Date of last seven days
             let monthAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date())!
-            return self.filter({ register in
-                register.date > monthAgo
-            })
+            
+            // Start from the end since the array is sorted by date, to access the recent dates and not traverse the entire array
+            for register in self.reversed() {
+                if register.date >= monthAgo {
+                    filteredRegisters.append(register)
+                } else {
+                    // Once a register's date is older than the start date, break out of the loop
+                    break
+                }
+            }
         case "Todos":
             return self
         default:
             return self
         }
+        
+        // Return if filter is Semana/Mes, the filtered registers
+        // The data was appended to make it O(1) operation, but if appended then it makes it in descending order, so reverse it so it is in ascending order which should be the default
+        return filteredRegisters.reversed()
     }
     
     // Functions used for insightsView, obtain the min value

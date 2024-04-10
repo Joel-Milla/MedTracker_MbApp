@@ -11,13 +11,11 @@
 		170948642BAB5BB2007E3E8B /* AnalysisView2_0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948632BAB5BB2007E3E8B /* AnalysisView2_0.swift */; };
 		170948862BAE3E24007E3E8B /* tempSignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948852BAE3E24007E3E8B /* tempSignOut.swift */; };
 		170948892BAE8900007E3E8B /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948882BAE8900007E3E8B /* InsightsView.swift */; };
-		1709488B2BAE8CAB007E3E8B /* LineChartView_Cuant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */; };
+		1709488B2BAE8CAB007E3E8B /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488A2BAE8CAB007E3E8B /* LineChartView.swift */; };
 		1709488D2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */; };
 		1709488F2BAE8FB1007E3E8B /* StylesMedTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488E2BAE8FB1007E3E8B /* StylesMedTracker.swift */; };
 		170948972BAE96BB007E3E8B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948962BAE96BB007E3E8B /* ChartView.swift */; };
-		170948992BAEA033007E3E8B /* BarChartView_Cuant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */; };
-		1709489E2BAEC23B007E3E8B /* LineChartView_Cual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */; };
-		170948A22BAEC846007E3E8B /* BarChartView_Cual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */; };
+		170948992BAEA033007E3E8B /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948982BAEA033007E3E8B /* BarChartView.swift */; };
 		170C07F62B51EE3A00AB937A /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170C07F52B51EE3A00AB937A /* WelcomeView.swift */; };
 		17117A072BB75B050009FED6 /* ChangingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17117A062BB75B050009FED6 /* ChangingText.swift */; };
 		1718E8B72B4F3736001691B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */; };
@@ -30,9 +28,10 @@
 		173EF2A32BB1DEE700F7ACF9 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2A22BB1DEE700F7ACF9 /* NotificationsView.swift */; };
 		173EF2A62BB20C9700F7ACF9 /* WeeklyNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */; };
 		177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B37622B575433009CB58D /* ShowEditSymptomView.swift */; };
+		177BB6B32BC6FED6000C8E26 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177BB6B22BC6FED6000C8E26 /* AnnotationView.swift */; };
+		177BB6D52BC7126A000C8E26 /* ShareButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177BB6D42BC7126A000C8E26 /* ShareButtonView.swift */; };
 		1789E8172B59DF0E0087531D /* EditSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */; };
 		1789E8192B59ED780087531D /* registersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8182B59ED780087531D /* registersView.swift */; };
-		1789E81B2B5B32850087531D /* rowRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E81A2B5B32850087531D /* rowRegister.swift */; };
 		179E78B62BB70EB500623AF1 /* MandatoryField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E78B52BB70EB500623AF1 /* MandatoryField.swift */; };
 		179E78B82BB71FB700623AF1 /* Alert+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E78B72BB71FB700623AF1 /* Alert+Error.swift */; };
 		17DBF1C22BB22FE5005DBF11 /* CS_NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C12BB22FE5005DBF11 /* CS_NameView.swift */; };
@@ -44,7 +43,6 @@
 		17E5CEEA2BC0B15100F57199 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E5CEE92BC0B15100F57199 /* NotificationManager.swift */; };
 		17F133692B98E401004C6D8F /* GlobalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F133682B98E401004C6D8F /* GlobalUtilities.swift */; };
 		F82095A02AF58ACE002F1C28 /* Symptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820959F2AF58ACE002F1C28 /* Symptom.swift */; };
-		F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F838338D2B0C49F5005F2BB5 /* ShareView.swift */; };
 		F839EFF12AE0C4AE00CB5327 /* RegisterSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */; };
 		F87256782B128AAA00044A05 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87256772B128AAA00044A05 /* Notifications.swift */; };
 		F8A27C692BBFA656006513FC /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A27C682BBFA656006513FC /* ListItemView.swift */; };
@@ -96,13 +94,11 @@
 		170948632BAB5BB2007E3E8B /* AnalysisView2_0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView2_0.swift; sourceTree = "<group>"; };
 		170948852BAE3E24007E3E8B /* tempSignOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempSignOut.swift; sourceTree = "<group>"; };
 		170948882BAE8900007E3E8B /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
-		1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView_Cuant.swift; sourceTree = "<group>"; };
+		1709488A2BAE8CAB007E3E8B /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
 		1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewExtensions.swift; sourceTree = "<group>"; };
 		1709488E2BAE8FB1007E3E8B /* StylesMedTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylesMedTracker.swift; sourceTree = "<group>"; };
 		170948962BAE96BB007E3E8B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
-		170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView_Cuant.swift; sourceTree = "<group>"; };
-		1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView_Cual.swift; sourceTree = "<group>"; };
-		170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView_Cual.swift; sourceTree = "<group>"; };
+		170948982BAEA033007E3E8B /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		170C07F52B51EE3A00AB937A /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		17117A062BB75B050009FED6 /* ChangingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingText.swift; sourceTree = "<group>"; };
 		1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -115,9 +111,10 @@
 		173EF2A22BB1DEE700F7ACF9 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNotificationsView.swift; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
+		177BB6B22BC6FED6000C8E26 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
+		177BB6D42BC7126A000C8E26 /* ShareButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButtonView.swift; sourceTree = "<group>"; };
 		1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSymptomViewModel.swift; sourceTree = "<group>"; };
 		1789E8182B59ED780087531D /* registersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registersView.swift; sourceTree = "<group>"; };
-		1789E81A2B5B32850087531D /* rowRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rowRegister.swift; sourceTree = "<group>"; };
 		179E78B52BB70EB500623AF1 /* MandatoryField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandatoryField.swift; sourceTree = "<group>"; };
 		179E78B72BB71FB700623AF1 /* Alert+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+Error.swift"; sourceTree = "<group>"; };
 		17DBF1C12BB22FE5005DBF11 /* CS_NameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CS_NameView.swift; sourceTree = "<group>"; };
@@ -129,7 +126,6 @@
 		17E5CEE92BC0B15100F57199 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		17F133682B98E401004C6D8F /* GlobalUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUtilities.swift; sourceTree = "<group>"; };
 		F820959F2AF58ACE002F1C28 /* Symptom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptom.swift; sourceTree = "<group>"; };
-		F838338D2B0C49F5005F2BB5 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSymptomView.swift; sourceTree = "<group>"; };
 		F87256772B128AAA00044A05 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		F8A27C682BBFA656006513FC /* ListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
@@ -206,28 +202,10 @@
 			isa = PBXGroup;
 			children = (
 				170948962BAE96BB007E3E8B /* ChartView.swift */,
-				170948932BAE9609007E3E8B /* CuantitativeGraph */,
-				1709489A2BAEC117007E3E8B /* CualitativeGraph */,
+				1709488A2BAE8CAB007E3E8B /* LineChartView.swift */,
+				170948982BAEA033007E3E8B /* BarChartView.swift */,
 			);
 			path = Chart;
-			sourceTree = "<group>";
-		};
-		170948932BAE9609007E3E8B /* CuantitativeGraph */ = {
-			isa = PBXGroup;
-			children = (
-				1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */,
-				170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */,
-			);
-			path = CuantitativeGraph;
-			sourceTree = "<group>";
-		};
-		1709489A2BAEC117007E3E8B /* CualitativeGraph */ = {
-			isa = PBXGroup;
-			children = (
-				1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */,
-				170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */,
-			);
-			path = CualitativeGraph;
 			sourceTree = "<group>";
 		};
 		1718E8B52B4F3716001691B8 /* Resources */ = {
@@ -337,7 +315,6 @@
 				17E5CEEB2BC38CEA00F57199 /* EditSymptomList */,
 				173EF2952BB1347000F7ACF9 /* CreateSymptom */,
 				F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */,
-				F838338D2B0C49F5005F2BB5 /* ShareView.swift */,
 				170948872BAE536F007E3E8B /* Analysis */,
 				FB4C82282B13C13E004AF7B6 /* ProfileView */,
 				FB0EC3992B128F0C00E7309B /* DoctorViews */,
@@ -385,10 +362,11 @@
 			children = (
 				FB7EBC5F2B0BDF0B00FBAE8D /* EmptyListView.swift */,
 				FB0EC3A22B13049700E7309B /* rowPatient.swift */,
-				1789E81A2B5B32850087531D /* rowRegister.swift */,
 				179E78B52BB70EB500623AF1 /* MandatoryField.swift */,
 				179E78B72BB71FB700623AF1 /* Alert+Error.swift */,
 				17117A062BB75B050009FED6 /* ChangingText.swift */,
+				177BB6B22BC6FED6000C8E26 /* AnnotationView.swift */,
+				177BB6D42BC7126A000C8E26 /* ShareButtonView.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -566,6 +544,7 @@
 			files = (
 				FBEC06372B0814B6007AC73B /* Repository.swift in Sources */,
 				17DBF1C42BB230D6005DBF11 /* CS_TypeView.swift in Sources */,
+				177BB6B32BC6FED6000C8E26 /* AnnotationView.swift in Sources */,
 				FB1A55542AFD773F00F9A74A /* Button1MedTracker.swift in Sources */,
 				FB0EC3942B12721A00E7309B /* MainDoctorView.swift in Sources */,
 				FBE3812A2ADF3BC9004737C9 /* ProfileView.swift in Sources */,
@@ -576,8 +555,6 @@
 				F839EFF12AE0C4AE00CB5327 /* RegisterSymptomView.swift in Sources */,
 				FB86F0712AFEC4160051C6A6 /* SymptomList.swift in Sources */,
 				173EF29F2BB1C9DB00F7ACF9 /* IconColorView.swift in Sources */,
-				1789E81B2B5B32850087531D /* rowRegister.swift in Sources */,
-				1709489E2BAEC23B007E3E8B /* LineChartView_Cual.swift in Sources */,
 				173EF2982BB137BE00F7ACF9 /* IconModel.swift in Sources */,
 				173EF2A12BB1D23700F7ACF9 /* HelpView.swift in Sources */,
 				173EF29A2BB1B68C00F7ACF9 /* IconPicker.swift in Sources */,
@@ -587,7 +564,6 @@
 				17117A072BB75B050009FED6 /* ChangingText.swift in Sources */,
 				FB0EC3982B12759C00E7309B /* AddDoctorView.swift in Sources */,
 				FBD940B52AFD759D00C3BD11 /* LogInView.swift in Sources */,
-				170948A22BAEC846007E3E8B /* BarChartView_Cual.swift in Sources */,
 				FB0EC3A92B13144B00E7309B /* PatientsData.swift in Sources */,
 				173EF2A62BB20C9700F7ACF9 /* WeeklyNotificationsView.swift in Sources */,
 				F82095A02AF58ACE002F1C28 /* Symptom.swift in Sources */,
@@ -600,7 +576,7 @@
 				177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */,
 				FB0EC3A32B13049700E7309B /* rowPatient.swift in Sources */,
 				FBE41E742AF6D464007B48E5 /* User.swift in Sources */,
-				170948992BAEA033007E3E8B /* BarChartView_Cuant.swift in Sources */,
+				170948992BAEA033007E3E8B /* BarChartView.swift in Sources */,
 				170948972BAE96BB007E3E8B /* ChartView.swift in Sources */,
 				170948642BAB5BB2007E3E8B /* AnalysisView2_0.swift in Sources */,
 				FB0EC3A12B12FF9400E7309B /* PatientList.swift in Sources */,
@@ -615,14 +591,14 @@
 				F8A27C692BBFA656006513FC /* ListItemView.swift in Sources */,
 				FBD940B12AFD74D100C3BD11 /* AuthenticationView.swift in Sources */,
 				FB6BBA122B09791A008EFA9A /* AuthService.swift in Sources */,
-				1709488B2BAE8CAB007E3E8B /* LineChartView_Cuant.swift in Sources */,
+				1709488B2BAE8CAB007E3E8B /* LineChartView.swift in Sources */,
 				173EF2722BB0D11200F7ACF9 /* CreateSymptomView.swift in Sources */,
 				1709488D2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift in Sources */,
 				FBD940AF2AFD73E800C3BD11 /* EditSymptomView.swift in Sources */,
 				1789E8192B59ED780087531D /* registersView.swift in Sources */,
 				17E5CEE82BC08EE600F57199 /* DateUtility.swift in Sources */,
+				177BB6D52BC7126A000C8E26 /* ShareButtonView.swift in Sources */,
 				FB0EC39D2B12D3DC00E7309B /* DismissButtonExtension.swift in Sources */,
-				F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */,
 				179E78B82BB71FB700623AF1 /* Alert+Error.swift in Sources */,
 				FB6BBA142B0979B6008EFA9A /* AuthViewModel.swift in Sources */,
 				17DBF1C62BB2355B005DBF11 /* PersonalizedNotificationsView.swift in Sources */,

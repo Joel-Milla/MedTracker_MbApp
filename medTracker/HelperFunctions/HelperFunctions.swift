@@ -57,25 +57,25 @@ class HelperFunctions {
     }
     
     // Function that when receives a value of number (like int/float/double) it returns the image that corresponds to that value. 
-    static func getImage<T: Numeric & Comparable>(of value: T) -> String {
+    static func getImage<T: Numeric & Comparable>(of value: T) -> Image {
         var imageName: String
 
         switch value {
         case 0..<20:
-            imageName = "happier_face" // Replace with actual system image name
+            imageName = "sadder_face"
         case 20..<40:
-            imageName = "va_test" // Replace with actual system image name
+            imageName = "sad_face"
         case 40..<60:
-            imageName = "normal_face" // Replace with actual system image name
+            imageName = "normal_face"
         case 60..<80:
-            imageName = "sad_face" // Replace with actual system image name
+            imageName = "va_test"
         case 80...:
-            imageName = "sadder_face" // Replace with actual system image name
+            imageName = "happier_face"
         default:
-            imageName = "" // Default image name if needed
+            imageName = ""
         }
 
-        return imageName
+        return Image(imageName)
     }
     
     // Function receives an error from authentication service and returns the error localized
