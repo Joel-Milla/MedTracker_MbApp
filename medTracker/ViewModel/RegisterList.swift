@@ -15,6 +15,7 @@ class RegisterList : ObservableObject {
     typealias Action = () async throws -> Void
 
     // The registers contained are in ascending order, from the oldest to the newest register. Are sorted by date
+    // The key is the idSymptom and each value are all the registers of that symptom
     @Published var registers = [String: [Register]]() {
         didSet {
             HelperFunctions.write(self.registers, inPath: registersURL)
@@ -181,7 +182,6 @@ class RegisterList : ObservableObject {
     // Dummy data for testing purposes.
     static func getDefaultRegisters() -> [Register] {
         return [
-            Register(idSymptom: "SYM-571"),
             Register(idSymptom: "SYM-603", date: Date().addingTimeInterval(-32400), amount: 8.92, notes: "Note 40"),
             Register(idSymptom: "SYM-603", date: Date().addingTimeInterval(-86400 * 1), amount: 8.92, notes: "Note 40"),
             Register(idSymptom: "SYM-358", date: Date().addingTimeInterval(-86400 * 2), amount: 1.36, notes: "Note 25"),

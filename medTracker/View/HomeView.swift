@@ -112,14 +112,7 @@ struct HomeView: View {
                 .toolbar {
                     // Button to traverse to EditSymptomView.
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            if let url = exportCSV() {
-                                activityItems = [url]
-                                isShowingActivityView = true
-                            }
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                        }
+                        ShareButtonView(symptomList: symptoms, registerList: registers)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
