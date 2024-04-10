@@ -57,7 +57,7 @@ class HelperFunctions {
     }
     
     // Function that when receives a value of number (like int/float/double) it returns the image that corresponds to that value. 
-    static func getImage<T: Numeric & Comparable>(of value: T) -> String {
+    static func getImage<T: Numeric & Comparable>(of value: T) -> Image {
         var imageName: String
 
         switch value {
@@ -75,7 +75,7 @@ class HelperFunctions {
             imageName = ""
         }
 
-        return imageName
+        return Image(imageName)
     }
     
     // Function receives an error from authentication service and returns the error localized

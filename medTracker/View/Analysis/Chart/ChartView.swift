@@ -39,11 +39,7 @@ struct ChartView: View {
             if (isLineGraph) {
                 LineChartView(symptom: symptom, registers: registers, currentTab: $currentTab)
             } else {
-                if (symptom.isQuantitative) {
-                    BarChartView_Cuant(symptom: symptom, registers: registers, currentTab: $currentTab)
-                } else {
-                    BarChartView_Cual(symptom: symptom, registers: registers, currentTab: $currentTab)
-                }
+                BarChartView(symptom: symptom, registers: registers, currentTab: $currentTab)
             }
             
             // Picker to shown if chart shown is line or bar chart

@@ -37,8 +37,8 @@ struct registersView: View {
                                 .font(.footnote)
                                 .foregroundColor(Color.gray)
                         } else {
-                            let imageName = HelperFunctions.getImage(of: register.amount)
-                            Image(imageName)
+                            let Image = HelperFunctions.getImage(of: register.amount)
+                            Image
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 70)

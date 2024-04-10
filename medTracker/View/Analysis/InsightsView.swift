@@ -59,10 +59,10 @@ struct Value: View {
                 Text(value?.asString() ?? "")
                     .font(.title2.bold())
             } else {
-                let imageName = HelperFunctions.getImage(of: value ?? 0.0)
+                let Image = HelperFunctions.getImage(of: value ?? 0.0)
                 HStack {
                     Spacer()
-                    Image(imageName)
+                    Image
                         .resizable()
                         .scaledToFit()
                         .frame(height: 60)

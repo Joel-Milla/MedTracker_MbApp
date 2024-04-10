@@ -15,8 +15,7 @@
 		1709488D2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */; };
 		1709488F2BAE8FB1007E3E8B /* StylesMedTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488E2BAE8FB1007E3E8B /* StylesMedTracker.swift */; };
 		170948972BAE96BB007E3E8B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948962BAE96BB007E3E8B /* ChartView.swift */; };
-		170948992BAEA033007E3E8B /* BarChartView_Cuant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */; };
-		170948A22BAEC846007E3E8B /* BarChartView_Cual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */; };
+		170948992BAEA033007E3E8B /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948982BAEA033007E3E8B /* BarChartView.swift */; };
 		170C07F62B51EE3A00AB937A /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170C07F52B51EE3A00AB937A /* WelcomeView.swift */; };
 		17117A072BB75B050009FED6 /* ChangingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17117A062BB75B050009FED6 /* ChangingText.swift */; };
 		1718E8B72B4F3736001691B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */; };
@@ -29,6 +28,7 @@
 		173EF2A32BB1DEE700F7ACF9 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2A22BB1DEE700F7ACF9 /* NotificationsView.swift */; };
 		173EF2A62BB20C9700F7ACF9 /* WeeklyNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */; };
 		177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B37622B575433009CB58D /* ShowEditSymptomView.swift */; };
+		177BB6B32BC6FED6000C8E26 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177BB6B22BC6FED6000C8E26 /* AnnotationView.swift */; };
 		1789E8172B59DF0E0087531D /* EditSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */; };
 		1789E8192B59ED780087531D /* registersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8182B59ED780087531D /* registersView.swift */; };
 		179E78B62BB70EB500623AF1 /* MandatoryField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E78B52BB70EB500623AF1 /* MandatoryField.swift */; };
@@ -98,8 +98,7 @@
 		1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewExtensions.swift; sourceTree = "<group>"; };
 		1709488E2BAE8FB1007E3E8B /* StylesMedTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylesMedTracker.swift; sourceTree = "<group>"; };
 		170948962BAE96BB007E3E8B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
-		170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView_Cuant.swift; sourceTree = "<group>"; };
-		170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView_Cual.swift; sourceTree = "<group>"; };
+		170948982BAEA033007E3E8B /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		170C07F52B51EE3A00AB937A /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		17117A062BB75B050009FED6 /* ChangingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingText.swift; sourceTree = "<group>"; };
 		1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -112,6 +111,7 @@
 		173EF2A22BB1DEE700F7ACF9 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNotificationsView.swift; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
+		177BB6B22BC6FED6000C8E26 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSymptomViewModel.swift; sourceTree = "<group>"; };
 		1789E8182B59ED780087531D /* registersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registersView.swift; sourceTree = "<group>"; };
 		179E78B52BB70EB500623AF1 /* MandatoryField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandatoryField.swift; sourceTree = "<group>"; };
@@ -203,26 +203,9 @@
 			children = (
 				170948962BAE96BB007E3E8B /* ChartView.swift */,
 				1709488A2BAE8CAB007E3E8B /* LineChartView.swift */,
-				170948932BAE9609007E3E8B /* CuantitativeGraph */,
-				1709489A2BAEC117007E3E8B /* CualitativeGraph */,
+				170948982BAEA033007E3E8B /* BarChartView.swift */,
 			);
 			path = Chart;
-			sourceTree = "<group>";
-		};
-		170948932BAE9609007E3E8B /* CuantitativeGraph */ = {
-			isa = PBXGroup;
-			children = (
-				170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */,
-			);
-			path = CuantitativeGraph;
-			sourceTree = "<group>";
-		};
-		1709489A2BAEC117007E3E8B /* CualitativeGraph */ = {
-			isa = PBXGroup;
-			children = (
-				170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */,
-			);
-			path = CualitativeGraph;
 			sourceTree = "<group>";
 		};
 		1718E8B52B4F3716001691B8 /* Resources */ = {
@@ -383,6 +366,7 @@
 				179E78B52BB70EB500623AF1 /* MandatoryField.swift */,
 				179E78B72BB71FB700623AF1 /* Alert+Error.swift */,
 				17117A062BB75B050009FED6 /* ChangingText.swift */,
+				177BB6B22BC6FED6000C8E26 /* AnnotationView.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -560,6 +544,7 @@
 			files = (
 				FBEC06372B0814B6007AC73B /* Repository.swift in Sources */,
 				17DBF1C42BB230D6005DBF11 /* CS_TypeView.swift in Sources */,
+				177BB6B32BC6FED6000C8E26 /* AnnotationView.swift in Sources */,
 				FB1A55542AFD773F00F9A74A /* Button1MedTracker.swift in Sources */,
 				FB0EC3942B12721A00E7309B /* MainDoctorView.swift in Sources */,
 				FBE3812A2ADF3BC9004737C9 /* ProfileView.swift in Sources */,
@@ -579,7 +564,6 @@
 				17117A072BB75B050009FED6 /* ChangingText.swift in Sources */,
 				FB0EC3982B12759C00E7309B /* AddDoctorView.swift in Sources */,
 				FBD940B52AFD759D00C3BD11 /* LogInView.swift in Sources */,
-				170948A22BAEC846007E3E8B /* BarChartView_Cual.swift in Sources */,
 				FB0EC3A92B13144B00E7309B /* PatientsData.swift in Sources */,
 				173EF2A62BB20C9700F7ACF9 /* WeeklyNotificationsView.swift in Sources */,
 				F82095A02AF58ACE002F1C28 /* Symptom.swift in Sources */,
@@ -592,7 +576,7 @@
 				177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */,
 				FB0EC3A32B13049700E7309B /* rowPatient.swift in Sources */,
 				FBE41E742AF6D464007B48E5 /* User.swift in Sources */,
-				170948992BAEA033007E3E8B /* BarChartView_Cuant.swift in Sources */,
+				170948992BAEA033007E3E8B /* BarChartView.swift in Sources */,
 				170948972BAE96BB007E3E8B /* ChartView.swift in Sources */,
 				170948642BAB5BB2007E3E8B /* AnalysisView2_0.swift in Sources */,
 				FB0EC3A12B12FF9400E7309B /* PatientList.swift in Sources */,

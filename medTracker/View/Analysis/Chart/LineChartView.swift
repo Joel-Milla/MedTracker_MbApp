@@ -85,7 +85,7 @@ struct LineChartView: View {
                     )
                     // Add an annotation on top of the vertical line to show the value of the nearest item
                     .annotation(position: .top) {
-                        Annotation(symptom: symptom, register: currentActiveItem, minDate: minDate, maxDate: maxDate)
+                        AnnotationView(symptom: symptom, register: currentActiveItem, minDate: minDate, maxDate: maxDate)
                     }
                 }
             }
@@ -93,27 +93,46 @@ struct LineChartView: View {
         // MARK: Customizing x and y axis length
         .chartXScale(domain: minDate...maxDate)
         .chartYScale(domain: 0...(1.5 * max)) // bigger number, smaller the bar charts
-        // Add the y axis labels when the symptom is Quantitaitve
+        // MARK: Customizing y axis labels
         .chartYAxis {
-            if (!symptom.isQuantitative) {
-                AxisMarks(preset: .aligned, position: .trailing, values: .stride(by: 50)) { value in
+            // Show different yAxis depending on the type of symptom
+            if (symptom.isQuantitative) {
+                AxisMarks() // Default behavior for quantitative data
+            } else {
+                // Use stride of 25 to Show the 5 different faces
+                AxisMarks(preset: .aligned, position: .trailing, values: .stride(by: 25)) { value in
                     if let yValue = value.as(Double.self) {
                         AxisGridLine() // Show the grid line on the y axis
                         AxisValueLabel {
                             // On values 0-50-100 show images instead of numbers
                             switch yValue {
                             case 0:
-                                Image("sadder_face")
+                                let Image = HelperFunctions.getImage(of: 0)
+                                Image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30)
+                            case 25:
+                                let Image = HelperFunctions.getImage(of: 25)
+                                Image
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 30)
                             case 50:
-                                Image("sad_face")
+                                let Image = HelperFunctions.getImage(of: 50)
+                                Image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30)
+                            case 75:
+                                let Image = HelperFunctions.getImage(of: 75)
+                                Image
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 30)
                             case 100:
-                                Image("happier_face")
+                                let Image = HelperFunctions.getImage(of: 100)
+                                Image
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 30)
@@ -123,8 +142,6 @@ struct LineChartView: View {
                         }
                     }
                 }
-            } else {
-                AxisMarks() // Default behavior for quantitative data
             }
         }
         // MARK: Gesture to highlight current bar.
@@ -175,52 +192,6 @@ struct LineChartView: View {
                 filteredRegisters[index].animate = true
             }
         }
-    }
-}
-
-//MARK: View to show an annotation depending if the symptom is quant or qual
-struct Annotation: View {
-    let symptom: Symptom
-    let register: Register
-    
-    let minDate: Date
-    let maxDate: Date
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            // Show the date of the current value and the value
-            Group {
-                if (symptom.isQuantitative) {
-                    Text(register.date.dateToStringMDH())
-                        .font(.caption)
-                        .foregroundStyle(.gray)
-                    Text(register.amount.asString())
-                        .font(.title3.bold())
-                } else {
-                    Text(register.date.dateToStringMDH())
-                        .font(.caption)
-                        .foregroundStyle(.gray)
-                    // Obtain the image of the current value selected and show it
-                    let imageName = HelperFunctions.getImage(of: register.amount)
-                    HStack {
-                        Spacer()
-                        Image(imageName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 30)
-                        Spacer()
-                    }
-                }
-            }
-        }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 4)
-        .background {
-            RoundedRectangle(cornerRadius: 6, style: .continuous)
-                .fill(.white.shadow(.drop(radius: 2)))
-        }
-        // Move the annotation when it is on the corners so the annotation shows clearly and not on borders
-        .offset(x: register.date.dateToStringMDH() == minDate.dateToStringMDH() ? 35 : register.date.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
     }
 }
 

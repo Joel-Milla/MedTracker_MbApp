@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct BarChartView_Cuant: View {
+struct BarChartView: View {
     // Variables to show information
     let symptom: Symptom
     @ObservedObject var registers: RegisterList
@@ -64,29 +64,65 @@ struct BarChartView_Cuant: View {
                     // MARK: Use offset to show the rule line in the middle of the current selected bar lines
                     // Add an annotation on top of the vertical line to show the value of the nearest item
                         .annotation(position: .top) {
-                            VStack(alignment: .leading, spacing: 6) {
-                                // Show the date of the current value and the value
-                                Text(currentActiveItem.date.dateToStringMDH())
-                                    .font(.caption)
-                                    .foregroundStyle(.gray)
-                                Text(currentActiveItem.amount.asString())
-                                    .font(.title3.bold())
-                            }
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 4)
-                            .background {
-                                RoundedRectangle(cornerRadius: 6, style: .continuous)
-                                    .fill(.white.shadow(.drop(radius: 2)))
-                            }
-                            // Move the annotation when it is on the corners so the annotation shows clearly and not on borders
-                            .offset(x: currentActiveItem.date.dateToStringMDH() == minDate.dateToStringMDH() ? 35 : currentActiveItem.date.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
+                            AnnotationView(symptom: symptom, register: currentActiveItem, minDate: minDate, maxDate: maxDate)
                         }
                 }
             }
         }
         // MARK: Customizing x and y axis length
         .chartXScale(domain: minDate...maxDate)
-        .chartYScale(domain: 0...(2 * max)) // bigger number, smaller the bar charts
+        .chartYScale(domain: 0...(1.5 * max)) // bigger number, smaller the bar charts
+        // MARK: Customizing y axis labels
+        .chartYAxis {
+            // Show different yAxis depending on the type of symptom
+            if (symptom.isQuantitative) {
+                AxisMarks() // Default behavior for quantitative data
+            } else {
+                // Use stride of 25 to Show the 5 different faces
+                AxisMarks(preset: .aligned, position: .trailing, values: .stride(by: 25)) { value in
+                    if let yValue = value.as(Double.self) {
+                        AxisGridLine() // Show the grid line on the y axis
+                        AxisValueLabel {
+                            // On values 0-50-100 show images instead of numbers
+                            switch yValue {
+                            case 0:
+                                let Image = HelperFunctions.getImage(of: 0)
+                                Image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30)
+                            case 25:
+                                let Image = HelperFunctions.getImage(of: 25)
+                                Image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30)
+                            case 50:
+                                let Image = HelperFunctions.getImage(of: 50)
+                                Image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30)
+                            case 75:
+                                let Image = HelperFunctions.getImage(of: 75)
+                                Image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30)
+                            case 100:
+                                let Image = HelperFunctions.getImage(of: 100)
+                                Image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30)
+                            default:
+                                Text("")
+                            }
+                        }
+                    }
+                }
+            }
+        }
         // MARK: Gesture to highlight current bar.
         // Uses drag gesture and calculate the nearest x value on the graph
         .chartOverlay(content: { proxy in
@@ -150,6 +186,6 @@ struct BarChartView_Cuant: View {
         
         @State var currentTab: String = "Semana"
         
-        BarChartView_Cuant(symptom: symptom, registers: registers, currentTab: $currentTab)
+        BarChartView(symptom: symptom, registers: registers, currentTab: $currentTab)
     }
 }
