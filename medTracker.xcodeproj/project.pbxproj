@@ -11,12 +11,11 @@
 		170948642BAB5BB2007E3E8B /* AnalysisView2_0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948632BAB5BB2007E3E8B /* AnalysisView2_0.swift */; };
 		170948862BAE3E24007E3E8B /* tempSignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948852BAE3E24007E3E8B /* tempSignOut.swift */; };
 		170948892BAE8900007E3E8B /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948882BAE8900007E3E8B /* InsightsView.swift */; };
-		1709488B2BAE8CAB007E3E8B /* LineChartView_Cuant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */; };
+		1709488B2BAE8CAB007E3E8B /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488A2BAE8CAB007E3E8B /* LineChartView.swift */; };
 		1709488D2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */; };
 		1709488F2BAE8FB1007E3E8B /* StylesMedTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709488E2BAE8FB1007E3E8B /* StylesMedTracker.swift */; };
 		170948972BAE96BB007E3E8B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948962BAE96BB007E3E8B /* ChartView.swift */; };
 		170948992BAEA033007E3E8B /* BarChartView_Cuant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */; };
-		1709489E2BAEC23B007E3E8B /* LineChartView_Cual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */; };
 		170948A22BAEC846007E3E8B /* BarChartView_Cual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */; };
 		170C07F62B51EE3A00AB937A /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170C07F52B51EE3A00AB937A /* WelcomeView.swift */; };
 		17117A072BB75B050009FED6 /* ChangingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17117A062BB75B050009FED6 /* ChangingText.swift */; };
@@ -30,7 +29,6 @@
 		173EF2A32BB1DEE700F7ACF9 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2A22BB1DEE700F7ACF9 /* NotificationsView.swift */; };
 		173EF2A62BB20C9700F7ACF9 /* WeeklyNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */; };
 		177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B37622B575433009CB58D /* ShowEditSymptomView.swift */; };
-		177BB6B12BC6F2B8000C8E26 /* BarChart2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177BB6B02BC6F2B8000C8E26 /* BarChart2.swift */; };
 		1789E8172B59DF0E0087531D /* EditSymptomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */; };
 		1789E8192B59ED780087531D /* registersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1789E8182B59ED780087531D /* registersView.swift */; };
 		179E78B62BB70EB500623AF1 /* MandatoryField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E78B52BB70EB500623AF1 /* MandatoryField.swift */; };
@@ -96,12 +94,11 @@
 		170948632BAB5BB2007E3E8B /* AnalysisView2_0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView2_0.swift; sourceTree = "<group>"; };
 		170948852BAE3E24007E3E8B /* tempSignOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempSignOut.swift; sourceTree = "<group>"; };
 		170948882BAE8900007E3E8B /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
-		1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView_Cuant.swift; sourceTree = "<group>"; };
+		1709488A2BAE8CAB007E3E8B /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
 		1709488C2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewExtensions.swift; sourceTree = "<group>"; };
 		1709488E2BAE8FB1007E3E8B /* StylesMedTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylesMedTracker.swift; sourceTree = "<group>"; };
 		170948962BAE96BB007E3E8B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView_Cuant.swift; sourceTree = "<group>"; };
-		1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView_Cual.swift; sourceTree = "<group>"; };
 		170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView_Cual.swift; sourceTree = "<group>"; };
 		170C07F52B51EE3A00AB937A /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		17117A062BB75B050009FED6 /* ChangingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingText.swift; sourceTree = "<group>"; };
@@ -115,7 +112,6 @@
 		173EF2A22BB1DEE700F7ACF9 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNotificationsView.swift; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
-		177BB6B02BC6F2B8000C8E26 /* BarChart2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChart2.swift; sourceTree = "<group>"; };
 		1789E8162B59DF0E0087531D /* EditSymptomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSymptomViewModel.swift; sourceTree = "<group>"; };
 		1789E8182B59ED780087531D /* registersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registersView.swift; sourceTree = "<group>"; };
 		179E78B52BB70EB500623AF1 /* MandatoryField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandatoryField.swift; sourceTree = "<group>"; };
@@ -206,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				170948962BAE96BB007E3E8B /* ChartView.swift */,
+				1709488A2BAE8CAB007E3E8B /* LineChartView.swift */,
 				170948932BAE9609007E3E8B /* CuantitativeGraph */,
 				1709489A2BAEC117007E3E8B /* CualitativeGraph */,
 			);
@@ -215,9 +212,7 @@
 		170948932BAE9609007E3E8B /* CuantitativeGraph */ = {
 			isa = PBXGroup;
 			children = (
-				1709488A2BAE8CAB007E3E8B /* LineChartView_Cuant.swift */,
 				170948982BAEA033007E3E8B /* BarChartView_Cuant.swift */,
-				177BB6B02BC6F2B8000C8E26 /* BarChart2.swift */,
 			);
 			path = CuantitativeGraph;
 			sourceTree = "<group>";
@@ -225,7 +220,6 @@
 		1709489A2BAEC117007E3E8B /* CualitativeGraph */ = {
 			isa = PBXGroup;
 			children = (
-				1709489D2BAEC23B007E3E8B /* LineChartView_Cual.swift */,
 				170948A12BAEC846007E3E8B /* BarChartView_Cual.swift */,
 			);
 			path = CualitativeGraph;
@@ -576,7 +570,6 @@
 				F839EFF12AE0C4AE00CB5327 /* RegisterSymptomView.swift in Sources */,
 				FB86F0712AFEC4160051C6A6 /* SymptomList.swift in Sources */,
 				173EF29F2BB1C9DB00F7ACF9 /* IconColorView.swift in Sources */,
-				1709489E2BAEC23B007E3E8B /* LineChartView_Cual.swift in Sources */,
 				173EF2982BB137BE00F7ACF9 /* IconModel.swift in Sources */,
 				173EF2A12BB1D23700F7ACF9 /* HelpView.swift in Sources */,
 				173EF29A2BB1B68C00F7ACF9 /* IconPicker.swift in Sources */,
@@ -614,7 +607,7 @@
 				F8A27C692BBFA656006513FC /* ListItemView.swift in Sources */,
 				FBD940B12AFD74D100C3BD11 /* AuthenticationView.swift in Sources */,
 				FB6BBA122B09791A008EFA9A /* AuthService.swift in Sources */,
-				1709488B2BAE8CAB007E3E8B /* LineChartView_Cuant.swift in Sources */,
+				1709488B2BAE8CAB007E3E8B /* LineChartView.swift in Sources */,
 				173EF2722BB0D11200F7ACF9 /* CreateSymptomView.swift in Sources */,
 				1709488D2BAE8E5B007E3E8B /* AnalysisViewExtensions.swift in Sources */,
 				FBD940AF2AFD73E800C3BD11 /* EditSymptomView.swift in Sources */,
@@ -623,7 +616,6 @@
 				FB0EC39D2B12D3DC00E7309B /* DismissButtonExtension.swift in Sources */,
 				F838338E2B0C49F5005F2BB5 /* ShareView.swift in Sources */,
 				179E78B82BB71FB700623AF1 /* Alert+Error.swift in Sources */,
-				177BB6B12BC6F2B8000C8E26 /* BarChart2.swift in Sources */,
 				FB6BBA142B0979B6008EFA9A /* AuthViewModel.swift in Sources */,
 				17DBF1C62BB2355B005DBF11 /* PersonalizedNotificationsView.swift in Sources */,
 				FBC7EF742B08263A00EDD70F /* UserModel.swift in Sources */,
