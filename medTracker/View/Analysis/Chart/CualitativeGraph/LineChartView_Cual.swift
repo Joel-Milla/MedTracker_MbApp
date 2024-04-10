@@ -111,14 +111,6 @@ struct LineChartView_Cual: View {
         .chartXScale(domain: minDate...maxDate)
         .chartYScale(domain: [0, 150]) // bigger number, smaller the bar charts
         // MARK: Customizing the x labels and y labels
-        .chartXAxis {
-            if (currentTab == "Semana") {
-                AxisMarks(values: .automatic(desiredCount: 7))
-            } else {
-                AxisMarks(values: .automatic())
-            }
-            
-        }
         .chartYAxis {
             AxisMarks(preset: .aligned, position: .trailing, values: .stride(by: 50)) { value in
                 if let yValue = value.as(Double.self) {

@@ -37,14 +37,14 @@ struct BarChartView_Cual: View {
     @ViewBuilder
     func AnimatedCharts() -> some View {
         // Values to block the x scale from moving
-        let minDate = filteredRegisters.adjustDatesToStartOfDay().map { $0.date }.min() ?? Date()
-        let maxDate = filteredRegisters.adjustDatesToStartOfDay().map { $0.date }.max() ?? Date()
+        let minDate = filteredRegisters.first?.date ?? Date.now
+        let maxDate = filteredRegisters.last?.date ?? Date.now
         
         Chart {
             ForEach(filteredRegisters) { register in
                 // MARK: Bar Graph
                 BarMark(
-                    x: .value("Fecha", register.adjustDateToDay().date, unit: .day),
+                    x: .value("Fecha", register.date),
                     y: .value("Cantidad", register.animate ? register.amount : 0)
                 )
                 // Applying Gradient Style
@@ -55,9 +55,8 @@ struct BarChartView_Cual: View {
                 // The current item is choosen when the user makes a drag motion.
                 if let currentActiveItem, currentActiveItem.id.uuidString == register.id.uuidString {
                     // Add a rule on the x value on the graph
-                    RuleMark(x: .value("Fecha", currentActiveItem.adjustDateToDay().date))
+                    RuleMark(x: .value("Fecha", register.date))
                     // MARK: Use offset to show the rule line in the middle of the current selected bar lines
-                        .offset(x: (plotWidth / CGFloat(filteredRegisters.count)) / 2)
                     // Add an annotation on top of the vertical line to show the value of the nearest item
                         .annotation(position: .top) {
                             VStack(alignment: .leading, spacing: 6) {
@@ -91,7 +90,7 @@ struct BarChartView_Cual: View {
         // MARK: Customizing x and y axis length
         // Customizing the x labels depending on the time zone selected
         // hard code the scale so it has an extra day and to make the bar chart to not be out of bounds.
-        .chartXScale(domain: minDate...maxDate.addingTimeInterval(86400))
+        .chartXScale(domain: minDate...maxDate)
         // MARK: Customizing x and y axis length
         .chartYScale(domain: [0, 150]) // bigger number, smaller the bar charts
         // MARK: Customizing the y labels
@@ -170,6 +169,11 @@ struct BarChartView_Cual: View {
                 filteredRegisters[index].animate = true
             }
         }
+    }
+    
+    // Function to update the filteredRegisters
+    func filterRegisters() {
+        filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
     }
 }
 

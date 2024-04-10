@@ -14,6 +14,7 @@ import Foundation
 class RegisterList : ObservableObject {
     typealias Action = () async throws -> Void
 
+    // The registers contained are in ascending order, from the oldest to the newest register. Are sorted by date
     @Published var registers = [String: [Register]]() {
         didSet {
             HelperFunctions.write(self.registers, inPath: registersURL)

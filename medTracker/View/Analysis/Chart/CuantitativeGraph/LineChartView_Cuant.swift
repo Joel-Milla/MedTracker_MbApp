@@ -23,13 +23,13 @@ struct LineChartView_Cuant: View {
         // MARK: Chart that changes when the currentTab (time zone selected changes)
         AnimatedCharts()
             .onChange(of: currentTab) { newValue in
-                filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
+                filterRegisters()
                 // Re-Animating View
                 animateGraph(fromChange: true)
             }
         // This onChange will trigger the graph to update when a new register is created
             .onChange(of: registers.registers) { _ in
-                filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
+                filterRegisters()
                 // Re-Animating View
                 animateGraph()
             }
@@ -42,8 +42,8 @@ struct LineChartView_Cuant: View {
             return item2.amount > item1.amount
         }?.amount ?? 0
         // Values to block the x scale from moving
-        let minDate = filteredRegisters.map { $0.date }.min() ?? Date()
-        let maxDate = filteredRegisters.map { $0.date }.max() ?? Date()
+        let minDate = filteredRegisters.first?.date ?? Date.now
+        let maxDate = filteredRegisters.last?.date ?? Date.now
         
         Chart {
             ForEach(filteredRegisters) { register in
@@ -79,7 +79,7 @@ struct LineChartView_Cuant: View {
                 if let currentActiveItem, currentActiveItem.id.uuidString == register.id.uuidString {
                     // Add a rule on the x value on the graph
                     RuleMark(
-                        x: .value("Fecha", currentActiveItem.date)
+                        x: .value("Fecha", register.date)
                         //                        yStart: .value("Min", 0),
                         //                        yEnd: .value("Cantidad", currentActiveItem.cantidad)
                     )
@@ -104,15 +104,6 @@ struct LineChartView_Cuant: View {
                     }
                 }
             }
-        }
-        // Customizing the x labels depending on the time zone selected
-        .chartXAxis {
-            if (currentTab == "Semana") {
-                AxisMarks(values: .automatic(desiredCount: 7))
-            } else {
-                AxisMarks(values: .automatic())
-            }
-            
         }
         // MARK: Customizing x and y axis length
         .chartXScale(domain: minDate...maxDate)
@@ -147,11 +138,14 @@ struct LineChartView_Cuant: View {
         })
         .frame(height: 250)
         .onAppear {
-            // Filter the current regiser based on the current time zone.
-            filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
-//            filteredRegisters = symptomRegisters.filterBy(currentTab)
+            filterRegisters()
             animateGraph()
         }
+    }
+    
+    // Function to update the filteredRegisters
+    func filterRegisters() {
+        filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
     }
     
     // MARK: Function to animate the graph

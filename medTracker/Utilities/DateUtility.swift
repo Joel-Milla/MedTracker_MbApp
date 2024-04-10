@@ -68,6 +68,13 @@ extension Date {
         formatter.locale = Locale(identifier: "es_MX") // Keep for Spanish month abbreviations
         return formatter.string(from: self)
     }
+    
+    // Return the start of day of self
+    func startOfDay() -> Date {
+        let calendar = Calendar.current // Use the current calendar or specify a specific one
+        let startOfDay = calendar.startOfDay(for: self)
+        return startOfDay
+    }
 }
 // Struct to handle days of the week
 struct DateUtils {

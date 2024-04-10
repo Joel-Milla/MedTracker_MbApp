@@ -1,14 +1,14 @@
 //
-//  BarChartView.swift
+//  BarChart2.swift
 //  medTracker
 //
-//  Created by Joel Alejandro Milla Lopez on 22/03/24.
+//  Created by Joel Alejandro Milla Lopez on 10/04/24.
 //
 
 import SwiftUI
 import Charts
 
-struct BarChartView_Cuant: View {
+struct BarChart2: View {
     // Variables to show information
     let symptom: Symptom
     @ObservedObject var registers: RegisterList
@@ -23,13 +23,13 @@ struct BarChartView_Cuant: View {
         // MARK: Bar Chart API that changes when the currentTab (time zone selected changes)
         AnimatedCharts()
             .onChange(of: currentTab) { newValue in
-                filterRegisters()
+                filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
                 // Re-Animating View
                 animateGraph(fromChange: true)
             }
         // This onChange will trigger the graph to update when a new register is created
             .onChange(of: registers.registers) { _ in
-                filterRegisters()
+                filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
                 // Re-Animating View
                 animateGraph()
             }
@@ -37,10 +37,6 @@ struct BarChartView_Cuant: View {
     
     @ViewBuilder
     func AnimatedCharts() -> some View {
-        // Max value to extend the y-scale of the data
-        let max = filteredRegisters.max { item1, item2 in
-            return item2.amount > item1.amount
-        }?.amount ?? 0
         // Values to block the x scale from moving
         let minDate = filteredRegisters.first?.date ?? Date.now
         let maxDate = filteredRegisters.last?.date ?? Date.now
@@ -62,6 +58,7 @@ struct BarChartView_Cuant: View {
                     // Add a rule on the x value on the graph
                     RuleMark(x: .value("Fecha", register.date))
                     // MARK: Use offset to show the rule line in the middle of the current selected bar lines
+//                        .offset(x: (plotWidth / CGFloat(filteredRegisters.count)) / 2)
                     // Add an annotation on top of the vertical line to show the value of the nearest item
                         .annotation(position: .top) {
                             VStack(alignment: .leading, spacing: 6) {
@@ -86,7 +83,7 @@ struct BarChartView_Cuant: View {
         }
         // MARK: Customizing x and y axis length
         .chartXScale(domain: minDate...maxDate)
-        .chartYScale(domain: 0...(2 * max)) // bigger number, smaller the bar charts
+        .chartYScale(domain: [0, 150]) // bigger number, smaller the bar charts
         // MARK: Gesture to highlight current bar.
         // Uses drag gesture and calculate the nearest x value on the graph
         .chartOverlay(content: { proxy in
@@ -120,7 +117,7 @@ struct BarChartView_Cuant: View {
         .frame(height: 250)
         .onAppear {
             // Filter the current regiser based on the current time zone.
-            filterRegisters()
+            filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
             animateGraph()
         }
     }
@@ -134,11 +131,6 @@ struct BarChartView_Cuant: View {
             }
         }
     }
-    
-    // Function to update the filteredRegisters
-    func filterRegisters() {
-        filteredRegisters = registers.registers[symptom.id.uuidString]?.filterBy(currentTab) ?? []
-    }
 }
 
 #Preview {
@@ -150,6 +142,6 @@ struct BarChartView_Cuant: View {
         
         @State var currentTab: String = "Semana"
         
-        BarChartView_Cuant(symptom: symptom, registers: registers, currentTab: $currentTab)
+        BarChart2(symptom: symptom, registers: registers, currentTab: $currentTab)
     }
 }

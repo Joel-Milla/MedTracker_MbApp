@@ -44,7 +44,7 @@ struct ChartView: View {
                 }
             } else {
                 if (symptom.isQuantitative) {
-                    BarChartView_Cuant(symptom: symptom, registers: registers, currentTab: $currentTab)
+                    BarChart2(symptom: symptom, registers: registers, currentTab: $currentTab)
                 } else {
                     BarChartView_Cual(symptom: symptom, registers: registers, currentTab: $currentTab)
                 }
