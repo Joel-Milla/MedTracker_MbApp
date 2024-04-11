@@ -118,15 +118,32 @@ struct Repository {
         return user
     }
     
+    // Function to update only the array of doctors in the database
+    func updateDoctorsArray(_ doctors: [String]) async throws {
+        let document = userReference.document(user.email)
+        // Update the doctors of the user by only modifying that specific key
+        try await document.setData(["doctors": doctors], merge: true)
+    }
+    
     // Function to write own name as a document in doctors collection
-    func writePatient(_ docEmail: String, _ user: User) async throws {
-        let docDocument = doctorReference.document(docEmail)
+    func writePatientInfo(_ doctorsEmail: String, _ user: User?) async throws {
+        let user = user ?? self.user
+        let docDocument = doctorReference.document(doctorsEmail)
         let patientsReference = docDocument.collection("patients")
         let document = patientsReference.document(user.email)
         try await document.setData([
             "name": user.name,
-            "email": user.email
+            "email": user.email,
+            "phone": user.phone
         ])
+    }
+    
+    // Delete an email from the doctor
+    func removePatientInfo(at docEmail: String) async throws {
+        let doctorData = doctorReference.document(docEmail)
+        let patientReference = doctorData.collection("patients")
+        let document = patientReference.document(user.email)
+        try await document.delete()
     }
     
     // Function to fetch all the patients of a doctor.
@@ -154,13 +171,5 @@ struct Repository {
         let registers = try await collectionRegisters
             .getDocuments(as: Register.self)
         return registers
-    }
-    
-    // Delete an email from the doctor
-    func delete(_ docEmail: String) async throws {
-        let doctorData = doctorReference.document(docEmail)
-        let patientReference = doctorData.collection("patients")
-        let document = patientReference.document(user.email)
-        try await document.delete()
     }
 }

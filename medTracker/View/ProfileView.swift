@@ -11,37 +11,17 @@ import SwiftUI
  This view shows the profile data of the user and allows the user to edit it.
  **********************************/
 struct ProfileView: View {
+    // Variable that holds the information of the user
     @ObservedObject var user: UserModel
     @EnvironmentObject var authentication: AuthViewModel
-    @State private var draftUser: User = User()
-    @State private var keyboardHeight: CGFloat = 48
-    @ObservedObject var symptoms : SymptomList
+    // Variable that will hold the request to make a new user
+    @StateObject var formViewModel: FormViewModel<User>
+    // View variables
     @State private var isEditing = false
-    
-    var sexo = ["-", "Masculino", "Femenino", "Prefiero no decir"]
-    @State var estatura = ""
-    @State private var selectedSexo = "Masculino" // Default value
-    
-    @State private var error:Bool = false
-    @State private var errorMessage: String = ""
-    
-    typealias CreateAction = (User) async throws -> Void
-    let createAction: CreateAction
-    
-    typealias CreateAction2 = (Symptom) async throws -> Void
-    let createAction2: CreateAction2
-    
-    let dateRange: ClosedRange<Date> = {
-        let calendar = Calendar.current
-        let start = calendar.date(byAdding: .year, value: -120, to: Date())!
-        let end = Date()
-        return start...end
-    }()
-    
+    let optionsSex = ["-", "Masculino", "Femenino", "Prefiero no decir"]
     @State var showAddDoctorView = false
-    
+
     var body: some View {
-        NavigationStack {
             VStack {
                 Image(systemName: "person.crop.circle.fill")
                     .resizable()
@@ -49,72 +29,68 @@ struct ProfileView: View {
                     .frame(width: 100, height: 100)
                     .clipShape(Circle())
                     .shadow(radius: 5)
-                    .overlay(Circle().stroke(Color("mainBlue"), lineWidth: 2))
+                // In each section, separate the values that can be editted and that can not be editted
                 Form {
+                    // Name and phone number
                     Section {
                         if isEditing {
-                            Text("Nombre completo: \(user.user.name)")
+                            Text("Nombre completo: \(user.name)")
                             HStack {
                                 Text("Teléfono:")
-                                TextField("+81 2611 1857", text: $draftUser.phone)
+                                TextField("+81 2611 1857", text: $formViewModel.phone)
                             }
                         } else {
-                            Text("Nombre completo: \(user.user.name)")
-                            Text("Teléfono: \(user.user.phone)")
+                            Text("Nombre completo: \(user.name)")
+                            Text("Teléfono: \(user.phone)")
                         }
                     } header: {
                         Text("Datos personales")
                     }
                     
+                    // Modify height, birthdate, sex
                     Section {
                         if isEditing {
                             HStack {
                                 Text("Estatura:")
-                                TextField("1.80", text: $draftUser.height)
+                                TextField("1.80", text: $formViewModel.height)
                                     .keyboardType(.decimalPad)
                             }
                             DatePicker("Fecha de Nacimiento",
-                                       selection: $draftUser.birthdate, in: dateRange,
+                                       selection: $formViewModel.birthdate, in: HelperFunctions.dateRange,
                                        displayedComponents: .date)
                             
-                            Picker("Sexo", selection: $selectedSexo) {
-                                ForEach(sexo, id: \.self) { sexo in
-                                    Text(sexo).tag(sexo)
+                            Picker("Sexo", selection: $formViewModel.sex) {
+                                ForEach(optionsSex, id: \.self) { sex in
+                                    Text(sex).tag(sex)
                                 }
                             }
                             .pickerStyle(MenuPickerStyle())
-                            .onAppear {
-                                self.selectedSexo = draftUser.sex
-                            }
-                            .onChange(of: selectedSexo) { newValue in
-                                draftUser.sex = newValue
-                            }
                         } else {
-                            Text("Estatura: \(user.user.height)")
+                            Text("Estatura: \(user.height)")
                             HStack {
                                 Text("Fecha de nacimiento:")
-                                Spacer()
-                                Text(user.user.formattedDateOfBirth)
+                                Spacer() // Add spacer so the view seems similar as when editing
+                                Text(user.formattedDateOfBirth)
                             }
-                            
                             HStack {
                                 Text("Sexo:")
                                 Spacer()
-                                Text(draftUser.sex)
+                                Text(user.sex)
                             }
                         }
                     } header: {
                         Text("Datos fijos")
                     }
                     
+                    // Clinical history
                     Section {
                         if isEditing {
                             Text("Antecedentes médicos:")
-                            TextEditor(text: $draftUser.formattedClinicalHistory)
+                            TextEditor(text: $formViewModel.formattedClinicalHistory)
                         } else {
                             Text("Antecedentes médicos:")
                             ScrollView {
-                                Text(user.user.clinicalHistory)
+                                Text(user.clinicalHistory)
                                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
                             }
                             .frame(minHeight: 0, maxHeight: 22 * 10)
@@ -123,116 +99,66 @@ struct ProfileView: View {
                         Text("Historial Clínico")
                     }
                     
-                    Section("") {
-                        Button(action: { showAddDoctorView = true }) {
-                            Text("Enviar datos a mi doctor")
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("mainBlue"))
-                                .cornerRadius(8)
-                        }
-                        
-                        Button {
-                            // MARK: Dont know why this exists, check. Was commented to transform symptoms to a dictionary
-//                            for (index,_) in symptoms.symptoms.enumerated() {
-//                                symptoms.symptoms[index].notificacion = ""
-//                                modifySymptom(symptomModification: symptoms.symptoms[index])
-//                                cancelAllNotification()
-//                            }
-                            
-                            authentication.signOut()
-                        } label: {
-                            Text("Cerrar Sesión")
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.red)
-                                .cornerRadius(8)
+                    // Button to open the view that shares data with the doctor
+                    Button(action: { showAddDoctorView = true }) {
+                        Text("Enviar datos a mi doctor")
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color("mainBlue"))
+                            .cornerRadius(8)
+                            .listRowBackground(Color.clear) // Makes the row background transparent
+                    }
+                    
+                    // Button to log out
+                    Button {
+                        authentication.signOut()
+                    } label: {
+                        Text("Cerrar Sesión")
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.red)
+                            .cornerRadius(8)
+                    }
+                }
+            }
+            .navigationTitle("Perfil")
+            // The buttons modify if the view keeps in edit mode or not
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if isEditing {
+                        Button("Cancel") {
+                            // Delete information that the user wrote when editting when clicking cancel
+                            formViewModel.value = user.user
+                            isEditing = false
                         }
                     }
                 }
-                .keyboardToolbar()
-                .navigationTitle("Profile")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        if isEditing {
-                            Button("Cancel") {
-                                // Borrar informacion de draft user
-                                draftUser = user.user
-                                isEditing = false
-                            }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if isEditing {
+                        Button("Done") {
+                            formViewModel.submit()
+                        }
+                    } else {
+                        Button("Editar") {
+                            // Change to editing ode
+                            isEditing = true
                         }
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        if isEditing {
-                            Button("Done") {
-                                // Guardar informacion en user y sandbox
-                                let validationResult = draftUser.error()
-                                if validationResult.0 {
-                                    error = true
-                                    errorMessage = validationResult.1
-                                }
-                                else {
-                                    user.user = draftUser
-                                    //user.saveUserData()
-                                    createUser(user: user.user)
-                                    isEditing = false
-                                }
-                            }
-                        } else {
-                            Button("Editar") {
-                                // Modo normal
-                                isEditing = true
-                            }
-                        }
-                    }
-                }
-                .alert(isPresented: $error) {
-                    Alert(
-                        title: Text("Error"),
-                        message: Text(errorMessage),
-                        dismissButton: .default(Text("OK"))
-                    )
                 }
             }
             .sheet(isPresented: $showAddDoctorView, content: {
-                AddDoctorView(user: user, writePatient: user.writePatient(), createAction: user.makeCreateAction(), deletePatient: user.makeDeleteAction())
+                AddDoctorView(doctorsViewModel: user.createAddDoctorViewModel())
             })
-        }
-        .onAppear {
-            draftUser = user.user
-        }
-        .onDisappear {
-            NotificationCenter.default.removeObserver(self)
-        }
-        .ignoresSafeArea(.keyboard)
-        
-        
-    }
-    
-    private func modifySymptom(symptomModification: Symptom) {
-        // will wait until the createAction(symptom) finishes
-        Task {
-            do {
-                try await createAction2(symptomModification) //call the function that adds the symptom to the database
-            } catch {
-                customPrint("[ProfileView] Cannot modify symptom: \(error)")
+            // MARK: The following edits are in charge of a good user experience
+            .keyboardToolbar() // apply the button to have an ok and dismiss the view
+            .alert("Error al guardar datos", error: $formViewModel.error)
+            .onChange(of: formViewModel.state) { newValue in
+                if (newValue == .successfullyCompleted ) {
+                    isEditing = false
+                }
             }
-        }
+            // MARK: Ending of general user experience
     }
-    
-    private func createUser(user: User) {
-        // will wait until the createAction(symptom) finishes
-        Task {
-            do {
-                try await
-                createAction(user) //call the function that adds the user to the database
-            } catch {
-                customPrint("[ProfileView] Cannot create user: \(error)")
-            }
-        }
-    }
-    
-    //private func
 }

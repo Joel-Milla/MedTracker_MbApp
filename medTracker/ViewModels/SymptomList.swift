@@ -22,7 +22,7 @@ class SymptomList : ObservableObject {
             HelperFunctions.write(self.symptoms, inPath: symptomListURL)
         }
     }
-    @Published var state: State = .isLoading //State of the symptoms array
+    @Published var state: State = .isLoading //State of the symptoms array to update views depending on what is happening here
     let repository: Repository // Variable to call the functions inside the repository
     // URL where the files will be created.
     private var symptomListURL: URL {

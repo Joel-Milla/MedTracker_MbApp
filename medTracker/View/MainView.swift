@@ -23,7 +23,7 @@ struct MainView: View {
             }
             // View for the users to see their information and edit it.
             NavigationStack {
-                ProfileView(user: user, symptoms: symptoms, createAction: user.makeCreateAction(), createAction2: {_ in })
+                ProfileView(user: user, formViewModel: user.updateUserViewModel(for: user.user))
             }
             .tabItem {
                 Label("Perfil", systemImage: "person.crop.circle")
