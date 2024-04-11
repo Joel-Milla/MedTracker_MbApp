@@ -59,7 +59,7 @@ struct NotificationsView: View {
                 case .weekly:
                     WeeklyNotificationsView(selectedDays: $selectedDays, selectedDate: $selectedDate)
                 case .monthly:
-                    DatePicker("Empieza", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
+                    DatePicker("Empieza", selection: $selectedDate, in: HelperFunctions.dateRange, displayedComponents: [.date, .hourAndMinute])
                         .frame(maxHeight: 400)
                     // Customize is too complex to implement, search in the future how to do it
 //                case .customize:

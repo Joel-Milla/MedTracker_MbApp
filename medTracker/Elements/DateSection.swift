@@ -16,7 +16,7 @@ struct DateSection : View {
             HStack{
                 Text("Día")
                 Spacer()
-                DatePicker("", selection: $date, displayedComponents: [.date])
+                DatePicker("", selection: $date, in: HelperFunctions.dateRange, displayedComponents: [.date])
                     .datePickerStyle(.automatic)
             }
             Divider()
