@@ -99,7 +99,6 @@ struct HomeView: View {
             }
             // Present full screen the EditSymptomView.
             .fullScreenCover(isPresented: $showEditSymptomView) {
-                //ShareView(listaDatos: listaDatos, registers: registers)
                 EditSymptomView(symptoms: symptoms, registers: registers)
             }
         }

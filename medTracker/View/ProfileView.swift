@@ -168,7 +168,7 @@ struct ProfileView: View {
                         if isEditing {
                             Button("Done") {
                                 // Guardar informacion en user y sandbox
-                                let validationResult = draftUser.error()
+                                let validationResult = draftUser.validateInput()
                                 if validationResult.0 {
                                     error = true
                                     errorMessage = validationResult.1
@@ -197,7 +197,7 @@ struct ProfileView: View {
                 }
             }
             .sheet(isPresented: $showAddDoctorView, content: {
-                AddDoctorView(user: user, writePatient: user.writePatient(), createAction: user.makeCreateAction(), deletePatient: user.makeDeleteAction())
+//                AddDoctorView(user: user, writePatient: user.writePatient(), createAction: user.makeCreateAction(), deletePatient: user.makeDeleteAction())
             })
         }
         .onAppear {

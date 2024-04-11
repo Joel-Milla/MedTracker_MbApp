@@ -62,6 +62,11 @@ struct User : Codable, Hashable {
         self.doctors = []
     }
     
+    // Initalizer for updating a current user in profile view when creating the FormViewModel for initial state
+    init(user: User) {
+        self = user
+    }
+    
     // Init for the preview in mainView to work
     init(id: String, rol: String, email: String, phone: String, name: String, clinicalHistory: String, sex: String, birthdate: Date, height: String, doctors: [String]) {
         self.id = id
@@ -76,7 +81,7 @@ struct User : Codable, Hashable {
         self.doctors = doctors
     }
     
-    func error() -> (Bool, String) {
+    func validateInput() -> (Bool, String) {
         if let height = Double(self.height) {
             if (self.phone == "" || self.height == "" || self.sex == "") {
                 return (true, "Datos faltantes. Por favor llena todos los campos obligatorios.")

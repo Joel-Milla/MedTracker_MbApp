@@ -48,7 +48,7 @@ class AuthViewModel: ObservableObject {
         // To know the current state of the user.
 //        authService.$isAuthenticated.assign(to: &$isAuthenticated)
         authService.$user.assign(to: &$user) // This line of code links the variable user of authService to the user variable of this file
-        fetchUserRole()
+//        fetchUserRole()
     }
     
     enum State {

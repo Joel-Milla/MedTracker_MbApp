@@ -56,6 +56,14 @@ class HelperFunctions {
         return role
     }
     
+    // This dateRange is used in the datePickers so the user is limited by selecting only dates of the 120 years prior to the current date
+    static let dateRange: ClosedRange<Date> = {
+        let calendar = Calendar.current
+        let start = calendar.date(byAdding: .year, value: -120, to: Date())!
+        let end = Date()
+        return start...end
+    }()
+    
     // Function that when receives a value of number (like int/float/double) it returns the image that corresponds to that value. 
     static func getImage<T: Numeric & Comparable>(of value: T) -> Image {
         var imageName: String

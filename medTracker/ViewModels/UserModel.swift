@@ -36,12 +36,13 @@ class UserModel: ObservableObject {
 
     init(repository: Repository) {
         self.repository = repository
-        self.user = self.repository.user
+        // Try to get information from fileManager. if it doesnt exist, bring it from fetch users.
         if let decodedData = HelperFunctions.loadData(in: usersURL, as: User.self) {
             self.user = decodedData
         } else {
             //If there is no info in JSON, fetch
             fetchUser()
+            
         }
     }
     
@@ -49,17 +50,31 @@ class UserModel: ObservableObject {
      Helper functions
      **********************************/
     
+    // Return a formViewModel that handles the creation of a new user
+    func updateUserViewModel(for user: User) -> FormViewModel<User> {
+        return FormViewModel(initialValue: User(user: user)) { [weak self] user in
+            let (hasError, message) = user.validateInput()
+            if (hasError) {
+                throw HelperFunctions.ErrorType.invalidInput(message)
+            } else {
+                self?.user = user
+                try await self?.repository.createUser(user) // use function in the repository to create/update the user
+            }
+        }
+    }
+    
+    
     // Save the information of the user
     func saveUserData() {
         HelperFunctions.write(self.user, inPath: usersURL)
     }
     
     // The functions returns a closure that is used to write information in firebase
-    func makeCreateAction() -> ProfileView.CreateAction {
-        return { [weak self] user in
-            try await self?.repository.createUser(user)
-        }
-    }
+//    func makeCreateAction() -> ProfileView.CreateAction {
+//        return { [weak self] user in
+//            try await self?.repository.createUser(user)
+//        }
+//    }
     
     // The functions returns a closure that is used to write information in firebase
     func writePatient() -> AddDoctorView.WritePatient {

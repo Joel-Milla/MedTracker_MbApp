@@ -28,8 +28,8 @@ class AuthService: ObservableObject {
      Important initialization methods
      **********************************/
     init() {
+        // Always listen inside an object when the auth changes. The closure after will execute every time something changes
         listener = auth.addStateDidChangeListener ({ _, firebaseUser in
-//            self.isAuthenticated = firebaseUser != nil
             if let firebaseUser = firebaseUser {
                 if let name = self.name, let role = self.role {
                     // This will run when the user creates an account
