@@ -39,7 +39,8 @@ struct WelcomeView: View {
             } 
             // When there is currently no rol, show a progress view.
             else {
-                ProgressView()
+                //ProgressView()
+                tempSignOut()
             }
         } else {
             // When there is no role, show the authentication view.

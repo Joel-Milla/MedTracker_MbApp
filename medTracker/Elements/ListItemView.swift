@@ -41,7 +41,12 @@ struct ListItemView: View {
     @ViewBuilder
     func ChartCuantitativa(filteredRegisters: [Register]) -> some View {
         
-        let registers = filteredRegisters.sorted { $0.date < $1.date }
+        let symptomRegisters = filteredRegisters.filter { register in
+            return register.idSymptom == item.id.uuidString
+        }
+
+        
+        let registers = symptomRegisters.sorted { $0.date < $1.date }
         
         let spm = operaciones(registers: registers)
         
