@@ -11,7 +11,7 @@ import Charts
 
 struct ListItemView: View {
     let item: Symptom
-    let registers : [Register]
+    let registers : RegisterList
     var body: some View {
         HStack {
             VStack(alignment: .leading){
@@ -38,15 +38,12 @@ struct ListItemView: View {
             }
         }
     }
-    @ViewBuilder
-    func ChartCuantitativa(filteredRegisters: [Register]) -> some View {
+    @MainActor @ViewBuilder
+    func ChartCuantitativa(filteredRegisters: RegisterList) -> some View {
         
-        let symptomRegisters = filteredRegisters.filter { register in
-            return register.idSymptom == item.id.uuidString
-        }
-
+        let jointRegisters = filteredRegisters.registers[item.id.uuidString] ?? []
         
-        let registers = symptomRegisters.sorted { $0.date < $1.date }
+        let registers = jointRegisters.sorted { $0.date < $1.date }
         
         let spm = operaciones(registers: registers)
         

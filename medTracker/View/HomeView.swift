@@ -70,7 +70,7 @@
                                     if symptom.isActive {
                                         // Show a listItem view and redirect user to analysis upon touching
                                         NavigationLink(destination: AnalysisView2_0(symptom: symptom, registers: registers)) {
-                                            ListItemView(item: symptom, registers: testRegisters)
+                                            ListItemView(item: symptom, registers: registers)
                                                 .padding(10)
                                         }
                                     }
