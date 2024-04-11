@@ -14,8 +14,9 @@ struct RegisterSymptomView: View {
     @StateObject var formViewModel: FormViewModel<Register>
     @State var symptom : Symptom
 
-    // Variable that handle the input of the user for the register
+    // Variables that handle the input of the user for the register
     @State var inputValue = ""
+    @State var sliderValue: Float = 0.0
     
     // Dismiss the view when no longer needed
     @Environment(\.dismiss) var dismiss
@@ -36,7 +37,7 @@ struct RegisterSymptomView: View {
                                 .padding()
                             // Show different views depending if the symptoms is quantitative or not
                             if(!symptom.isQuantitative){
-                                CustomSlider(valueFinal: $formViewModel.amount)
+                                CustomSlider(valueFinal: $sliderValue)
                                     .keyboardType(.numberPad)
                                     .padding(.horizontal, 5)
                                     .frame(height: geometry.size.height * 0.06)
@@ -93,9 +94,12 @@ struct RegisterSymptomView: View {
                     )
                     .shadow(radius: 10)
                     Button {
-                        // When symptom is quant, change the value of string into Float
+                        // When symptom is quant, change the value of string into Float. If it is not possible then assign a float value where it will make an error to show the user that is not valid the amount
+                        // If sympomt is not quant, invert the value so it is shown correclty on the graphs
                         if (symptom.isQuantitative) {
                             formViewModel.amount = Float(inputValue) ?? -1000.99
+                        } else {
+                            formViewModel.amount = invertSliderValue(sliderValue)
                         }
                         formViewModel.submit()
                     } label: {
@@ -139,6 +143,12 @@ struct RegisterSymptomView: View {
             }
             // MARK: Ending of consistent UI
         }
+    }
+    
+    // This function invert the value that the slider makes when the user selects something.
+    // Need to invert the value so this can be shown correctly on the graphs
+    func invertSliderValue(_ value: Float) -> Float {
+        return 100 - value
     }
 }
 

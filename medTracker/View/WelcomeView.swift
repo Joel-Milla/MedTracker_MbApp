@@ -36,11 +36,10 @@ struct WelcomeView: View {
                 } else {
                     Text("Hubo un problema")
                 }
-            } 
-            // When there is currently no rol, show a progress view.
+            }
             else {
-                //ProgressView()
-                tempSignOut()
+                // When there is currently no rol, show a progress view and sign out so the user can register
+                ProgressView()
             }
         } else {
             // When there is no role, show the authentication view.
