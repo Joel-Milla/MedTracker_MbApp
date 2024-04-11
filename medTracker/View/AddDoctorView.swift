@@ -2,197 +2,80 @@
 //  AddDoctorView.swift
 //  medTracker
 //
-//  Created by Alumno on 25/11/23.
+//  Created by Joel Alejandro Milla Lopez on 11/04/24.
 //
 
 import SwiftUI
 
 struct AddDoctorView: View {
-    @ObservedObject var user: UserModel
-    @State var email: String = ""
-    @State var emailFound = false
-    @State var progress: StateRequest = .complete
+    // Variable to hold the information to show
+    @ObservedObject var doctorsViewModel: DoctorsViewModel // Add observed object so when doctors array changes on main view, this also changes. The doctors array inside hold a reference to the doctors array inside the previous user
+    // Helper variables
     @Environment(\.dismiss) var dismiss
-    
-    @State var existError = false
-    @State var errorMessage = ""
-    
-    // Variables to write on database
-    typealias WritePatient = (String, User) async throws -> Void
-    let writePatient: WritePatient
-    
-    typealias CreateAction = (User) async throws -> Void
-    let createAction: CreateAction
-    
-    typealias DeleteAction = (String) async throws -> Void
-    let deletePatient: DeleteAction
-    
-    enum StateRequest {
-        case loading
-        case complete
-    }
-    
+
     var body: some View {
         NavigationStack {
             VStack {
                 Form {
                     Section(header: Text("Agregar Doctor")) {
-                        TextField("Email de doctor", text: $email)
+                        TextField("Email de doctor", text: $doctorsViewModel.newDoctor)
                             .textInputAutocapitalization(.never)
                             .textContentType(.emailAddress)
                             // Groupped style to be applied to the inputs. Same as register and log in
                             .inputStyle()
                         
                         Button(action: {
-                            if email != "" {
-                                Task {
-                                    await addDoctorIfRoleMatches()
-                                }
-                            } else {
-                                existError = true
-                                errorMessage = "Por favor ingresa un email valido."
-                            }
+                            doctorsViewModel.addDoctor()
                         }, label: {
-                            if progress == .complete {
-                                Text("Compartir información")
-                            } else {
-                                ProgressView()
-                            }
+                            // Use changingText to show a progressView when the request is loading
+                            ChangingText(state: $doctorsViewModel.state, title: "Compartir información")
                         })
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(LinearGradient(gradient: Gradient(colors: [Color("mainBlue"), Color("blueGreen")]), startPoint: .leading, endPoint: .trailing))
-                        .cornerRadius(10)
-                        .foregroundColor(.white)
+                        .gradientStyle() // apply gradient style
                     }
                     
-                    Section(header: Text("Doctores Registrados"), footer: customFooterView) {
-                        if user.user.doctors.isEmpty {
-                            HStack {
-                                Spacer()
-                                EmptyListView(
-                                    title: "No hay doctores registrados",
-                                    message: "Por favor agrega doctores para compartir los datos.",
-                                    nameButton: "Nothing"
-                                )
-                                Spacer()
-                            }
+                    Section(header: Text("Doctores Registrados")) {
+                        // Depending on the doctors of the array, show different views
+                        if doctorsViewModel.doctors.isEmpty {
+                            EmptyListView(
+                                title: "No hay doctores registrados",
+                                message: "Por favor agrega doctores para compartir los datos.",
+                                nameButton: "Nothing"
+                            )
+                            .frame(maxWidth: .infinity) // Set the width to infinity to center the view inside the section
                         } else {
-                            ForEach(user.user.doctors, id: \.self) { email in
-                                Text(email)
+                            ForEach(doctorsViewModel.doctors, id: \.self) { doctor in
+                                Text(doctor)
                                     .font(.body)
                                     .padding(8)
                             }
-                            .onDelete(perform: deletePatient)
+                            .onDelete(perform: doctorsViewModel.removeDoctor)
                         }
                     }
                 }
-                //Spacer()
             }
-            .keyboardToolbar()
-            .navigationTitle("Compartir datos")
-            .alert(isPresented: $existError) {
-                Alert(
-                    title: Text("Error"),
-                    message: Text(errorMessage),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
+            // MARK: The following edits are in charge of a good user experience
+            .keyboardToolbar() // apply the button to have an ok and dismiss the view
+            .onSubmit(doctorsViewModel.addDoctor)
+            // Show alert to tell the user that there is an error
+            .alert("Error al guardar datos", error: $doctorsViewModel.error)
+            // Dismiss the view
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
                         dismiss()
-                    }
+                    }, label: {
+                        Image(systemName: "xmark.circle")
+                    })
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    EditButton()
                 }
             }
-        }
-    }
-    
-    private var customFooterView: some View {
-        HStack {
-            if !user.user.doctors.isEmpty {
-                Text("Desliza la fila para eliminar")
-            }
-        }
-    }
-    
-    private func deletePatient(at offsets: IndexSet) {
-        // Delete info from database
-        for index in offsets {
-            let emailToDelete = user.user.doctors[index]
-            Task {
-                try await deletePatient(emailToDelete)
-            }
-        }
-        
-        // Implement deletion logic for locally stored information.
-        user.user.doctors.remove(atOffsets: offsets)
-        user.saveUserData()
-        
-        // modify data in database
-        createUser(user: user.user)
-    }
-    
-    func addDoctorIfRoleMatches() async {
-        self.progress = .loading
-        do {
-            email = email.lowercased()
-            let doctorRole = try await HelperFunctions.fetchUserRole(email: email)
-            if doctorRole == "Doctor" {
-                if user.user.doctors.contains(where: {
-                    $0 == email
-                }) {
-                    existError = true
-                    errorMessage = "El email ya esta agregado."
-                    self.progress = .complete
-                } else {
-                    // modifying data locally
-                    user.user.doctors.append(email)
-                    createUser(user: user.user)
-                    
-                    // modify data in database
-                    writeDoctor(email: email, user: user.user)
-                    
-                    // reset variables
-                    email = ""
-                    self.progress = .complete
-                }
-            } else {
-                self.progress = .complete
-                existError = true
-                errorMessage = "No se encontro el email como valido."
-            }
-        } catch {
-            // Handle any errors
-            customPrint(error.localizedDescription)
-            self.progress = .complete
-            existError = true
-            errorMessage = "No se encontro el email como valido."
-        }
-    }
-    
-    private func createUser(user: User) {
-        // will wait until the createAction(symptom) finishes
-        Task {
-            do {
-                try await
-                createAction(user) //call the function that adds the user to the database
-            } catch {
-                customPrint("[AddDoctorView] Werent able to create the user: \(error)")
-            }
-        }
-    }
-    
-    private func writeDoctor(email: String, user: User) {
-        // will wait until the createAction(symptom) finishes
-        Task {
-            do {
-                try await
-                writePatient(email, user) //call the function that adds the user to the database
-            } catch {
-                customPrint("[AddDoctorView] Cannot write the doctor: \(error)")
-            }
+            // MARK: Ending of general user experience
         }
     }
 }
+
+//#Preview {
+//    AddDoctorView()
+//}

@@ -107,27 +107,6 @@ class UserModel: ObservableObject {
         HelperFunctions.write(self.user, inPath: usersURL)
     }
     
-    // The functions returns a closure that is used to write information in firebase
-//    func makeCreateAction() -> ProfileView.CreateAction {
-//        return { [weak self] user in
-//            try await self?.repository.createUser(user)
-//        }
-//    }
-    
-    // The functions returns a closure that is used to write information in firebase
-    func writePatient() -> AddDoctorView.WritePatient {
-        return { [weak self] email, user in
-//            try await self?.repository.writePatientInfo(email, user)
-        }
-    }
-    
-    // Delete a doctor from the list
-    func makeDeleteAction() -> AddDoctorView.DeleteAction {
-        return { [weak self] emailDoc in
-//            try await self?.repository.removePatientInfo(emailDoc)
-        }
-    }
-    
     // Fetch user information from the database and save them on the users list.
     func fetchUser() {
         Task {
