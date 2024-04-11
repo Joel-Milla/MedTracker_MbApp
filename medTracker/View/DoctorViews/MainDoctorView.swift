@@ -46,6 +46,7 @@ struct MainDoctorView: View {
                          }
                          .foregroundColor(Color.red)*/
 //                        DoctorProfileView(user: user, createAction: user.makeCreateAction())
+                        tempSignOut()
                     } label: {
                         Image(systemName: "person.crop.circle")
                     }

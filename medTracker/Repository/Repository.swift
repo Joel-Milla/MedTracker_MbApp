@@ -118,14 +118,25 @@ struct Repository {
         return user
     }
     
+    // Function to update only the array of doctors in the database
+    func updateDoctorsArray(_ doctorsEmail: String) async throws {
+        let document = userReference.document(user.email)
+        // Use array union to append to the array in firebase the email that the function received
+        try await document.updateData([
+            "doctors": FieldValue.arrayUnion([doctorsEmail])
+        ])
+    }
+    
     // Function to write own name as a document in doctors collection
-    func writePatient(_ docEmail: String, _ user: User) async throws {
-        let docDocument = doctorReference.document(docEmail)
+    func writePatient(_ doctorsEmail: String, _ user: User?) async throws {
+        let user = user ?? self.user
+        let docDocument = doctorReference.document(doctorsEmail)
         let patientsReference = docDocument.collection("patients")
         let document = patientsReference.document(user.email)
         try await document.setData([
             "name": user.name,
-            "email": user.email
+            "email": user.email,
+            "phone": user.phone
         ])
     }
     

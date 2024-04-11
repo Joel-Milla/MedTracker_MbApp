@@ -16,7 +16,7 @@ import Foundation
 class FormViewModel<Value>: ObservableObject {
     @Published var value: Value
     @Published var error: Error?
-    @Published var state: State = .idle // state of the request.
+    @Published var state: HelperFunctions.State = .idle // state of the request.
     
     typealias Action = (Value) async throws -> Void
     private let action: Action //closure of type action.
@@ -27,12 +27,6 @@ class FormViewModel<Value>: ObservableObject {
     init(initialValue: Value, action: @escaping Action) {
         self.value = initialValue
         self.action = action
-    }
-    
-    enum State {
-        case idle
-        case isLoading
-        case successfullyCompleted
     }
     
     /**********************

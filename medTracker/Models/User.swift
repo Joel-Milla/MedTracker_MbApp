@@ -81,7 +81,8 @@ struct User : Codable, Hashable {
         self.doctors = doctors
     }
     
-    func validateInput() -> (Bool, String) {
+    // This function is used in ProfileView to validte if there is any error while updating user data
+    func validateUpdatingProfile() -> (Bool, String) {
         if let height = Double(self.height) {
             if (self.phone == "" || self.height == "" || self.sex == "") {
                 return (true, "Datos faltantes. Por favor llena todos los campos obligatorios.")
@@ -98,6 +99,15 @@ struct User : Codable, Hashable {
         return (false, "")
     }
     
+    // This function checks if it is possible to add an email doctor to the array of doctors
+    func validateAddingDoctor(from emailDoctor: String) -> (Bool, String) {
+        if (emailDoctor == "") {
+            return (true, "El campo del email del doctor esta vacío")
+        } else if (doctors.contains(emailDoctor)) {
+            return (true, "Ya se estan compartiendo los datos a este email")
+        }
+        return (false, "")
+    }
     func getYear(date: Date) -> Int {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year], from: date)

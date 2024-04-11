@@ -34,14 +34,14 @@ struct ProfileView2: View {
                     // Name and phone number
                     Section {
                         if isEditing {
-                            Text("Nombre completo: \(user.user.name)")
+                            Text("Nombre completo: \(user.name)")
                             HStack {
                                 Text("Teléfono:")
                                 TextField("+81 2611 1857", text: $formViewModel.phone)
                             }
                         } else {
-                            Text("Nombre completo: \(user.user.name)")
-                            Text("Teléfono: \(user.user.phone)")
+                            Text("Nombre completo: \(user.name)")
+                            Text("Teléfono: \(user.phone)")
                         }
                     } header: {
                         Text("Datos personales")
@@ -66,16 +66,16 @@ struct ProfileView2: View {
                             }
                             .pickerStyle(MenuPickerStyle())
                         } else {
-                            Text("Estatura: \(user.user.height)")
+                            Text("Estatura: \(user.height)")
                             HStack {
                                 Text("Fecha de nacimiento:")
                                 Spacer() // Add spacer so the view seems similar as when editing
-                                Text(user.user.formattedDateOfBirth)
+                                Text(user.formattedDateOfBirth)
                             }
                             HStack {
                                 Text("Sexo:")
                                 Spacer()
-                                Text(user.user.sex)
+                                Text(user.sex)
                             }
                         }
                     } header: {
@@ -90,7 +90,7 @@ struct ProfileView2: View {
                         } else {
                             Text("Antecedentes médicos:")
                             ScrollView {
-                                Text(user.user.clinicalHistory)
+                                Text(user.clinicalHistory)
                                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
                             }
                             .frame(minHeight: 0, maxHeight: 22 * 10)
@@ -139,10 +139,6 @@ struct ProfileView2: View {
                     if isEditing {
                         Button("Done") {
                             formViewModel.submit()
-                            // If there is no error, exit edit mode
-                            if (formViewModel.error == nil && formViewModel.state == .successfullyCompleted) {
-                                isEditing = false
-                            }
                         }
                     } else {
                         Button("Editar") {
@@ -153,11 +149,17 @@ struct ProfileView2: View {
                 }
             }
             .sheet(isPresented: $showAddDoctorView, content: {
-                AddDoctorView(user: user, writePatient: user.writePatient(), createAction: { _ in }, deletePatient: { _ in })
+//                AddDoctorView(user: user, writePatient: user.writePatient(), createAction: { _ in }, deletePatient: { _ in })
+                AddDoctorView2(doctorsViewModel: user.createAddDoctorViewModel())
             })
             // MARK: The following edits are in charge of a good user experience
             .keyboardToolbar() // apply the button to have an ok and dismiss the view
             .alert("Error al guardar datos", error: $formViewModel.error)
+            .onChange(of: formViewModel.state) { newValue in
+                if (newValue == .successfullyCompleted ) {
+                    isEditing = false
+                }
+            }
             // MARK: Ending of general user experience
     }
 }

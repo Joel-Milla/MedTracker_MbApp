@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct ChangingText<Value>: View {
-    @Binding var state: FormViewModel<Value>.State
+struct ChangingText: View {
+    @Binding var state: HelperFunctions.State
     @State var title: String
+
     var body: some View {
         switch state {
         case .idle:
@@ -24,7 +25,7 @@ struct ChangingText<Value>: View {
 
 #Preview {
     NavigationStack {
-        @State var state: FormViewModel<Symptom>.State = .idle
+        @State var state: HelperFunctions.State = .idle
         @State var title: String = "Hello"
         ChangingText(state: $state, title: title)
     }

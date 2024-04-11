@@ -28,7 +28,7 @@ private struct ErrorAlertViewModifier: ViewModifier {
 }
 
 // Use extensions to know if it exists an error and shows it as a view.
-extension Optional {
+private extension Optional {
     var hasValue: Bool {
         get { self != nil }
         set { self = newValue ? self : nil }

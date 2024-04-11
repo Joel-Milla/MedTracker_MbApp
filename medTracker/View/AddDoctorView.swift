@@ -40,14 +40,8 @@ struct AddDoctorView: View {
                         TextField("Email de doctor", text: $email)
                             .textInputAutocapitalization(.never)
                             .textContentType(.emailAddress)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.secondary.opacity(0.15))
-                            .cornerRadius(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color("mainBlue"), lineWidth: 1)
-                            )
+                            // Groupped style to be applied to the inputs. Same as register and log in
+                            .inputStyle()
                         
                         Button(action: {
                             if email != "" {

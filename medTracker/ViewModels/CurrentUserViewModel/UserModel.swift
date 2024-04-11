@@ -12,6 +12,8 @@ import FirebaseAuth
  This class contains all the information about the user.
  **********************************/
 @MainActor
+@dynamicMemberLookup // allows to shortcut the getting of properties inside user by utilizing the subscript
+
 class UserModel: ObservableObject {
     @Published var user = User() {
         didSet {
@@ -49,11 +51,34 @@ class UserModel: ObservableObject {
     /**********************
      Helper functions
      **********************************/
+    // Function to create a class that manages the creation/deletion of a new doctor
+    func createAddDoctorViewModel() -> DoctorsViewModel {
+        // Action to perform when trying to add a new doctor
+        let addDoctorAction = { [weak self] (emailDoctor: String) in
+            let emailDoctor = emailDoctor.lowercased()
+            let (hasError, message) = self?.user.validateAddingDoctor(from: emailDoctor) ?? (false, "")
+            if (hasError) {
+                throw HelperFunctions.ErrorType.invalidInput(message)
+            } else {
+                // Handle error when the email doctor is not Doctor
+                let rol = try await HelperFunctions.fetchUserRole(email: emailDoctor)
+                if (rol != "Doctor") {
+                    throw HelperFunctions.ErrorType.general("El email no es valido.")
+                }
+                
+                // If everything is okay to this point, then save the data
+                self?.user.doctors.append(emailDoctor)
+                try await self?.repository.updateDoctorsArray(emailDoctor) // Update the doctors array of the user on firebase
+                try await self?.repository.writePatient(emailDoctor, self?.user) // write the patient data on the section of the doctor
+            }
+        }
+        return DoctorsViewModel(doctors: self.user.doctors , newDoctor: "", addDoctorAction: addDoctorAction, deleteDoctorAction: {})
+    }
     
     // Return a formViewModel that handles the creation of a new user
     func updateUserViewModel(for user: User) -> FormViewModel<User> {
         return FormViewModel(initialValue: User(user: user)) { [weak self] user in
-            let (hasError, message) = user.validateInput()
+            let (hasError, message) = user.validateUpdatingProfile()
             if (hasError) {
                 throw HelperFunctions.ErrorType.invalidInput(message)
             } else {
@@ -100,6 +125,12 @@ class UserModel: ObservableObject {
                 // If user is not found in the repository, try to get the name from Firebase
             }
         }
+    }
+    
+    // Allows to get the properties inside the User by directly calling them from UserModel.
+    // E.g. let userViewModel = UserModel(); print(userModel.name) -> 'Joel'... This is possible to do thanks to subscript to avoid doing: userModel.user.name
+    subscript<T>(dynamicMember keyPath: KeyPath<User, T>) -> T {
+        user[keyPath: keyPath]
     }
 }
 

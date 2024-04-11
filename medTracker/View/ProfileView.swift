@@ -168,7 +168,7 @@ struct ProfileView: View {
                         if isEditing {
                             Button("Done") {
                                 // Guardar informacion en user y sandbox
-                                let validationResult = draftUser.validateInput()
+                                let validationResult = draftUser.validateUpdatingProfile()
                                 if validationResult.0 {
                                     error = true
                                     errorMessage = validationResult.1

@@ -46,7 +46,7 @@ class HelperFunctions {
             fatalError("[HelperFunctions] An error occurred while loading data of type [\(type)]: \(error)")
         }
     }
-    
+
     // Fetch users role from firestore
     static func fetchUserRole(email: String) async throws -> String {
         let db = Firestore.firestore()
@@ -106,21 +106,12 @@ class HelperFunctions {
         case .invalidCredential:
             throw HelperFunctions.ErrorType.invalidCredentials
         default:
-            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
+            throw HelperFunctions.ErrorType.general("Ocurrio un error, por favor de intentarlo nuevamente")
         }
     }
     
     // Function that handles an error when making a request to Firestore
     static func handleFirestoreError(code error: Error) throws {
-        // MARK: With this, can obtain the error code when making a request to firestore
-//        guard let error = error as NSError? else {
-//            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
-//        }
-//        
-//        guard let errorCode = FirestoreErrorCode.Code(rawValue: error.code) else {
-//            throw HelperFunctions.ErrorType.general("Hubo un error con la informaciòn")
-//        }
-
         throw HelperFunctions.ErrorType.general("Hubo un error, por favor de intentarlo nuevamente")
     }
     
@@ -159,6 +150,13 @@ class HelperFunctions {
                 return "El mail o la contraseña son incorrectos."
             }
         }
+    }
+    
+    // Enum for the state of the request
+    enum State {
+        case idle
+        case isLoading
+        case successfullyCompleted
     }
 }
     
