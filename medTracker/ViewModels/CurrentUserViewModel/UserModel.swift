@@ -68,11 +68,24 @@ class UserModel: ObservableObject {
                 
                 // If everything is okay to this point, then save the data
                 self?.user.doctors.append(emailDoctor)
-                try await self?.repository.updateDoctorsArray(emailDoctor) // Update the doctors array of the user on firebase
-                try await self?.repository.writePatient(emailDoctor, self?.user) // write the patient data on the section of the doctor
+                try await self?.repository.updateDoctorsArray(self?.user.doctors ?? []) // Update the doctors array of the user on firebase
+                try await self?.repository.writePatientInfo(emailDoctor, self?.user) // write the patient data on the section of the doctor
             }
         }
-        return DoctorsViewModel(doctors: self.user.doctors , newDoctor: "", addDoctorAction: addDoctorAction, deleteDoctorAction: {})
+        
+        // Remove doctor from user array and delete all patient/doctor information releated to this
+        let deleteAction = { [weak self] (indicesToRemove: IndexSet) in
+            // Get the emails of the doctors to remove by iterating through the indices and remove the patient info from firebase
+            for index in indicesToRemove {
+                let email = self?.user.doctors[index] ?? "Unknown email"
+                try await self?.repository.removePatientInfo(at: email)
+            }
+            // Remove the emails from the current user array
+            self?.user.doctors.remove(atOffsets: indicesToRemove)
+            // Update the doctors array of the user
+            try await self?.repository.updateDoctorsArray(self?.user.doctors ?? []) // Update the doctors array of the user on firebase
+        }
+        return DoctorsViewModel(doctors: self.user.doctors , newDoctor: "", addDoctorAction: addDoctorAction, deleteDoctorAction: deleteAction)
     }
     
     // Return a formViewModel that handles the creation of a new user
@@ -104,14 +117,14 @@ class UserModel: ObservableObject {
     // The functions returns a closure that is used to write information in firebase
     func writePatient() -> AddDoctorView.WritePatient {
         return { [weak self] email, user in
-            try await self?.repository.writePatient(email, user)
+//            try await self?.repository.writePatientInfo(email, user)
         }
     }
     
     // Delete a doctor from the list
     func makeDeleteAction() -> AddDoctorView.DeleteAction {
         return { [weak self] emailDoc in
-            try await self?.repository.delete(emailDoc)
+//            try await self?.repository.removePatientInfo(emailDoc)
         }
     }
     

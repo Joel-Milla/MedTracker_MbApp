@@ -33,7 +33,7 @@ struct AddDoctorView2: View {
                         .gradientStyle() // apply gradient style
                     }
                     
-                    Section(header: header) {
+                    Section(header: Text("Doctores Registrados")) {
                         // Depending on the doctors of the array, show different views
                         if doctorsViewModel.doctors.isEmpty {
                             EmptyListView(
@@ -48,7 +48,7 @@ struct AddDoctorView2: View {
                                     .font(.body)
                                     .padding(8)
                             }
-                            .onDelete(perform: {_ in })
+                            .onDelete(perform: doctorsViewModel.removeDoctor)
                         }
                     }
                 }
@@ -67,17 +67,11 @@ struct AddDoctorView2: View {
                         Image(systemName: "xmark.circle")
                     })
                 }
+                ToolbarItem(placement: .topBarTrailing) {
+                    EditButton()
+                }
             }
             // MARK: Ending of general user experience
-        }
-    }
-    
-    private var header: some View {
-        HStack {
-            Text("Doctores Registrados")
-            Spacer()
-            EditButton()
-                .textCase(.none) // Remove text case so it appears normally
         }
     }
 }
