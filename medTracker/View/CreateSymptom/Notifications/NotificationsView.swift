@@ -104,7 +104,7 @@ struct NotificationsView: View {
     }
     
     func setVariables() {
-        let elements = codeNotification.components(separatedBy: "#")
+        let elements = codeNotification.components(separatedBy: "#") // Returns an empty string when empty
         switch(elements[0]) {
         case "D":
             selectedFrequency = .daily
@@ -120,18 +120,26 @@ struct NotificationsView: View {
         case "M":
             selectedFrequency = .monthly
             selectedDate = DateUtility.stringToDate(elements[1]) ?? Date.now // The string contains an hour like 20:18, so it convert to a date variable and saves it
+        // The following case is when code notification is empty
         default:
-            return
+            selectedFrequency = .daily
+            selectedDate = Date.now // The string contains an hour like 20:18, so it convert to a date variable and saves it
         }
     }
     
+    // MARK: Formats of the set notification
+    // MARK: Daily -> D#20:18 -> Tell that is daily that repeats at 20:18
+    // MARK: Weekly -> W#DLM#20:18 -> Tell that repeats the notification weekly, on the days 'Domingo', 'Lunes', and 'Martes' at 20:18
+    // MARK: Monthly -> M#2004-11-22 20:18 -> Tell that it will repeat all the 22s of each month at 20:18
     func setNotifications() -> String {
         switch (selectedFrequency) {
+        // When the selected frequency is daily, save the hour in which to repeat the notification
         case .daily:
             var notificationString = "D#"
             let hourValues = DateUtility.hourToString(selectedDate) // If the user selected 20:18, then this string will be '20:18'
             notificationString += hourValues
             return notificationString
+        // When the selected frequency is weekly, save all the days in which the notification repeats and save the hour to repeat the notification
         case .weekly:
             var notificationString = "W#"
             let hourValues = DateUtility.hourToString(selectedDate) // If the user selected 20:18, then this string will be '20:18'
@@ -143,9 +151,10 @@ struct NotificationsView: View {
             }
             notificationString += "#\(hourValues)"
             return notificationString
+        // When the selected frequency is monthly, save that is monthly and save the day to repeat each month with this format->2004-11-22 20:18
         case .monthly:
             var notificationString = "M#"
-            let dayValues = DateUtility.dateToString(selectedDate)
+            let dayValues = DateUtility.dateToString(selectedDate) // Use DateUtility to format and deformat the date
             notificationString += dayValues
             return notificationString
         }

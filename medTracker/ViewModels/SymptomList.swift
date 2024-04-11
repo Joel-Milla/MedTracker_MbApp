@@ -77,7 +77,7 @@ class SymptomList : ObservableObject {
                 throw HelperFunctions.ErrorType.general("Un dato con ese sintoma ya se esta registrando")
             }
             else {
-                // Schedule notifications based on the input received from the user
+                // Schedule notifications based on the input received from the user. When notification is empty, this function doesn't do anything
                 NotificationManager.instance.scheduleNotifications(symptom.notification, symptom.name)
                 self?.symptoms[symptom.id.uuidString] = symptom
                 try await self?.repository.createSymptom(symptom) // use function in the repository to create the symptom
