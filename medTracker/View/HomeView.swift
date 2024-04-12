@@ -45,7 +45,7 @@ struct HomeView: View {
                                 // Show a listItem view and redirect user to analysis upon touching
                                 NavigationLink(destination: AnalysisView2_0(symptom: symptom, registers: registers)) {
                                     ListItemView(item: symptom, registers: registers)
-                                        .padding(10)
+                                        .padding(2)
                                 }
                             }
                         }
@@ -69,7 +69,6 @@ struct HomeView: View {
                     }
                 },
                 alignment: .bottomTrailing)
-            .navigationTitle("Datos de salud")
             .overlay(
                 Group{
                     if symptoms.state == .complete || symptoms.state == .isLoading {
@@ -77,8 +76,8 @@ struct HomeView: View {
                             Image("logoP")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: geometry.size.width * 0.4, height: geometry.size.height * 0.2)
-                                .position(x: geometry.size.width * 0.24, y: geometry.size.height * -0.1)
+                                .frame(width: geometry.size.width * 0.4, height: geometry.size.height * 0.3)
+                                .position(x: geometry.size.width * 0.24, y: geometry.size.height * -0.03)
                         }
                     }
                 },
