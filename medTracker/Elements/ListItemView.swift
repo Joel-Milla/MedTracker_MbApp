@@ -11,7 +11,7 @@ import Charts
 
 struct ListItemView: View {
     let item: Symptom
-    let registers : RegisterList
+    @ObservedObject var registers : RegisterList
     var body: some View {
         HStack {
             VStack(alignment: .leading){
