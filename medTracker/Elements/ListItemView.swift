@@ -34,7 +34,9 @@ struct ListItemView: View {
             }
             Spacer()
             VStack{
-                ChartCuantitativa(filteredRegisters: last7DaysRegisterList())
+                if last7DaysRegisterList().registers[item.id.uuidString]?.count ?? 0 > 2 {
+                    ChartCuantitativa(filteredRegisters: last7DaysRegisterList())
+                }
             }
         }
     }
