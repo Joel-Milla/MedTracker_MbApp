@@ -27,8 +27,15 @@ struct ListItemView: View {
                 }
                 .padding(.vertical)
                 HStack{
-                    Text("\(item.creationDate.formatted(date: .abbreviated, time: .omitted))  |  \(Int(registers.registers[item.id.uuidString]?.last?.amount ?? 0))")
-                        .font(.subheadline)
+                    if registers.registers[item.id.uuidString]?.count ?? 0 >= 1 {
+                        Text("\(item.creationDate.formatted(date: .abbreviated, time: .omitted))  |  \(Int(registers.registers[item.id.uuidString]?.last?.amount ?? 0))")
+                            .font(.subheadline)
+                    }
+                    else{
+                        Text("Haz tap para hacer un registro")
+                            .foregroundStyle(.gray)
+                            .font(.subheadline)
+                    }
                 }
                 Spacer()
             }
