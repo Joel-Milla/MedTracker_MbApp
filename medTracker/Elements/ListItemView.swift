@@ -27,7 +27,7 @@ struct ListItemView: View {
                 }
                 .padding(.vertical)
                 HStack{
-                    Text("\(item.creationDate.formatted(date: .abbreviated, time: .omitted))  |  64kg")
+                    Text("\(item.creationDate.formatted(date: .abbreviated, time: .omitted))  |  \(Int(registers.registers[item.id.uuidString]?.last?.amount ?? 0))")
                         .font(.subheadline)
                 }
                 Spacer()
