@@ -17,6 +17,7 @@
 		170948972BAE96BB007E3E8B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948962BAE96BB007E3E8B /* ChartView.swift */; };
 		170948992BAEA033007E3E8B /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170948982BAEA033007E3E8B /* BarChartView.swift */; };
 		170C07F62B51EE3A00AB937A /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170C07F52B51EE3A00AB937A /* WelcomeView.swift */; };
+		170D2C942BC9CB50004DA95A /* UpdateNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170D2C932BC9CB50004DA95A /* UpdateNotificationView.swift */; };
 		17117A072BB75B050009FED6 /* ChangingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17117A062BB75B050009FED6 /* ChangingText.swift */; };
 		1718E8B72B4F3736001691B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */; };
 		173EF2722BB0D11200F7ACF9 /* CreateSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */; };
@@ -29,6 +30,7 @@
 		173EF2A62BB20C9700F7ACF9 /* WeeklyNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */; };
 		1763C8042BC76E1C00F9BDED /* DoctorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763C8032BC76E1C00F9BDED /* DoctorsViewModel.swift */; };
 		1763C8062BC8076D00F9BDED /* AddDoctorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763C8052BC8076D00F9BDED /* AddDoctorView.swift */; };
+		1763C80C2BC9B87A00F9BDED /* AnalysisView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763C80B2BC9B87A00F9BDED /* AnalysisView3.swift */; };
 		177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B37622B575433009CB58D /* ShowEditSymptomView.swift */; };
 		177BB6B32BC6FED6000C8E26 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177BB6B22BC6FED6000C8E26 /* AnnotationView.swift */; };
 		177BB6D52BC7126A000C8E26 /* ShareButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177BB6D42BC7126A000C8E26 /* ShareButtonView.swift */; };
@@ -99,6 +101,7 @@
 		170948962BAE96BB007E3E8B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		170948982BAEA033007E3E8B /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		170C07F52B51EE3A00AB937A /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		170D2C932BC9CB50004DA95A /* UpdateNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNotificationView.swift; sourceTree = "<group>"; };
 		17117A062BB75B050009FED6 /* ChangingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingText.swift; sourceTree = "<group>"; };
 		1718E8B62B4F3736001691B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		173EF2712BB0D11200F7ACF9 /* CreateSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSymptomView.swift; sourceTree = "<group>"; };
@@ -111,6 +114,7 @@
 		173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNotificationsView.swift; sourceTree = "<group>"; };
 		1763C8032BC76E1C00F9BDED /* DoctorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsViewModel.swift; sourceTree = "<group>"; };
 		1763C8052BC8076D00F9BDED /* AddDoctorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDoctorView.swift; sourceTree = "<group>"; };
+		1763C80B2BC9B87A00F9BDED /* AnalysisView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView3.swift; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
 		177BB6B22BC6FED6000C8E26 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		177BB6D42BC7126A000C8E26 /* ShareButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButtonView.swift; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 			children = (
 				170948852BAE3E24007E3E8B /* tempSignOut.swift */,
 				170948632BAB5BB2007E3E8B /* AnalysisView.swift */,
+				1763C80B2BC9B87A00F9BDED /* AnalysisView3.swift */,
+				170D2C932BC9CB50004DA95A /* UpdateNotificationView.swift */,
 				170948902BAE95DE007E3E8B /* Chart */,
 				170948882BAE8900007E3E8B /* InsightsView.swift */,
 				1789E8182B59ED780087531D /* registersView.swift */,
@@ -577,6 +583,7 @@
 				FBD940B72AFD763000C3BD11 /* HomeView.swift in Sources */,
 				177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */,
 				FB0EC3A32B13049700E7309B /* rowPatient.swift in Sources */,
+				1763C80C2BC9B87A00F9BDED /* AnalysisView3.swift in Sources */,
 				FBE41E742AF6D464007B48E5 /* User.swift in Sources */,
 				170948992BAEA033007E3E8B /* BarChartView.swift in Sources */,
 				170948972BAE96BB007E3E8B /* ChartView.swift in Sources */,
@@ -588,6 +595,7 @@
 				FB87FED12ADDEE9800F6273B /* MainView.swift in Sources */,
 				1709488F2BAE8FB1007E3E8B /* StylesMedTracker.swift in Sources */,
 				FB0EC3AB2B13181300E7309B /* AnalysisDoctorView.swift in Sources */,
+				170D2C942BC9CB50004DA95A /* UpdateNotificationView.swift in Sources */,
 				17F133692B98E401004C6D8F /* GlobalUtilities.swift in Sources */,
 				F8A27C692BBFA656006513FC /* ListItemView.swift in Sources */,
 				FBD940B12AFD74D100C3BD11 /* AuthenticationView.swift in Sources */,

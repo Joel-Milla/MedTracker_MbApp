@@ -13,64 +13,57 @@ struct InsightsView: View {
     
     var body: some View {
         // Make three columns to organize the information
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(lineWidth: 2)
-                .foregroundColor(Color("blueGreen"))
-            
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Color.white.opacity(0.5))
+        VStack(alignment: .leading) {
+            // Show the insight values
+            Text("Diagnóstico")
+                .font(.title2)
+                .bold()
             
             HStack(spacing: 30) {
-                VStack {
-                    Text("Valor mínimo")
-                        .font(.caption)
-                        .foregroundStyle(.gray)
-                    Value(isCuantitative: isQuantitative, value: registers.minValue())
-                }
-                VStack {
-                    Text("Valor promedio")
-                        .font(.caption)
-                        .foregroundStyle(.gray)
-                    Value(isCuantitative: isQuantitative, value: registers.meanValue())
-                }
-                VStack {
-                    Text("Valor máximo")
-                        .font(.caption)
-                        .foregroundStyle(.gray)
-                    Value(isCuantitative: isQuantitative, value: registers.maxValue())
-                }
+                Value(title: "Valor mínimo", isCuantitative: isQuantitative, value: registers.minValue())
+                Value(title: "Valor promedio", isCuantitative: isQuantitative, value: registers.meanValue())
+                Value(title: "Valor máximo", isCuantitative: isQuantitative, value: registers.maxValue())
             }
-            .padding() // Adjust the padding as needed
+            .frame(maxWidth: .infinity) // Take the whole space horiztonally
+            .padding(.vertical, 5) // Apply padding to content directly
+            .background(RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white)
+                .shadow(radius: 5)) // Apply shadow to the background
         }
-        .frame(height: 80)
     }
 }
 
 // View that shows the image or the values depending if the symptom is quantitative or not
 struct Value: View {
+    let title: String
     let isCuantitative: Bool
     let value: Float?
     
     var body: some View {
         // Show different views depending if there is data or not
-        if (value != nil) {
-            if (isCuantitative) {
-                Text(value?.asString() ?? "")
-                    .font(.title2.bold())
-            } else {
-                let Image = HelperFunctions.getImage(of: value ?? 0.0)
-                HStack {
-                    Spacer()
-                    Image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 60)
-                    Spacer()
+        VStack {
+            Text(title)
+                .font(.caption)
+                .foregroundStyle(.gray)
+            
+            if let value = value {
+                if (isCuantitative) {
+                    Text(value.asString())
+                        .font(.title2.bold())
+                } else {
+                    let Image = HelperFunctions.getImage(of: value)
+                    HStack {
+                        Spacer()
+                        Image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 60)
+                        Spacer()
+                    }
                 }
+            } else {
+                Text("--")
             }
-        } else {
-            Text("--")
         }
     }
 }

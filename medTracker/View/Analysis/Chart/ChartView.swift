@@ -18,7 +18,8 @@ struct ChartView: View {
     
     var body: some View {
         // MARK: Chart API
-        VStack(alignment: .leading, spacing: 12) {
+        // Show the information from the chart and different tab buttons
+        VStack(spacing: 12) {
             // Picker to switch the time-zone of data shown
             HStack {
                 Text("Valores")
@@ -50,16 +51,10 @@ struct ChartView: View {
             .pickerStyle(.segmented)
             
         }
-        .padding() // Following padding is for the label graph to look better
-        // Background to add border to the graph
-        .background {
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(.white.shadow(.drop(radius: 2)))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .stroke(Color("blueGreen"), lineWidth: 2)
-                )
-        }
+        .padding() // Apply padding to content directly
+        .background(RoundedRectangle(cornerRadius: 10)
+            .fill(Color.white)
+            .shadow(radius: 5)) // Apply shadow to the background
     }
 }
 
@@ -69,7 +64,7 @@ struct ChartView: View {
         @State var registers: RegisterList = RegisterList(repository: repository)
         
         @State var symptom = Symptom(name: "", icon: "heart", description: "", isQuantitative: true, units: "kg", isActive: true, color: "#000000", notification: "")
-                
+        
         ChartView(symptom: symptom, registers: registers)
     }
 }

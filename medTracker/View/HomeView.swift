@@ -43,7 +43,8 @@ struct HomeView: View {
                         ForEach(Array(symptoms.symptoms.values).sorted(by: { $0.creationDate > $1.creationDate }), id: \.self) { symptom in
                             if symptom.isActive {
                                 // Show a listItem view and redirect user to analysis upon touching
-                                NavigationLink(destination: AnalysisView(symptom: symptom, registers: registers)) {
+                                NavigationLink(destination: AnalysisView3(symptom: symptom, registers: registers)) {
+//                                NavigationLink(destination: AnalysisView3()) {
                                     ListItemView(item: symptom, registers: testRegisters)
                                         .padding(10)
                                 }
