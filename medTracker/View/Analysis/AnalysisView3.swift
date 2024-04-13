@@ -32,7 +32,7 @@ struct AnalysisView3: View {
                 InsightsView(isQuantitative: symptom.isQuantitative, registers: registers.registers[symptom.id.uuidString] ?? [])
                     .padding(.bottom, 12)
                 // Show the view to update the notifications
-                UpdateNotificationView(codeNotification: $symptom.notification)
+                UpdateNotificationView(symptom: $symptom)
                     .padding(.bottom, 35)
             }
             .frame(maxHeight: .infinity, alignment: .top) // Align to vstack to the top of the view
