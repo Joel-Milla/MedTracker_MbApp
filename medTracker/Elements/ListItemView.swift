@@ -11,7 +11,7 @@ import Charts
 
 struct ListItemView: View {
     let item: Symptom
-    let registers : [Register]
+    @ObservedObject var registers : RegisterList
     var body: some View {
         HStack {
             VStack(alignment: .leading){
@@ -27,21 +27,56 @@ struct ListItemView: View {
                 }
                 .padding(.vertical)
                 HStack{
-                    Text("\(item.creationDate.formatted(date: .abbreviated, time: .omitted))  |  64kg")
-                        .font(.subheadline)
+                    if registers.registers[item.id.uuidString]?.count ?? 0 >= 1 {
+                        Text("\(registers.registers[item.id.uuidString]?.last?.date.formatted(date: .abbreviated, time: .omitted) ?? "") |  \(Int(registers.registers[item.id.uuidString]?.last?.amount ?? 0))")
+                            .font(.subheadline)
+                    }
+                    else{
+                        Text("Haz tap para hacer un registro")
+                            .foregroundStyle(.gray)
+                            .font(.subheadline)
+                    }
                 }
                 Spacer()
             }
             Spacer()
             VStack{
-                ChartCuantitativa(filteredRegisters: registers)
+                if last7DaysRegisterList().registers[item.id.uuidString]?.count ?? 0 > 2 {
+                    ChartCuantitativa(filteredRegisters: last7DaysRegisterList())
+                }
             }
         }
     }
-    @ViewBuilder
-    func ChartCuantitativa(filteredRegisters: [Register]) -> some View {
+    
+    @MainActor private func last7DaysRegisterList() -> RegisterList {
+        let last7DaysRegisters = last7DaysRegisters()
+        var registerList = RegisterList(repository: registers.repository)
+        registerList.registers = registers.registers // Copia el diccionario original
+        registerList.registers[item.id.uuidString] = last7DaysRegisters // Reemplaza los registros de este síntoma con los últimos 7 días
+        return registerList
+    }
+    
+    @MainActor private func last7DaysRegisters() -> [Register] {
+        let calendar = Calendar.current
+        // Obtenemos la fecha actual sin la hora exacta
+        let today = Date()
+        // Calculamos la fecha de hace 7 días atrás
+        guard let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: today) else {
+            return []
+        }
+        // Filtramos los registros para obtener solo los de los últimos 7 días
+        let last7DaysRegisters = registers.filterBy(item).filter { $0.date >= sevenDaysAgo && $0.date <= today }
+        return last7DaysRegisters
+    }
+
+    
+    @MainActor @ViewBuilder
+    func ChartCuantitativa(filteredRegisters: RegisterList) -> some View {
         
-        let registers = filteredRegisters.sorted { $0.date < $1.date }
+        
+        let jointRegisters = filteredRegisters.registers[item.id.uuidString] ?? []
+        
+        let registers = jointRegisters.sorted { $0.date < $1.date }
         
         let spm = operaciones(registers: registers)
         
@@ -57,11 +92,11 @@ struct ListItemView: View {
                 .foregroundStyle(Color(hex: item.color))
                 .interpolationMethod(.catmullRom)
                 
-                AreaMark (
-                    x: .value("Día", register.date, unit: .day),
-                    yStart: .value("minY", min),
-                    yEnd: .value("maxY", register.amount)
-                )
+//                AreaMark (
+//                    x: .value("Día", register.date, unit: .day),
+//                    yStart: .value("minY", min),
+//                    yEnd: .value("maxY", register.amount)
+//                )
                 .foregroundStyle(Color(hex: item.color).opacity(0.1))
                 .interpolationMethod(.catmullRom)
             }

@@ -44,6 +44,14 @@ struct RegisterSymptomView: View {
                                     .padding(.vertical, 35)
                             }
                             else{
+                                HStack{
+                                    Spacer()
+                                    Text("Ingresa el valor")
+                                        .foregroundStyle(Color(uiColor: .systemGray))
+                                        .padding(.horizontal)
+                                        .frame(alignment: .center)
+                                    Spacer()
+                                }
                                 ZStack{
                                     RoundedRectangle(cornerRadius: 20)
                                         .stroke(Color.gray, lineWidth: 0.5)
