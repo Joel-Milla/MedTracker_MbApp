@@ -39,6 +39,17 @@ struct CreateSymptomView: View {
                     Toggle(isOn: $allowNotifications.animation()) {
                         Text("Permitir Notificaciones")
                     }
+                    // Use showNotifications to present the sheet to modify the notifications and only when it is true
+                    .onChange(of: allowNotifications) { newValue in
+                        if (newValue) {
+                            showNotificationView = true
+                        } else {
+                            // Modify the forms notification when user has no notification
+                            formViewModel.notification = ""
+                        }
+                    }
+                    
+                    // When notifications are allowed, show the notification selected
                     if (allowNotifications) {
                         Text(formViewModel.notification)
                     }
@@ -78,12 +89,6 @@ struct CreateSymptomView: View {
                 }
             }
             // MARK: Ending of general user experience
-            // Use showNotifications to present the sheet to modify the notifications and only when it is true
-            .onChange(of: allowNotifications) { newValue in
-                if (newValue) {
-                    showNotificationView = true
-                }
-            }
             // Show the view to select the notification
             .sheet(isPresented: $showNotificationView, content: {
                 NotificationsView(codeNotification: $formViewModel.notification)

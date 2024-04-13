@@ -51,7 +51,7 @@ struct PersonalizedNotificationsView: View {
         }
         Spacer()
         // Select when it starts
-        DatePicker("Empieza", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
+        DatePicker("Empieza", selection: $selectedDate, in: HelperFunctions.dateRange, displayedComponents: [.date, .hourAndMinute])
             .datePickerStyle(CompactDatePickerStyle())
             .frame(maxHeight: 400)
     }

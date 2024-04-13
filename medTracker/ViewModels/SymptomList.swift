@@ -77,55 +77,13 @@ class SymptomList : ObservableObject {
                 throw HelperFunctions.ErrorType.general("Un dato con ese sintoma ya se esta registrando")
             }
             else {
-                // Schedule notifications based on the input received from the user
+                // Schedule notifications based on the input received from the user. When notification is empty, this function doesn't do anything
                 NotificationManager.instance.scheduleNotifications(symptom.notification, symptom.name)
                 self?.symptoms[symptom.id.uuidString] = symptom
                 try await self?.repository.createSymptom(symptom) // use function in the repository to create the symptom
             }
         }
     }
-    
-    
-    // Functions used in CreateSymptomView that is the new view.
-    // ******************************************************************
-    // ******************************************************************
-    
-    
-    
-    
-    
-    // ************* DELETE WHEN AddSymptomView IS NOT USED *************
-    // ******************************************************************
-    // ******************************************************************
-    
-    // The functions returns a closure that is used to write information in firebase
-//    func makeCreateAction() -> AddSymptomView.CreateAction {
-//        return { [weak self] symptom in
-//            try await self?.repository.createSymptom(symptom)
-//        }
-//    }
-    // ******************************************************************
-    // ******************************************************************
-    // ************* DELETE WHEN AddSymptomView IS NOT USED *************
-    
-    // The functions returns a closure that is used to write information in firebase
-//    func makeUpdateAction(for symptom: Symptom) -> Action {
-//        return { [weak self] in
-//            let index = self?.symptoms.firstIndex(of: symptom)
-//            if let index = index {
-//                self?.symptoms[index].activo.toggle()
-//            }
-//            try await self?.repository.updateSymptomActivo(symptom)
-//        }
-//    }
-    
-    // The functions returns a closure that is used to write information in firebase
-//    func makeDeleteAction(for symptom: Symptom) -> Action {
-//        return { [weak self] in
-//            self?.symptoms.removeAll{ $0.id == symptom.id}
-//            try await self?.repository.deleteSymptom(symptom)
-//        }
-//    }
     
     // Fetch symptoms from the database and save them on the symptoms list.
     func fetchSymptoms() {
@@ -139,18 +97,6 @@ class SymptomList : ObservableObject {
             }
         }
     }
-    
-    // Function to delete a symptom
-//    func deleteSymptom(symptom : Symptom) {
-//        self.symptoms.removeAll{ $0.id == symptom.id }
-//        Task {
-//            do {
-//                try await self.repository.deleteSymptom(symptom)
-//            } catch {
-//                customPrint("[SymptomList] Cannot delete symptom: \(error)")
-//            }
-//        }
-//    }
     
     // Function to update the state of the syntomsList. This is called each time the list is modified.
     private func updateStateBasedOnSymptoms() {
