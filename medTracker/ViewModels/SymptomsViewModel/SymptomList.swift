@@ -22,6 +22,10 @@ class SymptomList : ObservableObject {
             HelperFunctions.write(self.symptoms, inPath: symptomListURL)
         }
     }
+    // This computed property returns an array of symptoms ordered by date. The first element of the array is the newest
+    var sortedSymptoms: [Symptom] {
+        symptoms.values.sorted(by: { $0.creationDate > $1.creationDate })
+    }
     @Published var state: State = .isLoading //State of the symptoms array to update views depending on what is happening here
     let repository: Repository // Variable to call the functions inside the repository
     // URL where the files will be created.

@@ -40,10 +40,10 @@ struct HomeView: View {
                 case .complete:
                     List {
                         // Convert dictionary to an array and sort them by date
-                        ForEach(Array(symptoms.symptoms.values).sorted(by: { $0.creationDate > $1.creationDate }), id: \.self) { symptom in
+                        ForEach(symptoms.sortedSymptoms) { symptom in
                             if symptom.isActive {
                                 // Show a listItem view and redirect user to analysis upon touching
-                                NavigationLink(destination: AnalysisView3(symptom: symptom, registers: registers)) {
+                                NavigationLink(destination: AnalysisView(symptom: symptom, registers: registers)) {
                                     ListItemView(item: symptom, registers: registers)
                                         .padding(2)
                                 }
