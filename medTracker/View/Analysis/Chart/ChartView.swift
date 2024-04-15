@@ -63,7 +63,7 @@ struct ChartView: View {
         @State var repository = Repository(user: User(id: "3zPDb70ofQQHximl1NXwPMgIhMR2", rol: "Paciente", email: "joel@mail.com", phone: "", name: "Joel", clinicalHistory: "", sex: "", birthdate: Date.now, height: "", doctors: ["doc@mail.com"]))
         @State var registers: RegisterList = RegisterList(repository: repository)
         
-        @State var symptom = Symptom(name: "", icon: "heart", description: "", isQuantitative: true, units: "kg", isActive: true, color: "#000000", notification: "")
+        @State var symptom = Symptom(name: "", icon: "heart", description: "", isQuantitative: true, units: "kg", isFavorite: true, color: "#000000", notification: "")
         
         ChartView(symptom: symptom, registers: registers)
     }

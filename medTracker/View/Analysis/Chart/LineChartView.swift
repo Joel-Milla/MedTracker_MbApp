@@ -200,7 +200,7 @@ struct LineChartView: View {
         @State var repository = Repository(user: User(id: "3zPDb70ofQQHximl1NXwPMgIhMR2", rol: "Paciente", email: "joel@mail.com", phone: "", name: "Joel", clinicalHistory: "", sex: "", birthdate: Date.now, height: "", doctors: ["doc@mail.com"]))
         @State var registers: RegisterList = RegisterList(repository: repository)
         
-        let symptom = Symptom(name: "", icon: "heart", description: "", isQuantitative: true, units: "kg", isActive: true, color: "#000000", notification: "")
+        let symptom = Symptom(name: "", icon: "heart", description: "", isQuantitative: true, units: "kg", isFavorite: true, color: "#000000", notification: "")
         
         @State var currentTab: String = "Semana"
         

@@ -68,7 +68,7 @@ struct registersView: View {
 
 #Preview {
     NavigationStack {
-        let symptom = Symptom(name: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", isQuantitative: true, units: "kg", isActive: true, color: "#007AFF", notification: "")
+        let symptom = Symptom(name: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", isQuantitative: true, units: "kg", isFavorite: true, color: "#007AFF", notification: "")
         @State var registers = RegisterList.getDefaultRegisters()
         registersView(symptom: symptom, registers: registers)
     }

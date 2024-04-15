@@ -45,7 +45,6 @@ struct HomeView: View {
                                 AnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)
                             } label: {
                                 ListItemView(item: symptom, registers: registers)
-                                    .padding(2)
                             }
                         }
                         .onDelete(perform: symptoms.deleteSymptoms)

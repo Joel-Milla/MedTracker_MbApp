@@ -140,11 +140,11 @@ class SymptomList : ObservableObject {
     // Dummy data for testing purposes.
     static func getDefaultSymptoms() -> [Symptom] {
         return [
-            Symptom(name: "Peso", icon: "star.fill", description: "Este es un ejemplo de descripción que es bastante largo y se va haciendo mucho más largo para comprobar la funcionalidad.", isQuantitative: true, units: "kg", isActive: true, color: "#007AF", notification: ""),
-            Symptom(name: "Cansancio", icon: "star.fill", description: "Este es un ejemplo de descripción corto.", isQuantitative: false, units: "", isActive: true, color: "#AF43EB", notification: "sssss"),
-            Symptom(name: "Insomnio", icon: "star.fill", description: "Este es un ejemplo de descripción mediano, es decir, con esto está bien.", isQuantitative: true, units: "", isActive: true, color: "#D03A20", notification: ""),
-            Symptom(name: "Estado cardíaco", icon: "star.fill", description: "Latidos por minuto.", isQuantitative: true, units: "BPM", isActive: true, color: "#86B953", notification: ""),
-            Symptom(name: "Estado cardíaco 2", icon: "star.fill", description: "Latidos por minuto.", isQuantitative: true, units: "BPM", isActive: true, color: "#86B953", notification: "ssssss")
+            Symptom(name: "Peso", icon: "star.fill", description: "Este es un ejemplo de descripción que es bastante largo y se va haciendo mucho más largo para comprobar la funcionalidad.", isQuantitative: true, units: "kg", isFavorite: true, color: "#007AF", notification: ""),
+            Symptom(name: "Cansancio", icon: "star.fill", description: "Este es un ejemplo de descripción corto.", isQuantitative: false, units: "", isFavorite: true, color: "#AF43EB", notification: "sssss"),
+            Symptom(name: "Insomnio", icon: "star.fill", description: "Este es un ejemplo de descripción mediano, es decir, con esto está bien.", isQuantitative: true, units: "", isFavorite: true, color: "#D03A20", notification: ""),
+            Symptom(name: "Estado cardíaco", icon: "star.fill", description: "Latidos por minuto.", isQuantitative: true, units: "BPM", isFavorite: true, color: "#86B953", notification: ""),
+            Symptom(name: "Estado cardíaco 2", icon: "star.fill", description: "Latidos por minuto.", isQuantitative: true, units: "BPM", isFavorite: true, color: "#86B953", notification: "ssssss")
         ]
     }
 }

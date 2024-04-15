@@ -20,20 +20,20 @@ struct Symptom : Codable, Hashable, Identifiable {
     var creationDate : Date = Date.now
     
     // Normal Init
-    init(name: String, icon: String, description: String, isQuantitative: Bool, units: String, isActive: Bool, color: String, notification : String) {
+    init(name: String, icon: String, description: String, isQuantitative: Bool, units: String, isFavorite: Bool, color: String, notification : String) {
         self.name = name
         self.icon = icon
         self.description = description
         self.isQuantitative = isQuantitative
         self.units = units
-        self.isFavorite = isActive
+        self.isFavorite = isFavorite
         self.color = color
         self.notification = notification
     }
     // Init for initializing a symptom with default values
     init() {
         // Initial value for NotificationsView to render inside the notification
-        self.init(name: "", icon: "heart", description: "", isQuantitative: true, units: "kg", isActive: true, color: "#009C8C", notification : "")
+        self.init(name: "", icon: "heart", description: "", isQuantitative: true, units: "kg", isFavorite: false, color: "#009C8C", notification : "")
     }
     
     // Function to validate if the necessary inputs are filled

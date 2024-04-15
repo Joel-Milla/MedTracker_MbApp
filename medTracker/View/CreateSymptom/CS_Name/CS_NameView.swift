@@ -21,6 +21,13 @@ struct CS_NameView: View {
         TextField("Nombre del Dato", text: $name)
             .disableAutocorrection(true)
             .textContentType(.username)
+            // limit the number of chars of the name
+            .onChange(of: name) { newValue in
+                if newValue.count > 27 {
+                    name = String(newValue.prefix(27))
+                }
+            }
+
         // Picker to select the icon and color
         HStack {
             Text("Escoge un ícono:")
