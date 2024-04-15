@@ -48,10 +48,10 @@ struct AnalysisView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         // Change if analysisViewModel is a favorite or not
-                        analysisViewModel.isActive.toggle()
+                        analysisViewModel.isFavorite.toggle()
                         analysisViewModel.submit()
                     } label: {
-                        Image(systemName: analysisViewModel.isActive ? "star.fill" : "star")
+                        Image(systemName: analysisViewModel.isFavorite ? "star.fill" : "star")
                             .foregroundStyle(.orange)
                     }
                 }

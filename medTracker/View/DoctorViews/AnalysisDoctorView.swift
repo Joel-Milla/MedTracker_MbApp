@@ -34,7 +34,7 @@ struct AnalysisDoctorView: View {
                     VStack {
                         // Show a tab for each symptom that is active.
                         TabView {
-                            ForEach(patientsData.symptoms.filter { $0.isActive == true }, id: \.id) { symptom in
+                            ForEach(patientsData.symptoms.filter { $0.isFavorite == true }, id: \.id) { symptom in
                                 AnalysisPatientView(symptom: symptom, allRegisters: patientsData.registers.filter({ $0.idSymptom == symptom.id.uuidString }))
                             }
                         }
@@ -97,7 +97,7 @@ struct AnalysisDoctorView: View {
     
     func getSymptomIsActive(register: Register) -> Bool {
         if let symptom = patientsData.symptoms.first(where: { $0.id.uuidString == register.idSymptom }) {
-            return symptom.isActive
+            return symptom.isFavorite
         }
         return false
     }

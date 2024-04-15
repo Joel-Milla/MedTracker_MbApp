@@ -14,7 +14,7 @@ struct Symptom : Codable, Hashable, Identifiable {
     var description : String
     var isQuantitative : Bool // True = Cuantitativo, False = Cualitativo
     var units  : String
-    var isActive : Bool
+    var isFavorite : Bool
     var color : String
     var notification : String
     var creationDate : Date = Date.now
@@ -26,7 +26,7 @@ struct Symptom : Codable, Hashable, Identifiable {
         self.description = description
         self.isQuantitative = isQuantitative
         self.units = units
-        self.isActive = isActive
+        self.isFavorite = isActive
         self.color = color
         self.notification = notification
     }

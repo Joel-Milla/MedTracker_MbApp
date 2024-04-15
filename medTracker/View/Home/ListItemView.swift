@@ -27,7 +27,7 @@ struct ListItemView: View {
                 }
                 .padding(.vertical)
                 HStack {
-                    Image(systemName: item.isActive ? "star.fill" : "star")
+                    Image(systemName: item.isFavorite ? "star.fill" : "star")
                         .foregroundStyle(.orange)
                     
                     if registers.registers[item.id.uuidString]?.count ?? 0 >= 1 {

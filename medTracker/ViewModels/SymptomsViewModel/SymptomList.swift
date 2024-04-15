@@ -27,10 +27,10 @@ class SymptomList : ObservableObject {
     var sortedSymptoms: [Symptom] {
         // First, sort by isActive status (true first), then by creationDate within each group
         symptoms.values.sorted {
-            if $0.isActive == $1.isActive {
+            if $0.isFavorite == $1.isFavorite {
                 return $0.creationDate > $1.creationDate // Sort by date within the same isActive group
             }
-            return $0.isActive && !$1.isActive // Prioritize active symptoms
+            return $0.isFavorite && !$1.isFavorite // Prioritize active symptoms
         }
     }
     
