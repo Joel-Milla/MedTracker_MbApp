@@ -11,7 +11,7 @@ import Charts
 
 struct ListItemView: View {
     let item: Symptom
-    @ObservedObject var registers : RegisterList
+    @StateObject var registers : RegisterList
     var body: some View {
         HStack {
             VStack(alignment: .leading){
@@ -26,7 +26,10 @@ struct ListItemView: View {
                         .padding(.horizontal, 10)
                 }
                 .padding(.vertical)
-                HStack{
+                HStack {
+                    Image(systemName: item.isActive ? "star.fill" : "star")
+                        .foregroundStyle(.orange)
+                    
                     if registers.registers[item.id.uuidString]?.count ?? 0 >= 1 {
                         Text("\(registers.registers[item.id.uuidString]?.last?.date.formatted(date: .abbreviated, time: .omitted) ?? "") |  \(Int(registers.registers[item.id.uuidString]?.last?.amount ?? 0))")
                             .font(.subheadline)

@@ -92,6 +92,7 @@ class NotificationManager {
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: triggerDate)
             UNUserNotificationCenter.current().add(request) // Add the notification
         default:
+            // Dont do anything when the type of notification wasnt specified
             return
         }
     }

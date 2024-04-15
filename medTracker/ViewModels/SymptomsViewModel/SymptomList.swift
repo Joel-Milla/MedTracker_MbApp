@@ -23,9 +23,17 @@ class SymptomList : ObservableObject {
         }
     }
     // This computed property returns an array of symptoms ordered by date. The first element of the array is the newest
+    // Also consdiers if the symptoms are active or not
     var sortedSymptoms: [Symptom] {
-        symptoms.values.sorted(by: { $0.creationDate > $1.creationDate })
+        // First, sort by isActive status (true first), then by creationDate within each group
+        symptoms.values.sorted {
+            if $0.isActive == $1.isActive {
+                return $0.creationDate > $1.creationDate // Sort by date within the same isActive group
+            }
+            return $0.isActive && !$1.isActive // Prioritize active symptoms
+        }
     }
+    
     @Published var state: State = .isLoading //State of the symptoms array to update views depending on what is happening here
     let repository: Repository // Variable to call the functions inside the repository
     // URL where the files will be created.
@@ -65,11 +73,7 @@ class SymptomList : ObservableObject {
      Helper functions
      **********************************/
     
-    // Functions used in CreateSymptomView that is the new view.
-    // ******************************************************************
-    // ******************************************************************
-    
-    // Return a formViewModel that handles the creation of a new symptom
+    // Return a formViewModel that handles the creation of a new symptom in CreateSymptomView
     func createSymptomViewModel() -> FormViewModel<Symptom> {
         return FormViewModel(initialValue: Symptom()) { [weak self] symptom in
             let (hasError, message) = symptom.validateInput()
@@ -84,7 +88,29 @@ class SymptomList : ObservableObject {
                 // Schedule notifications based on the input received from the user. When notification is empty, this function doesn't do anything
                 NotificationManager.instance.scheduleNotifications(symptom.notification, symptom.name)
                 self?.symptoms[symptom.id.uuidString] = symptom
-                try await self?.repository.createSymptom(symptom) // use function in the repository to create the symptom
+                try await self?.repository.editSymptom(symptom) // use function in the repository to create the symptom
+            }
+        }
+    }
+    
+    // Return a formViewModel that has the necessary info for AnalysisView and has the option to edit if the symptom is active or not
+    func createAnalysisViewModel(for symptom: Symptom) -> FormViewModel<Symptom> {
+        return FormViewModel(initialValue: symptom) { [weak self] symptom in
+            // Schedule notifications based on the input received from the user. When notification is empty, this function doesn't do anything
+            NotificationManager.instance.scheduleNotifications(symptom.notification, symptom.name)
+            // The next function updates the value of knowing if symptom is favorite or not
+            self?.symptoms[symptom.id.uuidString] = symptom
+            try await self?.repository.editSymptom(symptom) // use function in the repository to update the symptom
+        }
+    }
+    
+    func deleteSymptoms(at indices: IndexSet) {
+        for index in indices {
+            let symptom = sortedSymptoms[index]
+            symptoms.removeValue(forKey: symptom.id.uuidString)
+            // Delete the symptom in the repository. Use task to avoid making this function async
+            Task {
+                try await repository.deleteSymptom(symptom)
             }
         }
     }
@@ -110,17 +136,7 @@ class SymptomList : ObservableObject {
             state = .complete
         }
     }
-    
-    func returnName(id : String) -> String {
-        let name = self.symptoms[id]?.name ?? ""
-        return name
-    }
-    
-    func returnActive(id : String) -> Bool {
-        let activo = self.symptoms[id]?.isActive ?? false
-        return activo
-    }
-    
+
     // Dummy data for testing purposes.
     static func getDefaultSymptoms() -> [Symptom] {
         return [
