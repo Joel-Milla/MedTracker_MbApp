@@ -86,7 +86,7 @@ class SymptomList : ObservableObject {
             }
             else {
                 // Schedule notifications based on the input received from the user. When notification is empty, this function doesn't do anything
-                NotificationManager.instance.scheduleNotifications(symptom.notification, symptom.name)
+                NotificationManager.instance.scheduleNotifications(symptom.notification, symptom)
                 self?.symptoms[symptom.id.uuidString] = symptom
                 try await self?.repository.editSymptom(symptom) // use function in the repository to create the symptom
             }
@@ -97,7 +97,7 @@ class SymptomList : ObservableObject {
     func createAnalysisViewModel(for symptom: Symptom) -> FormViewModel<Symptom> {
         return FormViewModel(initialValue: symptom) { [weak self] symptom in
             // Schedule notifications based on the input received from the user. When notification is empty, this function doesn't do anything
-            NotificationManager.instance.scheduleNotifications(symptom.notification, symptom.name)
+            NotificationManager.instance.scheduleNotifications(symptom.notification, symptom)
             // The next function updates the value of knowing if symptom is favorite or not
             self?.symptoms[symptom.id.uuidString] = symptom
             try await self?.repository.editSymptom(symptom) // use function in the repository to update the symptom
