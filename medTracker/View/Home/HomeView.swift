@@ -48,7 +48,9 @@ struct HomeView: View {
                             }
                         }
                         .onDelete(perform: symptoms.deleteSymptoms)
+                        // Create a separation between list items
                     }
+                    .listRowSpacing(20)
                 }
             }
             // Sheet to create a new symptom
