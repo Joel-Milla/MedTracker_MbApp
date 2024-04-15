@@ -46,7 +46,7 @@ struct registersView: View {
                     }
                     .padding(.vertical, 8)
                     .padding(.horizontal)
-                    .background(Color.secondary.opacity(0.1))
+//                    .background(Color.secondary.opacity(0.1))
                     .cornerRadius(8)
                 }
                 // When using the edit button, delete the registers selected
