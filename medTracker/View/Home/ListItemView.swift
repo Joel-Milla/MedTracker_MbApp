@@ -53,7 +53,7 @@ struct ListItemView: View {
     
     @MainActor private func last7DaysRegisterList() -> RegisterList {
         let last7DaysRegisters = last7DaysRegisters()
-        var registerList = RegisterList(repository: registers.repository)
+        let registerList = RegisterList(repository: registers.repository)
         registerList.registers = registers.registers // Copia el diccionario original
         registerList.registers[item.id.uuidString] = last7DaysRegisters // Reemplaza los registros de este síntoma con los últimos 7 días
         return registerList
@@ -83,7 +83,7 @@ struct ListItemView: View {
         
         let spm = operaciones(registers: registers)
         
-        let min = spm[2]*0.8
+//        let min = spm[2]*0.8
 //        let max = spm[1]*1.2 // Variable never used
         
         Chart {
