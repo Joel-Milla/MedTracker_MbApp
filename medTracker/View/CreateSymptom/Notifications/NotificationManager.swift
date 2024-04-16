@@ -99,10 +99,10 @@ class NotificationManager {
     // Function that makes the notification request
     func notificationRequest(_ symptomId: String, _ dateComponents: DateComponents, _ content: UNMutableNotificationContent) {
         let idNotification = UUID().uuidString
-        
+
         // Makes the request to create the notification
         let triggerDate = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: triggerDate)
+        let request = UNNotificationRequest(identifier: idNotification, content: content, trigger: triggerDate)
         UNUserNotificationCenter.current().add(request) // Add the notification
         
         // Saves the notification on user defaults
@@ -150,6 +150,4 @@ class NotificationManager {
         notifications.removeValue(forKey: symptomID)
         saveNotifications(for: notifications)
     }
-    
-    
 }
