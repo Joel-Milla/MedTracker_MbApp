@@ -59,6 +59,9 @@ class SymptomList : ObservableObject {
             fetchSymptoms()
         }
         
+        // Schedule all notifications of symptom. This will make to save the notifications when first downloading data
+        scheduleNotifications()
+
         // For testing, the next function can be used for dummy data.
         //symptoms = getDefaultSymptoms()
     }
@@ -125,6 +128,13 @@ class SymptomList : ObservableObject {
             } catch {
                 customPrint("[SymptomList] Cannot fetch symptoms: \(error)")
             }
+        }
+    }
+    
+    // This function tries to schedule all the notifications of all the symptoms that exist
+    func scheduleNotifications() {
+        for symptom: Symptom in symptoms.values {
+            NotificationManager.instance.scheduleNotifications(symptom.notification, symptom)
         }
     }
     

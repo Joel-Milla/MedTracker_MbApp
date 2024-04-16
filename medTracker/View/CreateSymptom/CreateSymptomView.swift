@@ -15,7 +15,6 @@ struct CreateSymptomView: View {
     // Notifications properties
     @State var allowNotifications: Bool = false
     @State var showNotificationView: Bool = false
-    @State var stringNotification: String = ""
     
     var body: some View {
         NavigationStack {
@@ -51,7 +50,7 @@ struct CreateSymptomView: View {
                     
                     // When notifications are allowed, show the notification selected
                     if (allowNotifications) {
-                        Text(formViewModel.notification)
+                        Text(formViewModel.value.notificationString)
                     }
                 }
                 
