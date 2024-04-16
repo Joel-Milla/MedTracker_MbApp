@@ -61,6 +61,7 @@ class AuthViewModel: ObservableObject {
      **********************************/
     // Function to sign out and reset all the data
     func signOut() {
+        NotificationManager().cancelAllNotifications() // Cancel all the notifications
         Task {
             do {
                 try authService.signOut() // Reset the state of the authService

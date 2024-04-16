@@ -40,8 +40,8 @@ struct Repository {
     /**********************
      Helper functions
      **********************************/
-    // Function to write a symptom in database.
-    func createSymptom(_ symptom: Symptom) async throws {
+    // Function to edit a symptom in database (it could be writing a new symptom or updating it).
+    func editSymptom(_ symptom: Symptom) async throws {
         let document = symptomReference.document(symptom.id.uuidString)
         try await document.setData(from: symptom)
     }
@@ -61,12 +61,6 @@ struct Repository {
             symptoms[symptom.id.uuidString] = symptom
         }
         return symptoms
-    }
-    // Function to update value symptom
-    func updateSymptomActivo(_ symptom: Symptom) async throws {
-        let document = symptomReference.document(symptom.id.uuidString)
-        let activo = symptom.isActive
-        try await document.setData(["activo": !(activo)], merge: true)
     }
     
     // Function to write a register in database.

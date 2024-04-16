@@ -164,7 +164,7 @@ struct RegisterSymptomView: View {
 #Preview {
     NavigationStack {
         @State var formViewModel: FormViewModel<Register> = FormViewModel(initialValue: Register(idSymptom: "1"), action: {_ in })
-        @State var symptom = Symptom(name: "Hello", icon: "heart", description: "wow", isQuantitative: true, units: "kg", isActive: true, color: "#000", notification: "1234")
+        @State var symptom = Symptom(name: "Hello", icon: "heart", description: "wow", isQuantitative: true, units: "kg", isFavorite: true, color: "#000", notification: "1234")
         RegisterSymptomView(formViewModel: formViewModel, symptom: symptom)
     }
 }

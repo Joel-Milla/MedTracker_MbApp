@@ -13,7 +13,6 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var symptoms : SymptomList
     @ObservedObject var registers : RegisterList
-    @State private var showEditSymptomView = false
     @State private var showCreateSymptomView = false
     
     
@@ -41,15 +40,17 @@ struct HomeView: View {
                     List {
                         // Convert dictionary to an array and sort them by date
                         ForEach(symptoms.sortedSymptoms) { symptom in
-                            if symptom.isActive {
-                                // Show a listItem view and redirect user to analysis upon touching
-                                NavigationLink(destination: AnalysisView(symptom: symptom, registers: registers)) {
-                                    ListItemView(item: symptom, registers: registers)
-                                        .padding(2)
-                                }
+                            // Show a listItem view and redirect user to analysis upon touching
+                            NavigationLink {
+                                AnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)
+                            } label: {
+                                ListItemView(item: symptom, registers: registers)
                             }
                         }
+                        .onDelete(perform: symptoms.deleteSymptoms)
+                        // Create a separation between list items
                     }
+                    .listRowSpacing(20)
                 }
             }
             // Sheet to create a new symptom
@@ -89,16 +90,8 @@ struct HomeView: View {
                     ShareButtonView(symptomList: symptoms, registerList: registers)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showEditSymptomView = true
-                    } label: {
-                        Text("Editar")
-                    }
+                    EditButton()
                 }
-            }
-            // Present full screen the EditSymptomView.
-            .fullScreenCover(isPresented: $showEditSymptomView) {
-                EditSymptomView(symptoms: symptoms, registers: registers)
             }
         }
     }
