@@ -117,6 +117,7 @@
             }
         }
         
+        // Function used to delete symptoms in home view. Use filteredSymptoms to know which symptom is going to be deleted from the two arrays
         func deleteSymptoms(at indices: IndexSet, from filteredSymptoms: [Symptom]) {
             for index in indices {
                 let symptom = filteredSymptoms[index]

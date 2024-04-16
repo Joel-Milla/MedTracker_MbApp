@@ -15,11 +15,6 @@ struct HomeView: View {
     @ObservedObject var registers : RegisterList
     @State private var showCreateSymptomView = false
     
-    
-    let testRegisters: [Register] = RegisterList.getDefaultRegisters()
-    
-    
-    
     var body: some View {
         ZStack {
             VStack {
@@ -38,11 +33,11 @@ struct HomeView: View {
                     )
                 case .complete:
                     List {
-                            if !symptoms.sortedFavoriteSymptoms.isEmpty {
+                        if !symptoms.sortedFavoriteSymptoms.isEmpty {
                                 Section("Favoritos") {
                                     ForEach(symptoms.sortedFavoriteSymptoms) { symptom in
                                         NavigationLink(destination: AnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)) {
-                                            ListItemView(item: symptom, registers: registers)
+                                            ListItemView(registers: registers, symptoms: symptoms, item: symptom)
                                         }
                                     }
                                     .onDelete { indices in
@@ -50,11 +45,11 @@ struct HomeView: View {
                                     }
                                 }
                             }
-                            if !symptoms.sortedNonFavoriteSymptoms.isEmpty {
-                                Section("General") {
+                        if !symptoms.sortedNonFavoriteSymptoms.isEmpty {
+                                Section("Datos de Salud") {
                                     ForEach(symptoms.sortedNonFavoriteSymptoms) { symptom in
                                         NavigationLink(destination: AnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)) {
-                                            ListItemView(item: symptom, registers: registers)
+                                            ListItemView(registers: registers, symptoms: symptoms, item: symptom)
                                         }
                                     }
                                     .onDelete { indices in
@@ -66,7 +61,7 @@ struct HomeView: View {
                     .listRowSpacing(15) // Create a separation between list items
                 }
             }
-            // Sheet to create a new symptom
+             // Sheet to create a new symptom
             .sheet(isPresented: $showCreateSymptomView) {
                 CreateSymptomView(formViewModel: symptoms.createSymptomViewModel())
             }
