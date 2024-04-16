@@ -28,8 +28,8 @@ class NotificationManager {
     
     func scheduleNotifications(_ codeNotification: String, _ symptom: Symptom) {
         // Remove all notifications, if any, of the symptom
-        removeAllNotifications(for: symptom.id.uuidString)
         let symptomId = symptom.id.uuidString
+        removeAllNotifications(for: symptomId)
         
         // Schedule the notifications
         let content = UNMutableNotificationContent()

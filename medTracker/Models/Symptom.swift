@@ -19,6 +19,10 @@ struct Symptom : Codable, Hashable, Identifiable {
     var notification : String
     var creationDate : Date = Date.now
     
+    var notificationString: String {
+        "hello"
+    }
+    
     // Normal Init
     init(name: String, icon: String, description: String, isQuantitative: Bool, units: String, isFavorite: Bool, color: String, notification : String) {
         self.name = name
