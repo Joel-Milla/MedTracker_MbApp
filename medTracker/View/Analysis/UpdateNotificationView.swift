@@ -34,7 +34,8 @@ struct UpdateNotificationView: View {
                     }
                 }
             }
-            VStack {
+            // Use aligmnet leading for the text inside the Text to be aligned to the left
+            VStack(alignment: .leading) {
                 Toggle(isOn: $allowNotifications.animation()) {
                     Text("Permitir Notificaciones")
                 }
@@ -54,7 +55,7 @@ struct UpdateNotificationView: View {
                 
                 // When notifications are allowed, show the notification selected
                 if (allowNotifications) {
-                    Text(symptom.notification)
+                    Text(symptom.notificationString)
                         .padding(.vertical, 2) // Padding to have the same separation as the area above
                 }
             }

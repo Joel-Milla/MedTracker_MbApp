@@ -81,7 +81,7 @@ struct ListItemView: View {
         
         let registers = jointRegisters.sorted { $0.date < $1.date }
         
-        let spm = operaciones(registers: registers)
+//        let spm = operaciones(registers: registers)
         
 //        let min = spm[2]*0.8
 //        let max = spm[1]*1.2 // Variable never used
