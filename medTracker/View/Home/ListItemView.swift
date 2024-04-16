@@ -10,6 +10,7 @@ import SwiftUI
 import Charts
 
 struct ListItemView: View {
+//    @ObservedObject var symptoms: SymptomList
     let item: Symptom
     @StateObject var registers : RegisterList
     var body: some View {

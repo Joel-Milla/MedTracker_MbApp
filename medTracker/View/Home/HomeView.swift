@@ -38,19 +38,32 @@ struct HomeView: View {
                     )
                 case .complete:
                     List {
-                        // Convert dictionary to an array and sort them by date
-                        ForEach(symptoms.sortedSymptoms) { symptom in
-                            // Show a listItem view and redirect user to analysis upon touching
-                            NavigationLink {
-                                AnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)
-                            } label: {
-                                ListItemView(item: symptom, registers: registers)
+                            if !symptoms.sortedFavoriteSymptoms.isEmpty {
+                                Section("Favoritos") {
+                                    ForEach(symptoms.sortedFavoriteSymptoms) { symptom in
+                                        NavigationLink(destination: AnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)) {
+                                            ListItemView(item: symptom, registers: registers)
+                                        }
+                                    }
+                                    .onDelete { indices in
+                                        symptoms.deleteSymptoms(at: indices, from: symptoms.sortedFavoriteSymptoms)
+                                    }
+                                }
                             }
-                        }
-                        .onDelete(perform: symptoms.deleteSymptoms)
-                        // Create a separation between list items
+                            if !symptoms.sortedNonFavoriteSymptoms.isEmpty {
+                                Section("General") {
+                                    ForEach(symptoms.sortedNonFavoriteSymptoms) { symptom in
+                                        NavigationLink(destination: AnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)) {
+                                            ListItemView(item: symptom, registers: registers)
+                                        }
+                                    }
+                                    .onDelete { indices in
+                                        symptoms.deleteSymptoms(at: indices, from: symptoms.sortedNonFavoriteSymptoms)
+                                    }
+                                }
+                            }
                     }
-                    .listRowSpacing(20)
+                    .listRowSpacing(15) // Create a separation between list items
                 }
             }
             // Sheet to create a new symptom
