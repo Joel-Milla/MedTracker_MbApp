@@ -10,8 +10,11 @@ import SwiftUI
 import Charts
 
 struct ListItemView: View {
+    @ObservedObject var registers : RegisterList
+    @ObservedObject var symptoms : SymptomList // Use symptoms array to direclty access information of the current symptom so it updates the isFavorite icon every time this value changes on another view.
+    
     let item: Symptom
-    @StateObject var registers : RegisterList
+
     var body: some View {
         HStack {
             VStack(alignment: .leading){
@@ -27,7 +30,7 @@ struct ListItemView: View {
                 }
                 .padding(.vertical)
                 HStack {
-                    Image(systemName: item.isFavorite ? "star.fill" : "star")
+                    Image(systemName: symptoms.symptoms[item.id.uuidString]?.isFavorite ?? false ? "star.fill" : "star")
                         .foregroundStyle(.orange)
                     
                     if registers.registers[item.id.uuidString]?.count ?? 0 >= 1 {
@@ -51,7 +54,7 @@ struct ListItemView: View {
         }
     }
     
-    @MainActor private func last7DaysRegisterList() -> RegisterList {
+    private func last7DaysRegisterList() -> RegisterList {
         let last7DaysRegisters = last7DaysRegisters()
         let registerList = RegisterList(repository: registers.repository)
         registerList.registers = registers.registers // Copia el diccionario original
@@ -59,7 +62,7 @@ struct ListItemView: View {
         return registerList
     }
     
-    @MainActor private func last7DaysRegisters() -> [Register] {
+    private func last7DaysRegisters() -> [Register] {
         let calendar = Calendar.current
         // Obtenemos la fecha actual sin la hora exacta
         let today = Date()
@@ -73,7 +76,7 @@ struct ListItemView: View {
     }
 
     
-    @MainActor @ViewBuilder
+    @ViewBuilder
     func ChartCuantitativa(filteredRegisters: RegisterList) -> some View {
         
         
