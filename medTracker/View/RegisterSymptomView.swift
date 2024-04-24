@@ -102,36 +102,30 @@ struct RegisterSymptomView: View {
                     )
                     .shadow(radius: 10)
                     Button {
-                        // When symptom is quant, change the value of string into Float. If it is not possible then assign a float value where it will make an error to show the user that is not valid the amount
-                        // If sympomt is not quant, invert the value so it is shown correclty on the graphs
-                        if (symptom.isQuantitative) {
-                            formViewModel.amount = Float(inputValue) ?? -1000.99
-                        } else {
-                            formViewModel.amount = invertSliderValue(sliderValue)
-                        }
                         formViewModel.submit()
                     } label: {
                         // Use changingText to show a progressView when the request is loading
-                        switch (formViewModel.state) {
-                        case .idle:
-                            Label("Añadir registro", systemImage: "cross.circle.fill")
-                        case .isLoading:
-                            ProgressView()
-                        case .successfullyCompleted:
-                            Label("Añadir registro", systemImage: "cross.circle.fill")
-                        }
+                        ChangingText(state: $formViewModel.state, title: "Añadir registro")
                     }
-                    .buttonStyle(Button1MedTracker(backgroundColor: Color(hex: symptom.color)))
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.vertical, 30)
+                    .gradientStyle() // apply gradient style
                     
                 }
                 .padding()
             }
+            // Use onAppaer and onChange to set the value of amount
+            .onAppear {
+                // When symptom is quant, change the value of string into Float. If it is not possible then assign a float value where it will make an error to show the user that is not valid the amount
+                // If sympomt is not quant, invert the value so it is shown correclty on the graphs
+                if (symptom.isQuantitative) {
+                    formViewModel.amount = Float(inputValue) ?? -1000.99 // The default value is used to check if the input is invalid on later functions
+                } else {
+                    formViewModel.amount = invertSliderValue(sliderValue)
+                }
+            }
             .onChange(of: inputValue) { newValue in
                 formViewModel.amount = Float(inputValue) ?? -1000.99
             }
-            .onChange(of: inputValue) { newValue in
+            .onChange(of: sliderValue) { newValue in
                 formViewModel.amount = invertSliderValue(sliderValue)
             }
             // MARK: The following edits are in charge of a good user experience that are consistent across sheets
