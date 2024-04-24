@@ -108,34 +108,22 @@ class RegisterList : ObservableObject {
         }
     }
     
+    // Function to delete all the registers from the dictionary and from firebase
+    func deleteRegisters(at indices: IndexSet, from filteredSymptoms: [Symptom]) {
+        for index in indices {
+            let symptom = filteredSymptoms[index]
+            let registersToDelete = registers[symptom.id.uuidString] ?? []
+            registers.removeValue(forKey: symptom.id.uuidString) // Remove the values of a single symptom
+            // Delete the symptom in the repository. Use task to avoid making this function async
+            Task {
+                // Delete all the registers from firestore
+                for register in registersToDelete {
+                    try await repository.deleteRegister(register)
+                }
+            }
+        }
+    }
     
-    // ************* DELETE WHEN makeCreateAction in RegisterSymptomView IS NOT USED *************
-    // ******************************************************************
-    // ******************************************************************
-    // The functions returns a closure that is used to write information in firebase
-//    func makeCreateAction() -> RegisterSymptomView.CreateAction {
-//        return { [weak self] register in
-//            try await self?.repository.createRegister(register)
-//        }
-//    }
-    // ************* DELETE WHEN makeCreateAction in RegisterSymptomView IS NOT USED *************
-    // ******************************************************************
-    // ******************************************************************
-    
-    // The functions returns a closure that is used to delete all registers of a symptom.
-//    func makeDeleteAction(for symptom: Symptom) -> Action {
-//        return { [weak self] in
-//            self?.registers.removeAll{ $0.id == symptom.id}
-//            if let registers = self?.registers {
-//                for local_register in registers {
-//                    if local_register.idSymptom == symptom.id.uuidString {
-//                        try await self?.repository.deleteRegister(local_register)
-//                    }
-//                }
-//            }
-//        }
-//    }
-
 
     // Fetch registers data from the database and save them on the registers list.
     func fetchRegisters() {
