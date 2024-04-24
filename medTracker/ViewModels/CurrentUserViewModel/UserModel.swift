@@ -97,6 +97,13 @@ class UserModel: ObservableObject {
             } else {
                 self?.user = user
                 try await self?.repository.createUser(user) // use function in the repository to create/update the user
+                
+                // Update own information on Doctors-Patient
+                if let doctors = self?.user.doctors {
+                    for doctor in doctors {
+                        try await self?.repository.writePatientInfo(doctor, self?.user)
+                    }
+                }
             }
         }
     }
