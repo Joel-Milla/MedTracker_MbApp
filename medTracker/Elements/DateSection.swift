@@ -23,7 +23,7 @@ struct DateSection : View {
             HStack{
                 Text("Hora")
                 Spacer()
-                DatePicker("", selection: $date, displayedComponents: [.hourAndMinute])
+                DatePicker("", selection: $date, in: HelperFunctions.dateRange,  displayedComponents: [.hourAndMinute])
                     .datePickerStyle(.automatic)
             }
         }
