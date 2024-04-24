@@ -13,14 +13,14 @@ struct RegisterSymptomView: View {
     // Variable to make the request
     @StateObject var formViewModel: FormViewModel<Register>
     @State var symptom : Symptom
-
+    
     // Variables that handle the input of the user for the register
     @State var inputValue = ""
     @State var sliderValue: Float = 0.0
     
     // Dismiss the view when no longer needed
     @Environment(\.dismiss) var dismiss
-        
+    
     var body: some View {
         NavigationStack{
             GeometryReader { geometry in
@@ -127,6 +127,12 @@ struct RegisterSymptomView: View {
                     
                 }
                 .padding()
+            }
+            .onChange(of: inputValue) { newValue in
+                formViewModel.amount = Float(inputValue) ?? -1000.99
+            }
+            .onChange(of: inputValue) { newValue in
+                formViewModel.amount = invertSliderValue(sliderValue)
             }
             // MARK: The following edits are in charge of a good user experience that are consistent across sheets
             .keyboardToolbar() // apply the button to have an ok and dismiss the view
