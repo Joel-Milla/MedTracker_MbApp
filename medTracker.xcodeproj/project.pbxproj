@@ -27,6 +27,7 @@
 		173EF2A12BB1D23700F7ACF9 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2A02BB1D23700F7ACF9 /* HelpView.swift */; };
 		173EF2A32BB1DEE700F7ACF9 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2A22BB1DEE700F7ACF9 /* NotificationsView.swift */; };
 		173EF2A62BB20C9700F7ACF9 /* WeeklyNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */; };
+		17513D5F2BDACFA6001334A6 /* EditRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17513D5E2BDACFA6001334A6 /* EditRegisterViewModel.swift */; };
 		1763C8042BC76E1C00F9BDED /* DoctorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763C8032BC76E1C00F9BDED /* DoctorsViewModel.swift */; };
 		1763C8062BC8076D00F9BDED /* AddDoctorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763C8052BC8076D00F9BDED /* AddDoctorView.swift */; };
 		1763C80C2BC9B87A00F9BDED /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763C80B2BC9B87A00F9BDED /* AnalysisView.swift */; };
@@ -110,6 +111,7 @@
 		173EF2A02BB1D23700F7ACF9 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		173EF2A22BB1DEE700F7ACF9 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		173EF2A52BB20C9700F7ACF9 /* WeeklyNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNotificationsView.swift; sourceTree = "<group>"; };
+		17513D5E2BDACFA6001334A6 /* EditRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRegisterViewModel.swift; sourceTree = "<group>"; };
 		1763C8032BC76E1C00F9BDED /* DoctorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsViewModel.swift; sourceTree = "<group>"; };
 		1763C8052BC8076D00F9BDED /* AddDoctorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDoctorView.swift; sourceTree = "<group>"; };
 		1763C80B2BC9B87A00F9BDED /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 			children = (
 				FBC7EF732B08263A00EDD70F /* UserModel.swift */,
 				1763C8032BC76E1C00F9BDED /* DoctorsViewModel.swift */,
+				17513D5E2BDACFA6001334A6 /* EditRegisterViewModel.swift */,
 			);
 			path = CurrentUserViewModel;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				FBD940B72AFD763000C3BD11 /* HomeView.swift in Sources */,
 				177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */,
 				FB0EC3A32B13049700E7309B /* rowPatient.swift in Sources */,
+				17513D5F2BDACFA6001334A6 /* EditRegisterViewModel.swift in Sources */,
 				1763C80C2BC9B87A00F9BDED /* AnalysisView.swift in Sources */,
 				FBE41E742AF6D464007B48E5 /* User.swift in Sources */,
 				170948992BAEA033007E3E8B /* BarChartView.swift in Sources */,
