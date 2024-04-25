@@ -41,7 +41,10 @@ struct HomeView: View {
                                         }
                                     }
                                     .onDelete { indices in
-                                        symptoms.deleteSymptoms(at: indices, from: symptoms.sortedFavoriteSymptoms)
+                                        // Delete the symptoms and its registers
+                                        let symptomList = symptoms.sortedFavoriteSymptoms
+                                        symptoms.deleteSymptoms(at: indices, from: symptomList)
+                                        registers.deleteRegisters(at: indices, from: symptomList)
                                     }
                                 }
                             }
@@ -53,10 +56,13 @@ struct HomeView: View {
                                         }
                                     }
                                     .onDelete { indices in
-                                        symptoms.deleteSymptoms(at: indices, from: symptoms.sortedNonFavoriteSymptoms)
+                                        // Delete the symptoms and its registers
+                                        let symptomList = symptoms.sortedNonFavoriteSymptoms
+                                        symptoms.deleteSymptoms(at: indices, from: symptomList)
+                                        registers.deleteRegisters(at: indices, from: symptomList)
                                     }
                                 }
-                            }
+                        }
                     }
                     .listRowSpacing(15) // Create a separation between list items
                 }

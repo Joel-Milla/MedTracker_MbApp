@@ -108,34 +108,21 @@ class RegisterList : ObservableObject {
         }
     }
     
-    
-    // ************* DELETE WHEN makeCreateAction in RegisterSymptomView IS NOT USED *************
-    // ******************************************************************
-    // ******************************************************************
-    // The functions returns a closure that is used to write information in firebase
-//    func makeCreateAction() -> RegisterSymptomView.CreateAction {
-//        return { [weak self] register in
-//            try await self?.repository.createRegister(register)
-//        }
-//    }
-    // ************* DELETE WHEN makeCreateAction in RegisterSymptomView IS NOT USED *************
-    // ******************************************************************
-    // ******************************************************************
-    
-    // The functions returns a closure that is used to delete all registers of a symptom.
-//    func makeDeleteAction(for symptom: Symptom) -> Action {
-//        return { [weak self] in
-//            self?.registers.removeAll{ $0.id == symptom.id}
-//            if let registers = self?.registers {
-//                for local_register in registers {
-//                    if local_register.idSymptom == symptom.id.uuidString {
-//                        try await self?.repository.deleteRegister(local_register)
-//                    }
-//                }
-//            }
-//        }
-//    }
-
+    // Function to delete all the registers from the dictionary and from firebase
+    func deleteRegisters(at indices: IndexSet, from filteredSymptoms: [Symptom]) {
+        for index in indices {
+            let symptom = filteredSymptoms[index]
+            let registersToDelete = registers[symptom.id.uuidString] ?? []
+            registers.removeValue(forKey: symptom.id.uuidString) // Remove the values of a single symptom
+            // Delete the symptom in the repository. Use task to avoid making this function async
+            Task {
+                // Delete all the registers from firestore
+                for register in registersToDelete {
+                    try await repository.deleteRegister(register)
+                }
+            }
+        }
+    }
 
     // Fetch registers data from the database and save them on the registers list.
     func fetchRegisters() {
@@ -147,37 +134,6 @@ class RegisterList : ObservableObject {
             }
         }
     }
-    
-    // Delete registers that have a certain symptom
-//    func deleteRegistersSymptom(indexSymptom: String) {
-//        for register in registers {
-//            if register.idSymptom == indexSymptom {
-//                Task {
-//                    try await self.repository.deleteRegister(register)
-//                }
-//            }
-//        }
-//        registers.removeAll {
-//            $0.idSymptom == indexSymptom
-//        }
-//    }
-    
-    // Delete specific registers
-//    func deleteRegisterSet(atOffset indexSet: IndexSet, ofSymptom symptom: Symptom) {
-//        let filteredRegisters = registers.filter({ $0.idSymptom == symptom.id.uuidString }).sorted(by: {$0.fecha > $1.fecha})
-//        let idsToDelete = indexSet.map { filteredRegisters[$0].id }
-//        
-//        registers.removeAll { register in
-//            idsToDelete.contains(register.id)
-//        }
-//        
-//        idsToDelete.forEach { id in
-//            Task {
-//                try await self.repository.deleteRegisterByID(id)
-//            }
-//        }
-//        
-//    }
     
     // Dummy data for testing purposes.
     static func getDefaultRegisters() -> [Register] {
