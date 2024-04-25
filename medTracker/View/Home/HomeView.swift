@@ -41,10 +41,7 @@ struct HomeView: View {
                                         }
                                     }
                                     .onDelete { indices in
-                                        // Delete the symptoms and its registers
-                                        let symptomList = symptoms.sortedFavoriteSymptoms
-                                        registers.deleteRegisters(at: indices, from: symptomList)
-                                        symptoms.deleteSymptoms(at: indices, from: symptomList)
+                                        symptoms.deleteSymptoms(at: indices, from: symptoms.sortedFavoriteSymptoms)
                                     }
                                 }
                             }
@@ -56,10 +53,7 @@ struct HomeView: View {
                                         }
                                     }
                                     .onDelete { indices in
-                                        // Delete the symptoms and its registers
-                                        let symptomList = symptoms.sortedNonFavoriteSymptoms
-                                        registers.deleteRegisters(at: indices, from: symptomList)
-                                        symptoms.deleteSymptoms(at: indices, from: symptomList)
+                                        symptoms.deleteSymptoms(at: indices, from: symptoms.sortedNonFavoriteSymptoms)
                                     }
                                 }
                             }

@@ -15,7 +15,7 @@ struct InsightsView: View {
         // Make three columns to organize the information
         VStack(alignment: .leading) {
             // Show the insight values
-            Text("Análisis")
+            Text("Diagnóstico")
                 .font(.title2)
                 .bold()
             

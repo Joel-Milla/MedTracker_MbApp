@@ -1,8 +1,8 @@
 //
 //  tempSignOut.swift
-//  MedTracker
+//  medTracker
 //
-//  Created by Joel Alejandro Milla Lopez on 24/04/24.
+//  Created by Joel Alejandro Milla Lopez on 22/03/24.
 //
 
 import SwiftUI
@@ -30,4 +30,3 @@ struct tempSignOut: View {
 #Preview {
     tempSignOut()
 }
-

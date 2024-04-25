@@ -124,7 +124,6 @@
                 symptoms.removeValue(forKey: symptom.id.uuidString)
                 // Delete the symptom in the repository. Use task to avoid making this function async
                 Task {
-                    // Delete the symptoms from firestore
                     try await repository.deleteSymptom(symptom)
                 }
             }

@@ -10,7 +10,7 @@ import Firebase
 
 
 @main
-struct MedTrackerApp: App {
+struct medTrackerApp: App {
     // Initialize the configuration of the database
     init() {
         // Firebase configuration

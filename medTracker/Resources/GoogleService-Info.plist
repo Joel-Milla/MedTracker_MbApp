@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>JoelAlejandroMilla.MedTracker</string>
+	<string>mx.tec.medTracker</string>
 	<key>PROJECT_ID</key>
 	<string>medtracker-9131d</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:109632163727:ios:215f4dd541258e0a8145fa</string>
+	<string>1:109632163727:ios:4e646bb73332a8dd8145fa</string>
 </dict>
 </plist>

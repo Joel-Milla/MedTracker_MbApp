@@ -71,7 +71,6 @@ class AuthService: ObservableObject {
             let result = try await auth.createUser(withEmail: email, password: password)
             try await result.user.updateProfile(\.displayName, to: name) // Save the name of the user
             try await save(role, of: result.user.uid, with: email)
-            try await createUser(of: email) // create data of user in firestore
         } catch {
             customPrint("[AuthService] Error creating account: \(error.localizedDescription)")
             // This function gets the error and saves it correclty
@@ -109,13 +108,6 @@ class AuthService: ObservableObject {
             "id": id,
             "email": email
         ])
-    }
-    
-    // Save information of the user in firebase
-    func createUser(of email: String) async throws {
-        let lowerCaseEmail = email.lowercased()
-        let document = Firestore.firestore().collection("Users").document(lowerCaseEmail)
-        try await document.setData(from: self.user)
     }
 }
 

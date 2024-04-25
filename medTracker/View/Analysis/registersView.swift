@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct registersView: View {
-    @ObservedObject var editRegistersViewModel: EditRegisterViewModel // ViewModel that contains all the necessary actions here
+    let symptom: Symptom
+    
+    @State var registers: [Register]
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach(editRegistersViewModel.registers) { register in
+                ForEach(registers.reversed()) { register in
                     // Show the custom row register view for each register
                     HStack {
                         // Show the name and date of the register
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(editRegistersViewModel.symptom.name)
+                            Text(symptom.name)
                                 .font(.title3)
                                 .fontWeight(.semibold)
-                                .foregroundColor(Color(hex: editRegistersViewModel.symptom.color))
+                                .foregroundColor(Color(hex: symptom.color))
 
                             Text(register.date.dateToStringMDH())
                                 .font(.footnote)
@@ -30,7 +32,7 @@ struct registersView: View {
 
                         Spacer()
                         // Show the amount or an image depending on the type of symptom
-                        if editRegistersViewModel.symptom.isQuantitative {
+                        if symptom.isQuantitative {
                             Text("Cantidad: \(register.amount, specifier: "%.2f")")
                                 .font(.footnote)
                                 .foregroundColor(Color.gray)
@@ -44,14 +46,15 @@ struct registersView: View {
                     }
                     .padding(.vertical, 8)
                     .padding(.horizontal)
+//                    .background(Color.secondary.opacity(0.1))
                     .cornerRadius(8)
                 }
                 // When using the edit button, delete the registers selected
                 .onDelete { indexSet in
-                    editRegistersViewModel.removeRegisters(at: indexSet)
+                    registers.remove(atOffsets: indexSet)
                 }
             }
-            .navigationTitle(editRegistersViewModel.symptom.name)
+            .navigationTitle(symptom.name)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     EditButton()
@@ -59,5 +62,14 @@ struct registersView: View {
                 }
             }
         }
+    }
+}
+
+
+#Preview {
+    NavigationStack {
+        let symptom = Symptom(name: "Insomnio", icon: "44.square.fill", description: "How well did i sleep", isQuantitative: true, units: "kg", isFavorite: true, color: "#007AFF", notification: "")
+        @State var registers = RegisterList.getDefaultRegisters()
+        registersView(symptom: symptom, registers: registers)
     }
 }

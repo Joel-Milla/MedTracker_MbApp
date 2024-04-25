@@ -8,6 +8,7 @@
 import Foundation
 
 @MainActor
+
 class DoctorsViewModel: ObservableObject {
     typealias AddDoctorAction = (String) async throws -> Void
     typealias DeleteDoctorAction = (IndexSet) async throws -> Void

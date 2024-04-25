@@ -42,8 +42,9 @@ class UserModel: ObservableObject {
         if let decodedData = HelperFunctions.loadData(in: usersURL, as: User.self) {
             self.user = decodedData
         } else {
-            //If there is no info in JSON, fetch data from firestore or use the data from the respoitory to set the current user
-            setUser()
+            //If there is no info in JSON, fetch
+            fetchUser()
+            
         }
     }
     
@@ -96,13 +97,6 @@ class UserModel: ObservableObject {
             } else {
                 self?.user = user
                 try await self?.repository.createUser(user) // use function in the repository to create/update the user
-                
-                // Update own information on Doctors-Patient
-                if let doctors = self?.user.doctors {
-                    for doctor in doctors {
-                        try await self?.repository.writePatientInfo(doctor, self?.user)
-                    }
-                }
             }
         }
     }
@@ -114,15 +108,13 @@ class UserModel: ObservableObject {
     }
     
     // Fetch user information from the database and save them on the users list.
-    // Use bool values to know if a user was found in firestore. When a new account is created, it takes time to create a profile in firestore so it can happen that when user creates account, just after that it tries to fetch the data but it doesn't found anything
-    func setUser() {
+    func fetchUser() {
         Task {
             do {
-                user = try await self.repository.fetchUser()
+                user = try await self.repository.fetchUser()    
             } catch {
                 customPrint("[UserModel] Cannot fetch user: \(error)")
-                // If a user was not found in firestore, use the user from repository to set it
-                self.user = repository.user
+                // If user is not found in the repository, try to get the name from Firebase
             }
         }
     }
