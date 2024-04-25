@@ -9,7 +9,7 @@ import Foundation
 
 
 // Global variable to control if print statements are enabled
-let isPrintEnable = true
+let isPrintEnable = false
 
 func customPrint(_ item: Any) {
     if (!isPrintEnable) {
