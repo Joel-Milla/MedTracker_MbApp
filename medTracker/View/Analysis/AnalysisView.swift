@@ -22,7 +22,8 @@ struct AnalysisView: View {
                     .padding(.bottom, 5)
                 // Button to show the past registers
                 NavigationLink {
-                    registersView(symptom: analysisViewModel.value, registers: registers.registers[analysisViewModel.id.uuidString] ?? [])
+                    // Create view model that manages the editing of registers
+                    registersView(editRegistersViewModel: registers.createEditRegistersViewModel(for: analysisViewModel.value))
                 } label: {
                     Text("Registros Pasados")
                         .gradientStyle() // Use the default gradient to show the correct style of the button

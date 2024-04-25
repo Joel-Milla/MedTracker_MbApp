@@ -108,6 +108,25 @@ class RegisterList : ObservableObject {
         }
     }
     
+    // Create viewModel that manages the deletion of registers in registersView
+    func createEditRegistersViewModel(for symptom: Symptom) -> EditRegisterViewModel {
+        let symptomId = symptom.id.uuidString
+        // Registers to show
+        let filteredRegisters = self.registers[symptomId] ?? []
+        // Closure to delete registers from the main array of registers
+        let deleteAction = { [weak self] (indicesToRemove: IndexSet) in
+            // Iterater the filtered register and remove those indices
+            for index in indicesToRemove {
+                try await self?.repository.deleteRegister(filteredRegisters[index])
+            }
+            // Remove the registers from firebase
+            self?.registers[symptomId]?.remove(atOffsets: indicesToRemove)
+        }
+        
+        return EditRegisterViewModel(symptom: symptom, registers: filteredRegisters, deleteRegistersAction: deleteAction)
+    }
+    
+    
     // Function to delete all the registers from the dictionary and from firebase
     func deleteRegisters(at indices: IndexSet, from filteredSymptoms: [Symptom]) {
         for index in indices {
@@ -124,7 +143,6 @@ class RegisterList : ObservableObject {
         }
     }
     
-
     // Fetch registers data from the database and save them on the registers list.
     func fetchRegisters() {
         Task {

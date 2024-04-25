@@ -121,7 +121,6 @@
         func deleteSymptoms(at indices: IndexSet, from filteredSymptoms: [Symptom]) {
             for index in indices {
                 let symptom = filteredSymptoms[index]
-                let registers = symptoms[symptom.id.uuidString]
                 symptoms.removeValue(forKey: symptom.id.uuidString)
                 // Delete the symptom in the repository. Use task to avoid making this function async
                 Task {
