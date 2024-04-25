@@ -35,16 +35,15 @@ class UserModel: ObservableObject {
             fatalError("[UserModel] An error occurred while getting the url of the user: \(error)")
         }
     }
-
+    
     init(repository: Repository) {
         self.repository = repository
         // Try to get information from fileManager. if it doesnt exist, bring it from fetch users.
         if let decodedData = HelperFunctions.loadData(in: usersURL, as: User.self) {
             self.user = decodedData
         } else {
-            //If there is no info in JSON, fetch
-            fetchUser()
-            
+            //If there is no info in JSON, fetch data from firestore or use the data from the respoitory to set the current user
+            setUser()
         }
     }
     
@@ -114,13 +113,15 @@ class UserModel: ObservableObject {
     }
     
     // Fetch user information from the database and save them on the users list.
-    func fetchUser() {
+    // Use bool values to know if a user was found in firestore. When a new account is created, it takes time to create a profile in firestore so it can happen that when user creates account, just after that it tries to fetch the data but it doesn't found anything
+    func setUser() {
         Task {
             do {
-                user = try await self.repository.fetchUser()    
+                user = try await self.repository.fetchUser()
             } catch {
                 customPrint("[UserModel] Cannot fetch user: \(error)")
-                // If user is not found in the repository, try to get the name from Firebase
+                // If a user was not found in firestore, use the user from repository to set it
+                self.user = repository.user
             }
         }
     }
