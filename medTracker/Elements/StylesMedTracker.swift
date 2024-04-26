@@ -46,6 +46,17 @@ struct InputStyle: ViewModifier {
     }
 }
 
+// Create a border color and a shadow around a view
+// Style for the borders inside analysis view to have a border and a shadow
+struct BorderStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .background(RoundedRectangle(cornerRadius: 10)
+                .fill(.background)
+                .shadow(color: Color.gray.opacity(0.5), radius: 5))
+    }
+}
+
 // Extend View to create a custom modifier for any view
 extension View {
     func gradientStyle() -> some View {
@@ -53,5 +64,8 @@ extension View {
     }
     func inputStyle() -> some View {
         self.modifier(InputStyle())
+    }
+    func borderStyle() -> some View {
+        self.modifier(BorderStyle())
     }
 }

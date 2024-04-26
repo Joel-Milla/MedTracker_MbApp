@@ -26,9 +26,7 @@ struct InsightsView: View {
             }
             .frame(maxWidth: .infinity) // Take the whole space horiztonally
             .padding(.vertical, 5) // Apply padding to content directly
-            .background(RoundedRectangle(cornerRadius: 10)
-                .fill(Color.white)
-                .shadow(radius: 5)) // Apply shadow to the background
+            .borderStyle()
         }
     }
 }

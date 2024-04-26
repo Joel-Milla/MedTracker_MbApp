@@ -51,6 +51,7 @@ struct UpdateNotificationView: View {
                 
                 // Divider beteween the views
                 Divider()
+                    .background(.background)
                 
                 
                 // When notifications are allowed, show the notification selected
@@ -60,9 +61,7 @@ struct UpdateNotificationView: View {
                 }
             }
             .padding()
-            .background(RoundedRectangle(cornerRadius: 10)
-                .fill(Color.white)
-                .shadow(radius: 5))
+            .borderStyle()
             
             // Show the view to select the notification
             .sheet(isPresented: $showNotificationView, content: {
@@ -73,10 +72,3 @@ struct UpdateNotificationView: View {
         }
     }
 }
-//
-//#Preview {
-//    NavigationStack {
-//        @State var codeNotification: String = "D#20:18"
-//        UpdateNotificationView(codeNotification: $codeNotification)
-//    }
-//}

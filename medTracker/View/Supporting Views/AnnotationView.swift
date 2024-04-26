@@ -44,10 +44,7 @@ struct AnnotationView: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 4)
-        .background {
-            RoundedRectangle(cornerRadius: 6, style: .continuous)
-                .fill(.white.shadow(.drop(radius: 2)))
-        }
+        .borderStyle()
         // Move the annotation when it is on the corners so the annotation shows clearly and not on borders
         .offset(x: register.date.dateToStringMDH() == minDate.dateToStringMDH() ? 35 : register.date.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
     }

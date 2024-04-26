@@ -21,7 +21,7 @@ struct AuthenticationView: View {
                     .ignoresSafeArea()
                 VStack{
                     // Show the logo
-                    if colorScheme == .light{
+                    if colorScheme == .light {
                         Image("logoV")
                             .resizable()
                             .imageScale(.small)

@@ -52,9 +52,7 @@ struct ChartView: View {
             
         }
         .padding() // Apply padding to content directly
-        .background(RoundedRectangle(cornerRadius: 10)
-            .fill(Color.white)
-            .shadow(radius: 5)) // Apply shadow to the background
+        .borderStyle()
     }
 }
 
