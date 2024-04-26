@@ -70,15 +70,15 @@ class HelperFunctions {
 
         switch value {
         case 0..<20:
-            imageName = "sadder_face"
+            imageName = "sadder_face_noBG"
         case 20..<40:
-            imageName = "sad_face"
+            imageName = "sad_face_noBG"
         case 40..<60:
-            imageName = "normal_face"
+            imageName = "normal_face_noBG"
         case 60..<80:
-            imageName = "va_test"
+            imageName = "happy_face_noBG"
         case 80...:
-            imageName = "happier_face"
+            imageName = "happier_face_noBG"
         default:
             imageName = ""
         }
