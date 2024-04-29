@@ -24,7 +24,7 @@ struct CreateSymptomView: View {
                     CS_NameView(name: $formViewModel.name, selectedIcon: $formViewModel.icon, colorToSave: $formViewModel.color)
                 }
                 // Description of the new symptom
-                Section(header: MandatoryField(text: "Nombre")) {
+                Section(header: MandatoryField(text: "Descripción")) {
                     Text("Describe el dato:")
                     TextEditor(text: $formViewModel.description)
                 }
