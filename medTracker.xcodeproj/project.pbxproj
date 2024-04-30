@@ -115,6 +115,7 @@
 		1763C8032BC76E1C00F9BDED /* DoctorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsViewModel.swift; sourceTree = "<group>"; };
 		1763C8052BC8076D00F9BDED /* AddDoctorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDoctorView.swift; sourceTree = "<group>"; };
 		1763C80B2BC9B87A00F9BDED /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
+		17774EC82BE06BEF00AF6694 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		177849B92BDAEEC9003F5D84 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
 		177BB6B22BC6FED6000C8E26 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
@@ -445,6 +446,7 @@
 		FB87FECD2ADDEE9800F6273B /* medTracker */ = {
 			isa = PBXGroup;
 			children = (
+				17774EC82BE06BEF00AF6694 /* Info.plist */,
 				FB87FECE2ADDEE9800F6273B /* medTrackerApp.swift */,
 				FB1A55552AFD793C00F9A74A /* View */,
 				FB86F06F2AFEC3DD0051C6A6 /* ViewModels */,
@@ -787,6 +789,7 @@
 				DEVELOPMENT_TEAM = XTZK894WTY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = medTracker/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MedTracker;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -823,6 +826,7 @@
 				DEVELOPMENT_TEAM = XTZK894WTY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = medTracker/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MedTracker;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
