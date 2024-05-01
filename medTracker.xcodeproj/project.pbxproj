@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -44,10 +44,10 @@
 		17DBF1C62BB2355B005DBF11 /* PersonalizedNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C52BB2355B005DBF11 /* PersonalizedNotificationsView.swift */; };
 		17DBF1C82BB245ED005DBF11 /* WeeklyIntervalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C72BB245ED005DBF11 /* WeeklyIntervalView.swift */; };
 		17DBF1CA2BB24C26005DBF11 /* NotificationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C92BB24C26005DBF11 /* NotificationHeaderView.swift */; };
-		17E293AC2BE0621F005EBDDB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17E293AB2BE0621F005EBDDB /* GoogleService-Info.plist */; };
 		17E5CEE82BC08EE600F57199 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E5CEE72BC08EE600F57199 /* DateUtility.swift */; };
 		17E5CEEA2BC0B15100F57199 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E5CEE92BC0B15100F57199 /* NotificationManager.swift */; };
 		17F133692B98E401004C6D8F /* GlobalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F133682B98E401004C6D8F /* GlobalUtilities.swift */; };
+		F81F3FBD2BE15F53007927D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17E293AB2BE0621F005EBDDB /* GoogleService-Info.plist */; };
 		F82095A02AF58ACE002F1C28 /* Symptom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820959F2AF58ACE002F1C28 /* Symptom.swift */; };
 		F839EFF12AE0C4AE00CB5327 /* RegisterSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839EFF02AE0C4AE00CB5327 /* RegisterSymptomView.swift */; };
 		F87256782B128AAA00044A05 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87256772B128AAA00044A05 /* Notifications.swift */; };
@@ -543,7 +543,7 @@
 				};
 			};
 			buildConfigurationList = FB87FEC62ADDEE9800F6273B /* Build configuration list for PBXProject "medTracker" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -570,7 +570,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB87FED62ADDEEA100F6273B /* Preview Assets.xcassets in Resources */,
-				17E293AC2BE0621F005EBDDB /* GoogleService-Info.plist in Resources */,
+				F81F3FBD2BE15F53007927D7 /* GoogleService-Info.plist in Resources */,
 				FB87FED32ADDEEA100F6273B /* Assets.xcassets in Resources */,
 				177849BA2BDAEEC9003F5D84 /* Launch Screen.storyboard in Resources */,
 			);
@@ -786,7 +786,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"medTracker/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = XTZK894WTY;
+				DEVELOPMENT_TEAM = 7MLM8NTU75;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = medTracker/Info.plist;
@@ -823,7 +823,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"medTracker/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = XTZK894WTY;
+				DEVELOPMENT_TEAM = 7MLM8NTU75;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = medTracker/Info.plist;
