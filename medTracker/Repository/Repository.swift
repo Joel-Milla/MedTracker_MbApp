@@ -40,11 +40,12 @@ struct Repository {
     /**********************
      Helper functions
      **********************************/
-    // Function to edit a symptom in database (it could be writing a new symptom or updating it).
+    // Function to edit a symptom in the database (could be writing a new symptom or updating it).
     func editSymptom(_ symptom: Symptom) async throws {
         let document = symptomReference.document(symptom.id.uuidString)
         try await document.setData(from: symptom)
     }
+
     
     // Function to write a symptom in database.
     func deleteSymptom(_ symptom: Symptom) async throws {

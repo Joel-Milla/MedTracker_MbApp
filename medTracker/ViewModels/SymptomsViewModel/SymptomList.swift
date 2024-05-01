@@ -65,16 +65,27 @@
             if let decodedData = HelperFunctions.loadData(in: symptomListURL, as: [String: Symptom].self) {
                 self.symptoms = decodedData
             } else {
-                //If there is no info in JSON, fetch
-                fetchSymptoms()
+                // Si no hay datos en JSON, agrega los síntomas por defecto
+                if self.symptoms.isEmpty {
+                    self.symptoms = SymptomList.getDefaultSymptoms().reduce(into: [:]) { result, symptom in
+                        result[symptom.id.uuidString] = symptom
+                    }
+                    // Guarda los síntomas por defecto en Firebase
+                    Task {
+                        do {
+                            for symptom in self.symptoms.values {
+                                try await repository.editSymptom(symptom)
+                            }
+                        } catch {
+                            customPrint("[SymptomList] Cannot save default symptoms: \(error)")
+                        }
+                    }
+                }
             }
-            
-            // Schedule all notifications of symptom. This will make to save the notifications when first downloading data
             scheduleNotifications()
-
-            // For testing, the next function can be used for dummy data.
-            //symptoms = getDefaultSymptoms()
         }
+
+
         
         enum State {
             case complete
@@ -161,11 +172,8 @@
         // Dummy data for testing purposes.
         static func getDefaultSymptoms() -> [Symptom] {
             return [
-                Symptom(name: "Peso", icon: "star.fill", description: "Este es un ejemplo de descripción que es bastante largo y se va haciendo mucho más largo para comprobar la funcionalidad.", isQuantitative: true, units: "kg", isFavorite: true, color: "#007AF", notification: ""),
-                Symptom(name: "Cansancio", icon: "star.fill", description: "Este es un ejemplo de descripción corto.", isQuantitative: false, units: "", isFavorite: true, color: "#AF43EB", notification: "sssss"),
-                Symptom(name: "Insomnio", icon: "star.fill", description: "Este es un ejemplo de descripción mediano, es decir, con esto está bien.", isQuantitative: true, units: "", isFavorite: true, color: "#D03A20", notification: ""),
-                Symptom(name: "Estado cardíaco", icon: "star.fill", description: "Latidos por minuto.", isQuantitative: true, units: "BPM", isFavorite: true, color: "#86B953", notification: ""),
-                Symptom(name: "Estado cardíaco 2", icon: "star.fill", description: "Latidos por minuto.", isQuantitative: true, units: "BPM", isFavorite: true, color: "#86B953", notification: "ssssss")
+                Symptom(name: "Presión arterial", icon: "heart.fill", description: "Registra aquí tu presión arterial", isQuantitative: true, units: "mmHg", isFavorite: false, color: "#d1001f", notification: ""),
+                Symptom(name: "Calidad de sueño", icon: "powersleep", description: "Registra aquí cómo dormiste el día anterior.", isQuantitative: false, units: "", isFavorite: false, color: "#023E8A", notification: "")
             ]
         }
     }
