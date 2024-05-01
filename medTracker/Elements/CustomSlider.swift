@@ -84,8 +84,8 @@ struct CustomSlider: View {
                         //                    Text("\(value,  specifier: "%.2F")")
                         Spacer()
                     }
-                    .padding()
                 }
+                .padding()
                 .shadow(radius: 5)
             }
         }

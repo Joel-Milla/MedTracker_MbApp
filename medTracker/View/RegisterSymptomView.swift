@@ -41,7 +41,7 @@ struct RegisterSymptomView: View {
                                     .keyboardType(.numberPad)
                                     .padding(.horizontal, 5)
                                     .frame(height: geometry.size.height * 0.06)
-                                    .padding(.vertical, 35)
+                                    .padding(.vertical, 45)
                             }
                             else{
                                 HStack{
@@ -108,6 +108,7 @@ struct RegisterSymptomView: View {
                         ChangingText(state: $formViewModel.state, title: "Añadir registro")
                     }
                     .gradientStyle() // apply gradient style
+                    .padding()
                     
                 }
                 .padding()
