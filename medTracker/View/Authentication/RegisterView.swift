@@ -9,6 +9,7 @@ struct RegisterView: View {
     @State private var typesOfAccount = ["Paciente", "Doctor"]
     // Object that makes the submission
     @StateObject var createAccountModel: AuthViewModel.CreateAccountViewModel
+    @State private var showErrorAlert = false
     
     var body: some View {
             Form {
@@ -42,12 +43,19 @@ struct RegisterView: View {
     
                 Section {
                     Button(action: {
-                        createAccountModel.submit() //Submits the request to firebase to create a new user.
+//                        if verifyPassword(password: createAccountModel.password) {
+                            createAccountModel.submit()
+//                        } else {
+//                            showErrorAlert = true
+//                        }
                     }, label: {
                         // Use changingText to show a progressView when the request is loading
                         ChangingText(state: $createAccountModel.state, title: "Crear Cuenta")
                     })
                     .gradientStyle() // apply gradient style
+                    .alert(isPresented: $showErrorAlert) {
+                        Alert(title: Text("Error"), message: Text("La contraseña debe tener al menos 8 caracteres, una mayúscula y un carácter especial."), dismissButton: .default(Text("OK")))
+                    }
                 }
             }
             .keyboardToolbar() // apply the button to have an ok and dismiss the view
@@ -56,7 +64,30 @@ struct RegisterView: View {
             .navigationTitle("Registrarse")
             
         }
-}
+    // function to verify if the password is safe
+    func verifyPassword(password: String) -> Bool {
+        // Verificar si la contraseña tiene más de 8 caracteres
+        guard password.count >= 8 else {
+            return false
+        }
+        
+        // Verificar si la contraseña contiene al menos una mayúscula
+        let uppercaseLetters = CharacterSet.uppercaseLetters
+        guard password.rangeOfCharacter(from: uppercaseLetters) != nil else {
+            return false
+        }
+        
+        // Verificar si la contraseña contiene al menos un carácter especial
+        let specialCharacters = CharacterSet(charactersIn: "!@#$%^&*()-_=+[]{}|;:'\",.<>?")
+        guard password.rangeOfCharacter(from: specialCharacters) != nil else {
+            return false
+        }
+        
+        // Si cumple todas las condiciones, la contraseña es válida
+        return true
+    }}
+
+
 
 #Preview {
     NavigationStack {
