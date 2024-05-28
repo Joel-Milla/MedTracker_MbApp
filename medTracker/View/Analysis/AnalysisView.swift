@@ -61,7 +61,7 @@ struct AnalysisView: View {
                     Button {
                         showRegisterSymptomView = true
                     } label: {
-                        Image(systemName: "plus")
+                        Text("Agregar Dato")
                     }
                 }
             }

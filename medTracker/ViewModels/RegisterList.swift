@@ -44,6 +44,42 @@ class RegisterList : ObservableObject {
             fetchRegisters()
         }
         
+        // Create registers for blood pressure if they dont exist
+        if registers[HelperFunctions.zeroOneOneUUID.uuidString] == nil || registers[HelperFunctions.zeroOneUUID.uuidString] == nil {
+            // Test data
+            let systolicTestData = [
+                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 0), amount: 120.5, notes: "Stressful day"),
+                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 1), amount: 122.3, notes: "Restful sleep"),
+                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 2), amount: 118.7, notes: "Regular exercise"),
+                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 3), amount: 125.1, notes: "High salt meal"),
+                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 4), amount: 116.4, notes: "Normal day"),
+                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 5), amount: 119.9, notes: "Mild headache"),
+                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 6), amount: 121.0, notes: "Workout day"),
+                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 7), amount: 117.8, notes: "Very relaxed"),
+                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 8), amount: 123.5, notes: "Slightly stressed"),
+                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 9), amount: 115.6, notes: "Good sleep")
+            ]
+
+            // Array for Diastolic Blood Pressure (lower values typically ranging from 70 to 90 mmHg)
+            let diastolicTestData = [
+                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 0), amount: 80.3, notes: "Calm evening"),
+                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 1), amount: 78.6, notes: "Late night work"),
+                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 2), amount: 76.4, notes: "Early morning walk"),
+                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 3), amount: 82.1, notes: "Ate out"),
+                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 4), amount: 74.9, notes: "Regular workday"),
+                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 5), amount: 77.2, notes: "Visited friends"),
+                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 6), amount: 79.0, notes: "Jogging"),
+                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 7), amount: 75.8, notes: "Movie night"),
+                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 8), amount: 81.6, notes: "Stressful meeting"),
+                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 9), amount: 73.4, notes: "Quiet day at home")
+            ]
+            
+            
+            // If it doesn't exist, create and add it
+            registers[HelperFunctions.zeroOneOneUUID.uuidString] = systolicTestData
+            registers[HelperFunctions.zeroOneUUID.uuidString] = diastolicTestData
+        }
+        
         
         // For testing, the next function can be used for dummy data.
         //registers = getDefaultRegisters()

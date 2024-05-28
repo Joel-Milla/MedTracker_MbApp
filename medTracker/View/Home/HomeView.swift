@@ -36,8 +36,15 @@ struct HomeView: View {
                         if !symptoms.sortedFavoriteSymptoms.isEmpty {
                                 Section("Favoritos") {
                                     ForEach(symptoms.sortedFavoriteSymptoms) { symptom in
-                                        NavigationLink(destination: AnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)) {
-                                            ListItemView(registers: registers, symptoms: symptoms, item: symptom)
+                                        
+                                        if (symptom.id.uuidString == HelperFunctions.zeroUUID.uuidString) {
+                                            NavigationLink(destination: BloodPressureAnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)) {
+                                                BloodPressureView(registers: registers, symptoms: symptoms, item: symptom)
+                                            }
+                                        } else {
+                                            NavigationLink(destination: AnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)) {
+                                                ListItemView(registers: registers, symptoms: symptoms, item: symptom)
+                                            }
                                         }
                                     }
                                     .onDelete { indices in
@@ -51,8 +58,14 @@ struct HomeView: View {
                         if !symptoms.sortedNonFavoriteSymptoms.isEmpty {
                                 Section("Datos de Salud") {
                                     ForEach(symptoms.sortedNonFavoriteSymptoms) { symptom in
-                                        NavigationLink(destination: AnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)) {
-                                            ListItemView(registers: registers, symptoms: symptoms, item: symptom)
+                                        if (symptom.id.uuidString == HelperFunctions.zeroUUID.uuidString) {
+                                            NavigationLink(destination: BloodPressureAnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)) {
+                                                BloodPressureView(registers: registers, symptoms: symptoms, item: symptom)
+                                            }
+                                        } else {
+                                            NavigationLink(destination: AnalysisView(analysisViewModel: symptoms.createAnalysisViewModel(for: symptom), registers: registers)) {
+                                                ListItemView(registers: registers, symptoms: symptoms, item: symptom)
+                                            }
                                         }
                                     }
                                     .onDelete { indices in

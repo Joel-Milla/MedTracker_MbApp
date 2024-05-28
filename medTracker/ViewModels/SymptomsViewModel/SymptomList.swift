@@ -69,6 +69,12 @@
                 fetchSymptoms()
             }
             
+            if symptoms[HelperFunctions.zeroUUID.uuidString] == nil {
+                // If it doesn't exist, create and add it
+                let bloodPressureSymptom = Symptom(id: HelperFunctions.zeroUUID, name: "Presión arterial", icon: "heart.fill", description: "Description for Person arterial symptom", isQuantitative: true, units: "units", isFavorite: false, color: "#FF0000", notification: "")
+                symptoms[HelperFunctions.zeroUUID.uuidString] = bloodPressureSymptom
+            }
+            
             // Schedule all notifications of symptom. This will make to save the notifications when first downloading data
             scheduleNotifications()
 

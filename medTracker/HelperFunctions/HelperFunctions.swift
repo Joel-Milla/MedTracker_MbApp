@@ -158,6 +158,11 @@ class HelperFunctions {
         case isLoading
         case successfullyCompleted
     }
+    
+    // UUIDs that work for recognizing different symptoms
+    static let zeroUUID = UUID(uuidString: "00000000-0000-0000-0000-000000000000")! // UUID for bloodPressureSymptom
+    static let zeroOneOneUUID = UUID(uuidString: "00000000-0000-0000-0000-000000000011")! // UUID for SYSTOLIC register
+    static let zeroOneUUID = UUID(uuidString: "00000000-0000-0000-0000-000000000001")! // UUID for DIASTOLIC register
 }
     
 
