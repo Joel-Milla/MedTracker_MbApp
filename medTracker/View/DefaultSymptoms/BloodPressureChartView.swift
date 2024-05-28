@@ -96,6 +96,14 @@ struct BPLineChartView: View {
                 .foregroundStyle(.red.gradient)
                 .interpolationMethod(.catmullRom)
                 
+                // Point Mark to show where the value exists.
+                PointMark(
+                    x: .value("Fecha", systolic.date),
+                    y: .value("Cantidad", systolic.amount)
+                )
+                .symbol(Circle().strokeBorder())
+                .foregroundStyle(Color("blueGreen")) // Color of point mark
+                
                 LineMark(
                     x: .value("Day", systolic.date),
                     y: .value("Diastolic BP", diastolic.amount),
@@ -105,54 +113,46 @@ struct BPLineChartView: View {
                 // From swiftui 4.0 can direclty create gradient color
                 .foregroundStyle(.blue.gradient)
                 .interpolationMethod(.catmullRom)
+                
+                // Point Mark to show where the value exists.
+                PointMark(
+                    x: .value("Fecha", systolic.date),
+                    y: .value("Cantidad", diastolic.amount)
+                )
+                .symbol(Circle().strokeBorder())
+                .foregroundStyle(Color("blueGreen")) // Color of point mark
+
+                
+                // MARK: Rule Mark for currently dragging item
+                // The current item is choosen when the user makes a drag motion.
+                if let currentActiveItem, currentActiveItem.id.uuidString == systolic.id.uuidString {
+                    // Add a rule on the x value on the graph
+                    RuleMark(
+                        x: .value("Fecha", systolic.date)
+                    )
+                    // Add an annotation on top of the vertical line to show the value of the nearest item
+                    .annotation(position: .top) {
+                        VStack(alignment: .leading, spacing: 6) {
+                            // Show the date of the current value and the value
+                            Group {
+                                Text(systolic.date.dateToStringMDH())
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+                                Text("\(systolic.amount.asString()) / \(diastolic.amount.asString())")
+                                    .font(.title3.bold())
+                            }
+                        }
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
+                        .borderStyle()
+                        // Move the annotation when it is on the corners so the annotation shows clearly and not on borders
+                        .offset(x: systolic.date.dateToStringMDH() == minDate.dateToStringMDH() ? 35 : systolic.date.dateToStringMDH() == maxDate.dateToStringMDH() ? -20 : 0)
+                    }
+                }
             }
-            
-//            ForEach(filteredSystolicRegisters) { register in
-//                // MARK: Line Graph
-//                LineMark(
-//                    x: .value("Fecha", register.date),
-//                    y: .value("Cantidad", register.animate ? register.amount : 0)
-//                )
-//                // Applying Gradient Style
-//                // From swiftui 4.0 can direclty create gradient color
-//                .foregroundStyle(.blue.gradient)
-//                .interpolationMethod(.catmullRom)
-//                // Show an area mark under the line graph
-//                AreaMark(
-//                    x: .value("Fecha", register.date),
-//                    y: .value("Cantidad", register.animate ? register.amount : 0)
-//                )
-//                // Applying Gradient Style
-//                // From swiftui 4.0 can direclty create gradient color
-//                .foregroundStyle(.blue.opacity(0.1).gradient)
-//                .interpolationMethod(.catmullRom)
-//                
-//                // Point Mark to show where the value exists.
-//                PointMark(
-//                    x: .value("Fecha", register.date),
-//                    y: .value("Cantidad", register.animate ? register.amount : 0)
-//                )
-//                .symbol(Circle().strokeBorder())
-//                .foregroundStyle(.red) // Color of point mark
-//                
-//                // MARK: Rule Mark for currently dragging item
-//                // The current item is choosen when the user makes a drag motion.
-//                if let currentActiveItem, currentActiveItem.id.uuidString == register.id.uuidString {
-//                    // Add a rule on the x value on the graph
-//                    RuleMark(
-//                        x: .value("Fecha", register.date)
-//                        //                        yStart: .value("Min", 0),
-//                        //                        yEnd: .value("Cantidad", currentActiveItem.cantidad)
-//                    )
-//                    // Add an annotation on top of the vertical line to show the value of the nearest item
-//                    .annotation(position: .top) {
-//                        AnnotationView(symptom: symptom, register: currentActiveItem, minDate: minDate, maxDate: maxDate)
-//                    }
-//                }
-//            }
         }
         // MARK: Customizing x and y axis length
-//        .chartXScale(domain: minDate...maxDate)
+        .chartXScale(domain: minDate...maxDate)
         .chartYScale(domain: 0...(1.5 * max)) // bigger number, smaller the bar charts
         // MARK: Customizing y axis labels
         .chartYAxis {
@@ -196,8 +196,5 @@ struct BPLineChartView: View {
     func filterRegisters() {
         filteredSystolicRegisters = registers.registers[HelperFunctions.zeroOneOneUUID.uuidString]?.filterBy(currentTab) ?? []
         filteredDystolicRegisters = registers.registers[HelperFunctions.zeroOneUUID.uuidString]?.filterBy(currentTab) ?? []
-        
-        print(registers.registers[HelperFunctions.zeroOneOneUUID.uuidString]!)
-        print(registers.registers[HelperFunctions.zeroOneOneUUID.uuidString]?.filterBy(currentTab))
     }
 }
