@@ -56,7 +56,7 @@ struct BloodPressureAnalysisView: View {
             }
             .sheet(isPresented: $showRegisterSymptomView, content: {
                 // Create the viewModel that handles the creation of a register and pass the symptom
-                BPRegisterView(formViewModel: registers.createRegisterViewModel(idSymptom: analysisViewModel.id.uuidString), symptom: analysisViewModel.value)
+                BPRegisterView(formViewModel: registers.createBPRegisterViewModel(), symptom: analysisViewModel.value)
             })
         }
     }
