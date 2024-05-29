@@ -69,11 +69,7 @@
                 fetchSymptoms()
             }
             
-            if symptoms[HelperFunctions.zeroUUID.uuidString] == nil {
-                // If it doesn't exist, create and add it
-                let bloodPressureSymptom = Symptom(id: HelperFunctions.zeroUUID, name: "Presión arterial", icon: "heart.fill", description: "Description for Person arterial symptom", isQuantitative: true, units: "units", isFavorite: false, color: "#FF0000", notification: "")
-                symptoms[HelperFunctions.zeroUUID.uuidString] = bloodPressureSymptom
-            }
+            setBloodPressureSymptom()
             
             // Schedule all notifications of symptom. This will make to save the notifications when first downloading data
             scheduleNotifications()
@@ -141,6 +137,7 @@
             Task {
                 do {
                     symptoms = try await self.repository.fetchSymptoms()
+                    setBloodPressureSymptom()
                     state = symptoms.isEmpty ? .isEmpty : .complete
                 } catch {
                     customPrint("[SymptomList] Cannot fetch symptoms: \(error)")
@@ -161,6 +158,23 @@
                 state = .isEmpty
             } else {
                 state = .complete
+            }
+        }
+        
+        // If the symptom of blood pressure doesn't exist, create and add it
+        private func setBloodPressureSymptom() {
+            if symptoms[HelperFunctions.zeroUUID.uuidString] == nil {
+                let bloodPressureSymptom = Symptom(id: HelperFunctions.zeroUUID, name: "Presión arterial", icon: "heart.fill", description: "Description for Person arterial symptom", isQuantitative: true, units: "units", isFavorite: false, color: "#FF0000", notification: "")
+                symptoms[HelperFunctions.zeroUUID.uuidString] = bloodPressureSymptom
+                
+                // Create blood pressure symptom
+                Task {
+                    do {
+                        try await self.repository.editSymptom(bloodPressureSymptom) // use function in the repository to create the symptom
+                    } catch {
+                        customPrint(error)
+                    }
+                }
             }
         }
 
