@@ -19,7 +19,7 @@ struct CustomSlider: View {
             let cursorSize = gr.size.height
             let radius = gr.size.height * 0.5
             let minValue = 0.0
-            let maxValue = gr.size.width * 0.87
+            let maxValue = gr.size.width * 0.77
             VStack(alignment: .leading){
                 Text("Desliza dependiendo de cómo te sientes")
                     .foregroundStyle(Color(uiColor: .systemGray))
@@ -85,6 +85,7 @@ struct CustomSlider: View {
                         Spacer()
                     }
                 }
+                .padding()
                 .shadow(radius: 5)
             }
         }
