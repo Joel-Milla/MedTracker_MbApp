@@ -810,7 +810,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"medTracker/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = XTZK894WTY;
+				DEVELOPMENT_TEAM = 7MLM8NTU75;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = medTracker/Info.plist;
@@ -828,7 +828,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.JoelMilla.MedTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianPresno.MedTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -847,7 +847,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"medTracker/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = XTZK894WTY;
+				DEVELOPMENT_TEAM = 7MLM8NTU75;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = medTracker/Info.plist;
@@ -865,7 +865,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.JoelMilla.MedTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianPresno.MedTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
