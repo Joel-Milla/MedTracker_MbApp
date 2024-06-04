@@ -48,7 +48,7 @@
 		17DBF1C62BB2355B005DBF11 /* PersonalizedNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C52BB2355B005DBF11 /* PersonalizedNotificationsView.swift */; };
 		17DBF1C82BB245ED005DBF11 /* WeeklyIntervalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C72BB245ED005DBF11 /* WeeklyIntervalView.swift */; };
 		17DBF1CA2BB24C26005DBF11 /* NotificationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DBF1C92BB24C26005DBF11 /* NotificationHeaderView.swift */; };
-		17E293AC2BE0621F005EBDDB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17E293AB2BE0621F005EBDDB /* GoogleService-Info.plist */; };
+		17E155DC2C0F900300E79609 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17E155DB2C0F900300E79609 /* GoogleService-Info.plist */; };
 		17E5CEE82BC08EE600F57199 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E5CEE72BC08EE600F57199 /* DateUtility.swift */; };
 		17E5CEEA2BC0B15100F57199 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E5CEE92BC0B15100F57199 /* NotificationManager.swift */; };
 		17F133692B98E401004C6D8F /* GlobalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F133682B98E401004C6D8F /* GlobalUtilities.swift */; };
@@ -138,7 +138,7 @@
 		17DBF1C52BB2355B005DBF11 /* PersonalizedNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedNotificationsView.swift; sourceTree = "<group>"; };
 		17DBF1C72BB245ED005DBF11 /* WeeklyIntervalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyIntervalView.swift; sourceTree = "<group>"; };
 		17DBF1C92BB24C26005DBF11 /* NotificationHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHeaderView.swift; sourceTree = "<group>"; };
-		17E293AB2BE0621F005EBDDB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		17E155DB2C0F900300E79609 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		17E5CEE72BC08EE600F57199 /* DateUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
 		17E5CEE92BC0B15100F57199 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		17F133682B98E401004C6D8F /* GlobalUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUtilities.swift; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 		1718E8B52B4F3716001691B8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				17E293AB2BE0621F005EBDDB /* GoogleService-Info.plist */,
+				17E155DB2C0F900300E79609 /* GoogleService-Info.plist */,
 				FB87FED22ADDEEA100F6273B /* Assets.xcassets */,
 				FB87FED42ADDEEA100F6273B /* Preview Content */,
 			);
@@ -590,7 +590,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB87FED62ADDEEA100F6273B /* Preview Assets.xcassets in Resources */,
-				17E293AC2BE0621F005EBDDB /* GoogleService-Info.plist in Resources */,
+				17E155DC2C0F900300E79609 /* GoogleService-Info.plist in Resources */,
 				FB87FED32ADDEEA100F6273B /* Assets.xcassets in Resources */,
 				177849BA2BDAEEC9003F5D84 /* Launch Screen.storyboard in Resources */,
 			);
@@ -810,7 +810,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"medTracker/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = 7MLM8NTU75;
+				DEVELOPMENT_TEAM = XTZK894WTY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = medTracker/Info.plist;
@@ -828,7 +828,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianPresno.MedTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JoelMilla.MedTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -847,7 +847,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"medTracker/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = 7MLM8NTU75;
+				DEVELOPMENT_TEAM = XTZK894WTY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = medTracker/Info.plist;
@@ -865,7 +865,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianPresno.MedTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JoelMilla.MedTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
