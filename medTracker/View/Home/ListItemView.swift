@@ -30,9 +30,6 @@ struct ListItemView: View {
                 }
                 .padding(.vertical)
                 HStack {
-                    Image(systemName: symptoms.symptoms[item.id.uuidString]?.isFavorite ?? false ? "star.fill" : "star")
-                        .foregroundStyle(.orange)
-                    
                     if registers.registers[item.id.uuidString]?.count ?? 0 >= 1 {
                         Text("\(registers.registers[item.id.uuidString]?.last?.date.formatted(date: .abbreviated, time: .omitted) ?? "") |  \(Int(registers.registers[item.id.uuidString]?.last?.amount ?? 0))")
                             .font(.subheadline)
