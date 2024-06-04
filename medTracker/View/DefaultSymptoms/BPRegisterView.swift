@@ -20,77 +20,33 @@ struct BPRegisterView: View {
     // Dismiss the view when no longer needed
     @Environment(\.dismiss) var dismiss
     
+    // Track the keyboard height
+    @State private var keyboardHeight: CGFloat = 0
+    
     var body: some View {
         NavigationStack{
-            GeometryReader { geometry in
+            ScrollView {
                 VStack(alignment: .leading) {
                     Text(symptom.name)
                         .font(.title)
                         .bold()
                     ZStack{
-                        VStack(alignment: .leading){
+                        VStack(alignment: .leading) {
                             Text("Fecha de registro")
                                 .padding(.horizontal)
                                 .foregroundStyle(Color(uiColor: .systemGray))
                             DateSection(date: $formViewModel.value.date)
                                 .padding()
-                                HStack{
-                                    Spacer()
-                                    Text("Ingresa el valor")
-                                        .foregroundStyle(Color(uiColor: .systemGray))
-                                        .padding(.horizontal)
-                                        .frame(alignment: .center)
-                                    Spacer()
-                                }
-                                ZStack{
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.gray, lineWidth: 0.5)
-                                        .background(RoundedRectangle(cornerRadius: 20).fill(Color("mainWhite")))
-                                        .frame(width: geometry.size.width * 0.85, height: geometry.size.height * 0.1)
-                                    
-                                    HStack {
-                                        Image(systemName: symptom.icon)
-                                            .foregroundColor(Color(hex: symptom.color))
-                                            .font(.title)
-                                            .frame(width: geometry.size.width * 0.1)  // Specify width to prevent shifting
-                                        
-                                            TextField("Sistólica", text: $systolic, prompt: Text("Sistólica").foregroundColor(.gray))
-                                                .font(.title2)
-                                                .padding()
-                                                .multilineTextAlignment(.leading)
-                                                .keyboardType(.decimalPad)
-                                                .onChange(of: systolic) { newValue in
-                                                    let filtered = newValue.filter { "0123456789.-".contains($0) }
-                                                    if filtered != newValue {
-                                                        self.systolic = filtered
-                                                    }
-                                                }
-                                            
-                                            Text("/")
-                                                .font(.title2)
-                                                .foregroundColor(Color(hex: symptom.color))
-                                            
-                                            TextField("Diastólica", text: $diastolic, prompt: Text("Diastólica").foregroundColor(.gray))
-                                                .font(.title2)
-                                                .padding()
-                                                .multilineTextAlignment(.leading)
-                                                .keyboardType(.decimalPad)
-                                                .onChange(of: diastolic) { newValue in
-                                                    let filtered = newValue.filter { "0123456789.-".contains($0) }
-                                                    if filtered != newValue {
-                                                        self.diastolic = filtered
-                                                    }
-                                                }
-                                    }
-                                    .padding(.horizontal)
-                                }
+                            bloodPressureInputSection
+                                .padding(.horizontal)
+                                
                         }
                         .padding(.vertical)
                     }
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color(hex: symptom.color), lineWidth: 2)
-                            .padding(.horizontal, geometry.size.width * 0.01)
+                            .padding(.horizontal, 10)
                     )
                     .padding(.vertical)
                     ZStack{
@@ -98,13 +54,13 @@ struct BPRegisterView: View {
                             TextField("Agrega alguna nota", text: $formViewModel.value.notes, axis: .vertical)
                                 .lineLimit(5)
                                 .padding()
-                                .frame(height: geometry.size.height / 6, alignment: .top)
+                                .frame(height: 100, alignment: .top)
                         }
                     }
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color(hex: symptom.color), lineWidth: 2)
-                            .padding(.horizontal, geometry.size.width * 0.01)
+                            .padding(.horizontal, 10)
                     )
                     .shadow(radius: 10)
                     Button {
@@ -117,6 +73,17 @@ struct BPRegisterView: View {
                     
                 }
                 .padding()
+                .padding(.bottom, keyboardHeight) // Add padding at the bottom
+                .onAppear {
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
+                        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                            self.keyboardHeight = keyboardFrame.height * 0.2
+                        }
+                    }
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (notification) in
+                        self.keyboardHeight = 0
+                    }
+                }
             }
             // Set the values of systolic and diastolic
             .onChange(of: systolic) { newValue in
@@ -156,4 +123,47 @@ struct BPRegisterView: View {
             // MARK: Ending of consistent UI
         }
     }
+    
+    private var bloodPressureInputSection: some View {
+        VStack(alignment: .leading) {
+            Text("Ingresa el valor")
+                .foregroundStyle(Color(uiColor: .systemGray))
+                .padding(.bottom, 5)
+
+            HStack {
+                Image(systemName: symptom.icon)
+                    .foregroundStyle(Color(hex: symptom.color))
+                    .font(.title)
+                    .frame(width: 44, height: 44)
+                    .background(Circle().fill(Color.gray.opacity(0.1)))
+
+                TextField("Sistólica", text: $systolic)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.decimalPad)
+                    .onChange(of: systolic, perform: filterInput)
+
+                Text("/")
+                    .foregroundStyle(Color(hex: symptom.color))
+                    .font(.headline)
+                    .padding(.horizontal, 8)
+
+                TextField("Diastólica", text: $diastolic)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.decimalPad)
+                    .onChange(of: diastolic, perform: filterInput)
+            }
+        }
+    }
+    
+    private func filterInput(_ value: String) -> Void {
+        let filtered = value.filter { "0123456789.-".contains($0) }
+        if value != filtered {
+            if value == systolic {
+                systolic = filtered
+            } else {
+                diastolic = filtered
+            }
+        }
+    }
+    
 }
