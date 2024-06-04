@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct RegisterSymptomView: View {
     // Variable to make the request
     @StateObject var formViewModel: FormViewModel<Register>
@@ -21,30 +19,32 @@ struct RegisterSymptomView: View {
     // Dismiss the view when no longer needed
     @Environment(\.dismiss) var dismiss
     
+    // Track the keyboard height
+    @State private var keyboardHeight: CGFloat = 0
+    
     var body: some View {
-        NavigationStack{
-            GeometryReader { geometry in
+        NavigationStack {
+            ScrollView {
                 VStack(alignment: .leading) {
                     Text(symptom.name)
                         .font(.title)
                         .bold()
-                    ZStack{
-                        VStack(alignment: .leading){
+                    ZStack {
+                        VStack(alignment: .leading) {
                             Text("Fecha de registro")
                                 .padding(.horizontal)
                                 .foregroundStyle(Color(uiColor: .systemGray))
                             DateSection(date: $formViewModel.date)
                                 .padding()
                             // Show different views depending if the symptoms is quantitative or not
-                            if(!symptom.isQuantitative){
+                            if(!symptom.isQuantitative) {
                                 CustomSlider(valueFinal: $sliderValue)
                                     .keyboardType(.numberPad)
                                     .padding(.horizontal, 5)
-                                    .frame(height: geometry.size.height * 0.06)
-                                    .padding(.vertical, 35)
-                            }
-                            else{
-                                HStack{
+                                    .frame(height: 50)
+                                    .padding(.vertical, 45)
+                            } else {
+                                HStack {
                                     Spacer()
                                     Text("Ingresa el valor")
                                         .foregroundStyle(Color(uiColor: .systemGray))
@@ -52,17 +52,17 @@ struct RegisterSymptomView: View {
                                         .frame(alignment: .center)
                                     Spacer()
                                 }
-                                ZStack{
+                                ZStack {
                                     RoundedRectangle(cornerRadius: 20)
                                         .stroke(Color.gray, lineWidth: 0.5)
                                         .background(RoundedRectangle(cornerRadius: 20).fill(Color("mainWhite")))
-                                        .frame(width: geometry.size.width * 0.63, height: geometry.size.height * 0.1)
+                                        .frame(width: 250, height: 60)
                                     
                                     HStack {
                                         Image(systemName: symptom.icon)
                                             .foregroundColor(Color(hex: symptom.color))
                                             .font(.title)
-                                            .padding(.leading, geometry.size.width * 0.25)
+                                            .padding(.leading, 50)
                                         TextField("", text: $inputValue, prompt: Text("Valor").foregroundColor(.gray))
                                             .font(.title2)
                                             .padding()
@@ -84,21 +84,21 @@ struct RegisterSymptomView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color(hex: symptom.color), lineWidth: 2)
-                            .padding(.horizontal, geometry.size.width * 0.01)
+                            .padding(.horizontal, 10)
                     )
                     .padding(.vertical)
-                    ZStack{
-                        VStack(alignment: .leading){
+                    ZStack {
+                        VStack(alignment: .leading) {
                             TextField("Agrega alguna nota", text: $formViewModel.notes, axis: .vertical)
                                 .lineLimit(5)
                                 .padding()
-                                .frame(height: geometry.size.height / 6, alignment: .top)
+                                .frame(height: 100, alignment: .top)
                         }
                     }
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color(hex: symptom.color), lineWidth: 2)
-                            .padding(.horizontal, geometry.size.width * 0.01)
+                            .padding(.horizontal, 10)
                     )
                     .shadow(radius: 10)
                     Button {
@@ -108,14 +108,25 @@ struct RegisterSymptomView: View {
                         ChangingText(state: $formViewModel.state, title: "Añadir registro")
                     }
                     .gradientStyle() // apply gradient style
+                    .padding()
                     
                 }
                 .padding()
+                .padding(.bottom, keyboardHeight) // Add padding at the bottom
+                .onAppear {
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
+                        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                            self.keyboardHeight = keyboardFrame.height * 0.2
+                        }
+                    }
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (notification) in
+                        self.keyboardHeight = 0
+                    }
+                }
             }
-            // Use onAppaer and onChange to set the value of amount
             .onAppear {
                 // When symptom is quant, change the value of string into Float. If it is not possible then assign a float value where it will make an error to show the user that is not valid the amount
-                // If sympomt is not quant, invert the value so it is shown correclty on the graphs
+                // If sympomt is not quant, invert the value so it is shown correctly on the graphs
                 if (symptom.isQuantitative) {
                     formViewModel.amount = Float(inputValue) ?? -1000.99 // The default value is used to check if the input is invalid on later functions
                 } else {
@@ -168,4 +179,3 @@ struct RegisterSymptomView: View {
         RegisterSymptomView(formViewModel: formViewModel, symptom: symptom)
     }
 }
-

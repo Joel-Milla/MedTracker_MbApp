@@ -29,13 +29,29 @@ struct WelcomeView: View {
             } // Show the view of the doctor
             else if userRole == "Doctor" {
                 // With the information obtained from authViewModel that contains the user, create the models that will contain all the information and pass them to the main view
-                if let userModel = authViewModel.makeUserModel(),
-                   let patientList = authViewModel.makePatientList() {
-                    MainDoctorView(user: userModel, patientsList: patientList)
-                        .environmentObject(authViewModel)
-                } else {
-                    Text("Hubo un problema")
+//                if let userModel = authViewModel.makeUserModel(),
+//                   let patientList = authViewModel.makePatientList() {
+//                    MainDoctorView(user: userModel, patientsList: patientList)
+//                        .environmentObject(authViewModel)
+//                } else {
+//                    Text("Hubo un problema")
+//                }
+                VStack(spacing: 30) {
+                    Text("Utilice la siguiente página web para ver los datos:")
+                    Link("MedTracker Dashboard", destination: URL(string: "https://medtracker-app.netlify.app/")!)
+                    Button {
+                        authViewModel.signOut()
+                    } label: {
+                        Text("Cerrar Sesión")
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.red)
+                            .cornerRadius(8)
+                    }
                 }
+                .padding()
+                
             }
             else {
                 // When there is currently no rol, show a progress view and sign out so the user can register

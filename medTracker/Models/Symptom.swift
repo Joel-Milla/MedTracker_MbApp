@@ -102,10 +102,24 @@ struct Symptom : Codable, Hashable, Identifiable {
         self.color = color
         self.notification = notification
     }
+    
     // Init for initializing a symptom with default values
     init() {
         // Initial value for NotificationsView to render inside the notification
         self.init(name: "", icon: "heart", description: "", isQuantitative: true, units: "kg", isFavorite: false, color: "#009C8C", notification : "")
+    }
+    
+    // Init for initializing a symptom and setting the id. This is used on SymptomList when initializing the viewModel
+    init(id: UUID, name: String, icon: String, description: String, isQuantitative: Bool, units: String, isFavorite: Bool, color: String, notification : String) {
+        self.id = id
+        self.name = name
+        self.icon = icon
+        self.description = description
+        self.isQuantitative = isQuantitative
+        self.units = units
+        self.isFavorite = isFavorite
+        self.color = color
+        self.notification = notification
     }
     
     // Function to validate if the necessary inputs are filled

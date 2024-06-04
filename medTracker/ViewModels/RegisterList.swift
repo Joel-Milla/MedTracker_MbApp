@@ -44,6 +44,7 @@ class RegisterList : ObservableObject {
             fetchRegisters()
         }
         
+        setBloodPressureRegisters()
         
         // For testing, the next function can be used for dummy data.
         //registers = getDefaultRegisters()
@@ -108,6 +109,71 @@ class RegisterList : ObservableObject {
         }
     }
     
+    // Return a formViewModel that handles the register of blood pressure
+    func createBPRegisterViewModel() -> FormViewModel<(date: Date, systolicValue: Float, diastolicValue: Float, notes: String)> {
+        return FormViewModel(initialValue: (Date.now, -1000.99, -1000.99, "")) { [weak self] (date, systolic, diastolic, notes) in
+            var (hasError, message): (Bool, String) = (false, "")
+            // check if there is any error with the data
+            if (systolic == -1000.99 || diastolic == -1000.99) {
+                hasError = true
+                message = "Por favor de ingresar un dato valido."
+            }
+            if (systolic <= diastolic) {
+                hasError = true
+                message = "Por favor de ingresar datos validos."
+            }
+            // if the symptom doesnt have valid input, throw an error
+            if (hasError) {
+                throw HelperFunctions.ErrorType.invalidInput(message)
+            } else {
+                // Insert the new register
+                if var systolicRegisters = self?.registers[HelperFunctions.zeroOneOneUUID.uuidString],
+                   var diastolicRegisters = self?.registers[HelperFunctions.zeroOneUUID.uuidString]
+                {
+                    // Create the register for systolic and diastolic
+                    let systolicRegister = Register(idSymptom: HelperFunctions.zeroOneOneUUID.uuidString, date: date, amount: systolic, notes: notes)
+                    let diastolicRegister = Register(idSymptom: HelperFunctions.zeroOneUUID.uuidString, date: date, amount: diastolic, notes: notes)
+                    // Index to insert the register in a sorted way
+                    let insertIndex = systolicRegisters.firstIndex(where: {$0.date > date}) ?? systolicRegisters.endIndex
+                    systolicRegisters.insert(systolicRegister, at: insertIndex)
+                    diastolicRegisters.insert(diastolicRegister, at: insertIndex)
+                    
+                    // MARK: Check if there is already a register on the same day
+                    let calendar = Calendar.current
+                    let previousIndex = insertIndex - 1
+                    let nextIndex = insertIndex + 1
+                    let newRegisterDate = calendar.startOfDay(for: date)
+                    // Check previous date if it exists
+                    if previousIndex >= 0 && previousIndex < systolicRegisters.count {
+                        let previousDate = calendar.startOfDay(for: systolicRegisters[previousIndex].date)
+                        if newRegisterDate == previousDate {
+                            throw HelperFunctions.ErrorType.invalidInput("Ya existe un registro en esta fecha.")
+                        }
+                    }
+                    
+                    // Check next date if it exists
+                    if nextIndex < systolicRegisters.count {
+                        let nextDate = calendar.startOfDay(for: systolicRegisters[nextIndex].date)
+                        if newRegisterDate == nextDate {
+                            throw HelperFunctions.ErrorType.invalidInput("Ya existe un registro en esta fecha.")
+                        }
+                    }
+                    // Create both registers
+                    self?.registers[HelperFunctions.zeroOneOneUUID.uuidString] = systolicRegisters
+                    self?.registers[HelperFunctions.zeroOneUUID.uuidString] = diastolicRegisters
+                    
+                    // Make the request to firebase to create the registers
+                    do {
+                        try await self?.repository.createRegister(systolicRegister)
+                        try await self?.repository.createRegister(diastolicRegister)
+                    } catch {
+                        try HelperFunctions.handleFirestoreError(code: error)
+                    }
+                }
+            }
+        }
+    }
+    
     // Create viewModel that manages the deletion of registers in registersView
          func createEditRegistersViewModel(for symptom: Symptom) -> EditRegisterViewModel {
              let symptomId = symptom.id.uuidString
@@ -130,8 +196,18 @@ class RegisterList : ObservableObject {
     func deleteRegisters(at indices: IndexSet, from filteredSymptoms: [Symptom]) {
         for index in indices {
             let symptom = filteredSymptoms[index]
-            let registersToDelete = registers[symptom.id.uuidString] ?? []
-            registers.removeValue(forKey: symptom.id.uuidString) // Remove the values of a single symptom
+            let registersToDelete: [Register]
+            // Check if symptom to delete is normal symptom or blood pressure
+            if (symptom.id == HelperFunctions.zeroUUID) {
+                let systolicRegisters = registers[HelperFunctions.zeroOneOneUUID.uuidString] ?? []
+                let diastolicRegisters = registers[HelperFunctions.zeroOneUUID.uuidString] ?? []
+                registersToDelete = systolicRegisters + diastolicRegisters
+                registers.removeValue(forKey: HelperFunctions.zeroOneOneUUID.uuidString)
+                registers.removeValue(forKey: HelperFunctions.zeroOneUUID.uuidString)
+            } else {
+                registersToDelete = registers[symptom.id.uuidString] ?? []
+                registers.removeValue(forKey: symptom.id.uuidString) // Remove the values of a single symptom
+            }
             // Delete the symptom in the repository. Use task to avoid making this function async
             Task {
                 // Delete all the registers from firestore
@@ -147,9 +223,47 @@ class RegisterList : ObservableObject {
         Task {
             do {
                 registers = try await self.repository.fetchRegisters()
+                setBloodPressureRegisters()
             } catch {
                 customPrint("[RegisterList] Cannot fetch registers: \(error)")
             }
+        }
+    }
+    
+    // Create registers for blood pressure registers if they dont exist
+    private func setBloodPressureRegisters() {
+        if registers[HelperFunctions.zeroOneOneUUID.uuidString] == nil || registers[HelperFunctions.zeroOneUUID.uuidString] == nil {
+            // Test data
+//            let systolicTestData = [
+//                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 9), amount: 115.6, notes: "Good sleep"),
+//                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 8), amount: 123.5, notes: "Slightly stressed"),
+//                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 7), amount: 117.8, notes: "Very relaxed"),
+//                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 6), amount: 121.0, notes: "Workout day"),
+//                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 5), amount: 119.9, notes: "Mild headache"),
+//                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 4), amount: 116.4, notes: "Normal day"),
+//                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 3), amount: 125.1, notes: "High salt meal"),
+//                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 2), amount: 118.7, notes: "Regular exercise"),
+//                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 1), amount: 122.3, notes: "Restful sleep"),
+//                Register(idSymptom: "SYM-SYS", date: Date().addingTimeInterval(-86400 * 0), amount: 120.5, notes: "Stressful day")
+//            ]
+//
+//            // Array for Diastolic Blood Pressure (lower values typically ranging from 70 to 90 mmHg)
+//            let diastolicTestData = [
+//                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 9), amount: 73.4, notes: "Quiet day at home"),
+//                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 8), amount: 81.6, notes: "Stressful meeting"),
+//                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 7), amount: 75.8, notes: "Movie night"),
+//                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 6), amount: 79.0, notes: "Jogging"),
+//                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 5), amount: 77.2, notes: "Visited friends"),
+//                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 4), amount: 74.9, notes: "Regular workday"),
+//                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 3), amount: 82.1, notes: "Ate out"),
+//                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 2), amount: 76.4, notes: "Early morning walk"),
+//                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 1), amount: 78.6, notes: "Late night work"),
+//                Register(idSymptom: "SYM-DIA", date: Date().addingTimeInterval(-86400 * 0), amount: 80.3, notes: "Calm evening")
+//            ]
+            
+            // If it doesn't exist, create and add it
+            registers[HelperFunctions.zeroOneOneUUID.uuidString] = []
+            registers[HelperFunctions.zeroOneUUID.uuidString] = []
         }
     }
     

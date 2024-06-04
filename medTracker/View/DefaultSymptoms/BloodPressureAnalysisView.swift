@@ -1,13 +1,13 @@
 //
-//  AnalysisView3.swift
+//  BloodPressureAnalysisView.swift
 //  medTracker
 //
-//  Created by Joel Alejandro Milla Lopez on 12/04/24.
+//  Created by Joel Alejandro Milla Lopez on 27/05/24.
 //
 
 import SwiftUI
 
-struct AnalysisView: View {
+struct BloodPressureAnalysisView: View {
     // Variables that are shown on the view
     @ObservedObject var analysisViewModel: FormViewModel<Symptom>
     @ObservedObject var registers: RegisterList
@@ -18,19 +18,8 @@ struct AnalysisView: View {
         ScrollView {
             VStack {
                 // Chart that shows the data
-                ChartView(symptom: analysisViewModel.value, registers: registers)
+                BloodPressureChartView(symptom: analysisViewModel.value, registers: registers)
                     .padding(.bottom, 5)
-                // Button to show the past registers
-                NavigationLink {
-                    // Create view model that manages the editing of registers
-                    registersView(editRegistersViewModel: registers.createEditRegistersViewModel(for: analysisViewModel.value))                } label: {
-                        Text("Registros Pasados")
-                            .gradientStyle() // Use the default gradient to show the correct style of the button
-                            .padding(.bottom, 12) // Bottom padding
-                }
-                // View that shows summarize data about the points
-                InsightsView(isQuantitative: analysisViewModel.isQuantitative, registers: registers.registers[analysisViewModel.id.uuidString] ?? [])
-                    .padding(.bottom, 12)
                 // Show the view to update the notifications
                 UpdateNotificationView(symptom: $analysisViewModel.value)
                     .padding(.bottom, 35)
@@ -67,9 +56,8 @@ struct AnalysisView: View {
             }
             .sheet(isPresented: $showRegisterSymptomView, content: {
                 // Create the viewModel that handles the creation of a register and pass the symptom
-                RegisterSymptomView(formViewModel: registers.createRegisterViewModel(idSymptom: analysisViewModel.id.uuidString), symptom: analysisViewModel.value)
+                BPRegisterView(formViewModel: registers.createBPRegisterViewModel(), symptom: analysisViewModel.value)
             })
         }
     }
 }
-

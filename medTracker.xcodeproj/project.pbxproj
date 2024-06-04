@@ -30,6 +30,10 @@
 		1763C8042BC76E1C00F9BDED /* DoctorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763C8032BC76E1C00F9BDED /* DoctorsViewModel.swift */; };
 		1763C8062BC8076D00F9BDED /* AddDoctorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763C8052BC8076D00F9BDED /* AddDoctorView.swift */; };
 		1763C80C2BC9B87A00F9BDED /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763C80B2BC9B87A00F9BDED /* AnalysisView.swift */; };
+		176592352C05457D00433DAA /* BloodPressureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176592342C05457D00433DAA /* BloodPressureView.swift */; };
+		176592372C05460900433DAA /* BloodPressureAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176592362C05460900433DAA /* BloodPressureAnalysisView.swift */; };
+		176592392C05552E00433DAA /* BloodPressureChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176592382C05552E00433DAA /* BloodPressureChartView.swift */; };
+		1765923B2C05562500433DAA /* BPRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1765923A2C05562500433DAA /* BPRegisterView.swift */; };
 		177849BA2BDAEEC9003F5D84 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 177849B92BDAEEC9003F5D84 /* Launch Screen.storyboard */; };
 		177B37632B575433009CB58D /* ShowEditSymptomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B37622B575433009CB58D /* ShowEditSymptomView.swift */; };
 		177BB6B32BC6FED6000C8E26 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177BB6B22BC6FED6000C8E26 /* AnnotationView.swift */; };
@@ -115,6 +119,10 @@
 		1763C8032BC76E1C00F9BDED /* DoctorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsViewModel.swift; sourceTree = "<group>"; };
 		1763C8052BC8076D00F9BDED /* AddDoctorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDoctorView.swift; sourceTree = "<group>"; };
 		1763C80B2BC9B87A00F9BDED /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
+		176592342C05457D00433DAA /* BloodPressureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureView.swift; sourceTree = "<group>"; };
+		176592362C05460900433DAA /* BloodPressureAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureAnalysisView.swift; sourceTree = "<group>"; };
+		176592382C05552E00433DAA /* BloodPressureChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodPressureChartView.swift; sourceTree = "<group>"; };
+		1765923A2C05562500433DAA /* BPRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BPRegisterView.swift; sourceTree = "<group>"; };
 		17774EC82BE06BEF00AF6694 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		177849B92BDAEEC9003F5D84 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		177B37622B575433009CB58D /* ShowEditSymptomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEditSymptomView.swift; sourceTree = "<group>"; };
@@ -268,6 +276,17 @@
 			path = CurrentUserViewModel;
 			sourceTree = "<group>";
 		};
+		176592332C05451800433DAA /* DefaultSymptoms */ = {
+			isa = PBXGroup;
+			children = (
+				176592342C05457D00433DAA /* BloodPressureView.swift */,
+				176592362C05460900433DAA /* BloodPressureAnalysisView.swift */,
+				176592382C05552E00433DAA /* BloodPressureChartView.swift */,
+				1765923A2C05562500433DAA /* BPRegisterView.swift */,
+			);
+			path = DefaultSymptoms;
+			sourceTree = "<group>";
+		};
 		17935F422BCCC703005DF763 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +368,7 @@
 			children = (
 				FB7EBC5E2B0BDEF200FBAE8D /* Supporting Views */,
 				170C07F52B51EE3A00AB937A /* WelcomeView.swift */,
+				176592332C05451800433DAA /* DefaultSymptoms */,
 				17935F432BCCC71E005DF763 /* Authentication */,
 				FB87FED02ADDEE9800F6273B /* MainView.swift */,
 				17935F422BCCC703005DF763 /* Home */,
@@ -599,6 +619,7 @@
 				173EF2A12BB1D23700F7ACF9 /* HelpView.swift in Sources */,
 				173EF29A2BB1B68C00F7ACF9 /* IconPicker.swift in Sources */,
 				FBD940B32AFD754A00C3BD11 /* RegisterView.swift in Sources */,
+				1765923B2C05562500433DAA /* BPRegisterView.swift in Sources */,
 				FB6BBA162B0A990C008EFA9A /* FormViewModel.swift in Sources */,
 				17117A072BB75B050009FED6 /* ChangingText.swift in Sources */,
 				FBD940B52AFD759D00C3BD11 /* LogInView.swift in Sources */,
@@ -608,6 +629,7 @@
 				FB7EBC602B0BDF0B00FBAE8D /* EmptyListView.swift in Sources */,
 				FB0EC3A72B130DEB00E7309B /* DoctorProfileView.swift in Sources */,
 				17DBF1CA2BB24C26005DBF11 /* NotificationHeaderView.swift in Sources */,
+				176592392C05552E00433DAA /* BloodPressureChartView.swift in Sources */,
 				FB9959A62B0C109500B0A888 /* HelperFunctions.swift in Sources */,
 				FBB5AD362AFC2829003918CA /* Register.swift in Sources */,
 				FBD940B72AFD763000C3BD11 /* HomeView.swift in Sources */,
@@ -644,6 +666,7 @@
 				FBC7EF742B08263A00EDD70F /* UserModel.swift in Sources */,
 				170C07F62B51EE3A00AB937A /* WelcomeView.swift in Sources */,
 				F87256782B128AAA00044A05 /* Notifications.swift in Sources */,
+				176592372C05460900433DAA /* BloodPressureAnalysisView.swift in Sources */,
 				173EF29D2BB1BA5900F7ACF9 /* ColorExtensions.swift in Sources */,
 				FB17DAB52B0D771F006294BD /* FloatToString.swift in Sources */,
 				179E78B62BB70EB500623AF1 /* MandatoryField.swift in Sources */,
@@ -655,6 +678,7 @@
 				17DBF1C82BB245ED005DBF11 /* WeeklyIntervalView.swift in Sources */,
 				170948862BAE3E24007E3E8B /* tempSignOut.swift in Sources */,
 				F8DEFE3E2BBFA99800936499 /* DateSection.swift in Sources */,
+				176592352C05457D00433DAA /* BloodPressureView.swift in Sources */,
 				1763C8042BC76E1C00F9BDED /* DoctorsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -786,7 +810,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"medTracker/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = XTZK894WTY;
+				DEVELOPMENT_TEAM = 7MLM8NTU75;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = medTracker/Info.plist;
@@ -804,7 +828,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.JoelMilla.MedTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianPresno.MedTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -823,7 +847,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"medTracker/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = XTZK894WTY;
+				DEVELOPMENT_TEAM = 7MLM8NTU75;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = medTracker/Info.plist;
@@ -841,7 +865,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.JoelMilla.MedTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SebastianPresno.MedTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
