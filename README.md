@@ -1,4 +1,3 @@
-# MedTracker
-MedTracker es una aplicación móvil que permite a los pacientes registrar sus métricas diarias de salud y facilita a los doctores el acceso a esta información para mejorar el cuidado del paciente durante las consultas.
+**MedTracker Summary:**
 
-Puedes ver los videos de la aplicación en el siguiente enlace: [drive](https://drive.google.com/drive/folders/1RXSGZjTDjPGT7JdEWGyOF5vTRC-yiCBt?usp=sharing)
+MedTracker is a healthcare web and mobile application system designed to improve patient care. The **web app** (available [here](https://medtracker-app.netlify.app/)) is aimed at doctors, allowing them to access and review their patients' health metrics and analyses for better consultation. The **mobile app** (available [here](https://github.com/Joel-Milla/MedTracker_MbApp)) allows patients to log their daily health data, which is then synchronized with the web app for doctors to monitor. You can view demo videos of the application [here](https://drive.google.com/drive/folders/1RXSGZjTDjPGT7JdEWGyOF5vTRC-yiCBt?usp=sharing).
