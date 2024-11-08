@@ -8,7 +8,6 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 /**********************
  This class contains helper functions to authenticate the user (the log in view and register a new user)

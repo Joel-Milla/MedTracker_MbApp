@@ -7,7 +7,6 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 /**********************
  This struct contains helper functions to make the connection to the database (firebase)

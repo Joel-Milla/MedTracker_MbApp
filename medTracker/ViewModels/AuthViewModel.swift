@@ -7,7 +7,6 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 /**********************
  This class contains all the data that  helps to authenticate the user. From sign in to creating a new account.
